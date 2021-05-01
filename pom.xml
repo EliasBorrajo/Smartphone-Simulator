@@ -13,4 +13,12 @@
         <maven.compiler.target>15</maven.compiler.target>
     </properties>
 
+    <!--Récupere les librairies pour les compiler le projet
+
+        1) Appel d'une librairie externe API pour le HTTP
+     -->
+    <dependencies>
+
+    </dependencies>
+
 </project>
