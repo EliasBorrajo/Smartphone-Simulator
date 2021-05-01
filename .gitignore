@@ -1,2 +1,5 @@
 /.idea/
-/Smartphone.iml
+*.class
+*.iml
+out/
+target/
