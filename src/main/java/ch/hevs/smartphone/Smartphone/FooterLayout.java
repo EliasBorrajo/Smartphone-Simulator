@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
 
 public class FooterLayout extends JPanel {
     //*****************************************************************************
@@ -23,9 +24,9 @@ public class FooterLayout extends JPanel {
     private MyButton btnHome;
 
     // ICON
-    private Icon iconOption;
-    private Icon iconBack;
-    private Icon iconHome;
+    private ImageIcon iconOption;
+    private ImageIcon iconBack;
+    private ImageIcon iconHome;
 
     // JITEM
     // change en fonction de la fenêtre a voir comment Switch case avec enum?
@@ -48,14 +49,18 @@ public class FooterLayout extends JPanel {
     JMenuBar buildMenuBar(){
         menuBar = new JMenuBar();
 
-        iconBack = new ImageIcon("C:\\Users\\Lonfat Milena\\Desktop\\SmartphonePhotoApp\\backIcon.png");
-        iconHome = new ImageIcon("C:\\Users\\Lonfat Milena\\Desktop\\SmartphonePhotoApp\\homeIcon.png");
+        URL imageBack = FooterLayout.class.getClassLoader().getResource("FooterIcon/backIcon.png");
+        URL imageHome = FooterLayout.class.getClassLoader().getResource("FooterIcon/homeIcon.png");
+        URL imageOption = FooterLayout.class.getClassLoader().getResource("FooterIcon/optionIcon.jpg");
+
+        iconBack = new ImageIcon(imageBack);
+        iconHome = new ImageIcon(imageHome);
+        iconOption = new ImageIcon(imageOption);
 
         btnBack = new MyButton(iconBack);
         btnHome = new MyButton(iconHome);
 
         jMenuOption = new JMenu("");
-        iconOption = new ImageIcon("C:\\Users\\Lonfat Milena\\Desktop\\SmartphonePhotoApp\\optionIcon.jpg");
         jMenuOption.setIcon(iconOption);
 
         menuBar.add(btnBack);

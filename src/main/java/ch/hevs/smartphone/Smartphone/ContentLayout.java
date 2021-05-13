@@ -10,6 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
 
 public class ContentLayout extends JPanel {
     //*****************************************************************************
@@ -31,9 +32,9 @@ public class ContentLayout extends JPanel {
     private MyButton btnWeather;
 
     // ICON
-    private Icon iconWeather;
-    private Icon iconContact;
-    private Icon iconGallery;
+    private ImageIcon iconWeather;
+    private ImageIcon iconContact;
+    private ImageIcon iconGallery;
 
 
     //*****************************************************************************
@@ -57,17 +58,20 @@ public class ContentLayout extends JPanel {
         pnlGallery = new GalleryGUI();
         pnlWeather = new WeatherGUI();
 
-        //String fileNameContact = getClass().getResource("\\contactIcon2.png").getFile();
-        //ContentLayout.class.getResource();
+        // CONSTUCTION DES IMAGES
+        URL imageContact = ContentLayout.class.getClassLoader().getResource("ContentIcon/contactIcon2.png");
+        URL imageGallery = ContentLayout.class.getClassLoader().getResource("ContentIcon/galleryIcon2.png");
+        URL imageWeather = ContentLayout.class.getClassLoader().getResource("ContentIcon/weatherIcon2.png");
 
-        iconWeather = new ImageIcon(String.valueOf(ClassLoader.getSystemResourceAsStream("\\resources\\IconApp\\weatherIcon2.png")));
-        iconContact = new ImageIcon("C:\\Users\\Lonfat Milena\\Desktop\\SmartphonePhotoApp\\contactIcon2.png");
-        iconGallery = new ImageIcon("C:\\Users\\Lonfat Milena\\Desktop\\SmartphonePhotoApp\\galleryIcon2.png");
+        iconContact = new ImageIcon(imageContact);
+        iconGallery = new ImageIcon(imageGallery);
+        iconWeather = new ImageIcon(imageWeather);
 
         btnContact = new MyButton(iconContact);
         btnGallery = new MyButton(iconGallery);
         btnWeather = new MyButton(iconWeather);
 
+        // LA SUITE CONCERNE LE CARD
         this.setLayout(cardlayout);
 
         pnlHome.add(btnContact);
@@ -104,5 +108,9 @@ public class ContentLayout extends JPanel {
             }
         });
         return this;
+    }
+
+    protected void getCardLayout(){
+
     }
 }

@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -44,7 +45,8 @@ public class HeaderLayout extends JPanel {
     // M E T H O D E S
     //*****************************************************************************
     private JButton buildButtonIconShutdown(){
-        iconPower = new ImageIcon("C:\\Users\\Lonfat Milena\\Desktop\\SmartphonePhotoApp\\powerIcon.png");
+        URL imagePower = HeaderLayout.class.getClassLoader().getResource("HeaderIcon/powerIcon.png");
+        iconPower = new ImageIcon(imagePower);
         btnShutdown = new MyButton(iconPower);
 
         btnShutdown.addActionListener(new ActionListener() {
