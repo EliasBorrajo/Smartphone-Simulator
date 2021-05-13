@@ -16,85 +16,93 @@ public class ContentLayout extends JPanel {
     // A T T R I B U T S
     //*****************************************************************************
     // LAYOUT
-    private CardLayout cardLayout = new CardLayout();
+    private CardLayout cardlayout;
 
-    // JPANEL
-    private JPanel pnlContent = new JPanel();   // Panel principal qui va contenir tous les cards
-    private ContactGUI pnlContact = new ContactGUI();
-    private GalleryGUI pnlGallery = new GalleryGUI();
-    private WeatherGUI pnlWeather = new WeatherGUI();
-    //@TODO : faire de meme avec le home
-    private JPanel pnlHome = new JPanel();
+    // PANEL
+    private JPanel pnlContent;  // Panel principal qui va contenir tous les cards
+    private JPanel pnlHome;
+    private ContactGUI pnlContact;
+    private GalleryGUI pnlGallery;
+    private WeatherGUI pnlWeather;
 
-    // JBUTTON
-    private MyButton btnContact = new MyButton("Contact");
-    private MyButton btnGallery = new MyButton("Gallery");
-    private MyButton btnWeather = new MyButton("Weather");
+    // BUTTON
+    private MyButton btnContact;
+    private MyButton btnGallery;
+    private MyButton btnWeather;
+
+    // ICON
+    private Icon iconWeather;
+    private Icon iconContact;
+    private Icon iconGallery;
 
 
     //*****************************************************************************
     // C O N S T R U C T E U R
     //*****************************************************************************
     public ContentLayout(){
-        this.setPreferredSize(new Dimension(ScreenSizeEnum.CONTENT_PANEL_WIDTH.getSize(), ScreenSizeEnum.CONTENT_PANEL_HEIGHT.getSize()));
-        this.setMinimumSize(new Dimension(ScreenSizeEnum.CONTENT_PANEL_WIDTH.getSize(), ScreenSizeEnum.CONTENT_PANEL_HEIGHT.getSize()));
-
-        //this.buildCardLayout();
-        this.buildCardLayout();
-        //btnActions();
-
-        //this.setLayout(cardLayout);
-
-        //this.setContactGUI(new ContactGUI());
-        //this.setGalleryGUI(new GalleryGUI());
-        //this.setWeatherGUI(new WeatherGUI());
-
-        //buildRoots();
+        setPreferredSize(new Dimension(ScreenSizeEnum.CONTENT_PANEL_WIDTH.getSize(), ScreenSizeEnum.CONTENT_PANEL_HEIGHT.getSize()));
+        setMinimumSize(new Dimension(ScreenSizeEnum.CONTENT_PANEL_WIDTH.getSize(), ScreenSizeEnum.CONTENT_PANEL_HEIGHT.getSize()));
+        buildpnlContent();
     }
     //*****************************************************************************
     // M E T H O D E S
     //*****************************************************************************
-    private void buildCardLayout(){
-        pnlContent = this;
-        pnlContent.setLayout(cardLayout);   // pnlContent sera de type cardLayout
+    private JPanel buildpnlContent(){
+        cardlayout = new CardLayout();
 
-        pnlHome.setLayout(new GridLayout(2,3)); //@TODO: vérifier le layout
-        pnlHome.setBackground(Color.GREEN);
+        pnlContent = this;
+
+        pnlHome = new JPanel(); //new GridLayout(2,3)
+        pnlContact = new ContactGUI();
+        pnlGallery = new GalleryGUI();
+        pnlWeather = new WeatherGUI();
+
+        //String fileNameContact = getClass().getResource("\\contactIcon2.png").getFile();
+        //ContentLayout.class.getResource();
+
+        iconWeather = new ImageIcon(String.valueOf(ClassLoader.getSystemResourceAsStream("\\resources\\IconApp\\weatherIcon2.png")));
+        iconContact = new ImageIcon("C:\\Users\\Lonfat Milena\\Desktop\\SmartphonePhotoApp\\contactIcon2.png");
+        iconGallery = new ImageIcon("C:\\Users\\Lonfat Milena\\Desktop\\SmartphonePhotoApp\\galleryIcon2.png");
+
+        btnContact = new MyButton(iconContact);
+        btnGallery = new MyButton(iconGallery);
+        btnWeather = new MyButton(iconWeather);
+
+        this.setLayout(cardlayout);
+
         pnlHome.add(btnContact);
         pnlHome.add(btnGallery);
         pnlHome.add(btnWeather);
+        pnlHome.setBackground(Color.GREEN);
 
         //Ajouteur les cards au panel conteneur
-        pnlContent.add(pnlHome,"Home");
-        pnlContent.add(pnlContact,"Contact");
-        pnlContent.add(pnlGallery,"Gallery");
-        pnlContent.add(pnlWeather,"Weather");
+        this.add("Home",pnlHome);
+        this.add("Contact",pnlContact);
+        this.add("Gallery",pnlGallery);
+        this.add("Weather",pnlWeather);
 
-        cardLayout.show(pnlContent,"Home");
+        cardlayout.show(this,"Home");
 
         btnContact.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                cardLayout.show(pnlContent,"Contact");
+                cardlayout.show(pnlContent,"Contact");
             }
         });
 
         btnGallery.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                cardLayout.show(pnlContent,"Gallery");
+                cardlayout.show(pnlContent,"Gallery");
             }
         });
 
         btnWeather.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                cardLayout.show(pnlContent,"Weather");
+                cardlayout.show(pnlContent,"Weather");
             }
         });
-    }
-
-    public JPanel getCardlayout(){
-        return pnlContent;
+        return this;
     }
 }

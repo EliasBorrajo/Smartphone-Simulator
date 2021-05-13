@@ -4,46 +4,54 @@ import ch.hevs.smartphone.Bases.ScreenSizeEnum;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.RoundRectangle2D;
 
 public class SmartphoneGUI extends JFrame {
     //*****************************************************************************
     // A T T R I B U T S
     //*****************************************************************************
-    // private static final long serilVersionUID = 1L; ????
+    // PANEL
+    private JPanel borderPanel;
+    private JPanel pnlScreen;
 
     //*****************************************************************************
     // C O N S T R U C T E U R
     //*****************************************************************************
-    public SmartphoneGUI(){
-        this.setSize(ScreenSizeEnum.WIDTH.getSize(),ScreenSizeEnum.HEIGHT.getSize());
+    public SmartphoneGUI() {
+        init();
+    }
 
-        //this.setUndecorated(true);      // Une fenêtre peut être débarrassée de sa décoration : pas de bordure, pas de titre, pas de boutons fermer et iconifier
-                                        // Ceci n'est possible que sur une fenêtre qui n'est pas displayable,
-                                        // c'est à dire une fenêtre sur laquelle on n'a pas encore exécuté un pack ou un setVisible(true)
+    //*****************************************************************************
+    // M E T H O D E S
+    //*****************************************************************************
+    private void init() {
+        setSize(ScreenSizeEnum.WIDTH.getSize(), ScreenSizeEnum.HEIGHT.getSize());
+        setUndecorated(true);
+        setShape(new RoundRectangle2D.Double(0, 0, this.getWidth(), this.getHeight(), 30, 30));
 
-        //this.setShape(new RoundRectangle2D.Double(0,0,this.getWidth(), this.getHeight(),30,30)); // Bord arrondi
+        add(builPnlScreen());
 
-        // Panel de base, fond noir avec bordures
-        JPanel pnlScreen = new JPanel(new BorderLayout());
+        setVisible(true);
+        setLocationRelativeTo(null);       // La fenêtre souvre au centre de l'écran
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    private JPanel builPnlScreen(){
+        pnlScreen = new JPanel(new BorderLayout());
         pnlScreen.setBackground(Color.BLACK);
 
         pnlScreen.add(new HeaderLayout(), BorderLayout.NORTH);
         pnlScreen.add(new ContentLayout(), BorderLayout.CENTER);
         pnlScreen.add(new FooterLayout(), BorderLayout.SOUTH);
+        pnlScreen.add(this.buildBorderPanel(),BorderLayout.WEST);
+        pnlScreen.add(this.buildBorderPanel(),BorderLayout.EAST);
 
-        // @TODO: A FAIRE PLUS TARD POUR AVOIR LES BORDURES
-        //pnlScreen.add(this.buildBorderPanel(),BorderLayout.WEST);
-        //pnlScreen.add(this.buildBorderPanel(),BorderLayout.EAST);
-
-        this.setContentPane(pnlScreen);
-
-        this.setLocationRelativeTo(null);       // La fenêtre souvre au centre de l'écran
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setVisible(true);
-
+        return pnlScreen;
     }
-    //*****************************************************************************
-    // M E T H O D E S
-    //*****************************************************************************
 
+    private JPanel buildBorderPanel() {
+        borderPanel = new JPanel();
+        borderPanel.setBackground(Color.PINK);
+        return  borderPanel;
+    }
 }

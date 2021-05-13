@@ -8,14 +8,13 @@ public enum ScreenSizeEnum {
     // CONTENT_PANEL_WEIGHT = hauteur du paneau contenu
     // FOOTER_HEIGHT = hauteur pied de page
 
-    WIDTH(400),
-    HEIGHT(700),
+    WIDTH(300),
+    HEIGHT(600),
 
     CONTENT_PANEL_WIDTH(300),
     CONTENT_PANEL_HEIGHT(600),
 
-    HEADER_HEIGHT(50),
-    FOOTER_HEIGHT(50);
+    HEADER_FOOTER_HEIGHT(30);
 
     private int size;
 

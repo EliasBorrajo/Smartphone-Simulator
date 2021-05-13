@@ -13,11 +13,20 @@ public class FooterLayout extends JPanel {
     // A T T R I B U T S
     //*****************************************************************************
     // MENU BAR
-    private JMenuBar menuBar = new JMenuBar();
+    private JMenuBar menuBar;
+
     // JMENU
-    private MyButton btnBack = new MyButton("Back");
-    private MyButton btnHome = new MyButton("Home");
-    private JMenu btnOption = new JMenu("Option");
+    private JMenu jMenuOption;
+
+    // BUTTONS
+    private MyButton btnBack;
+    private MyButton btnHome;
+
+    // ICON
+    private Icon iconOption;
+    private Icon iconBack;
+    private Icon iconHome;
+
     // JITEM
     // change en fonction de la fenêtre a voir comment Switch case avec enum?
     // ou bien getCardlayout, donc en fonction du card ou on est ça change
@@ -26,22 +35,35 @@ public class FooterLayout extends JPanel {
     // C O N S T R U C T E U R
     //*****************************************************************************
     public FooterLayout(){
+        setPreferredSize(new Dimension(ScreenSizeEnum.WIDTH.getSize(), ScreenSizeEnum.HEADER_FOOTER_HEIGHT.getSize()));
+        setMinimumSize(new Dimension(ScreenSizeEnum.WIDTH.getSize(), ScreenSizeEnum.HEADER_FOOTER_HEIGHT.getSize()));
+        setMaximumSize(new Dimension(ScreenSizeEnum.WIDTH.getSize(), ScreenSizeEnum.HEADER_FOOTER_HEIGHT.getSize()));
+        setBackground(Color.blue);
 
-        this.setPreferredSize(new Dimension(ScreenSizeEnum.WIDTH.getSize(), ScreenSizeEnum.FOOTER_HEIGHT.getSize()));
-        this.setMinimumSize(new Dimension(ScreenSizeEnum.WIDTH.getSize(), ScreenSizeEnum.FOOTER_HEIGHT.getSize()));
-        this.setMaximumSize(new Dimension(ScreenSizeEnum.WIDTH.getSize(), ScreenSizeEnum.FOOTER_HEIGHT.getSize()));
-        this.setBackground(Color.blue);
+        add(buildMenuBar());
+    }
+    //*****************************************************************************
+    // M E T H O D E S
+    //*****************************************************************************
+    JMenuBar buildMenuBar(){
+        menuBar = new JMenuBar();
+
+        iconBack = new ImageIcon("C:\\Users\\Lonfat Milena\\Desktop\\SmartphonePhotoApp\\backIcon.png");
+        iconHome = new ImageIcon("C:\\Users\\Lonfat Milena\\Desktop\\SmartphonePhotoApp\\homeIcon.png");
+
+        btnBack = new MyButton(iconBack);
+        btnHome = new MyButton(iconHome);
+
+        jMenuOption = new JMenu("");
+        iconOption = new ImageIcon("C:\\Users\\Lonfat Milena\\Desktop\\SmartphonePhotoApp\\optionIcon.jpg");
+        jMenuOption.setIcon(iconOption);
 
         menuBar.add(btnBack);
-        menuBar.add(btnHome);
-        menuBar.add(btnOption);
-
-        //option.add(JMenuItem voulu);
-
-        this.add(menuBar);
-
         btnBack.addActionListener(new ListenerBtnBack());
+        menuBar.add(btnHome);
         btnHome.addActionListener(new ListenerBtnHome());
+        menuBar.add(jMenuOption);
+        return menuBar;
     }
 
     //*****************************************************************************

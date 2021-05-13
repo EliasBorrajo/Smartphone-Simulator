@@ -1,5 +1,6 @@
 package ch.hevs.smartphone.Smartphone;
 
+import ch.hevs.smartphone.Bases.MyButton;
 import ch.hevs.smartphone.Bases.ScreenSizeEnum;
 
 import javax.swing.*;
@@ -13,60 +14,61 @@ public class HeaderLayout extends JPanel {
     //*****************************************************************************
     // A T T R I B U T S
     //*****************************************************************************
-    private JPanel pnlIconShutdown = new JPanel();
-    private JPanel pnlDate = new JPanel();
-    private JPanel pnlTime = new JPanel();
+    // LABEL
+    private JLabel lblDate;
+    private JLabel lblTime;
 
-    private JButton btnShutdown = new JButton("0/1");
-    private JLabel lblDate = new JLabel();
-    private JLabel lblTime = new JLabel();
+    // BUTTON
+    private MyButton btnShutdown;
+
+    // ICON
+    private Icon iconPower;
 
     //*****************************************************************************
     // C O N S T R U C T E U R
     //*****************************************************************************
     public HeaderLayout(){
+        setPreferredSize(new Dimension(ScreenSizeEnum.WIDTH.getSize(), ScreenSizeEnum.HEADER_FOOTER_HEIGHT.getSize()));
+        setMinimumSize(new Dimension(ScreenSizeEnum.WIDTH.getSize(), ScreenSizeEnum.HEADER_FOOTER_HEIGHT.getSize()));
+        setMaximumSize(new Dimension(ScreenSizeEnum.WIDTH.getSize(), ScreenSizeEnum.HEADER_FOOTER_HEIGHT.getSize()));
+        setLayout(new BorderLayout());
+        setBackground(Color.WHITE);
 
-        this.setPreferredSize(new Dimension(ScreenSizeEnum.WIDTH.getSize(), ScreenSizeEnum.HEADER_HEIGHT.getSize()));
-        this.setMinimumSize(new Dimension(ScreenSizeEnum.WIDTH.getSize(), ScreenSizeEnum.HEADER_HEIGHT.getSize()));
-        this.setMaximumSize(new Dimension(ScreenSizeEnum.WIDTH.getSize(), ScreenSizeEnum.HEADER_HEIGHT.getSize()));
-
-        this.setLayout(new BorderLayout());     // @TODO: Changer de layout dns le turfu
-        this.setBackground(Color.BLUE);
-
-        this.add(buildPanelIconShutdown(),BorderLayout.WEST);
-        this.add(buildPanelDate(), BorderLayout.CENTER);
-        //this.add(buildPanelTime(),BorderLayout.NORTH);
+        add(buildButtonIconShutdown(),BorderLayout.WEST);
+        add(buildLabelDate(),BorderLayout.EAST);
+        add(buildLabelTime(),BorderLayout.CENTER);
         //this.add(buildBattery());
     }
 
     //*****************************************************************************
     // M E T H O D E S
     //*****************************************************************************
-    private JPanel buildPanelIconShutdown(){
+    private JButton buildButtonIconShutdown(){
+        iconPower = new ImageIcon("C:\\Users\\Lonfat Milena\\Desktop\\SmartphonePhotoApp\\powerIcon.png");
+        btnShutdown = new MyButton(iconPower);
+
         btnShutdown.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);
             }
         });
-        pnlIconShutdown.add(btnShutdown);
-        return pnlIconShutdown;
+        return btnShutdown;
     }
 
-    private JPanel buildPanelDate() {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private JLabel buildLabelDate() {
+        lblDate = new JLabel();
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         LocalDateTime date = LocalDateTime.now();
         lblDate.setText(dtf.format(date));
-        pnlDate.add(lblDate);
-        return pnlDate;
+        return lblDate;
     }
-
-    private JPanel buildPanelTime(){
+    //@TODO: revoir code soit classe soit réactualisation
+    private JLabel buildLabelTime(){
+        lblTime = new JLabel();
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
         LocalDateTime time = LocalDateTime.now();
         lblTime.setText(dtf.format(time));
-        pnlTime.add(lblTime);
-        return pnlTime;
+        return lblTime;
     }
-
 }
