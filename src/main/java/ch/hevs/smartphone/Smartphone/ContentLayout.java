@@ -2,7 +2,8 @@ package ch.hevs.smartphone.Smartphone;
 
 import ch.hevs.smartphone.Bases.MyButton;
 import ch.hevs.smartphone.Bases.ScreenSizeEnum;
-import ch.hevs.smartphone.Contacts.ContactGUI;
+import ch.hevs.smartphone.Contacts.AddContact;
+import ch.hevs.smartphone.Contacts.ContactsContentLayout;
 import ch.hevs.smartphone.Gallery.GalleryGUI;
 import ch.hevs.smartphone.Weather.WeatherGUI;
 
@@ -11,6 +12,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class ContentLayout extends JPanel {
     //*****************************************************************************
@@ -22,9 +24,10 @@ public class ContentLayout extends JPanel {
     // PANEL
     private JPanel pnlContent;  // Panel principal qui va contenir tous les cards
     private JPanel pnlHome;
-    private ContactGUI pnlContact;
+    private ContactsContentLayout pnlContact;
     private GalleryGUI pnlGallery;
     private WeatherGUI pnlWeather;
+    private AddContact pnlAddContact;
 
     // BUTTON
     private MyButton btnContact;
@@ -36,11 +39,18 @@ public class ContentLayout extends JPanel {
     private ImageIcon iconContact;
     private ImageIcon iconGallery;
 
+    private FooterLayout fLayout;
+
+    private int actionsCount = -1;
+    private ArrayList<String> panelsOpen = new ArrayList<String>();
+    private String currentPanel = "Home";
+
 
     //*****************************************************************************
     // C O N S T R U C T E U R
     //*****************************************************************************
-    public ContentLayout(){
+    public ContentLayout(FooterLayout fLayout){
+        this.fLayout = fLayout;
         setPreferredSize(new Dimension(ScreenSizeEnum.CONTENT_PANEL_WIDTH.getSize(), ScreenSizeEnum.CONTENT_PANEL_HEIGHT.getSize()));
         setMinimumSize(new Dimension(ScreenSizeEnum.CONTENT_PANEL_WIDTH.getSize(), ScreenSizeEnum.CONTENT_PANEL_HEIGHT.getSize()));
         buildpnlContent();
@@ -54,9 +64,11 @@ public class ContentLayout extends JPanel {
         pnlContent = this;
 
         pnlHome = new JPanel(); //new GridLayout(2,3)
-        pnlContact = new ContactGUI();
+        pnlContact = new ContactsContentLayout();
         pnlGallery = new GalleryGUI();
         pnlWeather = new WeatherGUI();
+        pnlAddContact = new AddContact();
+
 
         // CONSTUCTION DES IMAGES
         URL imageContact = ContentLayout.class.getClassLoader().getResource("ContentIcon/contactIcon2.png");
@@ -85,32 +97,61 @@ public class ContentLayout extends JPanel {
         this.add("Gallery",pnlGallery);
         this.add("Weather",pnlWeather);
 
-        cardlayout.show(this,"Home");
+
+        this.refreshPanel("Home");
 
         btnContact.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                cardlayout.show(pnlContent,"Contact");
+                refreshPanel("Contact");
             }
         });
 
         btnGallery.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                cardlayout.show(pnlContent,"Gallery");
+                refreshPanel("Gallery");
             }
         });
 
         btnWeather.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                cardlayout.show(pnlContent,"Weather");
+                refreshPanel("Weather");
             }
         });
+
+        this.fLayout.getBtnBack().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(actionsCount > 0) {
+                    panelsOpen.remove(actionsCount);
+                    actionsCount--;
+                    cardlayout.show(pnlContent, panelsOpen.get(actionsCount));
+                    fLayout.buildMenu("Home");
+                }else{
+                    refreshPanel("Home");
+                }
+            }
+        });
+
+        this.fLayout.getBtnHome().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                refreshPanel("Home");
+            }
+        });
+
+
         return this;
     }
 
-    protected void getCardLayout(){
-
+    private void refreshPanel(String currentPanel){
+        this.currentPanel = currentPanel;
+        cardlayout.show(this,this.currentPanel);
+        fLayout.buildMenu(this.currentPanel);
+        // HISTRORIQUE des panels affichés pour le bouton retour
+        this.actionsCount++;
+        this.panelsOpen.add(this.currentPanel);
     }
 }

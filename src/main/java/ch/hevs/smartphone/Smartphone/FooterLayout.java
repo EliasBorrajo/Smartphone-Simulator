@@ -3,10 +3,9 @@ package ch.hevs.smartphone.Smartphone;
 import ch.hevs.smartphone.Bases.MyButton;
 import ch.hevs.smartphone.Bases.ScreenSizeEnum;
 
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.net.URL;
 
 public class FooterLayout extends JPanel {
@@ -22,11 +21,7 @@ public class FooterLayout extends JPanel {
     // BUTTONS
     private MyButton btnBack;
     private MyButton btnHome;
-
-    // ICON
-    private ImageIcon iconOption;
-    private ImageIcon iconBack;
-    private ImageIcon iconHome;
+    private MyButton btnOption;
 
     // JITEM
     // change en fonction de la fenêtre a voir comment Switch case avec enum?
@@ -41,51 +36,110 @@ public class FooterLayout extends JPanel {
         setMaximumSize(new Dimension(ScreenSizeEnum.WIDTH.getSize(), ScreenSizeEnum.HEADER_FOOTER_HEIGHT.getSize()));
         setBackground(Color.blue);
 
-        add(buildMenuBar());
+        // Construction du btn home
+        URL imageHome = FooterLayout.class.getClassLoader().getResource("FooterIcon/homeIcon.png");
+        ImageIcon iconHome = new ImageIcon(imageHome);
+        this.btnHome = new MyButton(iconHome);
+
+        // Construction du btn back
+        URL imageBack = FooterLayout.class.getClassLoader().getResource("FooterIcon/backIcon.png");
+        ImageIcon iconBack = new ImageIcon(imageBack);
+        this.btnBack = new MyButton(iconBack);
+
+        // Construction du btn options
+        URL imageOption = FooterLayout.class.getClassLoader().getResource("FooterIcon/optionIcon.jpg");
+        ImageIcon iconOption = new ImageIcon(imageOption);
+        this.btnOption = new MyButton(iconOption);
+
     }
     //*****************************************************************************
     // M E T H O D E S
     //*****************************************************************************
-    JMenuBar buildMenuBar(){
+
+    public MyButton getBtnBack() {
+        return btnBack;
+    }
+
+    public MyButton getBtnHome() {
+        return btnHome;
+    }
+
+    void buildMenu(String panel){
+        if(panel.equals("Home")){
+            this.buildMenuBarHome();
+        }else if(panel.equals("Weather")){
+            this.buildMenuBarMeteo();
+        }else if(panel.equals("Gallery")){
+            this.buildMenuBarGalery();
+        }else if(panel.equals("Contact")){
+            this.buildMenuBarContact();
+        }else if (panel.equals("AddContact")){
+            this.buildMenuBarAddContact();
+        } else{
+            this.buildMenuBarHome();
+        }
+    }
+
+    void buildMenuBarHome(){
+        this.removeAll();
         menuBar = new JMenuBar();
 
-        URL imageBack = FooterLayout.class.getClassLoader().getResource("FooterIcon/backIcon.png");
-        URL imageHome = FooterLayout.class.getClassLoader().getResource("FooterIcon/homeIcon.png");
-        URL imageOption = FooterLayout.class.getClassLoader().getResource("FooterIcon/optionIcon.jpg");
+        jMenuOption = new JMenu("");
 
-        iconBack = new ImageIcon(imageBack);
-        iconHome = new ImageIcon(imageHome);
-        iconOption = new ImageIcon(imageOption);
+        menuBar.add(this.btnHome);
+        this.add(menuBar);
+    }
 
-        btnBack = new MyButton(iconBack);
-        btnHome = new MyButton(iconHome);
+    void buildMenuBarContact(){
+        this.removeAll();
+        menuBar = new JMenuBar();
 
         jMenuOption = new JMenu("");
-        jMenuOption.setIcon(iconOption);
 
-        menuBar.add(btnBack);
-        btnBack.addActionListener(new ListenerBtnBack());
-        menuBar.add(btnHome);
-        btnHome.addActionListener(new ListenerBtnHome());
+        menuBar.add(this.btnBack);
+        menuBar.add(this.btnHome);
+        menuBar.add(this.btnOption);
         menuBar.add(jMenuOption);
-        return menuBar;
+        this.add(menuBar);
+    }
+    void buildMenuBarAddContact(){
+        this.removeAll();
+        menuBar = new JMenuBar();
+
+        jMenuOption = new JMenu("");
+
+        menuBar.add(this.btnBack);
+        menuBar.add(this.btnHome);
+        menuBar.add(this.btnOption);
+        menuBar.add(jMenuOption);
+        this.add(menuBar);
     }
 
-    //*****************************************************************************
-    // I N T E R N A L   C L A S S
-    //*****************************************************************************
-    class ListenerBtnBack implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
+    void buildMenuBarGalery(){
+        this.removeAll();
+        menuBar = new JMenuBar();
 
-        }
+        jMenuOption = new JMenu("");
+
+        menuBar.add(this.btnBack);
+        menuBar.add(this.btnHome);
+        menuBar.add(this.btnOption);
+
+        menuBar.add(jMenuOption);
+        this.add(menuBar);
     }
 
-    class ListenerBtnHome implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
+    void buildMenuBarMeteo(){
+        this.removeAll();
+        menuBar = new JMenuBar();
 
-        }
+        jMenuOption = new JMenu("");
+
+        menuBar.add(this.btnBack);
+        menuBar.add(this.btnHome);
+        menuBar.add(this.btnOption);
+
+        menuBar.add(jMenuOption);
+        this.add(menuBar);
     }
-    // Voir pour les méthodes suivant les cards conact add/supp/modifier
 }

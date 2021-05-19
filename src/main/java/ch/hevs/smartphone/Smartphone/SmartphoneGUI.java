@@ -26,8 +26,8 @@ public class SmartphoneGUI extends JFrame {
     //*****************************************************************************
     private void init() {
         setSize(ScreenSizeEnum.WIDTH.getSize(), ScreenSizeEnum.HEIGHT.getSize());
-        setUndecorated(true);
-        setShape(new RoundRectangle2D.Double(0, 0, this.getWidth(), this.getHeight(), 30, 30));
+        //setUndecorated(true);
+        //setShape(new RoundRectangle2D.Double(0, 0, this.getWidth(), this.getHeight(), 30, 30));
 
         add(builPnlScreen());
 
@@ -40,9 +40,11 @@ public class SmartphoneGUI extends JFrame {
         pnlScreen = new JPanel(new BorderLayout());
         pnlScreen.setBackground(Color.BLACK);
 
+        FooterLayout fLayout = new FooterLayout();
+
         pnlScreen.add(new HeaderLayout(), BorderLayout.NORTH);
-        pnlScreen.add(new ContentLayout(), BorderLayout.CENTER);
-        pnlScreen.add(new FooterLayout(), BorderLayout.SOUTH);
+        pnlScreen.add(new ContentLayout(fLayout), BorderLayout.CENTER);
+        pnlScreen.add(fLayout, BorderLayout.SOUTH);
         pnlScreen.add(this.buildBorderPanel(),BorderLayout.WEST);
         pnlScreen.add(this.buildBorderPanel(),BorderLayout.EAST);
 
