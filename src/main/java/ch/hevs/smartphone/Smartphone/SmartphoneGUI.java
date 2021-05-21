@@ -5,6 +5,8 @@ import ch.hevs.smartphone.Bases.ScreenSizeEnum;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class SmartphoneGUI extends JFrame {
     //*****************************************************************************
@@ -14,37 +16,52 @@ public class SmartphoneGUI extends JFrame {
     private JPanel borderPanel;
     private JPanel pnlScreen;
 
+    // LAYOUT
+    FooterLayout fLayout;
+    HeaderLayout hLayout;
+
+    // VARIABLES
+    private boolean isOn;
+    private java.util.Timer timer;
+
     //*****************************************************************************
     // C O N S T R U C T E U R
     //*****************************************************************************
     public SmartphoneGUI() {
-        init();
+        buildFrame();
+        setTimerUpdate();
     }
 
     //*****************************************************************************
     // M E T H O D E S
     //*****************************************************************************
-    private void init() {
+    private void buildFrame() {
         setSize(ScreenSizeEnum.WIDTH.getSize(), ScreenSizeEnum.HEIGHT.getSize());
         //setUndecorated(true);
         //setShape(new RoundRectangle2D.Double(0, 0, this.getWidth(), this.getHeight(), 30, 30));
 
         add(builPnlScreen());
+        isOn = true;
 
         setVisible(true);
-        setLocationRelativeTo(null);       // La fenêtre souvre au centre de l'écran
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     private JPanel builPnlScreen(){
+        // Création du pannel qui contiendra TOUT
         pnlScreen = new JPanel(new BorderLayout());
         pnlScreen.setBackground(Color.BLACK);
 
-        FooterLayout fLayout = new FooterLayout();
+        // Création de la structure principale
+        hLayout = new HeaderLayout();
+        fLayout = new FooterLayout();
 
-        pnlScreen.add(new HeaderLayout(), BorderLayout.NORTH);
+        pnlScreen.add(hLayout, BorderLayout.NORTH);
         pnlScreen.add(new ContentLayout(fLayout), BorderLayout.CENTER);
         pnlScreen.add(fLayout, BorderLayout.SOUTH);
+
+        // Creation des marges sur le coté
         pnlScreen.add(this.buildBorderPanel(),BorderLayout.WEST);
         pnlScreen.add(this.buildBorderPanel(),BorderLayout.EAST);
 
@@ -55,5 +72,27 @@ public class SmartphoneGUI extends JFrame {
         borderPanel = new JPanel();
         borderPanel.setBackground(Color.PINK);
         return  borderPanel;
+    }
+
+    private void setTimerUpdate()
+    {
+        timer = new Timer();
+        int delay = 800;        // 800 mili-second delay before get executed
+        int delayRepeat = 500;  // means will be repeated every 5 Mili-seconds
+        timer.scheduleAtFixedRate(new TimerTask()
+        {   @Override
+        public void run()
+        {
+            update(); // On fait un update tous les Xtemps du timer
+        }
+        },delay, delayRepeat);
+
+        // To stop the timer, call : timer.cancel();
+    }
+
+    private void update()
+    {
+        hLayout.updateTime();
+        hLayout.updateDate();
     }
 }

@@ -72,7 +72,7 @@ public class Contacts {
     }
 
     public void display(String[] t) {
-        for (int i = 0; i < MAX_CONTACTS_ADDRESSBOOK; i++) {
+        for (int i = 0; i<MAX_CONTACTS_ADDRESSBOOK; i++) {
             System.out.println(t[i]);
         }
     }

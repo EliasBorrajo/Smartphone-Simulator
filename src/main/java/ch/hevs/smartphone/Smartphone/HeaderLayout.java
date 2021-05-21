@@ -1,6 +1,7 @@
 package ch.hevs.smartphone.Smartphone;
 
 import ch.hevs.smartphone.Bases.MyButton;
+import ch.hevs.smartphone.Bases.MyIcon;
 import ch.hevs.smartphone.Bases.ScreenSizeEnum;
 
 import javax.swing.*;
@@ -20,7 +21,7 @@ public class HeaderLayout extends JPanel {
     private JLabel lblTime;
 
     // BUTTON
-    private MyButton btnShutdown;
+    private MyIcon btnShutdown;
 
     // ICON
     private Icon iconPower;
@@ -32,12 +33,12 @@ public class HeaderLayout extends JPanel {
         setPreferredSize(new Dimension(ScreenSizeEnum.WIDTH.getSize(), ScreenSizeEnum.HEADER_FOOTER_HEIGHT.getSize()));
         setMinimumSize(new Dimension(ScreenSizeEnum.WIDTH.getSize(), ScreenSizeEnum.HEADER_FOOTER_HEIGHT.getSize()));
         setMaximumSize(new Dimension(ScreenSizeEnum.WIDTH.getSize(), ScreenSizeEnum.HEADER_FOOTER_HEIGHT.getSize()));
-        setLayout(new BorderLayout());
         setBackground(Color.WHITE);
 
-        add(buildButtonIconShutdown(),BorderLayout.WEST);
-        add(buildLabelDate(),BorderLayout.EAST);
-        add(buildLabelTime(),BorderLayout.CENTER);
+        // Ajout des éléments
+        add(buildButtonIconShutdown());
+        add(buildLabelDate());
+        add(buildLabelTime());
         //this.add(buildBattery());
     }
 
@@ -47,7 +48,7 @@ public class HeaderLayout extends JPanel {
     private JButton buildButtonIconShutdown(){
         URL imagePower = HeaderLayout.class.getClassLoader().getResource("HeaderIcon/powerIcon.png");
         iconPower = new ImageIcon(imagePower);
-        btnShutdown = new MyButton(iconPower);
+        btnShutdown = new MyIcon(iconPower);
 
         btnShutdown.addActionListener(new ActionListener() {
             @Override
@@ -72,5 +73,13 @@ public class HeaderLayout extends JPanel {
         LocalDateTime time = LocalDateTime.now();
         lblTime.setText(dtf.format(time));
         return lblTime;
+    }
+    public void updateTime()
+    {
+        lblTime.setText(DateTimeFormatter.ofPattern("HH:mm:ss").format(LocalDateTime.now()));
+    }
+    public void updateDate()
+    {
+        lblDate.setText(DateTimeFormatter.ofPattern("dd.MM.yyyy").format(LocalDateTime.now()));
     }
 }

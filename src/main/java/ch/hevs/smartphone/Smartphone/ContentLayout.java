@@ -1,9 +1,11 @@
 package ch.hevs.smartphone.Smartphone;
 
 import ch.hevs.smartphone.Bases.MyButton;
+import ch.hevs.smartphone.Bases.MyIcon;
 import ch.hevs.smartphone.Bases.ScreenSizeEnum;
 import ch.hevs.smartphone.Contacts.AddContact;
 import ch.hevs.smartphone.Contacts.ContactsContentLayout;
+import ch.hevs.smartphone.Gallery.AddPhotoGallery;
 import ch.hevs.smartphone.Gallery.GalleryGUI;
 import ch.hevs.smartphone.Weather.WeatherGUI;
 
@@ -26,13 +28,13 @@ public class ContentLayout extends JPanel {
     private JPanel pnlHome;
     private ContactsContentLayout pnlContact;
     private GalleryGUI pnlGallery;
+    private AddPhotoGallery pnlAddPhoto;
     private WeatherGUI pnlWeather;
-    private AddContact pnlAddContact;
 
     // BUTTON
-    private MyButton btnContact;
-    private MyButton btnGallery;
-    private MyButton btnWeather;
+    private MyIcon btnContact;
+    private MyIcon btnGallery;
+    private MyIcon btnWeather;
 
     // ICON
     private ImageIcon iconWeather;
@@ -55,6 +57,7 @@ public class ContentLayout extends JPanel {
         setMinimumSize(new Dimension(ScreenSizeEnum.CONTENT_PANEL_WIDTH.getSize(), ScreenSizeEnum.CONTENT_PANEL_HEIGHT.getSize()));
         buildpnlContent();
     }
+
     //*****************************************************************************
     // M E T H O D E S
     //*****************************************************************************
@@ -66,8 +69,8 @@ public class ContentLayout extends JPanel {
         pnlHome = new JPanel(); //new GridLayout(2,3)
         pnlContact = new ContactsContentLayout();
         pnlGallery = new GalleryGUI();
+        pnlAddPhoto = new AddPhotoGallery();
         pnlWeather = new WeatherGUI();
-        pnlAddContact = new AddContact();
 
 
         // CONSTUCTION DES IMAGES
@@ -79,9 +82,9 @@ public class ContentLayout extends JPanel {
         iconGallery = new ImageIcon(imageGallery);
         iconWeather = new ImageIcon(imageWeather);
 
-        btnContact = new MyButton(iconContact);
-        btnGallery = new MyButton(iconGallery);
-        btnWeather = new MyButton(iconWeather);
+        btnContact = new MyIcon(iconContact);
+        btnGallery = new MyIcon(iconGallery);
+        btnWeather = new MyIcon(iconWeather);
 
         // LA SUITE CONCERNE LE CARD
         this.setLayout(cardlayout);
@@ -94,9 +97,9 @@ public class ContentLayout extends JPanel {
         //Ajouteur les cards au panel conteneur
         this.add("Home",pnlHome);
         this.add("Contact",pnlContact);
-        this.add("Gallery",pnlGallery);
+        this.add("Gallery", pnlGallery);
+        this.add("AddPhoto", pnlAddPhoto);
         this.add("Weather",pnlWeather);
-
 
         this.refreshPanel("Home");
 
@@ -121,6 +124,13 @@ public class ContentLayout extends JPanel {
             }
         });
 
+        pnlGallery.getBtnAddGallery().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                refreshPanel("AddPhoto");
+            }
+        });
+
         this.fLayout.getBtnBack().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -142,11 +152,10 @@ public class ContentLayout extends JPanel {
             }
         });
 
-
         return this;
     }
 
-    private void refreshPanel(String currentPanel){
+    public void refreshPanel(String currentPanel){
         this.currentPanel = currentPanel;
         cardlayout.show(this,this.currentPanel);
         fLayout.buildMenu(this.currentPanel);

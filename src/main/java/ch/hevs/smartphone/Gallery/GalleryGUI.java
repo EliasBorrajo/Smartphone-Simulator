@@ -1,5 +1,7 @@
 package ch.hevs.smartphone.Gallery;
 
+import ch.hevs.smartphone.Bases.MyButton;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -9,15 +11,11 @@ public class GalleryGUI extends JPanel {
     //*****************************************************************************
     // A T T R I B U T S
     //*****************************************************************************
-    // LAYOUT
-    private CardLayout cardGallery;
-
     // PANEL
+    private JPanel pnlHomeGallery;
     private JPanel pnlNorth;
     private JPanel pnlCentre;
-    private JPanel pnlCard;
-    private JPanel pnlHomeGallery;
-    private AddPhotoGallery pnlAddPhoto;
+
     // SCROLLPANE
     private JScrollPane scrollPaneGallery;
 
@@ -25,55 +23,36 @@ public class GalleryGUI extends JPanel {
     private JLabel lblTitle;
 
     // BUTTONS
-    private JButton btnAdd;
-    private JButton btnRetour;
+    private MyButton btnAddGallery;
 
     //*****************************************************************************
     // C O N S T R U C T E U R
     //*****************************************************************************
     public GalleryGUI(){
-        cardGallery = new CardLayout();
-        pnlCard = this;      //contient le card
+        add(buildpnlContentGallery());
+    }
+
+    //*****************************************************************************
+    // M E T H O D E S
+    //*****************************************************************************
+    private JPanel buildpnlContentGallery(){
 
         pnlHomeGallery = new JPanel(new BorderLayout());
 
         pnlNorth = new JPanel();
         pnlCentre = new JPanel();
         lblTitle = new JLabel("Gallery");
-        btnAdd = new JButton("+");
         scrollPaneGallery = new JScrollPane();
-
-        pnlAddPhoto = new AddPhotoGallery();
-        btnRetour = new JButton("Retour");
-        pnlAddPhoto.add(btnRetour,BorderLayout.SOUTH);
+        btnAddGallery = new MyButton("+");
 
         pnlCentre.add(scrollPaneGallery);
         pnlNorth.add(lblTitle);
-        pnlNorth.add(btnAdd);
+        pnlNorth.add(btnAddGallery);
         pnlHomeGallery.add(pnlNorth,BorderLayout.NORTH);
         pnlHomeGallery.add(pnlCentre,BorderLayout.CENTER);
 
-        this.setLayout(cardGallery);
-        this.add("GalleryHome", pnlHomeGallery);
-        this.add("addPhoto", pnlAddPhoto);
-
-        cardGallery.show(this,"GalleryHome");
-
-        btnAdd.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cardGallery.show(pnlCard,"addPhoto");
-            }
-        });
-
-        btnRetour.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cardGallery.show(pnlCard, "GalleryHome");
-            }
-        });
+        return pnlHomeGallery;
     }
-
     //Méthode pour aller chercher les images sur l'ordi
     //Array de photo ?
     //historiser a chaque action
@@ -81,4 +60,11 @@ public class GalleryGUI extends JPanel {
     //Modifirer
     //supprimer
     //Importer photos dans contacts
+    //*****************************************************************************
+    // M E T H O D E S
+    //*****************************************************************************
+
+    public MyButton getBtnAddGallery() {
+        return btnAddGallery;
+    }
 }
