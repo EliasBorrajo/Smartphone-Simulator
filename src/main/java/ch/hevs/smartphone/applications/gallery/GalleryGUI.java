@@ -1,11 +1,9 @@
-package ch.hevs.smartphone.Gallery;
+package ch.hevs.smartphone.applications.gallery;
 
-import ch.hevs.smartphone.Bases.MyButton;
+import ch.hevs.smartphone.bases.MyButton;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class GalleryGUI extends JPanel {
     //*****************************************************************************

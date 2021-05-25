@@ -1,13 +1,12 @@
-package ch.hevs.smartphone.Smartphone;
+package ch.hevs.smartphone.structure.layout;
 
-import ch.hevs.smartphone.Bases.MyButton;
-import ch.hevs.smartphone.Bases.MyIcon;
-import ch.hevs.smartphone.Bases.ScreenSizeEnum;
-import ch.hevs.smartphone.Contacts.AddContact;
-import ch.hevs.smartphone.Contacts.ContactsContentLayout;
-import ch.hevs.smartphone.Gallery.AddPhotoGallery;
-import ch.hevs.smartphone.Gallery.GalleryGUI;
-import ch.hevs.smartphone.Weather.WeatherGUI;
+import ch.hevs.smartphone.applications.contacts.AddContact;
+import ch.hevs.smartphone.applications.contacts.ContactsGUI;
+import ch.hevs.smartphone.bases.MyIcon;
+import ch.hevs.smartphone.applications.enums.ScreenSizeEnum;
+import ch.hevs.smartphone.applications.gallery.AddPhotoGallery;
+import ch.hevs.smartphone.applications.gallery.GalleryGUI;
+import ch.hevs.smartphone.applications.weather.WeatherGUI;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,7 +25,8 @@ public class ContentLayout extends JPanel {
     // PANEL
     private JPanel pnlContent;  // Panel principal qui va contenir tous les cards
     private JPanel pnlHome;
-    private ContactsContentLayout pnlContact;
+    private ContactsGUI pnlContact;
+    private AddContact pnlAddContact;
     private GalleryGUI pnlGallery;
     private AddPhotoGallery pnlAddPhoto;
     private WeatherGUI pnlWeather;
@@ -67,7 +67,8 @@ public class ContentLayout extends JPanel {
         pnlContent = this;
 
         pnlHome = new JPanel(); //new GridLayout(2,3)
-        pnlContact = new ContactsContentLayout();
+        pnlContact = new ContactsGUI();
+        pnlAddContact = new AddContact();
         pnlGallery = new GalleryGUI();
         pnlAddPhoto = new AddPhotoGallery();
         pnlWeather = new WeatherGUI();
@@ -97,6 +98,7 @@ public class ContentLayout extends JPanel {
         //Ajouteur les cards au panel conteneur
         this.add("Home",pnlHome);
         this.add("Contact",pnlContact);
+        this.add("AddContact", pnlAddContact);
         this.add("Gallery", pnlGallery);
         this.add("AddPhoto", pnlAddPhoto);
         this.add("Weather",pnlWeather);
@@ -131,6 +133,13 @@ public class ContentLayout extends JPanel {
             }
         });
 
+        pnlContact.getBtnAddContact().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                refreshPanel("AddContact");
+            }
+        });
+
         this.fLayout.getBtnBack().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -149,6 +158,7 @@ public class ContentLayout extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 refreshPanel("Home");
+                actionsCount = 0;
             }
         });
 

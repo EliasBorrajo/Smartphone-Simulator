@@ -1,8 +1,7 @@
-package ch.hevs.smartphone.Smartphone;
+package ch.hevs.smartphone.structure.layout;
 
-import ch.hevs.smartphone.Bases.MyButton;
-import ch.hevs.smartphone.Bases.MyIcon;
-import ch.hevs.smartphone.Bases.ScreenSizeEnum;
+import ch.hevs.smartphone.bases.MyIcon;
+import ch.hevs.smartphone.applications.enums.ScreenSizeEnum;
 
 
 import javax.swing.*;
@@ -17,16 +16,23 @@ public class FooterLayout extends JPanel {
     private JMenuBar menuBar;
 
     // JMENU
-    private JMenu jMenuOption;
+    private JMenu btnOption;
 
     // BUTTONS
     private MyIcon btnBack;
     private MyIcon btnHome;
-    private MyIcon btnOption;
 
     // JITEM
-    // change en fonction de la fenêtre a voir comment Switch case avec enum?
-    // ou bien getCardlayout, donc en fonction du card ou on est ça change
+    //home
+    JMenuItem itemShotdown = new JMenuItem("Shotdown");
+    JMenuItem itemlock = new JMenuItem("Lock");
+    // contacts and gallery
+    JMenuItem itemAdd = new JMenuItem("Add");
+    JMenuItem itemEdit = new JMenuItem("Edit");
+    JMenuItem itemCancel = new JMenuItem("Cancel");
+    //weather
+    JMenuItem itemSeven = new JMenuItem("7 days");
+    JMenuItem itemTen = new JMenuItem("10 days");
 
     //*****************************************************************************
     // C O N S T R U C T E U R
@@ -37,6 +43,12 @@ public class FooterLayout extends JPanel {
         setMaximumSize(new Dimension(ScreenSizeEnum.WIDTH.getSize(), ScreenSizeEnum.HEADER_FOOTER_HEIGHT.getSize()));
         setBackground(Color.blue);
 
+        // Construction du btn options
+        URL imageOption = FooterLayout.class.getClassLoader().getResource("FooterIcon/optionIcon.jpg");
+        ImageIcon iconOption = new ImageIcon(imageOption);
+        this.btnOption = new JMenu();
+        btnOption.setIcon(iconOption);
+
         // Construction du btn home
         URL imageHome = FooterLayout.class.getClassLoader().getResource("FooterIcon/homeIcon.png");
         ImageIcon iconHome = new ImageIcon(imageHome);
@@ -46,11 +58,6 @@ public class FooterLayout extends JPanel {
         URL imageBack = FooterLayout.class.getClassLoader().getResource("FooterIcon/backIcon.png");
         ImageIcon iconBack = new ImageIcon(imageBack);
         this.btnBack = new MyIcon(iconBack);
-
-        // Construction du btn options
-        URL imageOption = FooterLayout.class.getClassLoader().getResource("FooterIcon/optionIcon.jpg");
-        ImageIcon iconOption = new ImageIcon(imageOption);
-        this.btnOption = new MyIcon(iconOption);
 
     }
     //*****************************************************************************
@@ -83,79 +90,56 @@ public class FooterLayout extends JPanel {
         }
     }
 
-    void buildMenuBarHome() {
+    JMenuBar buildMenuBase(){
         this.removeAll();
         menuBar = new JMenuBar();
-
-        jMenuOption = new JMenu("");
-
+        menuBar.add(this.btnBack);
         menuBar.add(this.btnHome);
+        menuBar.add(this.btnOption);
+        btnOption.removeAll();
+        this.add(menuBar);
+        return menuBar;
+    }
+
+    void buildMenuBarHome() {
+        this.removeAll();
+        buildMenuBase();
+        btnOption.add(itemShotdown);
+        btnOption.add(itemlock);
         this.add(menuBar);
     }
 
     void buildMenuBarContact() {
         this.removeAll();
-        menuBar = new JMenuBar();
-
-        jMenuOption = new JMenu("");
-
-        menuBar.add(this.btnBack);
-        menuBar.add(this.btnHome);
-        menuBar.add(this.btnOption);
-        menuBar.add(jMenuOption);
+        buildMenuBase();
+        btnOption.add(itemAdd);
+        btnOption.add(itemEdit);
         this.add(menuBar);
     }
 
     void buildMenuBarAddContact() {
-        this.removeAll();
-        menuBar = new JMenuBar();
-
-        jMenuOption = new JMenu("");
-
-        menuBar.add(this.btnBack);
-        menuBar.add(this.btnHome);
-        menuBar.add(this.btnOption);
-        menuBar.add(jMenuOption);
+        buildMenuBase();
+        btnOption.add(itemCancel);
         this.add(menuBar);
     }
 
     void buildMenuBarGallery() {
-        this.removeAll();
-        menuBar = new JMenuBar();
-
-        jMenuOption = new JMenu("");
-
-        menuBar.add(this.btnBack);
-        menuBar.add(this.btnHome);
-
-        menuBar.add(jMenuOption);
+        buildMenuBase();
+        btnOption.add(itemAdd);
+        btnOption.add(itemEdit);
         this.add(menuBar);
     }
 
     void buildMenuBarGalleryAdd(){
-        this.removeAll();
-        menuBar = new JMenuBar();
-
-        jMenuOption = new JMenu("");
-
-        menuBar.add(this.btnBack);
-        menuBar.add(this.btnHome);
-
-        menuBar.add(jMenuOption);
+        buildMenuBase();
+        btnOption.add(itemCancel);
         this.add(menuBar);
     }
 
     void buildMenuBarMeteo() {
-        this.removeAll();
-        menuBar = new JMenuBar();
-
-        jMenuOption = new JMenu("");
-
-        menuBar.add(this.btnBack);
-        menuBar.add(this.btnHome);
-        menuBar.add(this.btnOption);
-
-        menuBar.add(jMenuOption);
+        buildMenuBase();
+        btnOption.add(itemSeven);
+        btnOption.add(itemTen);
         this.add(menuBar);
     }
 }

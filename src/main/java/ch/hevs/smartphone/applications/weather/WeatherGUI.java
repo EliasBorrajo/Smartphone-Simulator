@@ -1,4 +1,4 @@
-package ch.hevs.smartphone.Weather;
+package ch.hevs.smartphone.applications.weather;
 
 import javax.swing.*;
 import java.awt.*;

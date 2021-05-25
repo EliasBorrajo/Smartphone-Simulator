@@ -1,4 +1,4 @@
-package ch.hevs.smartphone.Bases;
+package ch.hevs.smartphone.bases;
 
 import javax.swing.*;
 
