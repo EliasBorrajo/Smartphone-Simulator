@@ -90,6 +90,8 @@ public class FooterLayout extends JPanel {
         }
     }
 
+    // SUpprimer les options, plus simple directement dans la fenêtre
+
     JMenuBar buildMenuBase(){
         this.removeAll();
         menuBar = new JMenuBar();

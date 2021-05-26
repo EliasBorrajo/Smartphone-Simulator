@@ -2,13 +2,17 @@ package ch.hevs.smartphone.structure.layout;
 
 import ch.hevs.smartphone.applications.contacts.AddContact;
 import ch.hevs.smartphone.applications.contacts.ContactsGUI;
+import ch.hevs.smartphone.applications.gallery.GalleryBook;
+import ch.hevs.smartphone.applications.gallery.Photo;
 import ch.hevs.smartphone.bases.MyIcon;
 import ch.hevs.smartphone.applications.enums.ScreenSizeEnum;
 import ch.hevs.smartphone.applications.gallery.AddPhotoGallery;
 import ch.hevs.smartphone.applications.gallery.GalleryGUI;
 import ch.hevs.smartphone.applications.weather.WeatherGUI;
+import ch.hevs.smartphone.utils.Util;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -129,7 +133,35 @@ public class ContentLayout extends JPanel {
         pnlGallery.getBtnAddGallery().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                refreshPanel("AddPhoto");
+
+                GalleryBook gb = new GalleryBook();
+
+                String path = null;
+                JFileChooser chooser = new JFileChooser();
+                FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG, GIF & PNG Images", "jpg", "gif", "png");
+                chooser.setFileFilter(filter);
+                int returnVal = chooser.showOpenDialog(chooser);
+                if(returnVal == JFileChooser.APPROVE_OPTION){
+                    path = chooser.getSelectedFile().getPath();
+                    Photo photo = new Photo(path);
+
+                    gb.addPhoto(photo);
+
+                    gb.save();
+
+                    //int index = path.indexOf();
+                    //path = path.substring(index);
+                    //ImageIcon icon = new ImageIcon(path);
+                    //icon = Util.getScaledImageIcon(icon, 250);
+
+
+                    //this.getButtonPictureChooser().setIcon(icon);
+                }
+
+                //this.getContentManager().getGalleryModel().setPathPictureSelected(path);
+
+
+                //refreshPanel("AddPhoto");
             }
         });
 
@@ -157,8 +189,10 @@ public class ContentLayout extends JPanel {
         this.fLayout.getBtnHome().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                refreshPanel("Home");
                 actionsCount = 0;
+                //Reset historique
+                panelsOpen = new ArrayList<>();
+                refreshPanel("Home");
             }
         });
 

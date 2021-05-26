@@ -40,8 +40,8 @@ public class SmartphoneGUI extends JFrame {
     //*****************************************************************************
     private void buildFrame() {
         setSize(ScreenSizeEnum.WIDTH.getSize(), ScreenSizeEnum.HEIGHT.getSize());
-        setUndecorated(true);
-        setShape(new RoundRectangle2D.Double(0, 0, this.getWidth(), this.getHeight(), 30, 30));
+        //setUndecorated(true);
+        //setShape(new RoundRectangle2D.Double(0, 0, this.getWidth(), this.getHeight(), 30, 30));
 
         add(builPnlScreen());
         isOn = true;

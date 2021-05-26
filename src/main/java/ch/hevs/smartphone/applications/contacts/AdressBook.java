@@ -11,4 +11,6 @@ public class AdressBook {
 
     //get AdressBook
     ArrayList<Contact> getTabContact(){return tabContact;}
+
+    //Save pour serialiser et deserializer
 }
