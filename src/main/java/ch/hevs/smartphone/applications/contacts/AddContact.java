@@ -27,6 +27,12 @@ public class AddContact extends JPanel {
     // BUTTON
     JButton btnSave = new JButton("Save");
 
+    // GETTERS
+    public JButton getBtnSave() {
+        return btnSave;
+    }
+
+    // CONSTRUCTOR
     public AddContact() {
         // Parametre panel
         setSize(50, 50);

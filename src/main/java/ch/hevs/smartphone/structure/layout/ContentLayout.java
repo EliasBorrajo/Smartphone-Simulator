@@ -1,6 +1,7 @@
 package ch.hevs.smartphone.structure.layout;
 
 import ch.hevs.smartphone.applications.contacts.AddContact;
+import ch.hevs.smartphone.applications.contacts.AddressBook;
 import ch.hevs.smartphone.applications.contacts.ContactsGUI;
 import ch.hevs.smartphone.applications.gallery.GalleryBook;
 import ch.hevs.smartphone.applications.gallery.Photo;
@@ -9,7 +10,6 @@ import ch.hevs.smartphone.applications.enums.ScreenSizeEnum;
 import ch.hevs.smartphone.applications.gallery.AddPhotoGallery;
 import ch.hevs.smartphone.applications.gallery.GalleryGUI;
 import ch.hevs.smartphone.applications.weather.WeatherGUI;
-import ch.hevs.smartphone.utils.Util;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -169,6 +169,19 @@ public class ContentLayout extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 refreshPanel("AddContact");
+            }
+        });
+
+        // CREER UN GETTER POUR LE BOUTON
+        this.pnlAddContact.getBtnSave().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AddressBook ad = new AddressBook();
+
+                String path = null;
+
+
+
             }
         });
 
