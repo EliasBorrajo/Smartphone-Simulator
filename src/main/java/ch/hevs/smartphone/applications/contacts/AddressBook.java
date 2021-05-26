@@ -1,7 +1,5 @@
 package ch.hevs.smartphone.applications.contacts;
 
-import ch.hevs.smartphone.applications.gallery.Photo;
-
 import java.io.*;
 import java.util.ArrayList;
 
@@ -16,15 +14,21 @@ public class AddressBook {
     // GETTERS
     ArrayList<Contact> getTabContact(){return tabContact;}
 
+    // SETTERS
+    public void setTabContact(ArrayList<Contact> tabContact) {
+        this.tabContact = tabContact;
+    }
+
     // CONSTRUCTOR
     public AddressBook() {
         this.get();
     }
 
     // METHODS
-
-        // Add contact in AdressBook
-    void addContact(Contact contact){tabContact.add(contact);}
+        // Add contact in AddressBook
+    public void addContact(Contact contact){
+        tabContact.add(contact);
+    }
 
         /**
      * Save photos, sérialisation

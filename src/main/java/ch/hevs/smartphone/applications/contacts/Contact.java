@@ -1,6 +1,8 @@
 package ch.hevs.smartphone.applications.contacts;
 
 
+import ch.hevs.smartphone.applications.gallery.Photo;
+
 import javax.swing.*;
 import java.io.Serial;
 import java.io.Serializable;
@@ -10,13 +12,13 @@ import java.util.Scanner;
 
 public class Contact implements Serializable {
 
-
     @Serial
     private static final long serialVersionUID = -7259141374952645688L;
 
     private String firstName;
     private String lastName;
     private String noPhone;
+    private Photo contactPhoto;
 
     // GETTERS
     public String getFirstName() {
@@ -31,6 +33,10 @@ public class Contact implements Serializable {
         return noPhone;
     }
 
+    public Photo getContactPhoto() {
+        return contactPhoto;
+    }
+
     // SETTERS
     public void setFirstName(String firstName) {
         this.firstName = firstName;
@@ -42,6 +48,10 @@ public class Contact implements Serializable {
 
     public void setNoPhone(String noPhone) {
         this.noPhone = noPhone;
+    }
+
+    public void setContactPhoto(Photo contactPhoto) {
+        this.contactPhoto = contactPhoto;
     }
 
     // CONSTRUCTOR
