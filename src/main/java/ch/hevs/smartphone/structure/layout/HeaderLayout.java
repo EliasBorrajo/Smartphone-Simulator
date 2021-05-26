@@ -1,6 +1,6 @@
 package ch.hevs.smartphone.structure.layout;
 
-import ch.hevs.smartphone.bases.MyIcon;
+import ch.hevs.smartphone.bases.ButtonIcon;
 import ch.hevs.smartphone.applications.enums.ScreenSizeEnum;
 
 import javax.swing.*;
@@ -20,7 +20,7 @@ public class HeaderLayout extends JPanel {
     private JLabel lblTime;
 
     // BUTTON
-    private MyIcon btnShutdown;
+    private ButtonIcon btnShutdown;
 
     // ICON
     private Icon iconPower;
@@ -47,7 +47,7 @@ public class HeaderLayout extends JPanel {
     private JButton buildButtonIconShutdown(){
         URL imagePower = HeaderLayout.class.getClassLoader().getResource("HeaderIcon/powerIcon.png");
         iconPower = new ImageIcon(imagePower);
-        btnShutdown = new MyIcon(iconPower);
+        btnShutdown = new ButtonIcon(iconPower);
 
         btnShutdown.addActionListener(new ActionListener() {
             @Override

@@ -1,10 +1,9 @@
 package ch.hevs.smartphone.applications.contacts;
 
-import ch.hevs.smartphone.bases.MyButton;
+import ch.hevs.smartphone.bases.Button;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 
 public class ContactsGUI extends JPanel {
     // PANEL
@@ -19,7 +18,7 @@ public class ContactsGUI extends JPanel {
     private JLabel lblContactTitle;
 
     // BUTTONS
-    private MyButton btnAddContact;
+    private Button btnAddContact;
 
     public ContactsGUI() {
         add(buildpnlContentContact());
@@ -32,7 +31,7 @@ public class ContactsGUI extends JPanel {
         pnlCentre = new JPanel();
         lblContactTitle = new JLabel("Contacts");
         scrollPaneContact = new JScrollPane();
-        btnAddContact = new MyButton("+");
+        btnAddContact = new Button("+");
 
         pnlCentre.add(scrollPaneContact);
         pnlNorth.add(lblContactTitle);
@@ -43,6 +42,6 @@ public class ContactsGUI extends JPanel {
         return pnlHomeContact;
     }
 
-    public MyButton getBtnAddContact(){return btnAddContact;}
+    public Button getBtnAddContact(){return btnAddContact;}
 
 }

@@ -13,10 +13,7 @@ public class Photo implements Serializable {
         this.path = path;
     }
 
-    @Override
-    public String toString() {
-        return "Photo{" +
-                "path='" + path + '\'' +
-                '}';
+    public String getPath() {
+        return path;
     }
 }

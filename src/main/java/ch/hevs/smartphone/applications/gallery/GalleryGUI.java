@@ -1,20 +1,25 @@
 package ch.hevs.smartphone.applications.gallery;
 
-import ch.hevs.smartphone.bases.MyButton;
-import ch.hevs.smartphone.utils.Util;
+import ch.hevs.smartphone.bases.Button;
+import ch.hevs.smartphone.bases.ButtonIcon;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class GalleryGUI extends JPanel {
     //*****************************************************************************
     // A T T R I B U T S
     //*****************************************************************************
+    private GalleryBook gb;
     // PANEL
     private JPanel pnlHomeGallery;
     private JPanel pnlNorth;
-    private JPanel pnlCentre;
+    private JPanel panelImage;
 
     // SCROLLPANE
     private JScrollPane scrollPaneGallery;
@@ -23,8 +28,8 @@ public class GalleryGUI extends JPanel {
     private JLabel lblTitle;
 
     // BUTTONS
-    private MyButton btnAddGallery;
-    private GalleryBook gb;
+    private Button btnAddGallery;
+    private JButton btnPhoto;
 
     //*****************************************************************************
     // C O N S T R U C T E U R
@@ -42,73 +47,91 @@ public class GalleryGUI extends JPanel {
         pnlHomeGallery = new JPanel(new BorderLayout());
 
         pnlNorth = new JPanel();
-        pnlCentre = new JPanel();
         lblTitle = new JLabel("Gallery");
-        btnAddGallery = new MyButton("+");
+        btnAddGallery = new Button("+");
 
-        pnlCentre.setLayout(new BoxLayout(pnlCentre, BoxLayout.Y_AXIS));
-        pnlCentre.setPreferredSize(new Dimension(100, 300));
-        pnlCentre.add(this.buildContentPanel());
+        btnAddGallery.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                String path = null;
+                JFileChooser chooser = new JFileChooser();
+                FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG, GIF & PNG Images", "jpg", "gif", "png");
+                chooser.setFileFilter(filter);
+                int returnVal = chooser.showOpenDialog(chooser);
+                if(returnVal == JFileChooser.APPROVE_OPTION){
+                    path = chooser.getSelectedFile().getPath();
+                    Photo photo = new Photo(path);
+
+                    gb.addPhoto(photo);
+
+                    gb.save();
+
+                    //int index = path.indexOf();
+                    //path = path.substring(index);
+                    //ImageIcon icon = new ImageIcon(path);
+                    //icon = Util.getScaledImageIcon(icon, 250);
+
+
+                    //this.getButtonPictureChooser().setIcon(icon);
+                }
+
+                //this.getContentManager().getGalleryModel().setPathPictureSelected(path);
+            }
+        });
+
         pnlNorth.add(lblTitle);
         pnlNorth.add(btnAddGallery);
         pnlHomeGallery.add(pnlNorth,BorderLayout.NORTH);
-        pnlHomeGallery.add(pnlCentre,BorderLayout.CENTER);
-        //pnlHomeGallery.add(scrollPaneGallery, BorderLayout.CENTER);
+        pnlHomeGallery.add(buildContentJSPane(),BorderLayout.CENTER);
         return pnlHomeGallery;
     }
     //*****************************************************************************
     // M E T H O D E S
     //*****************************************************************************
-
-    public MyButton getBtnAddGallery() {
-        return btnAddGallery;
-    }
-
     /**
      * Construit la vue qui affiche les photos
      * @return JScrollPane avec les photos
      */
-    private JScrollPane buildContentPanel(){
+    private JScrollPane buildContentJSPane(){
 
-        // TODO FAIRE GETTER SETTER POUR TOUETS LES CLASSES
+        // TODO FAIRE GETTER SETTER POUR TOUTES LES CLASSES
 
         ArrayList<Photo> photos = this.gb.tabPhoto;
 
-        JScrollPane panelPane = new JScrollPane();
+        panelImage = new JPanel(new GridLayout(0,2,5,5));
 
         // Si il n'y a pas de photos
         if(photos.size() == 0){
-
+            JLabel msg = new JLabel("Gallery is empty");
+            panelImage.add(msg);
         }else{
 
             for(Photo entity : photos){
 
                 Photo photo = (Photo) entity;
 
-                System.out.println(photo.toString());
+                System.out.println(photo.getPath());
 
-                ImageIcon ic = new ImageIcon(photo.toString());
+                Icon ic = new ImageIcon(photo.getPath());
 
-                //ImageIcon btn = Util.getScaledImageIcon(new ImageIcon(photo.path), 130);
+                btnPhoto = new JButton(ic);
+                btnPhoto.setSize(new Dimension(20,20));
+                btnPhoto.setPreferredSize(new Dimension(20,20));
+                btnPhoto.setMinimumSize(new Dimension(20,20));
+                panelImage.add(btnPhoto);
 
-                JLabel panelImage = new JLabel(ic);
-//                panelImage.setLayout(new BoxLayout(panelImage, BoxLayout.LINE_AXIS));
-//                panelImage.setOpaque(false);
-                //panelImage.add(ic);
-
-                //rowPanel.add(panelImage, gbc2);
-
-                //gbc2.gridheight = GridBagConstraints.REMAINDER;
-
-                panelPane.add(panelImage);
             }
         }
-        //parent.add(contentPanel);
-//        panelPane.setPreferredSize(new Dimension(460, 730));
-//        panelPane.setMinimumSize(new Dimension(460, 730));
-//        panelPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-//        panelPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        return panelPane;
+        scrollPaneGallery = new JScrollPane(panelImage);
+        scrollPaneGallery.setPreferredSize(new Dimension(260, 460));
+        scrollPaneGallery.setMinimumSize(new Dimension(260, 460));
+        scrollPaneGallery.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPaneGallery.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        return scrollPaneGallery;
+    }
 
+    public JButton getBtnPhoto() {
+        return btnPhoto;
     }
 }

@@ -1,12 +1,14 @@
 package ch.hevs.smartphone.bases;
 
 import javax.swing.*;
+import java.awt.*;
 
-public class MyButton extends JButton {
-    public MyButton(String txt){
-        setText(txt);
+public class ButtonIcon extends JButton {
+    public ButtonIcon(Icon icon){
+        super(icon);
         setOpaque(true);
         setContentAreaFilled(false);
         setBorderPainted(false);
+        setIcon(icon);
     }
 }

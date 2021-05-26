@@ -12,10 +12,9 @@ public class GalleryBook {
 
     // Get photo
     public GalleryBook(){
-        //machin désérialise
+        //machin désérialisé
         this.get();
     }
-
 
     public static final String PATH = "saves/gallery.se";
 

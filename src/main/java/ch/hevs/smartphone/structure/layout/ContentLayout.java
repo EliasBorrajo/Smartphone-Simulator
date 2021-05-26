@@ -4,12 +4,11 @@ import ch.hevs.smartphone.applications.contacts.AddContact;
 import ch.hevs.smartphone.applications.contacts.ContactsGUI;
 import ch.hevs.smartphone.applications.gallery.GalleryBook;
 import ch.hevs.smartphone.applications.gallery.Photo;
-import ch.hevs.smartphone.bases.MyIcon;
+import ch.hevs.smartphone.applications.gallery.PhotoView;
+import ch.hevs.smartphone.bases.ButtonIcon;
 import ch.hevs.smartphone.applications.enums.ScreenSizeEnum;
-import ch.hevs.smartphone.applications.gallery.AddPhotoGallery;
 import ch.hevs.smartphone.applications.gallery.GalleryGUI;
 import ch.hevs.smartphone.applications.weather.WeatherGUI;
-import ch.hevs.smartphone.utils.Util;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -32,13 +31,13 @@ public class ContentLayout extends JPanel {
     private ContactsGUI pnlContact;
     private AddContact pnlAddContact;
     private GalleryGUI pnlGallery;
-    private AddPhotoGallery pnlAddPhoto;
     private WeatherGUI pnlWeather;
+    private PhotoView pnlPhotoView;
 
     // BUTTON
-    private MyIcon btnContact;
-    private MyIcon btnGallery;
-    private MyIcon btnWeather;
+    private ButtonIcon btnContact;
+    private ButtonIcon btnGallery;
+    private ButtonIcon btnWeather;
 
     // ICON
     private ImageIcon iconWeather;
@@ -74,8 +73,8 @@ public class ContentLayout extends JPanel {
         pnlContact = new ContactsGUI();
         pnlAddContact = new AddContact();
         pnlGallery = new GalleryGUI();
-        pnlAddPhoto = new AddPhotoGallery();
         pnlWeather = new WeatherGUI();
+        pnlPhotoView = new PhotoView();
 
 
         // CONSTUCTION DES IMAGES
@@ -87,9 +86,9 @@ public class ContentLayout extends JPanel {
         iconGallery = new ImageIcon(imageGallery);
         iconWeather = new ImageIcon(imageWeather);
 
-        btnContact = new MyIcon(iconContact);
-        btnGallery = new MyIcon(iconGallery);
-        btnWeather = new MyIcon(iconWeather);
+        btnContact = new ButtonIcon(iconContact);
+        btnGallery = new ButtonIcon(iconGallery);
+        btnWeather = new ButtonIcon(iconWeather);
 
         // LA SUITE CONCERNE LE CARD
         this.setLayout(cardlayout);
@@ -104,7 +103,7 @@ public class ContentLayout extends JPanel {
         this.add("Contact",pnlContact);
         this.add("AddContact", pnlAddContact);
         this.add("Gallery", pnlGallery);
-        this.add("AddPhoto", pnlAddPhoto);
+        this.add("PhotoView", pnlPhotoView);
         this.add("Weather",pnlWeather);
 
         this.refreshPanel("Home");
@@ -130,38 +129,10 @@ public class ContentLayout extends JPanel {
             }
         });
 
-        pnlGallery.getBtnAddGallery().addActionListener(new ActionListener() {
+        pnlGallery.getBtnPhoto().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                GalleryBook gb = new GalleryBook();
-
-                String path = null;
-                JFileChooser chooser = new JFileChooser();
-                FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG, GIF & PNG Images", "jpg", "gif", "png");
-                chooser.setFileFilter(filter);
-                int returnVal = chooser.showOpenDialog(chooser);
-                if(returnVal == JFileChooser.APPROVE_OPTION){
-                    path = chooser.getSelectedFile().getPath();
-                    Photo photo = new Photo(path);
-
-                    gb.addPhoto(photo);
-
-                    gb.save();
-
-                    //int index = path.indexOf();
-                    //path = path.substring(index);
-                    //ImageIcon icon = new ImageIcon(path);
-                    //icon = Util.getScaledImageIcon(icon, 250);
-
-
-                    //this.getButtonPictureChooser().setIcon(icon);
-                }
-
-                //this.getContentManager().getGalleryModel().setPathPictureSelected(path);
-
-
-                //refreshPanel("AddPhoto");
+                refreshPanel("PhotoView");
             }
         });
 

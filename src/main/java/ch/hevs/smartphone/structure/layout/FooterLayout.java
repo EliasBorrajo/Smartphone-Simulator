@@ -1,6 +1,6 @@
 package ch.hevs.smartphone.structure.layout;
 
-import ch.hevs.smartphone.bases.MyIcon;
+import ch.hevs.smartphone.bases.ButtonIcon;
 import ch.hevs.smartphone.applications.enums.ScreenSizeEnum;
 
 
@@ -19,8 +19,8 @@ public class FooterLayout extends JPanel {
     private JMenu btnOption;
 
     // BUTTONS
-    private MyIcon btnBack;
-    private MyIcon btnHome;
+    private ButtonIcon btnBack;
+    private ButtonIcon btnHome;
 
     // JITEM
     //home
@@ -52,53 +52,39 @@ public class FooterLayout extends JPanel {
         // Construction du btn home
         URL imageHome = FooterLayout.class.getClassLoader().getResource("FooterIcon/homeIcon.png");
         ImageIcon iconHome = new ImageIcon(imageHome);
-        this.btnHome = new MyIcon(iconHome);
+        this.btnHome = new ButtonIcon(iconHome);
 
         // Construction du btn back
         URL imageBack = FooterLayout.class.getClassLoader().getResource("FooterIcon/backIcon.png");
         ImageIcon iconBack = new ImageIcon(imageBack);
-        this.btnBack = new MyIcon(iconBack);
+        this.btnBack = new ButtonIcon(iconBack);
 
     }
     //*****************************************************************************
     // M E T H O D E S
     //*****************************************************************************
 
-    public MyIcon getBtnBack() {
+    public ButtonIcon getBtnBack() {
         return btnBack;
     }
 
-    public MyIcon getBtnHome() {
+    public ButtonIcon getBtnHome() {
         return btnHome;
     }
 
     void buildMenu(String panel) {
         if (panel.equals("Home")) {
             this.buildMenuBarHome();
-        } else if (panel.equals("Weather")) {
-            this.buildMenuBarMeteo();
-        } else if (panel.equals("Gallery")) {
-            this.buildMenuBarGallery();
-        }  else if (panel.equals("AddPhoto")) {
-            this.buildMenuBarGalleryAdd();
-        }else if (panel.equals("Contact")) {
-            this.buildMenuBarContact();
-        } else if (panel.equals("AddContact")) {
-            this.buildMenuBarAddContact();
         } else {
-            this.buildMenuBarHome();
+            this.buildMenuBase();
         }
     }
-
-    // SUpprimer les options, plus simple directement dans la fenêtre
 
     JMenuBar buildMenuBase(){
         this.removeAll();
         menuBar = new JMenuBar();
         menuBar.add(this.btnBack);
         menuBar.add(this.btnHome);
-        menuBar.add(this.btnOption);
-        btnOption.removeAll();
         this.add(menuBar);
         return menuBar;
     }
@@ -106,42 +92,9 @@ public class FooterLayout extends JPanel {
     void buildMenuBarHome() {
         this.removeAll();
         buildMenuBase();
+        menuBar.add(btnOption);
         btnOption.add(itemShotdown);
         btnOption.add(itemlock);
-        this.add(menuBar);
-    }
-
-    void buildMenuBarContact() {
-        this.removeAll();
-        buildMenuBase();
-        btnOption.add(itemAdd);
-        btnOption.add(itemEdit);
-        this.add(menuBar);
-    }
-
-    void buildMenuBarAddContact() {
-        buildMenuBase();
-        btnOption.add(itemCancel);
-        this.add(menuBar);
-    }
-
-    void buildMenuBarGallery() {
-        buildMenuBase();
-        btnOption.add(itemAdd);
-        btnOption.add(itemEdit);
-        this.add(menuBar);
-    }
-
-    void buildMenuBarGalleryAdd(){
-        buildMenuBase();
-        btnOption.add(itemCancel);
-        this.add(menuBar);
-    }
-
-    void buildMenuBarMeteo() {
-        buildMenuBase();
-        btnOption.add(itemSeven);
-        btnOption.add(itemTen);
         this.add(menuBar);
     }
 }
