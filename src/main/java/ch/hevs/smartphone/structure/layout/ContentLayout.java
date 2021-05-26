@@ -173,17 +173,7 @@ public class ContentLayout extends JPanel {
         });
 
         // CREER UN GETTER POUR LE BOUTON
-        this.pnlAddContact.getBtnSave().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                AddressBook ad = new AddressBook();
-
-                String path = null;
-
-
-
-            }
-        });
+        this.pnlAddContact.getBtnSave().addActionListener(new ListenerSaveAddContact());
 
         this.fLayout.getBtnBack().addActionListener(new ActionListener() {
             @Override
@@ -210,6 +200,50 @@ public class ContentLayout extends JPanel {
         });
 
         return this;
+    }
+
+    // INNER CLASS
+    class ListenerSaveAddContact implements ActionListener {
+
+        AddressBook ad = new AddressBook();
+        String path = null;
+
+        JTextField inputFN;
+        JTextField inputN;
+        JTextField inputNP;
+
+        public ListenerSaveAddContact(JTextField firstName, JTextField name, JTextField noPhone) {
+            inputFN = firstName;
+            inputN = name;
+            inputNP = noPhone;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+            String text1 = "";
+            text1 = inputFN.getText();
+            myAdressBook.addContactFirstName(text1);
+
+            String text2 = "";
+            text2 = inputN.getText();
+            myAdressBook.addContactLastName(text2);
+
+            String text3 = "";
+            text3 = inputNP.getText();
+            myAdressBook.addNoPhone(text3);
+
+            myAdressBook.display(myAdressBook.getFirstName());
+            myAdressBook.display(myAdressBook.getLastName());
+            myAdressBook.display(myAdressBook.getNoPhone());
+
+            contactList.add(myAdressBook.getFirstName());
+            contactList.add(myAdressBook.getLastName());
+            contactList.add(myAdressBook.getNoPhone());
+
+            contactJList = new JList(contactList.toArray());
+
+        }
     }
 
     public void refreshPanel(String currentPanel){
