@@ -1,24 +1,34 @@
-package ch.hevs.smartphone.applications.gallery;
+package ch.hevs.smartphone.applications.contacts;
 
 import java.io.*;
 import java.util.ArrayList;
 
-public class GalleryBook {
-    // Array list
-    public ArrayList<Photo> tabPhoto = new ArrayList<>();
+public class AddressBook {
+    // ATTRIBUTS
+    // ARRAY LIST
+    private ArrayList<Contact> tabContact = new ArrayList<>();
 
-    // Add photo in GalleryBook
-    public void addPhoto(Photo photo){
-        tabPhoto.add(photo);
+    //Save pour serialiser et deserializer
+    public static final String PATH = "saves/contactBook.se";
+
+    // GETTERS
+    ArrayList<Contact> getTabContact(){return tabContact;}
+
+    // SETTERS
+    public void setTabContact(ArrayList<Contact> tabContact) {
+        this.tabContact = tabContact;
     }
 
-    // Get photo
-    public GalleryBook(){
-        //machin désérialisé
+    // CONSTRUCTOR
+    public AddressBook() {
         this.get();
     }
 
-    public static final String PATH = "saves/gallery.se";
+    // METHODS
+    // Add contact in AddressBook
+    public void addContact(Contact contact){
+        tabContact.add(contact);
+    }
 
     /**
      * Save photos, sérialisation
@@ -29,7 +39,7 @@ public class GalleryBook {
             FileOutputStream reader = new FileOutputStream(PATH);
             BufferedOutputStream bFile = new BufferedOutputStream (reader);
             ObjectOutputStream obFile = new ObjectOutputStream(bFile);
-            obFile.writeObject(this.tabPhoto); //écrire
+            obFile.writeObject(this.tabContact); //écrire
             obFile.close(); /// fermer
         } catch (IOException e1) {
             // TODO Auto-generated catch block
@@ -44,12 +54,12 @@ public class GalleryBook {
     protected void get(){
         try {
             if(new File(PATH).exists()){
-                this.tabPhoto.clear();
+                this.tabContact.clear();
                 FileInputStream reader = new FileInputStream(PATH);
                 BufferedInputStream bFile = new BufferedInputStream(reader);
                 ObjectInputStream obFile = new ObjectInputStream(bFile);
 
-                this.tabPhoto = (ArrayList<Photo>) obFile.readObject();
+                this.tabContact = (ArrayList<Contact>) obFile.readObject();
 
                 obFile.close();
 
@@ -63,3 +73,4 @@ public class GalleryBook {
         }
     }
 }
+

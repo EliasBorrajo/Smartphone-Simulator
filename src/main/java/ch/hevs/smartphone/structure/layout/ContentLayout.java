@@ -2,16 +2,13 @@ package ch.hevs.smartphone.structure.layout;
 
 import ch.hevs.smartphone.applications.contacts.AddContact;
 import ch.hevs.smartphone.applications.contacts.ContactsGUI;
-import ch.hevs.smartphone.applications.gallery.GalleryBook;
-import ch.hevs.smartphone.applications.gallery.Photo;
 import ch.hevs.smartphone.applications.gallery.PhotoView;
 import ch.hevs.smartphone.bases.ButtonIcon;
-import ch.hevs.smartphone.applications.enums.ScreenSizeEnum;
+import ch.hevs.smartphone.enums.ScreenSizeEnum;
 import ch.hevs.smartphone.applications.gallery.GalleryGUI;
 import ch.hevs.smartphone.applications.weather.WeatherGUI;
 
 import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -132,6 +129,8 @@ public class ContentLayout extends JPanel {
         pnlGallery.getBtnPhoto().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                JButton buttonClicked = (JButton)e.getSource();
+                System.out.println(buttonClicked);
                 refreshPanel("PhotoView");
             }
         });
@@ -150,9 +149,7 @@ public class ContentLayout extends JPanel {
                     panelsOpen.remove(actionsCount);
                     actionsCount--;
                     cardlayout.show(pnlContent, panelsOpen.get(actionsCount));
-                    fLayout.buildMenu("Home");
-                }else{
-                    refreshPanel("Home");
+                    fLayout.buildMenu();
                 }
             }
         });
@@ -160,9 +157,8 @@ public class ContentLayout extends JPanel {
         this.fLayout.getBtnHome().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                actionsCount = 0;
-                //Reset historique
-                panelsOpen = new ArrayList<>();
+                actionsCount = -1;
+                panelsOpen.removeAll(panelsOpen);
                 refreshPanel("Home");
             }
         });
@@ -173,7 +169,7 @@ public class ContentLayout extends JPanel {
     public void refreshPanel(String currentPanel){
         this.currentPanel = currentPanel;
         cardlayout.show(this,this.currentPanel);
-        fLayout.buildMenu(this.currentPanel);
+        fLayout.buildMenu();
         // HISTRORIQUE des panels affichés pour le bouton retour
         this.actionsCount++;
         this.panelsOpen.add(this.currentPanel);

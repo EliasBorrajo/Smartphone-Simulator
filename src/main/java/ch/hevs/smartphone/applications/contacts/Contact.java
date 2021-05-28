@@ -1,26 +1,23 @@
 package ch.hevs.smartphone.applications.contacts;
 
 
+import ch.hevs.smartphone.applications.gallery.Photo;
+
 import javax.swing.*;
+import java.io.Serial;
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class Contact {
-    Scanner scan = new Scanner(System.in);
+    @Serial
+    private static final long serialVersionUID = -7259141374952645688L;
 
     private String firstName;
     private String lastName;
     private String noPhone;
-
-    // CONSTRUCTOR
-    public Contact(String firstName, String lastName, String noPhone){
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.noPhone = noPhone;
-    }
+    private Photo contactPhoto;
 
     // GETTERS
-
     public String getFirstName() {
         return firstName;
     }
@@ -33,8 +30,11 @@ public class Contact {
         return noPhone;
     }
 
-    // SETTERS
+    public Photo getContactPhoto() {
+        return contactPhoto;
+    }
 
+    // SETTERS
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -47,4 +47,24 @@ public class Contact {
         this.noPhone = noPhone;
     }
 
+    public void setContactPhoto(Photo contactPhoto) {
+        this.contactPhoto = contactPhoto;
+    }
+
+    // CONSTRUCTOR
+    public Contact(String firstName, String lastName, String noPhone){
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.noPhone = noPhone;
+    }
+
+    // METHODS
+    @Override
+    public String toString() {
+        return "Contact{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", noPhone='" + noPhone + '\'' +
+                '}';
+    }
 }

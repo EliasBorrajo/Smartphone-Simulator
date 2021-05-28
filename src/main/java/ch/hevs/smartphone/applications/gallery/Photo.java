@@ -9,6 +9,7 @@ public class Photo implements Serializable {
     private static final long serialVersionUID = 8730285243432450765L;
 
     public String path;
+
     public Photo(String path){
         this.path = path;
     }

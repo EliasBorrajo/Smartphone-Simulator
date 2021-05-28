@@ -1,6 +1,6 @@
-package ch.hevs.smartphone.structure.frame;
+package ch.hevs.smartphone.structure.general;
 
-import ch.hevs.smartphone.applications.enums.ScreenSizeEnum;
+import ch.hevs.smartphone.enums.ScreenSizeEnum;
 import ch.hevs.smartphone.structure.layout.ContentLayout;
 import ch.hevs.smartphone.structure.layout.FooterLayout;
 import ch.hevs.smartphone.structure.layout.HeaderLayout;
@@ -40,8 +40,8 @@ public class SmartphoneGUI extends JFrame {
     //*****************************************************************************
     private void buildFrame() {
         setSize(ScreenSizeEnum.WIDTH.getSize(), ScreenSizeEnum.HEIGHT.getSize());
-        //setUndecorated(true);
-        //setShape(new RoundRectangle2D.Double(0, 0, this.getWidth(), this.getHeight(), 30, 30));
+        setUndecorated(true);
+        setShape(new RoundRectangle2D.Double(0, 0, this.getWidth(), this.getHeight(), 30, 30));
 
         add(builPnlScreen());
         isOn = true;
@@ -73,7 +73,7 @@ public class SmartphoneGUI extends JFrame {
 
     private JPanel buildBorderPanel() {
         borderPanel = new JPanel();
-        borderPanel.setBackground(Color.PINK);
+        borderPanel.setBackground(Color.WHITE);
         return  borderPanel;
     }
 

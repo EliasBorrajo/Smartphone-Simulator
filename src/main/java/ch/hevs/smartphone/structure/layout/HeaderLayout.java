@@ -1,7 +1,7 @@
 package ch.hevs.smartphone.structure.layout;
 
 import ch.hevs.smartphone.bases.ButtonIcon;
-import ch.hevs.smartphone.applications.enums.ScreenSizeEnum;
+import ch.hevs.smartphone.enums.ScreenSizeEnum;
 
 import javax.swing.*;
 import java.awt.*;

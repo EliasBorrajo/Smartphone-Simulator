@@ -1,14 +1,13 @@
 package ch.hevs.smartphone.applications.gallery;
 
 import ch.hevs.smartphone.bases.Button;
-import ch.hevs.smartphone.bases.ButtonIcon;
+import ch.hevs.smartphone.utils.Util;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class GalleryGUI extends JPanel {
@@ -30,6 +29,7 @@ public class GalleryGUI extends JPanel {
     // BUTTONS
     private Button btnAddGallery;
     private JButton btnPhoto;
+    private int cptBtn = 0;
 
     //*****************************************************************************
     // C O N S T R U C T E U R
@@ -45,7 +45,6 @@ public class GalleryGUI extends JPanel {
     private JPanel buildpnlContentGallery(){
 
         pnlHomeGallery = new JPanel(new BorderLayout());
-
         pnlNorth = new JPanel();
         lblTitle = new JLabel("Gallery");
         btnAddGallery = new Button("+");
@@ -53,7 +52,6 @@ public class GalleryGUI extends JPanel {
         btnAddGallery.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 String path = null;
                 JFileChooser chooser = new JFileChooser();
                 FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG, GIF & PNG Images", "jpg", "gif", "png");
@@ -66,17 +64,7 @@ public class GalleryGUI extends JPanel {
                     gb.addPhoto(photo);
 
                     gb.save();
-
-                    //int index = path.indexOf();
-                    //path = path.substring(index);
-                    //ImageIcon icon = new ImageIcon(path);
-                    //icon = Util.getScaledImageIcon(icon, 250);
-
-
-                    //this.getButtonPictureChooser().setIcon(icon);
                 }
-
-                //this.getContentManager().getGalleryModel().setPathPictureSelected(path);
             }
         });
 
@@ -106,32 +94,40 @@ public class GalleryGUI extends JPanel {
             JLabel msg = new JLabel("Gallery is empty");
             panelImage.add(msg);
         }else{
-
             for(Photo entity : photos){
 
                 Photo photo = (Photo) entity;
 
                 System.out.println(photo.getPath());
 
-                Icon ic = new ImageIcon(photo.getPath());
-
+                ImageIcon ic = new ImageIcon(photo.getPath());
+                ic = Util.getScaledImageIcon(ic, 100);
                 btnPhoto = new JButton(ic);
-                btnPhoto.setSize(new Dimension(20,20));
-                btnPhoto.setPreferredSize(new Dimension(20,20));
-                btnPhoto.setMinimumSize(new Dimension(20,20));
                 panelImage.add(btnPhoto);
-
             }
+
+/*            for(int i = 0; i < photos.size(); i++){
+
+                System.out.println(photos.get(i).getPath());
+
+                btnPhoto[i] = new JButton();
+
+                ImageIcon ic = new ImageIcon(photos.get(i).getPath());
+                ic = Util.getScaledImageIcon(ic, 150);
+
+                btnPhoto[i].setIcon(ic);
+                panelImage.add(btnPhoto[i]);
+            }*/
         }
         scrollPaneGallery = new JScrollPane(panelImage);
-        scrollPaneGallery.setPreferredSize(new Dimension(260, 460));
-        scrollPaneGallery.setMinimumSize(new Dimension(260, 460));
+        scrollPaneGallery.setPreferredSize(new Dimension(280, 500));
+        scrollPaneGallery.setMinimumSize(new Dimension(280, 500));
         scrollPaneGallery.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPaneGallery.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         return scrollPaneGallery;
     }
 
-    public JButton getBtnPhoto() {
+    public JButton getBtnPhoto(){
         return btnPhoto;
     }
 }
