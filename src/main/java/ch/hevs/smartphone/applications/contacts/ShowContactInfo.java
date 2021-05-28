@@ -27,8 +27,8 @@ public class ShowContactInfo extends JPanel {
     AddressBook addressBook = new AddressBook();
 
     // CONSTRUCTOR
-    public ShowContactInfo(Contact contact) {
-        this.contact = contact;
+    public ShowContactInfo(String name) {
+        this.name = name;
         add(buildpnlShowContactInfo());
     }
 

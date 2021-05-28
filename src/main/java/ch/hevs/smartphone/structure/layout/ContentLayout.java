@@ -90,12 +90,12 @@ public class ContentLayout extends JPanel {
         pnlShowContactInfo = new ShowContactInfo[nbContact];
 
         // Création des arrays nécessaires pour les cards de contacts
-        for (int i=0; i<nbContact; i++) {
-            pnlShowContactInfo[i] = new ShowContactInfo(contactName[i]);
-        }
         for (int j=0; j<nbContact; j++) {
             contactName[j] = contacts.get(j).getFirstName() + " " + contacts.get(j).getLastName();
             System.out.println(contactName[j]);
+        }
+        for (int i=0; i<nbContact; i++) {
+            pnlShowContactInfo[i] = new ShowContactInfo(contactName[i]);
         }
         for (int k=0; k<nbContact; k++) {
             contactNoPhone[k] = contacts.get(k).getNoPhone();
