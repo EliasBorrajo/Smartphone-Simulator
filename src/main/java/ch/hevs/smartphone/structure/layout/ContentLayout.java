@@ -74,7 +74,10 @@ public class ContentLayout extends JPanel {
     private JPanel buildpnlContent(){
         ArrayList<Contact> contacts = this.addressBook.getTabContact();
         nbContact = contacts.size();
+
         contactName = new String[nbContact];
+        contactNoPhone = new String[nbContact];
+
         cardlayout = new CardLayout();
 
         pnlContent = this;
@@ -86,13 +89,16 @@ public class ContentLayout extends JPanel {
         pnlWeather = new WeatherGUI();
         pnlShowContactInfo = new ShowContactInfo[nbContact];
 
+        // Création des arrays nécessaires pour les cards de contacts
+        for (int i=0; i<nbContact; i++) {
+            pnlShowContactInfo[i] = new ShowContactInfo(contactName[i]);
+        }
         for (int j=0; j<nbContact; j++) {
             contactName[j] = contacts.get(j).getFirstName() + " " + contacts.get(j).getLastName();
             System.out.println(contactName[j]);
         }
-
-        for (int i=0; i<nbContact; i++) {
-            pnlShowContactInfo[i] = new ShowContactInfo(contactName[i]);
+        for (int k=0; k<nbContact; k++) {
+            contactNoPhone[k] = contacts.get(k).getNoPhone();
         }
 
         // CONSTUCTION DES IMAGES
@@ -116,7 +122,6 @@ public class ContentLayout extends JPanel {
         pnlHome.add(btnWeather);
         pnlHome.setBackground(Color.GREEN);
 
-
         //Ajouteur les cards au panel conteneur
         this.add("Home",pnlHome);
         this.add("Contact",pnlContact);
@@ -124,10 +129,10 @@ public class ContentLayout extends JPanel {
         this.add("Gallery", pnlGallery);
         this.add("Weather",pnlWeather);
 
-        for (int k=0; k<nbContact; k++) {
-            this.add(contactName[k], pnlShowContactInfo[k]);
+        // Création des cards de contact
+        for (int l=0; l<nbContact; l++) {
+            this.add(contactName[l], pnlShowContactInfo[l]);
         }
-        System.out.println(getComponentCount());
 
         this.refreshPanel("Home");
 
@@ -202,7 +207,7 @@ public class ContentLayout extends JPanel {
                     refreshPanel(contactName[finalI]);
                 }
             });
-        }
+        } // création des listener en fonction du nombre de contacts
 
         this.fLayout.getBtnBack().addActionListener(new ActionListener() {
             @Override

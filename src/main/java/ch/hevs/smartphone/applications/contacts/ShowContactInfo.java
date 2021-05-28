@@ -20,13 +20,15 @@ public class ShowContactInfo extends JPanel {
     // LABEL
     private JLabel lblShowContactInfoTitle;
     private String name = "";
+    private String noPhone = "";
+    private Contact contact;
 
     // OTHER
     AddressBook addressBook = new AddressBook();
 
     // CONSTRUCTOR
-    public ShowContactInfo(String name) {
-        this.name = name;
+    public ShowContactInfo(Contact contact) {
+        this.contact = contact;
         add(buildpnlShowContactInfo());
     }
 
