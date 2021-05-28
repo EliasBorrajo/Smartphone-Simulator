@@ -12,7 +12,7 @@ public class AddressBook {
     public static final String PATH = "saves/contactBook.se";
 
     // GETTERS
-    ArrayList<Contact> getTabContact(){return tabContact;}
+    public ArrayList<Contact> getTabContact(){return tabContact;}
 
     // SETTERS
     public void setTabContact(ArrayList<Contact> tabContact) {

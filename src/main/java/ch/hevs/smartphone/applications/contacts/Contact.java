@@ -19,6 +19,7 @@ public class Contact implements Serializable {
     private String lastName;
     private String noPhone;
     private Photo contactPhoto;
+    private JButton btnContactInfo;
 
     // GETTERS
     public String getFirstName() {
@@ -36,6 +37,10 @@ public class Contact implements Serializable {
     public Photo getContactPhoto() {
         return contactPhoto;
     }
+
+//    public JButton getBtnContactInfo() {
+//        return btnContactInfo;
+//    }
 
     // SETTERS
     public void setFirstName(String firstName) {
@@ -59,15 +64,19 @@ public class Contact implements Serializable {
         this.firstName = firstName;
         this.lastName = lastName;
         this.noPhone = noPhone;
+//        this.btnContactInfo = new JButton(this.firstName + " " + this.lastName);
     }
 
     // METHODS
+
+
     @Override
     public String toString() {
         return "Contact{" +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", noPhone='" + noPhone + '\'' +
+                ", contactPhoto=" + contactPhoto +
                 '}';
     }
 }

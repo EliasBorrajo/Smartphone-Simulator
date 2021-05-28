@@ -1,8 +1,6 @@
 package ch.hevs.smartphone.structure.layout;
 
-import ch.hevs.smartphone.applications.contacts.AddContact;
-import ch.hevs.smartphone.applications.contacts.AddressBook;
-import ch.hevs.smartphone.applications.contacts.ContactsGUI;
+import ch.hevs.smartphone.applications.contacts.*;
 import ch.hevs.smartphone.applications.gallery.GalleryBook;
 import ch.hevs.smartphone.applications.gallery.Photo;
 import ch.hevs.smartphone.bases.MyIcon;
@@ -32,6 +30,7 @@ public class ContentLayout extends JPanel {
     private AddContact pnlAddContact;
     private GalleryGUI pnlGallery;
     private WeatherGUI pnlWeather;
+    private ShowContactInfo[] pnlShowContactInfo;
 
     // BUTTON
     private MyIcon btnContact;
@@ -47,8 +46,17 @@ public class ContentLayout extends JPanel {
 
     private int actionsCount = -1;
     private ArrayList<String> panelsOpen = new ArrayList<String>();
+    private AddressBook addressBook = new AddressBook();
     private String currentPanel = "Home";
 
+    private int nbContact;
+    private String[] contactName; // Nom des contacts pour les nouvelles cards
+    private String[] contactNoPhone;
+
+    // GETTERS
+    public int getNbContact() {
+        return nbContact;
+    }
 
     //*****************************************************************************
     // C O N S T R U C T E U R
@@ -64,6 +72,9 @@ public class ContentLayout extends JPanel {
     // M E T H O D E S
     //*****************************************************************************
     private JPanel buildpnlContent(){
+        ArrayList<Contact> contacts = this.addressBook.getTabContact();
+        nbContact = contacts.size();
+        contactName = new String[nbContact];
         cardlayout = new CardLayout();
 
         pnlContent = this;
@@ -73,7 +84,16 @@ public class ContentLayout extends JPanel {
         pnlAddContact = new AddContact();
         pnlGallery = new GalleryGUI();
         pnlWeather = new WeatherGUI();
+        pnlShowContactInfo = new ShowContactInfo[nbContact];
 
+        for (int j=0; j<nbContact; j++) {
+            contactName[j] = contacts.get(j).getFirstName() + " " + contacts.get(j).getLastName();
+            System.out.println(contactName[j]);
+        }
+
+        for (int i=0; i<nbContact; i++) {
+            pnlShowContactInfo[i] = new ShowContactInfo(contactName[i]);
+        }
 
         // CONSTUCTION DES IMAGES
         URL imageContact = ContentLayout.class.getClassLoader().getResource("ContentIcon/contactIcon2.png");
@@ -96,12 +116,18 @@ public class ContentLayout extends JPanel {
         pnlHome.add(btnWeather);
         pnlHome.setBackground(Color.GREEN);
 
+
         //Ajouteur les cards au panel conteneur
         this.add("Home",pnlHome);
         this.add("Contact",pnlContact);
         this.add("AddContact", pnlAddContact);
         this.add("Gallery", pnlGallery);
         this.add("Weather",pnlWeather);
+
+        for (int k=0; k<nbContact; k++) {
+            this.add(contactName[k], pnlShowContactInfo[k]);
+        }
+        System.out.println(getComponentCount());
 
         this.refreshPanel("Home");
 
@@ -167,7 +193,17 @@ public class ContentLayout extends JPanel {
                 refreshPanel("AddContact");
             }
         });
-        
+
+        for (int i=0; i<nbContact; i++) {
+            int finalI = i;
+            pnlContact.getBtnShowContact()[i].addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    refreshPanel(contactName[finalI]);
+                }
+            });
+        }
+
         this.fLayout.getBtnBack().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -199,7 +235,7 @@ public class ContentLayout extends JPanel {
         this.currentPanel = currentPanel;
         cardlayout.show(this,this.currentPanel);
         fLayout.buildMenu(this.currentPanel);
-        // HISTRORIQUE des panels affichés pour le bouton retour
+        // HISTORIQUE des panels affichés pour le bouton retour
         this.actionsCount++;
         this.panelsOpen.add(this.currentPanel);
     }

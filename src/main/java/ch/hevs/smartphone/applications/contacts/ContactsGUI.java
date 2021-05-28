@@ -21,24 +21,31 @@ public class ContactsGUI extends JPanel {
 
     // BUTTONS
     private MyButton btnAddContact;
-    private JButton btnShowContact;
+    private JButton[] btnShowContacts;
 
 
     // OTHER OBJECTS
     private AddressBook addressBook;
+    String contactName = "";
 
     // GETTERS
     public MyButton getBtnAddContact(){
         return btnAddContact;
     }
 
+    public JButton[] getBtnShowContact() {
+        return btnShowContacts;
+    }
+
+    public String getContactName() {
+        return contactName;
+    }
+
     // CONSTRUCTOR
     public ContactsGUI() {
         this.addressBook = new AddressBook();
         add(buildpnlContentContact());
-
     }
-
 
     // METHODS
     private JPanel buildpnlContentContact(){
@@ -61,25 +68,31 @@ public class ContactsGUI extends JPanel {
 
     private JScrollPane buildScrollPaneContact() {
         ArrayList<Contact> contacts = this.addressBook.getTabContact();
-        String contactName = "";
+        btnShowContacts = new JButton[contacts.size()];
 
         pnlJscrollContact = new JPanel(new GridLayout(0,1,5,5));
 
         if (contacts.size() == 0) {
             JLabel emptyContactMessage = new JLabel("No contact to show");
             pnlJscrollContact.add(emptyContactMessage);
-
         } else {
-            for (Contact entity:contacts) {
+            for (int i=0; i<contacts.size(); i++) {
+                contactName = contacts.get(i).getFirstName() + " " + contacts.get(i).getLastName();
+
+                btnShowContacts[i] = new JButton(contactName);
+
+                pnlJscrollContact.add(btnShowContacts[i]);
+            }
+            /*for (Contact entity:contacts) {
                 Contact contact = (Contact) entity;
 
-                contactName = contact.getFirstName() + contact.getLastName();
+//                contactName = contact.getFirstName() + " " + contact.getLastName();
 
-                btnShowContact = new JButton(contactName);
+                btnShowContact = contact.getBtnContactInfo();
 
                 pnlJscrollContact.add(btnShowContact);
 
-            }
+            }*/
         }
         scrollPaneContact = new JScrollPane(pnlJscrollContact);
 
