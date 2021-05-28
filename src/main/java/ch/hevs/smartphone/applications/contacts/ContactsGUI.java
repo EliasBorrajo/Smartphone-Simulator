@@ -57,11 +57,10 @@ public class ContactsGUI extends JPanel {
         scrollPaneContact = new JScrollPane();
         btnAddContact = new MyButton("+");
 
-        pnlCentre.add(buildScrollPaneContact());
         pnlNorth.add(lblContactTitle);
         pnlNorth.add(btnAddContact);
         pnlHomeContact.add(pnlNorth, BorderLayout.NORTH);
-        pnlHomeContact.add(pnlCentre, BorderLayout.CENTER);
+        pnlHomeContact.add(buildScrollPaneContact(), BorderLayout.CENTER);
 
         return pnlHomeContact;
     }
@@ -95,6 +94,10 @@ public class ContactsGUI extends JPanel {
             }*/
         }
         scrollPaneContact = new JScrollPane(pnlJscrollContact);
+        scrollPaneContact.setPreferredSize(new Dimension(280, 500));
+        scrollPaneContact.setMinimumSize(new Dimension(280, 500));
+        scrollPaneContact.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPaneContact.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 
         return scrollPaneContact;
     }

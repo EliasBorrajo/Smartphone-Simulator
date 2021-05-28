@@ -69,11 +69,8 @@ public class AddContact extends JPanel {
         pnlSouth.add(btnSave);
         this.add(pnlSouth, BorderLayout.SOUTH);
 
-        btnSave.setActionCommand("action1");
-        btnSave.setActionCommand("action2");
-        btnSave.setActionCommand("action3");
+
         btnSave.addActionListener(new ListenerSaveAddContact(tfFirstName, tfName, tfNoPhone));
-//        contentLayout.getfLayout().getBtnBack().addActionListener(new ListenerBackAddContact());
 
         return this;
     }

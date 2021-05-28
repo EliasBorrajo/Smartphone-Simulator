@@ -15,7 +15,7 @@ public class ShowContactInfo extends JPanel {
     private JPanel pnlCentre;
     private JPanel pnlSouth;
 
-    private JPanel pnlNoPhone;
+    private JLabel pnlNoPhone;
 
     // LABEL
     private JLabel lblShowContactInfoTitle;
@@ -27,8 +27,9 @@ public class ShowContactInfo extends JPanel {
     AddressBook addressBook = new AddressBook();
 
     // CONSTRUCTOR
-    public ShowContactInfo(String name) {
+    public ShowContactInfo(String name, String noPhone) {
         this.name = name;
+        this.noPhone = noPhone;
         add(buildpnlShowContactInfo());
     }
 
@@ -42,12 +43,14 @@ public class ShowContactInfo extends JPanel {
         pnlNorth = new JPanel();
         pnlCentre = new JPanel();
 
-        pnlNoPhone = new JPanel();
-        lblShowContactInfoTitle = new JLabel(name);
+        pnlNoPhone = new JLabel(noPhone);
+        lblShowContactInfoTitle = new JLabel(this.name);
 
         pnlNorth.add(lblShowContactInfoTitle);
+        pnlCentre.add(pnlNoPhone);
 
-        pnlMainWindow.add(pnlNorth);
+        pnlMainWindow.add(pnlNorth, BorderLayout.NORTH);
+        pnlMainWindow.add(pnlCentre, BorderLayout.CENTER);
 
         return pnlMainWindow;
 

@@ -90,15 +90,11 @@ public class ContentLayout extends JPanel {
         pnlShowContactInfo = new ShowContactInfo[nbContact];
 
         // Création des arrays nécessaires pour les cards de contacts
-        for (int j=0; j<nbContact; j++) {
-            contactName[j] = contacts.get(j).getFirstName() + " " + contacts.get(j).getLastName();
-            System.out.println(contactName[j]);
-        }
+
         for (int i=0; i<nbContact; i++) {
-            pnlShowContactInfo[i] = new ShowContactInfo(contactName[i]);
-        }
-        for (int k=0; k<nbContact; k++) {
-            contactNoPhone[k] = contacts.get(k).getNoPhone();
+            contactName[i] = contacts.get(i).getFirstName() + " " + contacts.get(i).getLastName();
+            contactNoPhone[i] = contacts.get(i).getNoPhone();
+            pnlShowContactInfo[i] = new ShowContactInfo(contactName[i], contactNoPhone[i]);
         }
 
         // CONSTUCTION DES IMAGES
@@ -128,11 +124,9 @@ public class ContentLayout extends JPanel {
         this.add("AddContact", pnlAddContact);
         this.add("Gallery", pnlGallery);
         this.add("Weather",pnlWeather);
-
-        // Création des cards de contact
         for (int l=0; l<nbContact; l++) {
             this.add(contactName[l], pnlShowContactInfo[l]);
-        }
+        } // Création des cards de contact
 
         this.refreshPanel("Home");
 
@@ -207,7 +201,9 @@ public class ContentLayout extends JPanel {
                     refreshPanel(contactName[finalI]);
                 }
             });
-        } // création des listener en fonction du nombre de contacts
+        } // création des listener en fonction du nombre de contacts*/
+
+
 
         this.fLayout.getBtnBack().addActionListener(new ActionListener() {
             @Override
