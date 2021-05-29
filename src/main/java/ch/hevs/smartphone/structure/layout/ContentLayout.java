@@ -61,7 +61,8 @@ public class ContentLayout extends JPanel {
     //*****************************************************************************
     // M E T H O D E S
     //*****************************************************************************
-    private JPanel buildpnlContent(){
+    private JPanel buildpnlContent()
+    {
         cardlayout = new CardLayout();
 
         pnlContent = this;
@@ -125,7 +126,7 @@ public class ContentLayout extends JPanel {
                 refreshPanel("Weather");
             }
         });
-
+/*
         pnlGallery.getBtnPhoto().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -134,7 +135,7 @@ public class ContentLayout extends JPanel {
                 refreshPanel("PhotoView");
             }
         });
-
+*/
         pnlContact.getBtnAddContact().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
