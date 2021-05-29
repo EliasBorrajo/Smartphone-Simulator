@@ -24,6 +24,7 @@ public class AddressBook {
     // CONSTRUCTOR
     public AddressBook() {
         this.get();
+        sortDescending(tabContact);
     }
 
     // METHODS

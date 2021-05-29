@@ -25,8 +25,7 @@ public class AddContact extends JPanel {
 
     // OTHER OBJECTS
     AddressBook ad = new AddressBook();
-
-
+    ContactsGUI cGUI = new ContactsGUI();
 
     // TODO fonction pour ajouter une image de la galerie
 
@@ -69,7 +68,6 @@ public class AddContact extends JPanel {
         pnlSouth.add(btnSave);
         this.add(pnlSouth, BorderLayout.SOUTH);
 
-
         btnSave.addActionListener(new ListenerSaveAddContact(tfFirstName, tfName, tfNoPhone));
 
         return this;
@@ -109,8 +107,9 @@ public class AddContact extends JPanel {
 
             ad.addContact(c);
             ad.sortDescending(ad.getTabContact()); // trie l'Arraylist contacts par ordre alphabétique
+            System.out.println("AddContact1");
             ad.save();
-
+            System.out.println("AddContact2");
 
             inputFN.setText("");
             inputN.setText("");

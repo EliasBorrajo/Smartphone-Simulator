@@ -61,7 +61,7 @@ public class ContactsGUI extends JPanel {
     }
 
     // METHODS
-    private JPanel buildpnlContentContact(){
+    public JPanel buildpnlContentContact(){
         pnlHomeContact = new JPanel(new BorderLayout());
 
         pnlNorth = new JPanel();
@@ -78,7 +78,7 @@ public class ContactsGUI extends JPanel {
         return pnlHomeContact;
     }
 
-    private JScrollPane buildScrollPaneContact() {
+    public JScrollPane buildScrollPaneContact() {
         ArrayList<Contact> contacts = this.addressBook.getTabContact();
         btnShowContacts = new JButton[contacts.size()];
 

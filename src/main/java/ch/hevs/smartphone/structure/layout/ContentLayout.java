@@ -208,8 +208,9 @@ public class ContentLayout extends JPanel {
         pnlAddContact.getBtnSave().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                removeAll();
-                buildpnlContent();
+                System.out.println("ContentLayout");
+                pnlContact.removeAll();
+                pnlContact.add(pnlContact.buildpnlContentContact());
                 cardlayout.show(pnlContent,"Contact");
             }
         });
