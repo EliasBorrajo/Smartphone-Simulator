@@ -37,6 +37,19 @@ public class ContactsGUI extends JPanel {
         return btnShowContacts;
     }
 
+    public JPanel getPnlJscrollContact() {
+        return pnlJscrollContact;
+    }
+
+    public AddressBook getAddressBook() {
+        return addressBook;
+    }
+
+    // SETTER
+    public void setPnlJscrollContact(JPanel pnlJscrollContact) {
+        this.pnlJscrollContact = pnlJscrollContact;
+    }
+
     public String getContactName() {
         return contactName;
     }
@@ -82,16 +95,6 @@ public class ContactsGUI extends JPanel {
 
                 pnlJscrollContact.add(btnShowContacts[i]);
             }
-            /*for (Contact entity:contacts) {
-                Contact contact = (Contact) entity;
-
-//                contactName = contact.getFirstName() + " " + contact.getLastName();
-
-                btnShowContact = contact.getBtnContactInfo();
-
-                pnlJscrollContact.add(btnShowContact);
-
-            }*/
         }
         scrollPaneContact = new JScrollPane(pnlJscrollContact);
         scrollPaneContact.setPreferredSize(new Dimension(280, 500));

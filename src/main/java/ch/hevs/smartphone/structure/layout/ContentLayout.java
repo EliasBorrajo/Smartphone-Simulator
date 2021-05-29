@@ -16,6 +16,7 @@ import java.awt.event.ActionListener;
 import java.net.URL;
 import java.util.ArrayList;
 
+
 public class ContentLayout extends JPanel {
     //*****************************************************************************
     // A T T R I B U T S
@@ -73,6 +74,7 @@ public class ContentLayout extends JPanel {
     //*****************************************************************************
     private JPanel buildpnlContent(){
         ArrayList<Contact> contacts = this.addressBook.getTabContact();
+        addressBook.sortDescending(contacts);
         nbContact = contacts.size();
 
         contactName = new String[nbContact];
@@ -203,15 +205,24 @@ public class ContentLayout extends JPanel {
             });
         } // création des listener en fonction du nombre de contacts*/
 
-
+        pnlAddContact.getBtnSave().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                removeAll();
+                buildpnlContent();
+                cardlayout.show(pnlContent,"Contact");
+            }
+        });
 
         this.fLayout.getBtnBack().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(actionsCount > 0) {
+                    String openPanel = "";
                     panelsOpen.remove(actionsCount);
                     actionsCount--;
                     cardlayout.show(pnlContent, panelsOpen.get(actionsCount));
+//                    refreshPanel(panelsOpen.get(actionsCount));
                     fLayout.buildMenu("Home");
                 }else{
                     refreshPanel("Home");

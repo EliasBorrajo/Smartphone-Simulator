@@ -90,6 +90,7 @@ public class AddContact extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+
             Contact c = new Contact("","","");
 
             String text1 = "";
@@ -107,7 +108,13 @@ public class AddContact extends JPanel {
             System.out.println(c);
 
             ad.addContact(c);
+            ad.sortDescending(ad.getTabContact()); // trie l'Arraylist contacts par ordre alphabétique
             ad.save();
+
+
+            inputFN.setText("");
+            inputN.setText("");
+            inputNP.setText("");
 
         }
     }
