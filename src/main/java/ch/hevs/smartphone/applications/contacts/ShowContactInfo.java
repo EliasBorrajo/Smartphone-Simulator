@@ -1,5 +1,7 @@
 package ch.hevs.smartphone.applications.contacts;
 
+import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
+import ch.hevs.smartphone.applications.contacts.serialization.JSONStorage;
 import ch.hevs.smartphone.bases.MyButton;
 import ch.hevs.smartphone.structure.layout.ContentLayout;
 import ch.hevs.smartphone.structure.layout.FooterLayout;
@@ -28,12 +30,12 @@ public class ShowContactInfo extends JPanel {
     JButton btnDeleteContact;
 
     // OTHER
-    AddressBook addressBook = new AddressBook();
+    JSONStorage addressBook = new JSONStorage();
     private String name = "";
     private String noPhone = "";
 
     // CONSTRUCTOR
-    public ShowContactInfo(String name, String noPhone) {
+    public ShowContactInfo(String name, String noPhone) throws IOException, BusinessException {
         this.name = name;
         this.noPhone = noPhone;
         add(buildpnlShowContactInfo());
@@ -41,7 +43,7 @@ public class ShowContactInfo extends JPanel {
 
     // METHODS
     private JPanel buildpnlShowContactInfo() {
-        ArrayList<Contact> contacts = this.addressBook.getTabContact();
+        ArrayList<Contact> contacts = this.addressBook.getContacts();
 
         pnlMainWindow = new JPanel(new BorderLayout());
         pnlMainWindow.setBackground(Color.red);
@@ -63,9 +65,9 @@ public class ShowContactInfo extends JPanel {
         btnDeleteContact.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                addressBook.get();
+                /*addressBook.get();
                 addressBook.getTabContact().remove(this);
-                addressBook.save();
+                addressBook.save();*/
             }
         });
 

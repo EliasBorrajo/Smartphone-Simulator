@@ -59,7 +59,7 @@ public class Contact implements Serializable {
         this.contactPhoto = contactPhoto;
     }
 
-    // CONSTRUCTOR
+    // CONSTRUCTORS
     public Contact(String firstName, String lastName, String noPhone){
         this.firstName = firstName;
         this.lastName = lastName;
@@ -67,9 +67,11 @@ public class Contact implements Serializable {
 //        this.btnContactInfo = new JButton(this.firstName + " " + this.lastName);
     }
 
+    public Contact() {
+
+    }
+
     // METHODS
-
-
     @Override
     public String toString() {
         return "Contact{" +

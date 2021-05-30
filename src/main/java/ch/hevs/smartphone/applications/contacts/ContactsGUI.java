@@ -1,9 +1,12 @@
 package ch.hevs.smartphone.applications.contacts;
 
+import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
+import ch.hevs.smartphone.applications.contacts.serialization.JSONStorage;
 import ch.hevs.smartphone.bases.MyButton;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ContactsGUI extends JPanel {
@@ -25,7 +28,7 @@ public class ContactsGUI extends JPanel {
 
 
     // OTHER OBJECTS
-    private AddressBook addressBook;
+    private JSONStorage addressBook;
     String contactName = "";
 
     // GETTERS
@@ -41,7 +44,7 @@ public class ContactsGUI extends JPanel {
         return pnlJscrollContact;
     }
 
-    public AddressBook getAddressBook() {
+    public JSONStorage getAddressBook() {
         return addressBook;
     }
 
@@ -55,8 +58,8 @@ public class ContactsGUI extends JPanel {
     }
 
     // CONSTRUCTOR
-    public ContactsGUI() {
-        this.addressBook = new AddressBook();
+    public ContactsGUI() throws IOException, BusinessException {
+        this.addressBook = new JSONStorage();
         add(buildpnlContentContact());
     }
 
@@ -79,7 +82,7 @@ public class ContactsGUI extends JPanel {
     }
 
     public JScrollPane buildScrollPaneContact() {
-        ArrayList<Contact> contacts = this.addressBook.getTabContact();
+        ArrayList<Contact> contacts = this.addressBook.getContacts();
         btnShowContacts = new JButton[contacts.size()];
 
         pnlJscrollContact = new JPanel(new GridLayout(0,1,5,5));

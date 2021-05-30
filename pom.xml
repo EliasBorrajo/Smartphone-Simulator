@@ -7,18 +7,29 @@
     <groupId>org.example</groupId>
     <artifactId>Smartphone</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <dependencies>
+        <!-- Jackson -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.12.3</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.12.3</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>2.12.3</version>
+        </dependency>
+    </dependencies>
 
     <properties>
         <maven.compiler.source>15</maven.compiler.source>
         <maven.compiler.target>15</maven.compiler.target>
     </properties>
 
-    <!--Récupere les librairies pour les compiler le projet
-
-        1) Appel d'une librairie externe API pour le HTTP
-     -->
-    <dependencies>
-
-    </dependencies>
 
 </project>

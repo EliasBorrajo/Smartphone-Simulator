@@ -1,6 +1,8 @@
 package ch.hevs.smartphone.structure.layout;
 
 import ch.hevs.smartphone.applications.contacts.*;
+import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
+import ch.hevs.smartphone.applications.contacts.serialization.JSONStorage;
 import ch.hevs.smartphone.applications.gallery.GalleryBook;
 import ch.hevs.smartphone.applications.gallery.Photo;
 import ch.hevs.smartphone.bases.MyIcon;
@@ -13,6 +15,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -47,7 +50,7 @@ public class ContentLayout extends JPanel {
 
     private int actionsCount = -1;
     private ArrayList<String> panelsOpen = new ArrayList<String>();
-    private AddressBook addressBook = new AddressBook();
+    private JSONStorage addressBook = new JSONStorage();
     private String currentPanel = "Home";
 
     private int nbContact;
@@ -62,7 +65,7 @@ public class ContentLayout extends JPanel {
     //*****************************************************************************
     // C O N S T R U C T E U R
     //*****************************************************************************
-    public ContentLayout(FooterLayout fLayout){
+    public ContentLayout(FooterLayout fLayout) throws IOException, BusinessException {
         this.fLayout = fLayout;
         setPreferredSize(new Dimension(ScreenSizeEnum.CONTENT_PANEL_WIDTH.getSize(), ScreenSizeEnum.CONTENT_PANEL_HEIGHT.getSize()));
         setMinimumSize(new Dimension(ScreenSizeEnum.CONTENT_PANEL_WIDTH.getSize(), ScreenSizeEnum.CONTENT_PANEL_HEIGHT.getSize()));
@@ -72,8 +75,8 @@ public class ContentLayout extends JPanel {
     //*****************************************************************************
     // M E T H O D E S
     //*****************************************************************************
-    private JPanel buildpnlContent(){
-        ArrayList<Contact> contacts = this.addressBook.getTabContact();
+    private JPanel buildpnlContent() throws IOException, BusinessException {
+        ArrayList<Contact> contacts = this.addressBook.getContacts();
         addressBook.sortDescending(contacts);
         nbContact = contacts.size();
 
