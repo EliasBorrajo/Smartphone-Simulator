@@ -65,7 +65,7 @@ public class HeaderLayout extends JPanel {
         lblDate.setText(dtf.format(date));
         return lblDate;
     }
-    //@TODO: revoir code soit classe soit réactualisation
+    // @TODO EFFACER L'aFFICHAGE DES SECONDES
     private JLabel buildLabelTime(){
         lblTime = new JLabel();
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
