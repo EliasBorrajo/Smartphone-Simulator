@@ -1,4 +1,4 @@
-package ch.hevs.smartphone.bases;
+package ch.hevs.smartphone.parameters.button;
 
 import javax.swing.*;
 

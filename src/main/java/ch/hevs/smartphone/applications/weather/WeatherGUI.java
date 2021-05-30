@@ -1,6 +1,6 @@
 package ch.hevs.smartphone.applications.weather;
 
-import ch.hevs.smartphone.enums.ScreenSizeEnum;
+import ch.hevs.smartphone.parameters.ScreenSizeEnum;
 
 import javax.swing.*;
 import java.awt.*;

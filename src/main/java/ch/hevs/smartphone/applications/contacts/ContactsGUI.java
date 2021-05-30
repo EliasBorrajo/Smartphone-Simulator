@@ -1,12 +1,13 @@
 package ch.hevs.smartphone.applications.contacts;
 
-import ch.hevs.smartphone.bases.Button;
+import ch.hevs.smartphone.parameters.button.Button;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class ContactsGUI extends JPanel {
+public class ContactsGUI extends JPanel
+{
     // PANEL
     private JPanel pnlHomeContact;
     private JPanel pnlNorth;
@@ -21,27 +22,55 @@ public class ContactsGUI extends JPanel {
 
     // BUTTONS
     private Button btnAddContact;
-    private JButton btnShowContact;
+    private JButton[] btnShowContacts;
 
 
     // OTHER OBJECTS
     private AddressBook addressBook;
+    String contactName = "";
 
     // GETTERS
-    public Button getBtnAddContact(){
+    public Button getBtnAddContact()
+    {
         return btnAddContact;
     }
 
-    // CONSTRUCTOR
-    public ContactsGUI() {
-        this.addressBook = new AddressBook();
-        add(buildpnlContentContact());
-
+    public JButton[] getBtnShowContact()
+    {
+        return btnShowContacts;
     }
 
+    public JPanel getPnlJscrollContact()
+    {
+        return pnlJscrollContact;
+    }
+
+    public AddressBook getAddressBook()
+    {
+        return addressBook;
+    }
+
+    // SETTER
+    public void setPnlJscrollContact(JPanel pnlJscrollContact)
+    {
+        this.pnlJscrollContact = pnlJscrollContact;
+    }
+
+    public String getContactName()
+    {
+        return contactName;
+    }
+
+    // CONSTRUCTOR
+    public ContactsGUI()
+    {
+        this.addressBook = new AddressBook();
+        add(buildpnlContentContact());
+    }
 
     // METHODS
-    private JPanel buildpnlContentContact(){
+    public JPanel buildpnlContentContact()
+    {
         pnlHomeContact = new JPanel(new BorderLayout());
 
         pnlNorth = new JPanel();
@@ -50,39 +79,47 @@ public class ContactsGUI extends JPanel {
         scrollPaneContact = new JScrollPane();
         btnAddContact = new Button("+");
 
-        pnlCentre.add(buildScrollPaneContact());
         pnlNorth.add(lblContactTitle);
         pnlNorth.add(btnAddContact);
+        System.out.println("MEthode Build 1");
         pnlHomeContact.add(pnlNorth, BorderLayout.NORTH);
-        pnlHomeContact.add(pnlCentre, BorderLayout.CENTER);
+        System.out.println("MEthode Build 2");
+
+        pnlHomeContact.add(buildScrollPaneContact(), BorderLayout.CENTER);
 
         return pnlHomeContact;
     }
 
-    private JScrollPane buildScrollPaneContact() {
+    public JScrollPane buildScrollPaneContact()
+    {
         ArrayList<Contact> contacts = this.addressBook.getTabContact();
-        String contactName = "";
+        btnShowContacts = new JButton[contacts.size()];
 
-        pnlJscrollContact = new JPanel(new GridLayout(0,1,5,5));
+        pnlJscrollContact = new JPanel(new GridLayout(0, 1, 5, 5));
 
-        if (contacts.size() == 0) {
+        if (contacts.size() == 0)
+        {
             JLabel emptyContactMessage = new JLabel("No contact to show");
             pnlJscrollContact.add(emptyContactMessage);
+        } else
+        {
+            for (int i = 0; i < contacts.size(); i++)
+            {
+                contactName = contacts.get(i).getFirstName() + " " + contacts.get(i).getLastName();
 
-        } else {
-            for (Contact entity:contacts) {
-                Contact contact = (Contact) entity;
+                btnShowContacts[i] = new JButton(contactName);
 
-                contactName = contact.getFirstName() + contact.getLastName();
-
-                btnShowContact = new JButton(contactName);
-
-                pnlJscrollContact.add(btnShowContact);
-
+                pnlJscrollContact.add(btnShowContacts[i]);
             }
         }
         scrollPaneContact = new JScrollPane(pnlJscrollContact);
+        scrollPaneContact.setPreferredSize(new Dimension(280, 500));
+        scrollPaneContact.setMinimumSize(new Dimension(280, 500));
+        scrollPaneContact.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPaneContact.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 
         return scrollPaneContact;
     }
+
+
 }

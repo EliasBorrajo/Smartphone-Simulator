@@ -5,10 +5,13 @@ import ch.hevs.smartphone.applications.gallery.Photo;
 
 import javax.swing.*;
 import java.io.Serial;
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class Contact {
+public class Contact implements Serializable
+{
+
     @Serial
     private static final long serialVersionUID = -7259141374952645688L;
 
@@ -16,6 +19,7 @@ public class Contact {
     private String lastName;
     private String noPhone;
     private Photo contactPhoto;
+    private JButton btnContactInfo;
 
     // GETTERS
     public String getFirstName() {
@@ -33,6 +37,10 @@ public class Contact {
     public Photo getContactPhoto() {
         return contactPhoto;
     }
+
+//    public JButton getBtnContactInfo() {
+//        return btnContactInfo;
+//    }
 
     // SETTERS
     public void setFirstName(String firstName) {
@@ -56,15 +64,19 @@ public class Contact {
         this.firstName = firstName;
         this.lastName = lastName;
         this.noPhone = noPhone;
+//        this.btnContactInfo = new JButton(this.firstName + " " + this.lastName);
     }
 
     // METHODS
+
+
     @Override
     public String toString() {
         return "Contact{" +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", noPhone='" + noPhone + '\'' +
+                ", contactPhoto=" + contactPhoto +
                 '}';
     }
 }

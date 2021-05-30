@@ -1,4 +1,4 @@
-package ch.hevs.smartphone.enums;
+package ch.hevs.smartphone.parameters;
 
 public enum ScreenSizeEnum {
     // WIDTH = largeur

@@ -2,17 +2,19 @@ package ch.hevs.smartphone.applications.contacts;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class AddressBook {
+
     // ATTRIBUTS
     // ARRAY LIST
     private ArrayList<Contact> tabContact = new ArrayList<>();
-
     //Save pour serialiser et deserializer
     public static final String PATH = "saves/contactBook.se";
 
     // GETTERS
-    ArrayList<Contact> getTabContact(){return tabContact;}
+    public ArrayList<Contact> getTabContact(){return tabContact;}
 
     // SETTERS
     public void setTabContact(ArrayList<Contact> tabContact) {
@@ -22,6 +24,7 @@ public class AddressBook {
     // CONSTRUCTOR
     public AddressBook() {
         this.get();
+        sortDescending(tabContact);
     }
 
     // METHODS
@@ -45,7 +48,6 @@ public class AddressBook {
             // TODO Auto-generated catch block
             e1.printStackTrace();
         }
-
     }
 
     /**
@@ -72,5 +74,23 @@ public class AddressBook {
             e.printStackTrace();
         }
     }
-}
 
+    protected void delete() throws IOException {
+        new FileOutputStream(PATH).close();
+    }
+
+    /**
+     * Trie un array d'objet Contacts par ordre alphabétique en fonction du prénom
+     * @param contacts
+     */
+    public void sortDescending(ArrayList<Contact> contacts) {
+        Collections.sort(contacts, Comparator.comparing(Contact::getFirstName));
+    }
+
+    @Override
+    public String toString() {
+        return "AddressBook{" +
+                "tabContact=" + tabContact +
+                '}';
+    }
+}

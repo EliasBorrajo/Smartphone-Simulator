@@ -1,7 +1,7 @@
 package ch.hevs.smartphone.applications.gallery;
 
-import ch.hevs.smartphone.bases.Button;
-import ch.hevs.smartphone.utils.Util;
+import ch.hevs.smartphone.parameters.button.Button;
+import ch.hevs.smartphone.parameters.utils.Util;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;

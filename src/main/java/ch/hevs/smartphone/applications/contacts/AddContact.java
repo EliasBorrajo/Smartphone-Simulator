@@ -5,7 +5,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class AddContact extends JPanel {
+public class AddContact extends JPanel
+{
 
     // PANEL
     private JPanel pnlNorth = new JPanel();
@@ -24,7 +25,8 @@ public class AddContact extends JPanel {
     private JTextField tfNoPhone = new JTextField("NP", 50);
 
     // OTHER OBJECTS
-    AddressBook ad = new AddressBook();
+    protected AddressBook ad = new AddressBook();
+    protected ContactsGUI cGUI = new ContactsGUI();
 
     // TODO fonction pour ajouter une image de la galerie
 
@@ -67,49 +69,27 @@ public class AddContact extends JPanel {
         pnlSouth.add(btnSave);
         this.add(pnlSouth, BorderLayout.SOUTH);
 
-        btnSave.setActionCommand("action1");
-        btnSave.setActionCommand("action2");
-        btnSave.setActionCommand("action3");
-        btnSave.addActionListener(new ListenerSaveAddContact(tfFirstName, tfName, tfNoPhone));
-//        contentLayout.getfLayout().getBtnBack().addActionListener(new ListenerBackAddContact());
 
         return this;
     }
 
-    // INNER CLASS
-    class ListenerSaveAddContact implements ActionListener {
 
-        JTextField inputFN;
-        JTextField inputN;
-        JTextField inputNP;
+    //*****************************************************************************
+    // G E T T E R S
+    //*****************************************************************************
+    public JTextField getTfName()
+    {
+        return tfName;
+    }
 
-        public ListenerSaveAddContact(JTextField firstName, JTextField name, JTextField noPhone) {
-            inputFN = firstName;
-            inputN = name;
-            inputNP = noPhone;
-        }
+    public JTextField getTfFirstName()
+    {
+        return tfFirstName;
+    }
 
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            Contact c = new Contact("","","");
-
-            String text1 = "";
-            text1 = inputFN.getText();
-            c.setFirstName(text1);
-
-            String text2 = "";
-            text2 = inputN.getText();
-            c.setLastName(text2);
-
-            String text3 = "";
-            text3 = inputNP.getText();
-            c.setNoPhone(text3);
-
-            System.out.println(c);
-
-            ad.addContact(c);
-            ad.save();
-
-        }
+    public JTextField getTfNoPhone()
+    {
+        return tfNoPhone;
     }
 }
+

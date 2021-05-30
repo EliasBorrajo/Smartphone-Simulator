@@ -1,9 +1,10 @@
-package ch.hevs.smartphone.structure.general;
+package ch.hevs.smartphone.structure;
 
-import ch.hevs.smartphone.enums.ScreenSizeEnum;
+import ch.hevs.smartphone.parameters.ScreenSizeEnum;
 import ch.hevs.smartphone.structure.layout.ContentLayout;
 import ch.hevs.smartphone.structure.layout.FooterLayout;
 import ch.hevs.smartphone.structure.layout.HeaderLayout;
+import ch.hevs.smartphone.structure.listeners.ContentListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +12,8 @@ import java.awt.geom.RoundRectangle2D;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class SmartphoneGUI extends JFrame {
+public class SmartphoneGUI extends JFrame
+{
     //*****************************************************************************
     // A T T R I B U T S
     //*****************************************************************************
@@ -20,25 +22,31 @@ public class SmartphoneGUI extends JFrame {
     private JPanel pnlScreen;
 
     // LAYOUT
-    FooterLayout fLayout;
-    HeaderLayout hLayout;
+    protected FooterLayout footerLayout;
+    protected HeaderLayout headerLayout;
+    protected ContentLayout contentLayout;
 
     // VARIABLES
     private boolean isOn;
     private java.util.Timer timer;
+    private ContentListener myListener;
 
     //*****************************************************************************
     // C O N S T R U C T E U R
     //*****************************************************************************
-    public SmartphoneGUI() {
+    public SmartphoneGUI()
+    {
         buildFrame();
+       // setListeners();
         setTimerUpdate();
     }
+
 
     //*****************************************************************************
     // M E T H O D E S
     //*****************************************************************************
-    private void buildFrame() {
+    private void buildFrame()
+    {
         setSize(ScreenSizeEnum.WIDTH.getSize(), ScreenSizeEnum.HEIGHT.getSize());
         setUndecorated(true);
         setShape(new RoundRectangle2D.Double(0, 0, this.getWidth(), this.getHeight(), 30, 30));
@@ -51,30 +59,43 @@ public class SmartphoneGUI extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    private JPanel builPnlScreen(){
+    private JPanel builPnlScreen()
+    {
         // Création du pannel qui contiendra TOUT
         pnlScreen = new JPanel(new BorderLayout());
         pnlScreen.setBackground(Color.BLACK);
 
         // Création de la structure principale
-        hLayout = new HeaderLayout();
-        fLayout = new FooterLayout();
+        headerLayout = new HeaderLayout();
+        footerLayout = new FooterLayout();
+        contentLayout = new ContentLayout(footerLayout);
 
-        pnlScreen.add(hLayout, BorderLayout.NORTH);
-        pnlScreen.add(new ContentLayout(fLayout), BorderLayout.CENTER);
-        pnlScreen.add(fLayout, BorderLayout.SOUTH);
+        pnlScreen.add(headerLayout, BorderLayout.NORTH);
+        pnlScreen.add(contentLayout, BorderLayout.CENTER);
+        pnlScreen.add(footerLayout, BorderLayout.SOUTH);
 
         // Creation des marges sur le coté
-        pnlScreen.add(this.buildBorderPanel(),BorderLayout.WEST);
-        pnlScreen.add(this.buildBorderPanel(),BorderLayout.EAST);
+        pnlScreen.add(this.buildBorderPanel(), BorderLayout.WEST);
+        pnlScreen.add(this.buildBorderPanel(), BorderLayout.EAST);
 
         return pnlScreen;
     }
 
-    private JPanel buildBorderPanel() {
+    private JPanel buildBorderPanel()
+    {
         borderPanel = new JPanel();
         borderPanel.setBackground(Color.WHITE);
-        return  borderPanel;
+        return borderPanel;
+    }
+
+    private void setListeners()
+    {
+        // On crée le listener, en lui donnant accès à TOUS les attributs PROTECTED du SMARTPHONE
+        myListener = new ContentListener(this );
+
+        contentLayout.getPnlAddContact().getBtnSave().addActionListener(myListener);
+
+
     }
 
     private void setTimerUpdate()
@@ -83,19 +104,37 @@ public class SmartphoneGUI extends JFrame {
         int delay = 800;        // 800 mili-second delay before get executed
         int delayRepeat = 500;  // means will be repeated every 5 Mili-seconds
         timer.scheduleAtFixedRate(new TimerTask()
-        {   @Override
-        public void run()
         {
-            update(); // On fait un update tous les Xtemps du timer
-        }
-        },delay, delayRepeat);
+            @Override
+            public void run()
+            {
+                update(); // On fait un update tous les Xtemps du timer
+            }
+        }, delay, delayRepeat);
 
         // To stop the timer, call : timer.cancel();
     }
 
     private void update()
     {
-        hLayout.updateTime();
-        hLayout.updateDate();
+        headerLayout.updateTime();
+        headerLayout.updateDate();
+    }
+    //*****************************************************************************
+    // G E T T E R S
+    //*****************************************************************************
+    public FooterLayout getFooterLayout()
+    {
+        return footerLayout;
+    }
+
+    public HeaderLayout getHeaderLayout()
+    {
+        return headerLayout;
+    }
+
+    public ContentLayout getContentLayout()
+    {
+        return contentLayout;
     }
 }
