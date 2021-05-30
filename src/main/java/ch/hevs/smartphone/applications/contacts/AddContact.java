@@ -1,7 +1,7 @@
 package ch.hevs.smartphone.applications.contacts;
 
 import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
-import ch.hevs.smartphone.applications.contacts.serialization.JSONStorage;
+import ch.hevs.smartphone.applications.contacts.serialization.JSONStorageContact;
 
 import javax.swing.*;
 import java.awt.*;
@@ -28,7 +28,7 @@ public class AddContact extends JPanel {
     private JTextField tfNoPhone = new JTextField("NP", 50);
 
     // OTHER OBJECTS
-    JSONStorage ad = new JSONStorage();
+    JSONStorageContact ad = new JSONStorageContact();
     ContactsGUI cGUI = new ContactsGUI();
 
     // TODO fonction pour ajouter une image de la galerie
@@ -114,8 +114,8 @@ public class AddContact extends JPanel {
             System.out.println("AddContact1");
 
             try {
-                ad.write(ad.getTmp(),ad.getContacts());
-                System.out.println(ad.getTmp());
+                ad.write(ad.getmyObj(),ad.getContacts());
+                System.out.println(ad.getmyObj());
             } catch (BusinessException businessException) {
                 businessException.printStackTrace();
             }

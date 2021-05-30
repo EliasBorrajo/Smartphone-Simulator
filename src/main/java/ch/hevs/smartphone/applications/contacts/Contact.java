@@ -10,10 +10,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class Contact implements Serializable {
+public class Contact {
 
-    @Serial
-    private static final long serialVersionUID = -7259141374952645688L;
+    /*@Serial
+    private static final long serialVersionUID = -7259141374952645688L;*/
 
     private String firstName;
     private String lastName;

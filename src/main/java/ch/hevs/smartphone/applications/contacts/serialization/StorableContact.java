@@ -4,9 +4,10 @@ import ch.hevs.smartphone.applications.contacts.Contact;
 import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public interface StorableContact {
-    ArrayList<Contact> read(File source) throws BusinessException;
+    ArrayList<Contact> read() throws BusinessException, IOException;
     void write(File destination, ArrayList<Contact> contacts) throws BusinessException;
 }

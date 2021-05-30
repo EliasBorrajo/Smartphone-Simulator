@@ -13,20 +13,21 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class JSONStorage implements StorableContact {
+public class JSONStorageContact implements StorableContact {
     // ATTRIBUTS
 
     // ARRAY LIST
     private ArrayList<Contact> contacts = new ArrayList<>();
 
-    // TMP FILE
-    private File tmp = File.createTempFile("contactsList", ".json");
+    // myObj FILE
+    File myObj = new File("contactList.json");
+    private List<Contact> contactList;
 
     // GETTERS
     public ArrayList<Contact> getContacts(){return contacts;}
 
-    public File getTmp() {
-        return tmp;
+    public File getmyObj() {
+        return myObj;
     }
 
     // SETTERS
@@ -35,8 +36,10 @@ public class JSONStorage implements StorableContact {
     }
 
     // CONSTRUCTOR
-    public JSONStorage() throws IOException, BusinessException {
-        this.read(tmp);
+    public JSONStorageContact() throws IOException, BusinessException {
+
+        System.out.println(myObj.getAbsolutePath());
+        this.read();
         sortDescending(contacts);
     }
 
@@ -47,21 +50,26 @@ public class JSONStorage implements StorableContact {
     }
 
     @Override
-    public ArrayList<Contact> read(File source) throws BusinessException {
-        ObjectMapper mapper = new ObjectMapper();
-        List<Contact> contactList;
-
-        try {
-            System.out.println("test1");
-            contactList = mapper.readValue(source, new TypeReference<List<Contact>>(){});
-            System.out.println("test2");
-            contacts = (ArrayList<Contact>) contactList;
-        } catch (IOException e) {
-            // System.out.println("Error reading");
-            throw new BusinessException("read error", e, ErrorCode.IO_ERROR);
-        }
-
-        return contacts;
+    public ArrayList<Contact> read() throws BusinessException, IOException {
+       ObjectMapper mapper = new ObjectMapper();
+       try {
+            if (myObj.createNewFile()) {
+                System.out.println("File created: " + myObj.getName());
+            }
+            else if (myObj.length() == 0){
+                contacts.clear();
+                System.out.println("test1");
+                contactList = mapper.readValue(myObj, new TypeReference<List<Contact>>(){});
+                System.out.println("test2");
+                contacts = (ArrayList<Contact>) contactList;
+            } else {
+                System.out.println("Empty file");
+            }
+       } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+       }
+       return contacts;
     }
 
     @Override
@@ -81,5 +89,9 @@ public class JSONStorage implements StorableContact {
      */
     public void sortDescending(ArrayList<Contact> contacts) {
         Collections.sort(contacts, Comparator.comparing(Contact::getFirstName));
+    }
+
+    public void CreateFile() {
+
     }
 }

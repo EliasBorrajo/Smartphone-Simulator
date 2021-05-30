@@ -1,7 +1,7 @@
 package ch.hevs.smartphone.applications.contacts;
 
 import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
-import ch.hevs.smartphone.applications.contacts.serialization.JSONStorage;
+import ch.hevs.smartphone.applications.contacts.serialization.JSONStorageContact;
 import ch.hevs.smartphone.bases.MyButton;
 
 import javax.swing.*;
@@ -28,7 +28,7 @@ public class ContactsGUI extends JPanel {
 
 
     // OTHER OBJECTS
-    private JSONStorage addressBook;
+    private JSONStorageContact addressBook;
     String contactName = "";
 
     // GETTERS
@@ -44,7 +44,7 @@ public class ContactsGUI extends JPanel {
         return pnlJscrollContact;
     }
 
-    public JSONStorage getAddressBook() {
+    public JSONStorageContact getAddressBook() {
         return addressBook;
     }
 
@@ -59,7 +59,7 @@ public class ContactsGUI extends JPanel {
 
     // CONSTRUCTOR
     public ContactsGUI() throws IOException, BusinessException {
-        this.addressBook = new JSONStorage();
+        this.addressBook = new JSONStorageContact();
         add(buildpnlContentContact());
     }
 

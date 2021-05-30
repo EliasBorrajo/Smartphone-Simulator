@@ -1,10 +1,7 @@
 package ch.hevs.smartphone.applications.contacts;
 
 import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
-import ch.hevs.smartphone.applications.contacts.serialization.JSONStorage;
-import ch.hevs.smartphone.bases.MyButton;
-import ch.hevs.smartphone.structure.layout.ContentLayout;
-import ch.hevs.smartphone.structure.layout.FooterLayout;
+import ch.hevs.smartphone.applications.contacts.serialization.JSONStorageContact;
 
 import javax.swing.*;
 import java.awt.*;
@@ -30,7 +27,7 @@ public class ShowContactInfo extends JPanel {
     JButton btnDeleteContact;
 
     // OTHER
-    JSONStorage addressBook = new JSONStorage();
+    JSONStorageContact addressBook = new JSONStorageContact();
     private String name = "";
     private String noPhone = "";
 

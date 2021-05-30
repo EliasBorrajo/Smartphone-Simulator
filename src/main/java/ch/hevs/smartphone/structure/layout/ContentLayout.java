@@ -2,7 +2,7 @@ package ch.hevs.smartphone.structure.layout;
 
 import ch.hevs.smartphone.applications.contacts.*;
 import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
-import ch.hevs.smartphone.applications.contacts.serialization.JSONStorage;
+import ch.hevs.smartphone.applications.contacts.serialization.JSONStorageContact;
 import ch.hevs.smartphone.applications.gallery.GalleryBook;
 import ch.hevs.smartphone.applications.gallery.Photo;
 import ch.hevs.smartphone.bases.MyIcon;
@@ -50,7 +50,7 @@ public class ContentLayout extends JPanel {
 
     private int actionsCount = -1;
     private ArrayList<String> panelsOpen = new ArrayList<String>();
-    private JSONStorage addressBook = new JSONStorage();
+    private JSONStorageContact addressBook = new JSONStorageContact();
     private String currentPanel = "Home";
 
     private int nbContact;
