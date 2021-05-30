@@ -38,7 +38,7 @@ public class JSONStorageContact implements StorableContact {
     // CONSTRUCTOR
     public JSONStorageContact() throws IOException, BusinessException {
 
-        System.out.println(myObj.getAbsolutePath());
+        // System.out.println(myObj.getAbsolutePath());
         this.read();
         sortDescending(contacts);
     }
@@ -56,7 +56,7 @@ public class JSONStorageContact implements StorableContact {
             if (myObj.createNewFile()) {
                 System.out.println("File created: " + myObj.getName());
             }
-            else if (myObj.length() == 0){
+            else if (myObj.length() > 0){
                 contacts.clear();
                 System.out.println("test1");
                 contactList = mapper.readValue(myObj, new TypeReference<List<Contact>>(){});
@@ -91,7 +91,4 @@ public class JSONStorageContact implements StorableContact {
         Collections.sort(contacts, Comparator.comparing(Contact::getFirstName));
     }
 
-    public void CreateFile() {
-
-    }
 }
