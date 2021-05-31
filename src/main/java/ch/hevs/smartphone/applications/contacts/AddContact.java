@@ -1,9 +1,12 @@
 package ch.hevs.smartphone.applications.contacts;
 
+import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class AddContact extends JPanel
 {
@@ -25,7 +28,7 @@ public class AddContact extends JPanel
     private JTextField tfNoPhone = new JTextField("NP", 50);
 
     // OTHER OBJECTS
-    protected AddressBook ad = new AddressBook();
+    //protected AddressBook ad = new AddressBook();
     protected ContactsGUI cGUI = new ContactsGUI();
 
     // TODO fonction pour ajouter une image de la galerie
@@ -39,7 +42,8 @@ public class AddContact extends JPanel
     }
 
     // CONSTRUCTOR
-    public AddContact() {
+    public AddContact() throws IOException, BusinessException
+    {
         buildPnlContent();
     }
 

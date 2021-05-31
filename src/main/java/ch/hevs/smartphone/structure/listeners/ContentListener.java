@@ -43,8 +43,6 @@ public class ContentListener implements ActionListener
                         phone.getContentLayout().getPnlAddContact().getTfNoPhone()
                         )
                 );*/
-
-
         // FAIRE REFRESH
         System.out.println("ContentLayout");
         phone.getContentLayout().getPnlContact().removeAll();

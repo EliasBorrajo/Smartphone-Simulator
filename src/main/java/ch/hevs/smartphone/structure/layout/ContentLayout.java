@@ -1,6 +1,8 @@
 package ch.hevs.smartphone.structure.layout;
 
 import ch.hevs.smartphone.applications.contacts.*;
+import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
+import ch.hevs.smartphone.applications.contacts.serialization.JSONStorageContact;
 import ch.hevs.smartphone.applications.gallery.PhotoView;
 import ch.hevs.smartphone.parameters.button.ButtonIcon;
 import ch.hevs.smartphone.parameters.ScreenSizeEnum;
@@ -11,10 +13,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class ContentLayout extends JPanel {
+/**
+ * Classe contenant tout notre écran principal
+ */
+public class ContentLayout extends JPanel
+{
     //*****************************************************************************
     // A T T R I B U T S
     //*****************************************************************************
@@ -22,17 +29,21 @@ public class ContentLayout extends JPanel {
     private CardLayout cardlayout;
 
     // PANEL
-    private JPanel pnlContent;  // Panel principal qui va contenir tous les cards
-    private JPanel pnlHome;
-    private ContactsGUI pnlContact;
-    private AddContact pnlAddContact;
-    private GalleryGUI pnlGallery;
-    private WeatherGUI pnlWeather;
-    private PhotoView pnlPhotoView;
-    private ShowContactInfo[] pnlShowContactInfo;
+    // HOME
+    private JPanel pnlContent;          // Panel principal qui va contenir tous les cards
+    private JPanel pnlHome;             // Panneau d'accueil
+    // CONTACTES
+    private ContactsGUI pnlContact;     // Application Contactes
+    private AddContact pnlAddContact;               // Card de l'app contactes
+    private ShowContactInfo[] pnlShowContactInfo;   // Cards des contactes que l'utilisateur va ajouter
+    // GALLERY
+    private GalleryGUI pnlGallery;      // Application Gallerie
+    private PhotoView pnlPhotoView;                 // Pannel de photo ouverte
+    // WEATHER
+    private WeatherGUI pnlWeather;      // Application Weather
 
 
-    // BUTTON
+    // BUTTON - lancent les applicatons
     private ButtonIcon btnContact;
     private ButtonIcon btnGallery;
     private ButtonIcon btnWeather;
@@ -42,28 +53,27 @@ public class ContentLayout extends JPanel {
     private ImageIcon iconContact;
     private ImageIcon iconGallery;
 
+
+    // FooterLayout
     private FooterLayout footerLayout;
-
-    private int actionsCount = -1;
+    private int actionsCount = -1;          // Compteur permettant de savoir quel PANNEL afficher (BtnHome & BtnRetour)
     private ArrayList<String> panelsOpen = new ArrayList<String>();
-    private String currentPanel = "Home";
+    private String currentPanel = "Home";      // Sert au refreshPannel
 
-    // CONTACT APP INFOS
-    private AddressBook addressBook ;//= new AddressBook();
-    private int nbContact;
-    private String[] contactName; // Nom des contacts pour les nouvelles cards
-    private String[] contactNoPhone;
+    // CONTACT APP
+    //private AddressBook addressBook;               // Conteint tous les contactes
+    private JSONStorageContact addressBook = new JSONStorageContact();
+    private int nbContact;                      // Nombre de contactes dans le carnet d'adresse
+    private String[] contactName;               // Nom des contacts pour les nouvelles cards
+    private String[] contactNoPhone;            //
 
-    public int getNbContact()
-    {
-        return nbContact;
-    }
 
     //*****************************************************************************
     // C O N S T R U C T E U R
     //*****************************************************************************
-    public ContentLayout(FooterLayout fLayout){
-        this.footerLayout = fLayout;
+    public ContentLayout(FooterLayout footerLayout) throws IOException, BusinessException
+    {
+        this.footerLayout = footerLayout;
         setPreferredSize(new Dimension(ScreenSizeEnum.CONTENT_PANEL_WIDTH.getSize(), ScreenSizeEnum.CONTENT_PANEL_HEIGHT.getSize()));
         setMinimumSize(new Dimension(ScreenSizeEnum.CONTENT_PANEL_WIDTH.getSize(), ScreenSizeEnum.CONTENT_PANEL_HEIGHT.getSize()));
 
@@ -73,12 +83,12 @@ public class ContentLayout extends JPanel {
     //*****************************************************************************
     // M E T H O D E S
     //*****************************************************************************
-    private JPanel buildpnlContent()
+    private void buildpnlContent() throws IOException, BusinessException
     {
         pnlContact = new ContactsGUI();
         //*********** @TODO DECALRER AILLEURS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         addressBook = pnlContact.getAddressBook();
-        ArrayList<Contact> contacts = this.addressBook.getTabContact();
+        ArrayList<Contact> contacts = this.addressBook.getContactArray();
         addressBook.sortDescending(contacts);
         nbContact = contacts.size();
 
@@ -99,16 +109,14 @@ public class ContentLayout extends JPanel {
         pnlShowContactInfo = new ShowContactInfo[nbContact];
 
 
-
-
         // Création des arrays nécessaires pour les cards de contacts
 
-        for (int i=0; i<nbContact; i++) {
+        for (int i = 0; i < nbContact; i++)
+        {
             contactName[i] = contacts.get(i).getFirstName() + " " + contacts.get(i).getLastName();
             contactNoPhone[i] = contacts.get(i).getNoPhone();
             pnlShowContactInfo[i] = new ShowContactInfo(contactName[i], contactNoPhone[i]);
         }
-
 
 
         // CONSTUCTION DES IMAGES
@@ -124,7 +132,7 @@ public class ContentLayout extends JPanel {
         btnGallery = new ButtonIcon(iconGallery);
         btnWeather = new ButtonIcon(iconWeather);
 
-        // LA SUITE CONCERNE LE CARD
+        // CARDS LAYOUT
         this.setLayout(cardlayout);
 
         pnlHome.add(btnContact);
@@ -133,52 +141,54 @@ public class ContentLayout extends JPanel {
         pnlHome.setBackground(Color.darkGray);
 
         //Ajouteur les cards au panel conteneur
-        this.add("Home",pnlHome);
-        this.add("Contact",pnlContact);
+        this.add("Home", pnlHome);
+        this.add("Contact", pnlContact);
         this.add("AddContact", pnlAddContact);
         this.add("Gallery", pnlGallery);
         this.add("PhotoView", pnlPhotoView);
-        this.add("Weather",pnlWeather);
+        this.add("Weather", pnlWeather);
 
-        for (int l=0; l<nbContact; l++) {
+        // Création des cards de contact
+        for (int l = 0; l < nbContact; l++)
+        {
             this.add(contactName[l], pnlShowContactInfo[l]);
-        } // Création des cards de contact
-
-
+        }
         this.refreshPanel("Home");
 
-        btnContact.addActionListener(new ActionListener() {
+
+        //*****************************************************************************
+        // L I S T E N E R S
+        //*****************************************************************************
+
+        // BOUTTONS HOME
+        btnContact.addActionListener(new ActionListener()
+        {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e)
+            {
                 refreshPanel("Contact");
             }
         });
 
-        btnGallery.addActionListener(new ActionListener() {
+        btnGallery.addActionListener(new ActionListener()
+        {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e)
+            {
                 refreshPanel("Gallery");
             }
         });
 
-        btnWeather.addActionListener(new ActionListener() {
+        btnWeather.addActionListener(new ActionListener()
+        {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e)
+            {
                 refreshPanel("Weather");
             }
         });
-/*
-        pnlGallery.getBtnPhoto().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JButton buttonClicked = (JButton)e.getSource();
-                System.out.println(buttonClicked);
-                refreshPanel("PhotoView");
-            }
-        });
 
-*/
-
+        // CONTACT APP
         pnlContact.getBtnAddContact().addActionListener(new ActionListener()
         {
             @Override
@@ -188,7 +198,8 @@ public class ContentLayout extends JPanel {
             }
         });
 
-        for (int i=0; i<nbContact; i++)
+        // création des ActionListener en fonction du nombre de contacts présents*/
+        for (int i = 0; i < nbContact; i++)
         {
             int finalI = i;
             pnlContact.getBtnShowContact()[i].addActionListener(new ActionListener()
@@ -199,30 +210,22 @@ public class ContentLayout extends JPanel {
                     refreshPanel(contactName[finalI]);
                 }
             });
-        } // création des listener en fonction du nombre de contacts*/
+        }
 
         pnlAddContact.getBtnSave().addActionListener(new ListenerSaveAddContact
-                ( this.getPnlAddContact().getTfFirstName(),
-                  this.getPnlAddContact().getTfName(),
-                  this.getPnlAddContact().getTfNoPhone()
+                (this.getPnlAddContact().getTfFirstName(),
+                        this.getPnlAddContact().getTfName(),
+                        this.getPnlAddContact().getTfNoPhone()
                 ));
-        /*pnlAddContact.getBtnSave().addActionListener(new ActionListener()
+
+        // FOOTER
+        this.footerLayout.getBtnBack().addActionListener(new ActionListener()
         {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                System.out.println("ContentLayout");
-                pnlContact.removeAll();
-                pnlContact.add(pnlContact.buildpnlContentContact());
-                cardlayout.show(pnlContent,"Contact");
-            }
-        });*/
-
-
-        this.footerLayout.getBtnBack().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(actionsCount > 0) {
+                if (actionsCount > 0)
+                {
                     panelsOpen.remove(actionsCount);
                     actionsCount--;
                     cardlayout.show(pnlContent, panelsOpen.get(actionsCount));
@@ -231,25 +234,31 @@ public class ContentLayout extends JPanel {
             }
         });
 
-        this.footerLayout.getBtnHome().addActionListener(new ActionListener() {
+        this.footerLayout.getBtnHome().addActionListener(new ActionListener()
+        {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e)
+            {
                 actionsCount = -1;
                 panelsOpen.removeAll(panelsOpen);
                 refreshPanel("Home");
             }
         });
 
-        return this;
+        //return this;
     }
 
-    public void refreshPanel(String currentPanel){
+    public void refreshPanel(String currentPanel)
+    {
+        System.out.println("AVANT REFRESH" + panelsOpen);
         this.currentPanel = currentPanel;
-        cardlayout.show(this,this.currentPanel);
+        cardlayout.show(this, this.currentPanel);
         footerLayout.buildMenu();
         // HISTRORIQUE des panels affichés pour le bouton retour
         this.actionsCount++;
         this.panelsOpen.add(this.currentPanel);
+        System.out.println("APRES REFRESH" + panelsOpen);
+
     }
 
     //*****************************************************************************
@@ -257,12 +266,12 @@ public class ContentLayout extends JPanel {
     //*****************************************************************************
     public class ListenerSaveAddContact implements ActionListener
     {
-
         JTextField inputFN;
         JTextField inputN;
         JTextField inputNP;
 
-        public ListenerSaveAddContact(JTextField firstName, JTextField name, JTextField noPhone) {
+        public ListenerSaveAddContact(JTextField firstName, JTextField name, JTextField noPhone)
+        {
             inputFN = firstName;
             inputN = name;
             inputNP = noPhone;
@@ -272,7 +281,8 @@ public class ContentLayout extends JPanel {
         public void actionPerformed(ActionEvent e)
         {
             // SAVE
-            Contact c = new Contact("","","");
+            // Récuperation des TEXTBOX
+            Contact c = new Contact("", "", "");
 
             String text1 = "";
             text1 = inputFN.getText();
@@ -289,31 +299,39 @@ public class ContentLayout extends JPanel {
             System.out.println(c);
 
             addressBook.addContact(c);
-            addressBook.sortDescending(addressBook.getTabContact()); // trie l'Arraylist contacts par ordre alphabétique
+           // addressBook.sortDescending(addressBook.getContactArray()); // trie l'Arraylist contacts par ordre alphabétique
 
             System.out.println("AddContact1");
-            addressBook.save(); // SERIALISATION
+            try
+            {
+                addressBook.write(addressBook.getmyObj(), addressBook.getContactArray()); // SERIALISATION
+            } catch (BusinessException businessException)
+            {
+                businessException.printStackTrace();
+                System.out.println("COULD NOT SAVE CONTACT -- INNER CLASS CONTENTLAYOUT LISTENERS");
+            }
             System.out.println("AddContact2");
 
             inputFN.setText("");
             inputN.setText("");
             inputNP.setText("");
 
-            // REFRESH @TODO REFRESH BUG ENCORE, il revient en arrière, mais ne met pas à jour la liste de contactes
+            // REFRESH @TODO REFRESH BUG ENCORE
             System.out.println("ContentLayout");
             pnlContact.removeAll();
-           // pnlContact.validate();
-
+            // pnlContact.validate();
+            //refreshPanel("Contact");
             pnlContact.add(pnlContact.buildpnlContentContact());
 
             //pnlContact.revalidate();
             //pnlContact.repaint();
 
-            cardlayout.show(pnlContent,"Contact");
+            cardlayout.show(pnlContent, "Contact");
             actionsCount--;
 
         }
     }
+
     //*****************************************************************************
     // G E T T E R S
     //*****************************************************************************
@@ -405,5 +423,10 @@ public class ContentLayout extends JPanel {
     public String getCurrentPanel()
     {
         return currentPanel;
+    }
+
+    public int getNbContact()
+    {
+        return nbContact;
     }
 }

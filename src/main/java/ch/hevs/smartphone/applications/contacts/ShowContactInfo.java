@@ -1,9 +1,13 @@
 package ch.hevs.smartphone.applications.contacts;
 
+import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
+import ch.hevs.smartphone.applications.contacts.serialization.JSONStorageContact;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ShowContactInfo extends JPanel
@@ -24,12 +28,13 @@ public class ShowContactInfo extends JPanel
     JButton btnDeleteContact;
 
     // OTHER
-    AddressBook addressBook = new AddressBook();
+    JSONStorageContact addressBook = new JSONStorageContact();
     private String name = "";
     private String noPhone = "";
 
     // CONSTRUCTOR
-    public ShowContactInfo(String name, String noPhone) {
+    public ShowContactInfo(String name, String noPhone) throws IOException, BusinessException
+    {
         this.name = name;
         this.noPhone = noPhone;
         add(buildpnlShowContactInfo());
@@ -37,7 +42,7 @@ public class ShowContactInfo extends JPanel
 
     // METHODS
     private JPanel buildpnlShowContactInfo() {
-        ArrayList<Contact> contacts = this.addressBook.getTabContact();
+        ArrayList<Contact> contacts = this.addressBook.getContactArray();
 
         pnlMainWindow = new JPanel(new BorderLayout());
         pnlMainWindow.setBackground(Color.red);
@@ -59,9 +64,14 @@ public class ShowContactInfo extends JPanel
         btnDeleteContact.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                addressBook.get();
-                addressBook.getTabContact().remove(this);
-                addressBook.save();
+                addressBook.getContactArray().remove(this);
+                try
+                {
+                    addressBook.write(addressBook.getmyObj(), addressBook.getContactArray());
+                } catch (BusinessException businessException)
+                {
+                    businessException.printStackTrace();
+                }
             }
         });
 
