@@ -91,7 +91,7 @@ public class ContentLayout extends JPanel
         pnlHome = new JPanel();                     //new GridLayout(2,3)
         pnlContact = new ContactsGUI(this);
 
-                // @TODO : AJouter cela à l'APP CONTACTES --> FAIT !
+                // @TODO : AJouter cela à l'APP CONTACTES --> FAIT ! ligne : 91 ContactsGUI.java
                 //addressBook = pnlContact.getJsonAddressBook();
                 //ArrayList<Contact> contacts = this.addressBook.getContactArray();
                 //addressBook.sortDescending(contacts);
@@ -108,7 +108,7 @@ public class ContentLayout extends JPanel
         pnlWeather = new WeatherGUI();
 
 
-        // @TODO : DEPLACER DANS CONTACTES GUI  --> FAIT
+        // @TODO : DEPLACER DANS CONTACTES GUI  --> FAIT ligne : 122 ContactsGUI.java
         // Création des arrays nécessaires pour les cards de contacts
    /*     for (int i = 0; i < nbContact; i++)
         {
@@ -147,14 +147,13 @@ public class ContentLayout extends JPanel
         this.add("PhotoView",   pnlPhotoView);
         this.add("Weather",     pnlWeather);
 
-                            // @TODO AJOUTER CES CARDS AU CONTACTE GUI  --> FAIT
-                /*            // Création des cards de contact
-                            for (int l = 0; l < nbContact; l++)
+                            // @TODO AJOUTER CES CARDS AU CONTACTE GUI  --> FAIT ligne : 195 ContactsGUI.java
+                          // Création des cards de contact
+                /*          for (int l = 0; l < nbContact; l++)
                             {
                                 this.add(contactName[l], pnlShowContactInfo[l]);
                             }
                             this.refreshPanel("Home");
-
                  */
 
         //*****************************************************************************
@@ -216,9 +215,9 @@ public class ContentLayout extends JPanel
             }
         });
 
-        //@TODO : AJOUTER CONTACTE GUI
+        //@TODO : AJOUTER CONTACTE GUI --> FAIT ligne : 210 ContactsGUI.java
                     // CONTACT APP
-             /*       pnlContact.getBtnAddContact().addActionListener(new ActionListener()
+             /*      pnlContact.getBtnAddContact().addActionListener(new ActionListener()
                     {
                         @Override
                         public void actionPerformed(ActionEvent e)
@@ -228,7 +227,7 @@ public class ContentLayout extends JPanel
                     });
 */
                     // création des ActionListener en fonction du nombre de contacts présents*/
-             /*      for (int i = 0; i < nbContact; i++)
+               /*   for (int i = 0; i < nbContact; i++)
                     {
                         int finalI = i;
                         pnlContact.getBtnShowContact()[i].addActionListener(new ActionListener()
