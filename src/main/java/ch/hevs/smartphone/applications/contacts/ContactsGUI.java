@@ -7,6 +7,8 @@ import ch.hevs.smartphone.structure.layout.ContentLayout;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -26,6 +28,8 @@ public class ContactsGUI extends JPanel
         private JPanel pnlCenterJscrollContact; // Pannel comprenant le SCROLL
         private JScrollPane scrollPaneContact;  // Pannel comprenant les Bouttons des contactes
 
+    private AddContact pnlAddContact;               // Card de l'app contactes
+    private ShowContactInfo[] pnlShowContactInfo;   // Cards des contactes que l'utilisateur va ajouter
     // LABEL
     private JLabel lblContactTitle;
 
@@ -36,7 +40,8 @@ public class ContactsGUI extends JPanel
     // OTHER OBJECTS
     private JSONStorageContact jsonAddressBook; // Contient le carnet d'adresse dé-sérialisé
     private ArrayList<Contact> contacts;        // Contient tous les contactes
-    private String contactName = "";            // Permet de donner le nom + Prénom à un cotacte
+    private String[] contactName;                 // Permet de donner le nom + Prénom à un cotacte
+    private String[] contactNoPhone;
 
     //*****************************************************************************
     // C O N S T R U C T E U R
@@ -45,10 +50,11 @@ public class ContactsGUI extends JPanel
     {
         this.cl = cl;
 
+
         buildPnlContentContact();
         buildCardsLayout();
+        setListeners();
     }
-
 
 
     //*****************************************************************************
@@ -77,15 +83,14 @@ public class ContactsGUI extends JPanel
         pnlHomeContact.add(pnlNorth,          BorderLayout.NORTH);
         pnlHomeContact.add(scrollPaneContact, BorderLayout.CENTER);
 
-       // this.add(pnlHomeContact);
+       // this.add(pnlHomeContact); // Plus besoin grâce au cardLayout
 
     }
 
     /**
-     * Création du Pannel qui aura une scrollBar et la liste des contactes
-     * @return
+     * Creation de toutes nos différentes variables
      */
-    public JScrollPane buildScrollPaneContact()
+    private void buildVariables()
     {
         try // Essaye de dé-sérialer (READ) le fichier JSON
         {
@@ -99,21 +104,78 @@ public class ContactsGUI extends JPanel
 
         contacts = jsonAddressBook.getContactArray();       // On récupère le carnet d'adresse dé-serialisé
         btnShowContacts = new JButton[contacts.size()];     // Crée le tableau ayant la taille du nombre de bouttons que l'on possède
+        jsonAddressBook.sortDescending(contacts);           // Re-organise notre ArrayListe de contacts
+
+
+        contactName     = new String[contacts.size()];
+        contactNoPhone  = new String[contacts.size()];
+
+        try // Essaye de créer un pannel pour l'ajout des contactes
+        {
+            pnlAddContact = new AddContact();
+        } catch (IOException | BusinessException e)
+        {
+            e.printStackTrace();
+        }
+
+        pnlShowContactInfo = new ShowContactInfo[contacts.size()];
+
+        // CREATION des contenus des ARRAYS nécessaires pour les CARDS de contacts
+        for (int i = 0; i < contacts.size(); i++)
+        {
+            contactName[i] = contacts.get(i).getFirstName() + " " + contacts.get(i).getLastName();
+            contactNoPhone[i] = contacts.get(i).getNoPhone();
+            try
+            {
+                pnlShowContactInfo[i] = new ShowContactInfo(contactName[i], contactNoPhone[i]);
+            } catch (IOException | BusinessException e)
+            {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * Création du Pannel qui aura une scrollBar et la liste des contactes
+     * @return
+     */
+    public JScrollPane buildScrollPaneContact()
+    {
+        buildVariables();
+
 
         pnlCenterJscrollContact = new JPanel(new GridLayout(0, 1, 5, 5));
         pnlCenterJscrollContact.setBackground(Color.ORANGE);
 
+        // Si la liste de contactes est vide on affiche un message par défaut
         if (contacts.size() == 0)
         {
             JLabel emptyContactMessage = new JLabel("No contact to show");
             pnlCenterJscrollContact.add(emptyContactMessage);
-        } else
+        }
+        else
         {
+            //String TempName = "";   //@TODO : Changer
+
+
+            // CREATION des BOUTTONS pour chaque CONTACTE
             for (int i = 0; i < contacts.size(); i++)
             {
-                contactName = contacts.get(i).getFirstName() + " " + contacts.get(i).getLastName();
+                // Récuperation du NOM + PRENOM dans la ArrayLIST
+                //TempName = contacts.get(i).getFirstName() + " " + contacts.get(i).getLastName();
+                //contactName[i]
+                btnShowContacts[i] = new JButton(contactName[i]);
 
-                btnShowContacts[i] = new JButton(contactName);
+                //@TODO : Pour chaque boutton, lui attibuer un ActionListener directement ici
+                String finalName = contactName[i];
+                btnShowContacts[i].addActionListener(new ActionListener()
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent e)
+                    {
+                        cardsContact.show(pnlHomeContact, finalName);
+                    }
+                });
 
                 pnlCenterJscrollContact.add(btnShowContacts[i]);
             }
@@ -127,28 +189,65 @@ public class ContactsGUI extends JPanel
         return scrollPaneContact;
     }
 
+
     private void buildCardsLayout()
     {
-        // Gesstion du Cards Layout
-     /*   cardsContact = new CardLayout();
-        pnlContentCardsContact = new JPanel(cardsContact);
-
-
-        pnlContentCardsContact.add("HomeContact", pnlHomeContact);
-    //  pnlContentCardsContact.add()
-        cardsContact.show(pnlContentCardsContact, "HomeContact");
-        */
 
         cardsContact = new CardLayout();
         this.setLayout(cardsContact);
 
         this.add("HomeContact", pnlHomeContact);
-        //this.add("AddContact",  )
+
+        // Création des cards de contact
+        for (int i = 0; i < contacts.size(); i++)
+        {
+            //String names = contacts.get(i).getFirstName();
+            this.add(contactName[i], pnlShowContactInfo[i]);
+        }
+        //this.cl.refreshPanel("Home"); //@TODO : Ajouter une nouvelle methode REFRESH pour ce cardLayout ici ????
+
 
 
 
 
     }
+
+    //*****************************************************************************
+    // L I S T E N E R S  //@TODO : Mettre dans une autre classe !!
+    //*****************************************************************************
+    private void setListeners()
+    {
+        btnAddContact.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                //@TODO : CREER UN REFRESH PANNEL OU REVOIR LA METHODE
+               // refreshPanel("AddContact");
+                System.out.println("BTN ADD CONTACT CLIQUE");
+            }
+        });
+
+        // création des ActionListener en fonction du nombre de contacts présents*/
+        for (int i = 0; i < contacts.size() ; i++)
+        {
+            int finalI = i;
+            int finalI1 = i;
+            btnShowContacts[i].addActionListener(new ActionListener()
+            {
+                @Override
+                public void actionPerformed(ActionEvent e)
+                {
+                    //@TODO : CREER UN REFRESH PANNEL OU REVOIR LA METHODE
+                    // refreshPanel(contactName[finalI]);
+                    System.out.println("BTN SHOW CONTACT N° : "+ finalI1);
+
+                }
+            });
+        }
+
+    }
+
 
     //*****************************************************************************
     // G E T T E R S
@@ -181,9 +280,6 @@ public class ContactsGUI extends JPanel
         this.pnlCenterJscrollContact = pnlCenterJscrollContact;
     }
 
-    public String getContactName()
-    {
-        return contactName;
-    }
+
 
 }

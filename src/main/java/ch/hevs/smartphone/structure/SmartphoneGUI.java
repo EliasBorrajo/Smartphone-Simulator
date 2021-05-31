@@ -95,7 +95,7 @@ public class SmartphoneGUI extends JFrame
         // On crée le listener, en lui donnant accès à TOUS les attributs PROTECTED du SMARTPHONE
         myListener = new ContentListener(this );
 
-        contentLayout.getPnlAddContact().getBtnSave().addActionListener(myListener);
+        //contentLayout.getPnlAddContact().getBtnSave().addActionListener(myListener);
     }
 
     private void setTimerUpdate()
