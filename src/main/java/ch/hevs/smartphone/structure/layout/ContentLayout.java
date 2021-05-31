@@ -61,8 +61,8 @@ public class ContentLayout extends JPanel
     private String currentPanel = "Home";      // Sert au refreshPannel
 
     // CONTACT APP
-    //private AddressBook addressBook;               // Conteint tous les contactes
-    private JSONStorageContact addressBook = new JSONStorageContact();
+
+    private JSONStorageContact addressBook = new JSONStorageContact();// Conteint tous les contactes
     private int nbContact;                      // Nombre de contactes dans le carnet d'adresse
     private String[] contactName;               // Nom des contacts pour les nouvelles cards
     private String[] contactNoPhone;            //
