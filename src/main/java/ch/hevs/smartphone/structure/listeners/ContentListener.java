@@ -46,7 +46,7 @@ public class ContentListener implements ActionListener
         // FAIRE REFRESH
         System.out.println("ContentLayout");
         phone.getContentLayout().getPnlContact().removeAll();
-        phone.getContentLayout().add(phone.getContentLayout().getPnlContact().buildpnlContentContact());
+       // phone.getContentLayout().add(phone.getContentLayout().getPnlContact().buildpnlContentContact());
         phone.getContentLayout().getCardlayout().show(phone.getContentLayout().getPnlContent(),"Contact");
 
 

@@ -23,7 +23,7 @@ public class JSONStorageContact implements StorableContact
     // A T T R I B U T S
     //*****************************************************************************
     // ARRAY LIST - Ce sera le carnet d'adresse
-    private ArrayList<Contact> contactArray = new ArrayList<>();
+    private ArrayList<Contact> contactArray = new ArrayList<>();    //@TODO déplacer le NEW dans READ ?
 
     // Liste qui permet de lire le JSOn et sera converti ensuite en ArrayList du carnet d'adresse
     private List<Contact> contactList;

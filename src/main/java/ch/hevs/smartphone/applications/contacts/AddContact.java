@@ -27,9 +27,6 @@ public class AddContact extends JPanel
     private JTextField tfFirstName = new JTextField("FN", 50);
     private JTextField tfNoPhone = new JTextField("NP", 50);
 
-    // OTHER OBJECTS
-    //protected AddressBook ad = new AddressBook();
-    protected ContactsGUI cGUI = new ContactsGUI();
 
     // TODO fonction pour ajouter une image de la galerie
 
@@ -77,6 +74,137 @@ public class AddContact extends JPanel
         return this;
     }
 
+    //*****************************************************************************
+    // I N N E R  -  C L A S S
+    //*****************************************************************************
+    // INNER CLASS
+
+   /* class ListenerSaveAddContact implements ActionListener {
+
+        JTextField inputFN;
+        JTextField inputN;
+        JTextField inputNP;
+
+        public ListenerSaveAddContact(JTextField firstName, JTextField name, JTextField noPhone) {
+            inputFN = firstName;
+            inputN = name;
+            inputNP = noPhone;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+            Contact c = new Contact("","","");
+
+            String text1 = "";
+            text1 = inputFN.getText();
+            c.setFirstName(text1);
+
+            String text2 = "";
+            text2 = inputN.getText();
+            c.setLastName(text2);
+
+            String text3 = "";
+            text3 = inputNP.getText();
+            c.setNoPhone(text3);
+
+            System.out.println(c);
+
+            ad.addContact(c);
+            ad.sortDescending(ad.getContacts()); // trie l'Arraylist contacts par ordre alphabétique
+            System.out.println("AddContact1");
+
+            try {
+                ad.write(ad.getmyObj(),ad.getContacts());
+                System.out.println(ad.getmyObj());
+            } catch (BusinessException businessException) {
+                businessException.printStackTrace();
+            }
+
+            System.out.println("AddContact2");
+
+            inputFN.setText("");
+            inputN.setText("");
+            inputNP.setText("");
+
+        }
+*/
+
+
+    //********************************
+
+
+
+
+    /*public class ListenerSaveAddContact implements ActionListener
+    {
+        JTextField inputFN;
+        JTextField inputN;
+        JTextField inputNP;
+
+        public ListenerSaveAddContact(JTextField firstName, JTextField name, JTextField noPhone)
+        {
+            inputFN = firstName;
+            inputN = name;
+            inputNP = noPhone;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e)
+        {
+            // SAVE
+            // Récuperation des TEXTBOX
+            Contact c = new Contact("", "", "");
+
+            String text1 = "";
+            text1 = inputFN.getText();
+            c.setFirstName(text1);
+
+            String text2 = "";
+            text2 = inputN.getText();
+            c.setLastName(text2);
+
+            String text3 = "";
+            text3 = inputNP.getText();
+            c.setNoPhone(text3);
+
+            System.out.println(c);
+
+            addressBook.addContact(c);
+            // addressBook.sortDescending(addressBook.getContactArray()); // trie l'Arraylist contacts par ordre alphabétique
+
+            System.out.println("AddContact1");
+            try
+            {
+                addressBook.write(addressBook.getmyObj(), addressBook.getContactArray()); // SERIALISATION
+            } catch (BusinessException businessException)
+            {
+                businessException.printStackTrace();
+                System.out.println("COULD NOT SAVE CONTACT -- INNER CLASS CONTENTLAYOUT LISTENERS");
+            }
+            System.out.println("AddContact2");
+
+            inputFN.setText("");
+            inputN.setText("");
+            inputNP.setText("");
+
+            // REFRESH @TODO REFRESH BUG ENCORE
+            System.out.println("ContentLayout");
+            pnlContact.removeAll();
+            // pnlContact.validate();
+            //refreshPanel("Contact");
+            pnlContact.add(pnlContact.buildpnlContentContact());
+
+            //pnlContact.revalidate();
+            //pnlContact.repaint();
+
+            cardlayout.show(pnlContent, "Contact");
+            actionsCount--;
+
+        }
+    }
+    */
+
 
     //*****************************************************************************
     // G E T T E R S
@@ -95,5 +223,6 @@ public class AddContact extends JPanel
     {
         return tfNoPhone;
     }
+
 }
 

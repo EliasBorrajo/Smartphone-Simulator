@@ -56,13 +56,12 @@ public class ContentLayout extends JPanel
 
     // FooterLayout
     private FooterLayout footerLayout;
-    private int actionsCount = -1;          // Compteur permettant de savoir quel PANNEL afficher (BtnHome & BtnRetour)
+    private int actionsCount = -1;              // Compteur permettant de savoir quel PANNEL afficher (BtnHome & BtnRetour)
     private ArrayList<String> panelsOpen = new ArrayList<String>();
-    private String currentPanel = "Home";      // Sert au refreshPannel
+    private String currentPanel = "Home";       // Sert au refreshPannel
 
     // CONTACT APP
-
-    private JSONStorageContact addressBook = new JSONStorageContact();// Conteint tous les contactes
+    private JSONStorageContact addressBook;     // Conteint tous les contactes
     private int nbContact;                      // Nombre de contactes dans le carnet d'adresse
     private String[] contactName;               // Nom des contacts pour les nouvelles cards
     private String[] contactNoPhone;            //
@@ -85,32 +84,33 @@ public class ContentLayout extends JPanel
     //*****************************************************************************
     private void buildpnlContent() throws IOException, BusinessException
     {
-        pnlContact = new ContactsGUI();
-        //*********** @TODO DECALRER AILLEURS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        addressBook = pnlContact.getAddressBook();
-        ArrayList<Contact> contacts = this.addressBook.getContactArray();
-        addressBook.sortDescending(contacts);
-        nbContact = contacts.size();
-
-        contactName = new String[nbContact];
-        contactNoPhone = new String[nbContact];
-        //***********
-
         cardlayout = new CardLayout();
 
-        pnlContent = this;
+        pnlContent = this;                          // permet de faciliter la lecture & l'utiliser dans une methode
 
-        pnlHome = new JPanel(); //new GridLayout(2,3)
+        pnlHome = new JPanel();                     //new GridLayout(2,3)
+        pnlContact = new ContactsGUI(this);
+                // @TODO : AJouter cela à l'APP CONTACTES
+                // GET adressBook
+                addressBook = pnlContact.getJsonAddressBook();
+                // GET Contactes
+                ArrayList<Contact> contacts = this.addressBook.getContactArray();
+                addressBook.sortDescending(contacts);
+                nbContact = contacts.size();
+                contactName = new String[nbContact];
+                contactNoPhone = new String[nbContact];
 
-        pnlAddContact = new AddContact();
+                pnlAddContact = new AddContact();   // @TODO : Doit se retruver dans le cardLayout des CONTACTES
+                pnlShowContactInfo = new ShowContactInfo[nbContact];
+
         pnlGallery = new GalleryGUI();
+                pnlPhotoView = new PhotoView();     // @TODO : Doit se retruver dans le cardLayout des PHOTOS
+
         pnlWeather = new WeatherGUI();
-        pnlPhotoView = new PhotoView();
-        pnlShowContactInfo = new ShowContactInfo[nbContact];
 
 
+        // @TODO : DEPLACER DANS CONTACTES GUI
         // Création des arrays nécessaires pour les cards de contacts
-
         for (int i = 0; i < nbContact; i++)
         {
             contactName[i] = contacts.get(i).getFirstName() + " " + contacts.get(i).getLastName();
@@ -119,7 +119,7 @@ public class ContentLayout extends JPanel
         }
 
 
-        // CONSTUCTION DES IMAGES
+        // HOME - CONSTUCTION DES IMAGES
         URL imageContact = ContentLayout.class.getClassLoader().getResource("ContentIcon/contactIcon2.png");
         URL imageGallery = ContentLayout.class.getClassLoader().getResource("ContentIcon/galleryIcon2.png");
         URL imageWeather = ContentLayout.class.getClassLoader().getResource("ContentIcon/weatherIcon2.png");
@@ -141,26 +141,27 @@ public class ContentLayout extends JPanel
         pnlHome.setBackground(Color.darkGray);
 
         //Ajouteur les cards au panel conteneur
-        this.add("Home", pnlHome);
-        this.add("Contact", pnlContact);
-        this.add("AddContact", pnlAddContact);
-        this.add("Gallery", pnlGallery);
-        this.add("PhotoView", pnlPhotoView);
-        this.add("Weather", pnlWeather);
+        this.add("Home",        pnlHome);
+        this.add("Contact",     pnlContact);
+        this.add("AddContact",  pnlAddContact);
+        this.add("Gallery",     pnlGallery);
+        this.add("PhotoView",   pnlPhotoView);
+        this.add("Weather",     pnlWeather);
 
-        // Création des cards de contact
-        for (int l = 0; l < nbContact; l++)
-        {
-            this.add(contactName[l], pnlShowContactInfo[l]);
-        }
-        this.refreshPanel("Home");
+                            // @TODO AJOUTER CES CARDS AU CONTACTE GUI
+                            // Création des cards de contact
+                            for (int l = 0; l < nbContact; l++)
+                            {
+                                this.add(contactName[l], pnlShowContactInfo[l]);
+                            }
+                            this.refreshPanel("Home");
 
 
         //*****************************************************************************
         // L I S T E N E R S
         //*****************************************************************************
 
-        // BOUTTONS HOME
+        // BOUTTONS DE HOME-PAGE
         btnContact.addActionListener(new ActionListener()
         {
             @Override
@@ -187,36 +188,6 @@ public class ContentLayout extends JPanel
                 refreshPanel("Weather");
             }
         });
-
-        // CONTACT APP
-        pnlContact.getBtnAddContact().addActionListener(new ActionListener()
-        {
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-                refreshPanel("AddContact");
-            }
-        });
-
-        // création des ActionListener en fonction du nombre de contacts présents*/
-        for (int i = 0; i < nbContact; i++)
-        {
-            int finalI = i;
-            pnlContact.getBtnShowContact()[i].addActionListener(new ActionListener()
-            {
-                @Override
-                public void actionPerformed(ActionEvent e)
-                {
-                    refreshPanel(contactName[finalI]);
-                }
-            });
-        }
-
-        pnlAddContact.getBtnSave().addActionListener(new ListenerSaveAddContact
-                (this.getPnlAddContact().getTfFirstName(),
-                        this.getPnlAddContact().getTfName(),
-                        this.getPnlAddContact().getTfNoPhone()
-                ));
 
         // FOOTER
         this.footerLayout.getBtnBack().addActionListener(new ActionListener()
@@ -245,11 +216,48 @@ public class ContentLayout extends JPanel
             }
         });
 
-        //return this;
+        //@TODO : AJOUTER CONTACTE GUI
+                    // CONTACT APP
+                    pnlContact.getBtnAddContact().addActionListener(new ActionListener()
+                    {
+                        @Override
+                        public void actionPerformed(ActionEvent e)
+                        {
+                            refreshPanel("AddContact");
+                        }
+                    });
+
+                    // création des ActionListener en fonction du nombre de contacts présents*/
+                    for (int i = 0; i < nbContact; i++)
+                    {
+                        int finalI = i;
+                        pnlContact.getBtnShowContact()[i].addActionListener(new ActionListener()
+                        {
+                            @Override
+                            public void actionPerformed(ActionEvent e)
+                            {
+                                refreshPanel(contactName[finalI]);
+                            }
+                        });
+                    }
+
+                 /*   pnlAddContact.getBtnSave().addActionListener(new ListenerSaveAddContact
+                            (this.getPnlAddContact().getTfFirstName(),
+                                    this.getPnlAddContact().getTfName(),
+                                    this.getPnlAddContact().getTfNoPhone()
+                            ));*/
+
+
+
+
     }
 
+    //*****************************************************************************
+    // M E T H O D E S
+    //*****************************************************************************
     public void refreshPanel(String currentPanel)
     {
+        System.out.println();
         System.out.println("AVANT REFRESH" + panelsOpen);
         this.currentPanel = currentPanel;
         cardlayout.show(this, this.currentPanel);
@@ -261,76 +269,8 @@ public class ContentLayout extends JPanel
 
     }
 
-    //*****************************************************************************
-    // I N N E R  -  C L A S S
-    //*****************************************************************************
-    public class ListenerSaveAddContact implements ActionListener
-    {
-        JTextField inputFN;
-        JTextField inputN;
-        JTextField inputNP;
+    // @TODO : DEPLACER DANS ADD CONTACTE
 
-        public ListenerSaveAddContact(JTextField firstName, JTextField name, JTextField noPhone)
-        {
-            inputFN = firstName;
-            inputN = name;
-            inputNP = noPhone;
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent e)
-        {
-            // SAVE
-            // Récuperation des TEXTBOX
-            Contact c = new Contact("", "", "");
-
-            String text1 = "";
-            text1 = inputFN.getText();
-            c.setFirstName(text1);
-
-            String text2 = "";
-            text2 = inputN.getText();
-            c.setLastName(text2);
-
-            String text3 = "";
-            text3 = inputNP.getText();
-            c.setNoPhone(text3);
-
-            System.out.println(c);
-
-            addressBook.addContact(c);
-           // addressBook.sortDescending(addressBook.getContactArray()); // trie l'Arraylist contacts par ordre alphabétique
-
-            System.out.println("AddContact1");
-            try
-            {
-                addressBook.write(addressBook.getmyObj(), addressBook.getContactArray()); // SERIALISATION
-            } catch (BusinessException businessException)
-            {
-                businessException.printStackTrace();
-                System.out.println("COULD NOT SAVE CONTACT -- INNER CLASS CONTENTLAYOUT LISTENERS");
-            }
-            System.out.println("AddContact2");
-
-            inputFN.setText("");
-            inputN.setText("");
-            inputNP.setText("");
-
-            // REFRESH @TODO REFRESH BUG ENCORE
-            System.out.println("ContentLayout");
-            pnlContact.removeAll();
-            // pnlContact.validate();
-            //refreshPanel("Contact");
-            pnlContact.add(pnlContact.buildpnlContentContact());
-
-            //pnlContact.revalidate();
-            //pnlContact.repaint();
-
-            cardlayout.show(pnlContent, "Contact");
-            actionsCount--;
-
-        }
-    }
 
     //*****************************************************************************
     // G E T T E R S
