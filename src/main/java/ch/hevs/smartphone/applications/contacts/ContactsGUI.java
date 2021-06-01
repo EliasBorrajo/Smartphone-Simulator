@@ -1,6 +1,6 @@
 package ch.hevs.smartphone.applications.contacts;
 
-import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
+import ch.hevs.smartphone.errors.BusinessException;
 import ch.hevs.smartphone.applications.contacts.serialization.JSONStorageContact;
 import ch.hevs.smartphone.parameters.button.Button;
 import ch.hevs.smartphone.structure.layout.ContentLayout;
@@ -18,11 +18,11 @@ public class ContactsGUI extends JPanel
     // A T T R I B U T S
     //*****************************************************************************
     // LAYOUTS
-    private CardLayout cardsContact;        // Contiendra les différents cards de l'application
+    private CardLayout cardLayoutContact;        // Contiendra les différents cards de l'application
     private ContentLayout cl;               // Permet de récuperer & d'utiliser le content layout dans l'app
 
     // PANEL
-    //private JPanel pnlContentCardsContact;    // Un pannel de type CardLayout qui va contenir TOUS nos pannels exstant dans l'APP
+    private JPanel pnlContentCardsContact;           // panel conteneur pour avoir accès au cardlayout depuis les listeners
     private JPanel pnlHomeContact;              // Pannel d'accueil BRODERLAYOUT
         private JPanel pnlNorth;                // Pannel Nord comprenant le boutton + et tu texte
         private JPanel pnlCenterJscrollContact; // Pannel comprenant le SCROLL
@@ -30,6 +30,7 @@ public class ContactsGUI extends JPanel
 
     private AddContact pnlAddContact;               // Card de l'app contactes
     private ShowContactInfo[] pnlShowContactInfo;   // Cards des contactes que l'utilisateur va ajouter
+
     // LABEL
     private JLabel lblContactTitle;
 
@@ -42,6 +43,8 @@ public class ContactsGUI extends JPanel
     private ArrayList<Contact> contacts;        // Contient tous les contactes
     private String[] contactName;                 // Permet de donner le nom + Prénom à un cotacte
     private String[] contactNoPhone;
+
+    String currentPanel = "";
 
     //*****************************************************************************
     // C O N S T R U C T E U R
@@ -65,6 +68,8 @@ public class ContactsGUI extends JPanel
      */
     public void buildPnlContentContact()
     {
+        pnlContentCardsContact = this;
+
         // NORTH
         lblContactTitle = new JLabel("Contacts");
         btnAddContact = new Button("+");
@@ -76,12 +81,13 @@ public class ContactsGUI extends JPanel
         scrollPaneContact = new JScrollPane();
         scrollPaneContact = buildScrollPaneContact();
         scrollPaneContact.setBackground(Color.CYAN);
+        /*pnlCentre.add(scrollPaneContact);
+        pnlCentre.add*/
 
         // HOME PAGE
         pnlHomeContact = new JPanel(new BorderLayout());
         pnlHomeContact.add(pnlNorth,          BorderLayout.NORTH);
         pnlHomeContact.add(scrollPaneContact, BorderLayout.CENTER);
-
 
     }
 
@@ -110,7 +116,7 @@ public class ContactsGUI extends JPanel
 
         try // Essaye de créer un pannel pour l'ajout des contactes
         {
-            pnlAddContact = new AddContact();
+            pnlAddContact = new AddContact(this);
         } catch (IOException | BusinessException e)
         {
             e.printStackTrace();
@@ -157,19 +163,6 @@ public class ContactsGUI extends JPanel
             for (int i = 0; i < contacts.size(); i++)
             {
                 btnShowContacts[i] = new JButton(contactName[i]);
-
-             /*   String finalName = contactName[i];
-                btnShowContacts[i].addActionListener(new ActionListener()
-                {
-                    @Override
-                    public void actionPerformed(ActionEvent e)
-                    {
-                        cardsContact.show(pnlHomeContact, finalName);
-                    }
-                });
-
-              */
-
                 pnlCenterJscrollContact.add(btnShowContacts[i]);
             }
         }
@@ -182,14 +175,17 @@ public class ContactsGUI extends JPanel
         return scrollPaneContact;
     }
 
-
+    /**
+     * Création du cardlayout avec ajout des cards
+     */
     private void buildCardsLayout()
     {
 
-        cardsContact = new CardLayout();
-        this.setLayout(cardsContact);
+        cardLayoutContact = new CardLayout();
+        this.setLayout(cardLayoutContact);
 
         this.add("HomeContact", pnlHomeContact);
+        this.add("AddContact", pnlAddContact);
 
         // Création des cards de contact
         for (int i = 0; i < contacts.size(); i++)
@@ -200,45 +196,45 @@ public class ContactsGUI extends JPanel
 
     }
 
-    //*****************************************************************************
-    // L I S T E N E R S  //@TODO : Mettre dans une autre classe !!
-    //*****************************************************************************
+    /**
+     * Listeners
+     */
     private void setListeners()
     {
+        // action listener pour l'ajout d'un contact
         btnAddContact.addActionListener(new ActionListener()
         {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                //@TODO : CREER UN REFRESH PANNEL OU REVOIR LA METHODE
-               // refreshPanel("AddContact");
-                System.out.println("BTN ADD CONTACT CLIQUE");
-
+                cardLayoutContact.show(pnlContentCardsContact, "AddContact");
+                //refreshPanel("AddContact");
             }
         });
 
+        // action listener pour les différents contact du scrollPane
         // création des ActionListener en fonction du nombre de contacts présents
         for (int i = 0; i < contacts.size() ; i++)
         {
-
             String finalName = contactName[i];
             btnShowContacts[i].addActionListener(new ActionListener()
             {
                 @Override
                 public void actionPerformed(ActionEvent e)
                 {
-                    //@TODO : CREER UN REFRESH PANNEL OU REVOIR LA METHODE
-                    // refreshPanel(contactName[finalI]);
-                    System.out.println("BTN SHOW CONTACT N° : ");
-
-                    cardsContact.show(pnlHomeContact, finalName);
-
-
+                    cardLayoutContact.show(pnlContentCardsContact, finalName);
                 }
             });
         }
-
     }
+
+    /*public void refreshPanel(String currentPanel)
+    {
+        this.currentPanel = currentPanel;
+        cardLayoutContact.show(this, this.currentPanel);
+        cl.getfLayout().buildMenu();
+    }*/
+
 
 
     //*****************************************************************************

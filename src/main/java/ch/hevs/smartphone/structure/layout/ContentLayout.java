@@ -1,8 +1,7 @@
 package ch.hevs.smartphone.structure.layout;
 
 import ch.hevs.smartphone.applications.contacts.*;
-import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
-import ch.hevs.smartphone.applications.contacts.serialization.JSONStorageContact;
+import ch.hevs.smartphone.errors.BusinessException;
 import ch.hevs.smartphone.parameters.button.ButtonIcon;
 import ch.hevs.smartphone.parameters.ScreenSizeEnum;
 
@@ -13,7 +12,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 
 /**
  * Classe contenant tout notre écran principal.
@@ -30,8 +28,7 @@ public class ContentLayout extends JPanel
 
     // PANEL
     // HOME
-    private JPanel pnlContent;          // Panel principal qui va contenir tous les cards
-    private JPanel pnlHome;             // Panneau d'accueil
+   private JPanel pnlHome;             // Panneau d'accueil
     // CONTACTES
     private ContactsGUI pnlContact;     // Application Contactes
 
@@ -53,8 +50,8 @@ public class ContentLayout extends JPanel
 
     // FooterLayout
     private FooterLayout footerLayout;
-    private int actionsCount = -1;              // Compteur permettant de savoir quel PANNEL afficher (BtnHome & BtnRetour)
-    private ArrayList<String> panelsOpen = new ArrayList<String>();
+    /*private int actionsCount = -1;              // Compteur permettant de savoir quel PANNEL afficher (BtnHome & BtnRetour)
+    private ArrayList<String> panelsOpen = new ArrayList<String>();*/
     private String currentPanel = "Home";       // Sert au refreshPannel
 
     //*****************************************************************************
@@ -106,7 +103,6 @@ public class ContentLayout extends JPanel
         //Ajouteur les cards au panel conteneur
         this.add("Home",        pnlHome);
         this.add("Contact",     pnlContact);
-        //this.add("AddContact",  pnlAddContact);
         /*this.add("Gallery",     pnlGallery);
         this.add("Weather",     pnlWeather);*/
 
@@ -158,13 +154,10 @@ public class ContentLayout extends JPanel
     //*****************************************************************************
     public void refreshPanel(String currentPanel)
     {
-        this.currentPanel = currentPanel;
-        cardlayout.show(this, this.currentPanel);
+        //this.currentPanel = currentPanel;
+        cardlayout.show(this, currentPanel);
         footerLayout.buildMenu();
     }
-
-    // @TODO : DEPLACER INNER CLASS DANS ADD CONTACTE
-
 
     //*****************************************************************************
     // G E T T E R S
@@ -172,11 +165,6 @@ public class ContentLayout extends JPanel
     public CardLayout getCardlayout()
     {
         return cardlayout;
-    }
-
-    public JPanel getPnlContent()
-    {
-        return pnlContent;
     }
 
     public JPanel getPnlHome()
@@ -233,20 +221,5 @@ public class ContentLayout extends JPanel
     {
         return footerLayout;
     }
-
-    /*public int getActionsCount()
-    {
-        return actionsCount;
-    }*/
-
-    /*public ArrayList<String> getPanelsOpen()
-    {
-        return panelsOpen;
-    }*/
-
-    /*public String getCurrentPanel()
-    {
-        return currentPanel;
-    }*/
 
 }

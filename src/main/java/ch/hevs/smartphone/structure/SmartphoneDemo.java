@@ -1,6 +1,6 @@
 package ch.hevs.smartphone.structure;
 
-import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
+import ch.hevs.smartphone.errors.BusinessException;
 
 import java.io.IOException;
 

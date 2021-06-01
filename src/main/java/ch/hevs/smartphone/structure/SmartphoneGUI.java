@@ -1,11 +1,11 @@
 package ch.hevs.smartphone.structure;
 
-import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
+import ch.hevs.smartphone.errors.BusinessException;
 import ch.hevs.smartphone.parameters.ScreenSizeEnum;
 import ch.hevs.smartphone.structure.layout.ContentLayout;
 import ch.hevs.smartphone.structure.layout.FooterLayout;
 import ch.hevs.smartphone.structure.layout.HeaderLayout;
-import ch.hevs.smartphone.structure.listeners.ContentListener;
+//import ch.hevs.smartphone.structure.listeners.ContentListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,7 +31,7 @@ public class SmartphoneGUI extends JFrame
     // VARIABLES
     private boolean isOn;
     private java.util.Timer timer;
-    private ContentListener myListener;
+    //private ContentListener myListener;
 
     //*****************************************************************************
     // C O N S T R U C T E U R
@@ -90,13 +90,13 @@ public class SmartphoneGUI extends JFrame
         return borderPanel;
     }
 
-    private void setListeners()
+    /*private void setListeners()
     {
         // On crée le listener, en lui donnant accès à TOUS les attributs PROTECTED du SMARTPHONE
         myListener = new ContentListener(this );
 
         //contentLayout.getPnlAddContact().getBtnSave().addActionListener(myListener);
-    }
+    }*/
 
     private void setTimerUpdate()
     {

@@ -1,4 +1,4 @@
-package ch.hevs.smartphone.applications.contacts.errors;
+package ch.hevs.smartphone.errors;
 
 /**
  * Code d'erreur pour l'application Contactes

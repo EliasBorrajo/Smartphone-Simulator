@@ -1,6 +1,6 @@
 package ch.hevs.smartphone.applications.contacts;
 
-import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
+import ch.hevs.smartphone.errors.BusinessException;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,44 +12,93 @@ public class AddContact extends JPanel
 {
 
     // PANEL
-    private JPanel pnlNorth = new JPanel();
-    private JPanel pnlCentre = new JPanel();
-    private JPanel pnlSouth = new JPanel();
+    private JPanel pnlNorth;
+    private JPanel pnlCentre;
+    private JPanel pnlSouth;
 
     // LABEL
-    private JLabel lblContactsTitle = new JLabel("Add new contact");
-    private JLabel lblName = new JLabel("Last Name : ");
-    private JLabel lblFirstName = new JLabel("First name : ");
-    private JLabel lblNoPhone = new JLabel("Phone number : ");
+    private JLabel lblContactsTitle;
+    private JLabel lblFirstName;
+    private JLabel lblLastName;
+    private JLabel lblNoPhone;
+
+    // BUTTON
+    JButton btnPhotoContact;
+    JButton btnSave;
 
     // TEXTFIELD
-    private JTextField tfName = new JTextField("N",50);
-    private JTextField tfFirstName = new JTextField("FN", 50);
-    private JTextField tfNoPhone = new JTextField("NP", 50);
+    protected JTextField tfFirstName;
+    protected JTextField tfLastName;
+    protected JTextField tfNoPhone;
 
+    // OTHER CLASS USED FOR COMPOSITION
+    protected ContactsGUI cGUI;
+    protected Contact contact;
 
     // TODO fonction pour ajouter une image de la galerie
 
-    // BUTTON
-    JButton btnSave = new JButton("Save");
+    //*****************************************************************************
+    // G E T T E R S
+    //*****************************************************************************
+    public JTextField getTfName()
+    {
+        return tfLastName;
+    }
 
-    // GETTERS
+    public JTextField getTfFirstName()
+    {
+        return tfFirstName;
+    }
+
+    public JTextField getTfNoPhone()
+    {
+        return tfNoPhone;
+    }
+
     public JButton getBtnSave() {
         return btnSave;
     }
 
+    public ContactsGUI getcGUI() {
+        return cGUI;
+    }
+
+    public Contact getContact() {
+        return contact;
+    }
+
+    //*****************************************************************************
+    // S E T T E R S
+    //*****************************************************************************
+
+    public void setcGUI(ContactsGUI cGUI) {
+        this.cGUI = cGUI;
+    }
+
+    public void setContact(Contact contact) {
+        this.contact = contact;
+    }
+
     // CONSTRUCTOR
-    public AddContact() throws IOException, BusinessException
+    public AddContact(ContactsGUI cGUI) throws IOException, BusinessException
     {
+        this.cGUI = cGUI;
         buildPnlContent();
     }
 
     // METHODS
+
+    /**
+     * build pnlContent
+     * @return JPanel
+     */
     private JPanel buildPnlContent() {
 
-        // Parametre du frame
-        setSize(50, 50);
-        setLayout(new BorderLayout());
+        buildPanelAndButton();
+
+        // Parametre du panel
+        this.setSize(50, 50);
+        this.setLayout(new BorderLayout());
 
         // Parametre des JPanel
         pnlCentre.setLayout(new GridLayout(3,2));
@@ -60,8 +109,8 @@ public class AddContact extends JPanel
 
         pnlCentre.add(lblFirstName);
         pnlCentre.add(tfFirstName);
-        pnlCentre.add(lblName);
-        pnlCentre.add(tfName);
+        pnlCentre.add(lblLastName);
+        pnlCentre.add(tfLastName);
         pnlCentre.add(lblNoPhone);
         pnlCentre.add(tfNoPhone);
         this.add(pnlCentre, BorderLayout.CENTER);
@@ -70,8 +119,42 @@ public class AddContact extends JPanel
         pnlSouth.add(btnSave);
         this.add(pnlSouth, BorderLayout.SOUTH);
 
+        setListenerAddContact();
 
         return this;
+    }
+
+    /**
+     * build panels and buttons needed in buildPnlContent method
+     * @return
+     */
+    public JPanel buildPanelAndButton() {
+
+        // PANEL
+        pnlNorth = new JPanel();
+        pnlCentre = new JPanel();
+        pnlSouth = new JPanel();
+
+        // BUTTON
+        btnPhotoContact = new JButton("Add picture");
+        btnSave = new JButton("Save");
+
+        // LABEL
+        lblContactsTitle = new JLabel("Add new contact");
+        lblFirstName = new JLabel("First name : ");
+        lblLastName = new JLabel("Last Name : ");
+        lblNoPhone = new JLabel("Phone number : ");
+
+        // TEXTFIELD
+        tfFirstName = new JTextField("FN", 50);
+        tfLastName = new JTextField("N",50);
+        tfNoPhone = new JTextField("NP", 50);
+
+        return this;
+    }
+
+    public void setListenerAddContact() {
+        btnSave.addActionListener(new ListenerSaveAddContact(tfFirstName, tfLastName, tfNoPhone));
     }
 
     //*****************************************************************************
@@ -79,7 +162,7 @@ public class AddContact extends JPanel
     //*****************************************************************************
     // INNER CLASS
 
-   /* class ListenerSaveAddContact implements ActionListener {
+    class ListenerSaveAddContact implements ActionListener {
 
         JTextField inputFN;
         JTextField inputN;
@@ -94,29 +177,31 @@ public class AddContact extends JPanel
         @Override
         public void actionPerformed(ActionEvent e) {
 
-            Contact c = new Contact("","","");
+            contact = new Contact("","","");
+
 
             String text1 = "";
             text1 = inputFN.getText();
-            c.setFirstName(text1);
+            contact.setFirstName(text1);
 
             String text2 = "";
             text2 = inputN.getText();
-            c.setLastName(text2);
+            contact.setLastName(text2);
 
             String text3 = "";
             text3 = inputNP.getText();
-            c.setNoPhone(text3);
+            contact.setNoPhone(text3);
 
-            System.out.println(c);
+            System.out.println(contact);
 
-            ad.addContact(c);
-            ad.sortDescending(ad.getContacts()); // trie l'Arraylist contacts par ordre alphabétique
+            cGUI.getJsonAddressBook().addContact(contact);
+            cGUI.getJsonAddressBook().sortDescending(cGUI.getJsonAddressBook().getContactArray()); // trie l'Arraylist contacts par ordre alphabétique
             System.out.println("AddContact1");
 
             try {
-                ad.write(ad.getmyObj(),ad.getContacts());
-                System.out.println(ad.getmyObj());
+                cGUI.getJsonAddressBook().write(cGUI.getJsonAddressBook().getmyObj(),
+                                                cGUI.getJsonAddressBook().getContactArray());
+                System.out.println(cGUI.getJsonAddressBook().getmyObj());
             } catch (BusinessException businessException) {
                 businessException.printStackTrace();
             }
@@ -128,101 +213,9 @@ public class AddContact extends JPanel
             inputNP.setText("");
 
         }
-*/
-
-
-    //********************************
-
-
-
-
-    /*public class ListenerSaveAddContact implements ActionListener
-    {
-        JTextField inputFN;
-        JTextField inputN;
-        JTextField inputNP;
-
-        public ListenerSaveAddContact(JTextField firstName, JTextField name, JTextField noPhone)
-        {
-            inputFN = firstName;
-            inputN = name;
-            inputNP = noPhone;
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent e)
-        {
-            // SAVE
-            // Récuperation des TEXTBOX
-            Contact c = new Contact("", "", "");
-
-            String text1 = "";
-            text1 = inputFN.getText();
-            c.setFirstName(text1);
-
-            String text2 = "";
-            text2 = inputN.getText();
-            c.setLastName(text2);
-
-            String text3 = "";
-            text3 = inputNP.getText();
-            c.setNoPhone(text3);
-
-            System.out.println(c);
-
-            addressBook.addContact(c);
-            // addressBook.sortDescending(addressBook.getContactArray()); // trie l'Arraylist contacts par ordre alphabétique
-
-            System.out.println("AddContact1");
-            try
-            {
-                addressBook.write(addressBook.getmyObj(), addressBook.getContactArray()); // SERIALISATION
-            } catch (BusinessException businessException)
-            {
-                businessException.printStackTrace();
-                System.out.println("COULD NOT SAVE CONTACT -- INNER CLASS CONTENTLAYOUT LISTENERS");
-            }
-            System.out.println("AddContact2");
-
-            inputFN.setText("");
-            inputN.setText("");
-            inputNP.setText("");
-
-            // REFRESH @TODO REFRESH BUG ENCORE
-            System.out.println("ContentLayout");
-            pnlContact.removeAll();
-            // pnlContact.validate();
-            //refreshPanel("Contact");
-            pnlContact.add(pnlContact.buildpnlContentContact());
-
-            //pnlContact.revalidate();
-            //pnlContact.repaint();
-
-            cardlayout.show(pnlContent, "Contact");
-            actionsCount--;
-
-        }
-    }
-    */
-
-
-    //*****************************************************************************
-    // G E T T E R S
-    //*****************************************************************************
-    public JTextField getTfName()
-    {
-        return tfName;
-    }
-
-    public JTextField getTfFirstName()
-    {
-        return tfFirstName;
-    }
-
-    public JTextField getTfNoPhone()
-    {
-        return tfNoPhone;
     }
 
 }
+
+
 

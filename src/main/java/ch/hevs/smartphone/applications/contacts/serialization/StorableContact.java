@@ -1,7 +1,7 @@
 package ch.hevs.smartphone.applications.contacts.serialization;
 
 import ch.hevs.smartphone.applications.contacts.Contact;
-import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
+import ch.hevs.smartphone.errors.BusinessException;
 
 import java.io.File;
 import java.io.IOException;

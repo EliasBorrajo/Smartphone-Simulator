@@ -52,7 +52,7 @@ public class FooterLayout extends JPanel {
         return btnHome;
     }
 
-    void buildMenu() {
+    public void buildMenu() {
         removeAll();
         menuBar = new JMenuBar();
         menuBar.setBackground(Color.WHITE);

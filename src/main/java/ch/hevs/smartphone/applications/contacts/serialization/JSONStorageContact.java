@@ -1,8 +1,8 @@
 package ch.hevs.smartphone.applications.contacts.serialization;
 
 import ch.hevs.smartphone.applications.contacts.Contact;
-import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
-import ch.hevs.smartphone.applications.contacts.errors.ErrorCode;
+import ch.hevs.smartphone.errors.BusinessException;
+import ch.hevs.smartphone.errors.ErrorCode;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -67,9 +67,9 @@ public class JSONStorageContact implements StorableContact
             else if (myObj.length() > 0)
             {
                 contactArray.clear();
-                System.out.println("test1");
+                //System.out.println("test1");
                 contactList = mapper.readValue(myObj, new TypeReference<List<Contact>>() { });
-                System.out.println("test2");
+                //System.out.println("test2");
                 contactArray = (ArrayList<Contact>) contactList;        // casting de la LISTE en ARRAYLISTE
             } else
             {
