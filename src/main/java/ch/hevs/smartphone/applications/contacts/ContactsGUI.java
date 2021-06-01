@@ -198,10 +198,6 @@ public class ContactsGUI extends JPanel
         }
         //this.cl.refreshPanel("Home"); //@TODO : Ajouter une nouvelle methode REFRESH pour ce cardLayout ici ????
 
-
-
-
-
     }
 
     //*****************************************************************************

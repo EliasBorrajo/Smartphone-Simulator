@@ -57,13 +57,6 @@ public class ContentLayout extends JPanel
     private ArrayList<String> panelsOpen = new ArrayList<String>();
     private String currentPanel = "Home";       // Sert au refreshPannel
 
-    // CONTACT APP
-    //private JSONStorageContact addressBook;     // Conteint tous les contactes
-    //private int nbContact;                      // Nombre de contactes dans le carnet d'adresse
-    //private String[] contactName;               // Nom des contacts pour les nouvelles cards
-    //private String[] contactNoPhone;            //
-
-
     //*****************************************************************************
     // C O N S T R U C T E U R
     //*****************************************************************************
@@ -82,8 +75,6 @@ public class ContentLayout extends JPanel
     private void buildpnlContent() throws IOException, BusinessException
     {
         cardlayout = new CardLayout();
-
-        pnlContent = this;                          // permet de faciliter la lecture & l'utiliser dans une methode
 
         pnlHome = new JPanel();                     //new GridLayout(2,3)
         pnlContact = new ContactsGUI(this);
@@ -151,29 +142,11 @@ public class ContentLayout extends JPanel
             }
         });
 
-        // FOOTER
-        this.footerLayout.getBtnBack().addActionListener(new ActionListener()
-        {
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-                if (actionsCount > 0)
-                {
-                    panelsOpen.remove(actionsCount);
-                    actionsCount--;
-                    cardlayout.show(pnlContent, panelsOpen.get(actionsCount));
-                    footerLayout.buildMenu();
-                }
-            }
-        });
-
         this.footerLayout.getBtnHome().addActionListener(new ActionListener()
         {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                actionsCount = -1;
-                panelsOpen.removeAll(panelsOpen);
                 refreshPanel("Home");
             }
         });
@@ -185,16 +158,9 @@ public class ContentLayout extends JPanel
     //*****************************************************************************
     public void refreshPanel(String currentPanel)
     {
-        System.out.println();
-        System.out.println("AVANT REFRESH" + panelsOpen);
         this.currentPanel = currentPanel;
         cardlayout.show(this, this.currentPanel);
         footerLayout.buildMenu();
-        // HISTRORIQUE des panels affichés pour le bouton retour
-        this.actionsCount++;
-        this.panelsOpen.add(this.currentPanel);
-        System.out.println("APRES REFRESH" + panelsOpen);
-
     }
 
     // @TODO : DEPLACER INNER CLASS DANS ADD CONTACTE
@@ -268,19 +234,19 @@ public class ContentLayout extends JPanel
         return footerLayout;
     }
 
-    public int getActionsCount()
+    /*public int getActionsCount()
     {
         return actionsCount;
-    }
+    }*/
 
-    public ArrayList<String> getPanelsOpen()
+    /*public ArrayList<String> getPanelsOpen()
     {
         return panelsOpen;
-    }
+    }*/
 
-    public String getCurrentPanel()
+    /*public String getCurrentPanel()
     {
         return currentPanel;
-    }
+    }*/
 
 }

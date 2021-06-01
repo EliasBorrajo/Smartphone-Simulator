@@ -61,7 +61,6 @@ public class Contact implements Serializable
         this.firstName = firstName;
         this.lastName = lastName;
         this.noPhone = noPhone;
-//        this.btnContactInfo = new JButton(this.firstName + " " + this.lastName);
     }
     public Contact(){
 
