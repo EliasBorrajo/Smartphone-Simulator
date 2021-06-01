@@ -192,7 +192,6 @@ public class ContactsGUI extends JPanel
         {
             this.add(contactName[i], pnlShowContactInfo[i]); //@TODO : PAS SRU QUE CE SOIT CORRECTE !!!
         }
-        //this.cl.refreshPanel("Home"); //@TODO : Ajouter une nouvelle methode REFRESH pour ce cardLayout ici ????
 
     }
 
@@ -236,7 +235,6 @@ public class ContactsGUI extends JPanel
     }*/
 
 
-
     //*****************************************************************************
     // G E T T E R S
     //*****************************************************************************
@@ -258,6 +256,14 @@ public class ContactsGUI extends JPanel
     public JSONStorageContact getJsonAddressBook()
     {
         return jsonAddressBook;
+    }
+
+    public CardLayout getCardLayoutContact() {
+        return cardLayoutContact;
+    }
+
+    public JPanel getPnlContentCardsContact() {
+        return pnlContentCardsContact;
     }
 
     //*****************************************************************************

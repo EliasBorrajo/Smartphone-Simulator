@@ -103,6 +103,8 @@ public class ContentLayout extends JPanel
         //Ajouteur les cards au panel conteneur
         this.add("Home",        pnlHome);
         this.add("Contact",     pnlContact);
+
+        refreshPanel("Home");
         /*this.add("Gallery",     pnlGallery);
         this.add("Weather",     pnlWeather);*/
 
@@ -143,6 +145,7 @@ public class ContentLayout extends JPanel
             @Override
             public void actionPerformed(ActionEvent e)
             {
+                pnlContact.getCardLayoutContact().show(pnlContact,"HomeContact");
                 refreshPanel("Home");
             }
         });
