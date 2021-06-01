@@ -14,6 +14,7 @@ import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Map;
 
+// Tutoriel trouvé sur : https://stackoverflow.com/questions/58759133/openweathermap-api-java
 
 public class WeatherAPI
 {
@@ -26,7 +27,7 @@ public class WeatherAPI
     private String urlLocation = "Sion";                                         // La ville sera par défaut "Sion"
 
     // Attributs a retourner au système pour afficher dans le GUI
-    // @TODO NON STRING MAIS OBJECTS POUR ETRE PAREIL QUE LES MAPS ??
+    // @TODO : NON STRING MAIS OBJECTS POUR ETRE PAREIL QUE LES MAPS ??
     private String nomVille;        // Pourra être changé
     private String temperature;
     private String tempMax;
@@ -61,8 +62,6 @@ public class WeatherAPI
     //*****************************************************************************
     // M E T H O D E S
     //*****************************************************************************
-
-
     /**
      * Convert JSON into a MAP
      * ON donne en entrée le fichier JSON que l'on veut,

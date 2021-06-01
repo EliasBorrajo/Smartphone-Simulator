@@ -6,7 +6,8 @@ import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
+import java.io.File;
+import java.util.ArrayList;
 
 public class ContactListener implements ActionListener
 {
@@ -26,10 +27,6 @@ public class ContactListener implements ActionListener
         System.out.println(this.contactsGUI);
     }
 
-    /*public ContactListener(ShowContactInfo showContactInfo) {
-        this.showContactInfo = showContactInfo;
-        System.out.println(this.showContactInfo);
-    }*/
 
     //*****************************************************************************
     // M E T H O D E S
@@ -43,44 +40,103 @@ public class ContactListener implements ActionListener
             System.out.println("BTN ADD CONTACT CLIQUE");
             contactsGUI.getCardLayoutContact().show(contactsGUI, "AddContact");
         }
+        // Boutton retour sur la page d'ajout de contacte
+        if(e.getSource() == contactsGUI.getPnlAddContact().getBtnBack())
+        {
+            System.out.println("Back from adding a new contact");
+            contactsGUI.getCardLayoutContact().show(contactsGUI, "HomeContact");
+        }
 
+        // FOR ShowContactInfo LOOP
+        // Listeners pour chaque bouton de contactes
         for (int i = 0; i < contactsGUI.getContacts().size(); i++)
         {
             // Listener pour showing contact
-            if (e.getSource() == contactsGUI.getBtnShowContacts()[i]) {
+            if(e.getSource() == contactsGUI.getBtnShowContacts()[i]) {
                 System.out.println("BTN SHOW CONTACT N° : " + i);
 
                 String finalName = contactsGUI.getContactName()[i];
                 contactsGUI.getCardLayoutContact().show(contactsGUI, finalName);
             }
 
-            // Listener pour delete contact
-            if (e.getSource() == contactsGUI.getPnlShowContactInfo()[i].getBtnDeleteContact()) {
+            //if
+
+            // Listener pour BTN BACK
+            if (e.getSource() == contactsGUI.getPnlShowContactInfo()[i].getBtnBack())
+            {
+                System.out.println("Back from SHowing contact Info");
+                contactsGUI.getCardLayoutContact().show(contactsGUI, "HomeContact");
+            }
+
+            // Listener pour Editer le contacte + SERIALISER
+            if(e.getSource() == contactsGUI.getPnlShowContactInfo()[i].getBtnEdit())
+            {
+                // Récuperer le contenu des Text Fields à editer
+                String tfFisrtName = contactsGUI.getPnlShowContactInfo()[i].getTfFirstName().getText();
+                String tfLastname  = contactsGUI.getPnlShowContactInfo()[i].getTfLastName() .getText();
+                String tfPhone     = contactsGUI.getPnlShowContactInfo()[i].getTfPhone()    .getText();
+
+                // Set des nouvelles valeurs dans notre ADRESS BOOK
+                contactsGUI.getJsonAddressBook().getContactArray().get(i).setFirstName(tfFisrtName);
+                contactsGUI.getJsonAddressBook().getContactArray().get(i).setLastName (tfLastname);
+                contactsGUI.getJsonAddressBook().getContactArray().get(i).setNoPhone  (tfPhone);
+
+                //SERIALISATION des modifications
+                try
+                {
+                    File fichierJson        = contactsGUI.getJsonAddressBook().getmyObj();
+                    ArrayList carnetAdresse = contactsGUI.getJsonAddressBook().getContactArray();
+
+
+                    contactsGUI.getJsonAddressBook().write(fichierJson, carnetAdresse);
+                } catch (BusinessException businessException)
+                {
+                    businessException.printStackTrace();
+                    System.out.println("Erreur lors de la sérialisation de l'EDIT TEXTFIELDS CONTACTE");
+                }
+
+                reBuildApp();
+
+            }
+
+            // Listener pour DELETE CONTACT
+            if (e.getSource() == contactsGUI.getPnlShowContactInfo()[i].getBtnDeleteContact())
+            {
 
                 contactsGUI.getJsonAddressBook().getContactArray().remove(i); // supprime le contact de l'array
 
-                // serialise à nouveau les données après modification
+                // SERIALISE à nouveau les données après modification
                 try {
-                    contactsGUI.getJsonAddressBook().write(contactsGUI.getJsonAddressBook().getmyObj(),
-                            contactsGUI.getJsonAddressBook().getContactArray());
+                    contactsGUI.getJsonAddressBook().write( contactsGUI.getJsonAddressBook().getmyObj(),
+                                                            contactsGUI.getJsonAddressBook().getContactArray());
                 } catch (BusinessException o){
                     System.out.println("Deleting contact error");
                 }
 
                 // Refresh des PANNELS
-                contactsGUI.removeAll();
-                contactsGUI.validate();
-
-                contactsGUI.buildPnlContentContact();
-                contactsGUI.buildCardsLayout();
-                contactsGUI.setListeners();
-
-                contactsGUI.revalidate();
-                contactsGUI.repaint();
+                reBuildApp(); // @TODO : ATTENTION : Il peut tout casser, doit venir à la fin !
 
             }
+
+
+
+
         }
 
+    }
+    private void reBuildApp()
+    {
+        // Refresh des PANNELS
+        System.out.println("REBUILD APP CONTACTES");
+        contactsGUI.removeAll();
+        contactsGUI.validate();
+
+        contactsGUI.buildPnlContentContact();
+        contactsGUI.buildCardsLayout();
+        contactsGUI.setListeners();
+
+        contactsGUI.revalidate();
+        contactsGUI.repaint();
     }
 
 }

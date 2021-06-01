@@ -18,7 +18,6 @@ public class ContactsGUI extends JPanel
     //*****************************************************************************
     // LAYOUTS
     private CardLayout cardLayoutContact;        // Contiendra les différents cards de l'application
-    //private JPanel contactsGUI = this;      // Permet de faire réference au panel parent Contact GUI dans les listeners.@TODO EFFACER
     private ContentLayout cl;               // Permet de récuperer & d'utiliser le content layout dans l'app
 
     // LISTENER
@@ -33,6 +32,7 @@ public class ContactsGUI extends JPanel
 
     private AddContact pnlAddContact;               // Card de l'app contactes
     private ShowContactInfo[] pnlShowContactInfo;   // Cards des contactes que l'utilisateur va ajouter
+
     // LABEL
     private JLabel lblContactTitle;
 
@@ -78,7 +78,7 @@ public class ContactsGUI extends JPanel
         //CENTER
         scrollPaneContact = new JScrollPane();
         scrollPaneContact = buildScrollPaneContact();
-        scrollPaneContact.setBackground(Color.CYAN);
+        //scrollPaneContact.setBackground(Color.CYAN);
 
         // HOME PAGE
         pnlHomeContact = new JPanel(new BorderLayout());
@@ -93,6 +93,8 @@ public class ContactsGUI extends JPanel
      */
     private void buildVariables()
     {
+        myListener = new ContactListener(this);
+
         try // Essaye de dé-sérialer (READ) le fichier JSON
         {
             jsonAddressBook = new JSONStorageContact();
@@ -125,11 +127,13 @@ public class ContactsGUI extends JPanel
         // CREATION des contenus des ARRAYS nécessaires pour les CARDS de contacts
         for (int i = 0; i < contacts.size(); i++)
         {
-            contactName[i] = contacts.get(i).getFirstName() + " " + contacts.get(i).getLastName();
             contactNoPhone[i] = contacts.get(i).getNoPhone();
             try
             {
-                pnlShowContactInfo[i] = new ShowContactInfo(this, contactName[i], contactNoPhone[i]);
+                pnlShowContactInfo[i] = new ShowContactInfo(this,
+                                                            contacts.get(i).getFirstName(),
+                                                            contacts.get(i).getLastName(),
+                                                            contactNoPhone[i]);
             } catch (IOException | BusinessException e)
             {
                 e.printStackTrace();
@@ -146,7 +150,7 @@ public class ContactsGUI extends JPanel
         buildVariables();
 
         pnlCenterJscrollContact = new JPanel(new GridLayout(0, 1, 5, 5));
-        pnlCenterJscrollContact.setBackground(Color.ORANGE);
+        pnlCenterJscrollContact.setBackground(Color.LIGHT_GRAY);
 
         // Si la liste de contactes est vide on affiche un message par défaut
         if (contacts.size() == 0)
@@ -160,8 +164,8 @@ public class ContactsGUI extends JPanel
             // CREATION des BOUTTONS pour chaque CONTACTE
             for (int i = 0; i < contacts.size(); i++)
             {
+                contactName[i] = contacts.get(i).getFirstName() + " " + contacts.get(i).getLastName();
                 btnShowContacts[i] = new JButton(contactName[i]);
-
 
                 pnlCenterJscrollContact.add(btnShowContacts[i]);
             }
@@ -188,7 +192,6 @@ public class ContactsGUI extends JPanel
         {
             this.add(contactName[i], pnlShowContactInfo[i]);
         }
-
     }
 
     //*****************************************************************************
@@ -196,8 +199,6 @@ public class ContactsGUI extends JPanel
     //*****************************************************************************
     public void setListeners()
     {
-        myListener = new ContactListener(this);
-
         btnAddContact.addActionListener(myListener);
 
         // création des ActionListener en fonction du nombre de contacts présents
@@ -296,6 +297,7 @@ public class ContactsGUI extends JPanel
     {
         return contactNoPhone;
     }
+
 
     //*****************************************************************************
     // S E T T E R S

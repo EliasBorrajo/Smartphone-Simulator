@@ -18,7 +18,7 @@ public class Contact implements Serializable
     private String firstName;
     private String lastName;
     private String noPhone;
-    private Photo contactPhoto;
+    private Photo  contactPhoto;
     //private JButton btnContactInfo;
 
     // GETTERS
@@ -71,8 +71,6 @@ public class Contact implements Serializable
     }
 
     // METHODS
-
-
     @Override
     public String toString() {
         return "Contact{" +
