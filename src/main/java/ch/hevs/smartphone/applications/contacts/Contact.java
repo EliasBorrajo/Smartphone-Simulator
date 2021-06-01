@@ -19,7 +19,7 @@ public class Contact implements Serializable
     private String lastName;
     private String noPhone;
     private Photo contactPhoto;
-    private JButton btnContactInfo;
+    //private JButton btnContactInfo;
 
     // GETTERS
     public String getFirstName() {

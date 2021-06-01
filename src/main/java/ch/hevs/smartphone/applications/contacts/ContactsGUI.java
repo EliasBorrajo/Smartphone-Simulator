@@ -129,7 +129,7 @@ public class ContactsGUI extends JPanel
             contactNoPhone[i] = contacts.get(i).getNoPhone();
             try
             {
-                pnlShowContactInfo[i] = new ShowContactInfo(contactName[i], contactNoPhone[i]);
+                pnlShowContactInfo[i] = new ShowContactInfo(this, contactName[i], contactNoPhone[i]);
             } catch (IOException | BusinessException e)
             {
                 e.printStackTrace();
@@ -176,7 +176,7 @@ public class ContactsGUI extends JPanel
     }
 
 
-    protected void buildCardsLayout()
+    public void buildCardsLayout()
     {
         cardLayoutContact = new CardLayout();
         this.setLayout(cardLayoutContact);
@@ -194,7 +194,7 @@ public class ContactsGUI extends JPanel
     //*****************************************************************************
     // L I S T E N E R S  //@TODO : Mettre dans une autre classe !!
     //*****************************************************************************
-    protected void setListeners()
+    public void setListeners()
     {
         myListener = new ContactListener(this);
 
@@ -206,27 +206,6 @@ public class ContactsGUI extends JPanel
             btnShowContacts[i].addActionListener(myListener);
         }
 
-
-        // création des ActionListener en fonction du nombre de contacts présents
-    /*    for (int i = 0; i < contacts.size() ; i++)
-        {
-            String finalName = contactName[i];
-            int finalI = i;
-            btnShowContacts[i].addActionListener(new ActionListener()
-            {
-                @Override
-                public void actionPerformed(ActionEvent e)
-                {
-                    //@TODO : CREER UN REFRESH PANNEL OU REVOIR LA METHODE
-                    // refreshPanel(contactName[finalI]);
-                    System.out.println("BTN SHOW CONTACT N° : ");
-
-                    //cardsContact.show(finalName , pnlHomeContact);
-                    cardsContact.show(contactsGUI, finalName);
-                }
-            });
-        }
-*/
     }
 
 

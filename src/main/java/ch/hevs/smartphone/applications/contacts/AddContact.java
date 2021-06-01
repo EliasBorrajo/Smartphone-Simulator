@@ -32,7 +32,7 @@ public class AddContact extends JPanel
     protected JTextField tfNoPhone;
 
     // OTHER CLASS USED FOR COMPOSITION
-    protected ContactsGUI cGUI;
+    protected ContactsGUI contactsGUI;
     protected Contact contact;
 
     // TODO fonction pour ajouter une image de la galerie
@@ -42,9 +42,9 @@ public class AddContact extends JPanel
     //*****************************************************************************
     // C O N S T R  U  C T E U R
     //*****************************************************************************
-    public AddContact(ContactsGUI cGUI) throws IOException, BusinessException
+    public AddContact(ContactsGUI contactsGUI) throws IOException, BusinessException
     {
-        this.cGUI = cGUI;
+        this.contactsGUI = contactsGUI;
         buildPnlContent();
     }
 
@@ -158,15 +158,15 @@ public class AddContact extends JPanel
 
             System.out.println(contact);
 
-            cGUI.getJsonAddressBook().addContact(contact);
-            cGUI.getJsonAddressBook().sortDescending(cGUI.getJsonAddressBook().getContactArray()); // trie l'Arraylist contacts par ordre alphabétique
+            contactsGUI.getJsonAddressBook().addContact(contact);
+            contactsGUI.getJsonAddressBook().sortDescending(contactsGUI.getJsonAddressBook().getContactArray()); // trie l'Arraylist contacts par ordre alphabétique
             System.out.println("AddContact1");
 
             try {
-                cGUI.getJsonAddressBook().write(cGUI.getJsonAddressBook().getmyObj(),
-                                                cGUI.getJsonAddressBook().getContactArray());
+                contactsGUI.getJsonAddressBook().write(contactsGUI.getJsonAddressBook().getmyObj(),
+                                                contactsGUI.getJsonAddressBook().getContactArray());
 
-                System.out.println(cGUI.getJsonAddressBook().getmyObj());
+                System.out.println(contactsGUI.getJsonAddressBook().getmyObj());
             } catch (BusinessException businessException) {
                 businessException.printStackTrace();
             }
@@ -178,15 +178,15 @@ public class AddContact extends JPanel
             inputNP.setText("");
 
             // Refresh des PANNELS
-            cGUI.removeAll();
-            cGUI.validate();
+            contactsGUI.removeAll();
+            contactsGUI.validate();
 
-            cGUI.buildPnlContentContact();
-            cGUI.buildCardsLayout();
-            cGUI.setListeners();
+            contactsGUI.buildPnlContentContact();
+            contactsGUI.buildCardsLayout();
+            contactsGUI.setListeners();
 
-            cGUI.revalidate();
-            cGUI.repaint();
+            contactsGUI.revalidate();
+            contactsGUI.repaint();
 
 
         }
@@ -213,8 +213,8 @@ public class AddContact extends JPanel
         return btnSave;
     }
 
-    public ContactsGUI getcGUI() {
-        return cGUI;
+    public ContactsGUI getContactsGUI() {
+        return contactsGUI;
     }
 
     public Contact getContact() {
@@ -225,8 +225,8 @@ public class AddContact extends JPanel
     // S E T T E R S
     //*****************************************************************************
 
-    public void setcGUI(ContactsGUI cGUI) {
-        this.cGUI = cGUI;
+    public void setContactsGUI(ContactsGUI contactsGUI) {
+        this.contactsGUI = contactsGUI;
     }
 
     public void setContact(Contact contact) {

@@ -1,7 +1,7 @@
 package ch.hevs.smartphone.applications.contacts;
 
 import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
-import ch.hevs.smartphone.applications.contacts.serialization.JSONStorageContact;
+import ch.hevs.smartphone.applications.contacts.listeners.ContactListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,33 +19,39 @@ public class ShowContactInfo extends JPanel
     private JPanel pnlCentre;
     private JPanel pnlSouth;
 
-    private JLabel pnlNoPhone;
-
     // LABEL
     private JLabel lblShowContactInfoTitle;
+    private JLabel pnlNoPhone;
 
     // BUTTON
-    JButton btnDeleteContact;
+    private JButton btnDeleteContact;
 
     // OTHER
-    JSONStorageContact addressBook = new JSONStorageContact();
+    private ContactsGUI contactsGUI;
+    private ArrayList<Contact> contacts;
+    private ContactListener myListener;
+
     private String name = "";
     private String noPhone = "";
 
     // CONSTRUCTOR
-    public ShowContactInfo(String name, String noPhone) throws IOException, BusinessException
+    public ShowContactInfo(ContactsGUI contactsGUI, String name, String noPhone) throws IOException, BusinessException
     {
+        this.contactsGUI = contactsGUI;
         this.name = name;
         this.noPhone = noPhone;
-        add(buildpnlShowContactInfo());
+        buildpnlShowContactInfo();
+        setListeners();
     }
 
     // METHODS
     private JPanel buildpnlShowContactInfo() {
-        ArrayList<Contact> contacts = this.addressBook.getContactArray();
+        contacts = contactsGUI.getJsonAddressBook().getContactArray();
 
-        pnlMainWindow = new JPanel(new BorderLayout());
-        pnlMainWindow.setBackground(Color.red);
+        this.setLayout(new BorderLayout());
+        this.setBackground(Color.red);
+        /*pnlMainWindow = new JPanel(new BorderLayout());
+        pnlMainWindow.setBackground(Color.red);*/
 
         pnlNorth = new JPanel();
         pnlCentre = new JPanel();
@@ -58,26 +64,27 @@ public class ShowContactInfo extends JPanel
         pnlNorth.add(btnDeleteContact, BorderLayout.EAST);
         pnlCentre.add(pnlNoPhone);
 
-        pnlMainWindow.add(pnlNorth, BorderLayout.NORTH);
-        pnlMainWindow.add(pnlCentre, BorderLayout.CENTER);
+        this.add(pnlNorth, BorderLayout.NORTH);
+        this.add(pnlCentre, BorderLayout.CENTER);
 
-        btnDeleteContact.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                addressBook.getContactArray().remove(this);
-                try
-                {
-                    addressBook.write(addressBook.getmyObj(), addressBook.getContactArray());
-                } catch (BusinessException businessException)
-                {
-                    businessException.printStackTrace();
-                }
-            }
-        });
-
-        return pnlMainWindow;
+        return this;
 
     }
 
+    protected void setListeners()
+    {
+        myListener = new ContactListener(contactsGUI);
+
+        btnDeleteContact.addActionListener(myListener);
+
+    }
+
+    //*****************************************************************************
+    // G E T T E R S
+    //*****************************************************************************
+
+    public JButton getBtnDeleteContact() {
+        return btnDeleteContact;
+    }
 }
 
