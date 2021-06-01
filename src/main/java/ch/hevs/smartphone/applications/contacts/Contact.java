@@ -1,8 +1,5 @@
 package ch.hevs.smartphone.applications.contacts;
 
-
-import ch.hevs.smartphone.applications.gallery.Photo;
-
 import javax.swing.*;
 import java.io.Serial;
 import java.io.Serializable;
@@ -18,7 +15,7 @@ public class Contact implements Serializable
     private String firstName;
     private String lastName;
     private String noPhone;
-    private Photo contactPhoto;
+    // private Photo contactPhoto;
     private JButton btnContactInfo;
 
     // GETTERS
@@ -34,9 +31,9 @@ public class Contact implements Serializable
         return noPhone;
     }
 
-    public Photo getContactPhoto() {
+    /*public Photo getContactPhoto() {
         return contactPhoto;
-    }
+    }*/
 
 //    public JButton getBtnContactInfo() {
 //        return btnContactInfo;
@@ -55,9 +52,9 @@ public class Contact implements Serializable
         this.noPhone = noPhone;
     }
 
-    public void setContactPhoto(Photo contactPhoto) {
+    /*public void setContactPhoto(Photo contactPhoto) {
         this.contactPhoto = contactPhoto;
-    }
+    }*/
 
     // CONSTRUCTOR
     public Contact(String firstName, String lastName, String noPhone){
@@ -79,7 +76,7 @@ public class Contact implements Serializable
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", noPhone='" + noPhone + '\'' +
-                ", contactPhoto=" + contactPhoto +
+                ", contactPhoto=" + //contactPhoto +
                 '}';
     }
 }
