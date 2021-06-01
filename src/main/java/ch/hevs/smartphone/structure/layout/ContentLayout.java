@@ -2,8 +2,6 @@ package ch.hevs.smartphone.structure.layout;
 
 import ch.hevs.smartphone.applications.contacts.*;
 import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
-import ch.hevs.smartphone.applications.contacts.serialization.JSONStorageContact;
-import ch.hevs.smartphone.applications.gallery.PhotoView;
 import ch.hevs.smartphone.parameters.button.ButtonIcon;
 import ch.hevs.smartphone.parameters.ScreenSizeEnum;
 import ch.hevs.smartphone.applications.gallery.GalleryGUI;

@@ -1,133 +1,200 @@
 package ch.hevs.smartphone.applications.gallery;
 
-import ch.hevs.smartphone.parameters.button.Button;
+import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
+import ch.hevs.smartphone.applications.gallery.listeners.GalleryActionListener;
+import ch.hevs.smartphone.applications.gallery.serialisation.JSONStoragePhoto;
+import ch.hevs.smartphone.parameters.button.ButtonIcon;
 import ch.hevs.smartphone.parameters.utils.Util;
 
 import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class GalleryGUI extends JPanel {
-    //*****************************************************************************
-    // A T T R I B U T S
-    //*****************************************************************************
-    private GalleryBook gb;
-    // PANEL
-    private JPanel pnlHomeGallery;
-    private JPanel pnlNorth;
-    private JPanel panelImage;
+    //Panel
+    private JPanel pnlCTGH;
+    private JPanel pnlGallHome;
+    private JPanel pnlImages;
+    private ShowPhoto[] pnlShowPhoto;
 
-    // SCROLLPANE
-    private JScrollPane scrollPaneGallery;
+    //Layout
+    private CardLayout cardGallHome;
 
-    // LABEL
-    private JLabel lblTitle;
+    //Jscroll
+    private JScrollPane jsGallHome;
 
-    // BUTTONS
-    private Button btnAddGallery;
-    private JButton btnPhoto;
-    private int cptBtn = 0;
+    //Label
+    private JLabel lblGallery;
+    private JLabel lblmsg;
 
+    //Button
+    private Button btnAddPhoto;
+    private ButtonIcon[] btnPhoto;
+
+    //ImageIcon
+    private ImageIcon ic;
+
+    //ArrayList
+    private ArrayList<Photo> photosArray;
+
+    //String
+    private String[] photoName;
+    private String[] photoPath;
+
+    //Other
+    private JSONStoragePhoto jsonPhotoBook;
+    private GalleryActionListener galleryListener;
     //*****************************************************************************
     // C O N S T R U C T E U R
     //*****************************************************************************
     public GalleryGUI(){
-        this.gb = new GalleryBook();
-        add(buildpnlContentGallery());
-    }
-
-    //*****************************************************************************
-    // M E T H O D E S
-    //*****************************************************************************
-    private JPanel buildpnlContentGallery(){
-
-        pnlHomeGallery = new JPanel(new BorderLayout());
-        pnlNorth = new JPanel();
-        lblTitle = new JLabel("Gallery");
-        btnAddGallery = new Button("+");
-
-        btnAddGallery.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String path = null;
-                JFileChooser chooser = new JFileChooser();
-                FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG, GIF & PNG Images", "jpg", "gif", "png");
-                chooser.setFileFilter(filter);
-                int returnVal = chooser.showOpenDialog(chooser);
-                if(returnVal == JFileChooser.APPROVE_OPTION){
-                    path = chooser.getSelectedFile().getPath();
-                    Photo photo = new Photo(path);
-
-                    gb.addPhoto(photo);
-
-                    gb.save();
-                }
-            }
-        });
-
-        pnlNorth.add(lblTitle);
-        pnlNorth.add(btnAddGallery);
-        pnlHomeGallery.add(pnlNorth,BorderLayout.NORTH);
-        pnlHomeGallery.add(buildContentJSPane(),BorderLayout.CENTER);
-        return pnlHomeGallery;
+        buildPnlHomeGall();
+        buildCardLayout();
+        buildListeners();
     }
     //*****************************************************************************
     // M E T H O D E S
     //*****************************************************************************
     /**
-     * Construit la vue qui affiche les photos
-     * @return JScrollPane avec les photos
-     */
-    private JScrollPane buildContentJSPane(){
+     * Création initiale du panel
+     * */
+    public void buildPnlHomeGall(){
+        /**Panel nord*/
+        pnlGallHome = new JPanel();
+        lblGallery  = new JLabel("Gallery");
+        btnAddPhoto = new Button("+");
 
-        // TODO FAIRE GETTER SETTER POUR TOUTES LES CLASSES
+        pnlGallHome.add(lblGallery);
+        pnlGallHome.add(btnAddPhoto);
 
-        ArrayList<Photo> photos = this.gb.tabPhoto;
+        /**Panel centre*/
+        jsGallHome = new JScrollPane();
+        jsGallHome = buildPnlImageJs();
 
-        panelImage = new JPanel(new GridLayout(0,2,5,5));
-
-        // Si il n'y a pas de photos
-        if(photos.size() == 0){
-            JLabel msg = new JLabel("Gallery is empty");
-            panelImage.add(msg);
-        }else{
-            for(Photo entity : photos){
-
-                Photo photo = (Photo) entity;
-
-                System.out.println(photo.getPath());
-
-                ImageIcon ic = new ImageIcon(photo.getPath());
-                ic = Util.getScaledImageIcon(ic, 100);
-                btnPhoto = new JButton(ic);
-                panelImage.add(btnPhoto);
-            }
-
-/*            for(int i = 0; i < photos.size(); i++){
-
-                System.out.println(photos.get(i).getPath());
-
-                btnPhoto[i] = new JButton();
-
-                ImageIcon ic = new ImageIcon(photos.get(i).getPath());
-                ic = Util.getScaledImageIcon(ic, 150);
-
-                btnPhoto[i].setIcon(ic);
-                panelImage.add(btnPhoto[i]);
-            }*/
+        /**Panel qui contient le tout*/
+        pnlCTGH = new JPanel(new BorderLayout());
+        pnlCTGH.add(pnlGallHome, BorderLayout.NORTH);
+        pnlCTGH.add(jsGallHome,  BorderLayout.CENTER);
+    }
+    /**
+     * Création des variables
+     * */
+    private void buildvariables(){
+        try {
+            jsonPhotoBook = new JSONStoragePhoto();
+        } catch (BusinessException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Failed to create galleryBook in GALLERY GUI");
         }
-        scrollPaneGallery = new JScrollPane(panelImage);
-        scrollPaneGallery.setPreferredSize(new Dimension(280, 500));
-        scrollPaneGallery.setMinimumSize(new Dimension(280, 500));
-        scrollPaneGallery.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPaneGallery.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        return scrollPaneGallery;
+
+        galleryListener = new GalleryActionListener(this);
+
+        photosArray = jsonPhotoBook.getPhotosArray();    //On récupère les photos et on dé-sérialise
+        btnPhoto = new ButtonIcon[photosArray.size()];      //Création du tableau de bouton ayant la taille de photos
+
+        photoName = new String[photosArray.size()];
+        photoPath = new String[photosArray.size()];
+
+        pnlShowPhoto = new ShowPhoto[photosArray.size()];
+
+        // Création des pannels, pour chaques photos
+        // CREATION des contenus des ARRAYS nécessaires pour les CARDS de photos
+        for (int i = 0; i < photosArray.size(); i++)
+        {
+            photoName[i] = photosArray.get(i).getName();
+            photoPath[i] = photosArray.get(i).getPath();
+            pnlShowPhoto[i] = new ShowPhoto(this, photoName[i], photoPath[i]);
+        }
     }
 
-    public JButton getBtnPhoto(){
+    /**
+     * Création du JscrollPane qui contient le panel qui affiche les images
+     * */
+    private JScrollPane buildPnlImageJs() {
+        buildvariables();
+
+        pnlImages = new JPanel(new GridLayout(0, 2, 5, 5));
+
+        if (photosArray.size() == 0) {
+            lblmsg = new JLabel("Gallery is empty");
+            pnlImages.add(lblmsg);
+        } else {
+            //Création des boutons pour chaques images
+            for (int i = 0; i < photosArray.size(); i++) {
+                ic = new ImageIcon(String.valueOf(photosArray.get(i).getPath()));
+                ic = Util.getScaledImageIcon(ic, 100);
+                btnPhoto[i] = new ButtonIcon(ic);
+                pnlImages.add(btnPhoto[i]);
+            }
+        }
+        jsGallHome = new JScrollPane(pnlImages);
+        jsGallHome.setPreferredSize(new Dimension(280, 500));
+        jsGallHome.setMinimumSize(new Dimension(280, 500));
+        jsGallHome.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        jsGallHome.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+
+        return jsGallHome;
+    }
+
+    /**
+     * Méthode qui contruit le cardLayout
+     * Panel principale contient les card
+     * */
+    public void buildCardLayout(){
+        cardGallHome = new CardLayout();
+
+        this.setLayout(cardGallHome);
+
+        this.add("GallHOME", pnlCTGH);
+        for(int i = 0; i < photosArray.size(); i++){
+            this.add(photoName[i],pnlShowPhoto[i]);
+        }
+    }
+
+    /**
+     * Listeners du bouton ajouter
+     * On construit dans une autre méthode pour avoir accès après la création de TOUS les composants
+     * */
+    public void buildListeners()
+    {
+        for (int i = 0; i < photosArray.size(); i++){
+            btnPhoto[i].addActionListener(galleryListener);
+        }
+
+        btnAddPhoto.addActionListener(galleryListener);
+    }
+    //*****************************************************************************
+    // G E T T E R S
+    //*****************************************************************************
+    public ShowPhoto[] getPnlShowPhoto() {
+        return pnlShowPhoto;
+    }
+
+    public CardLayout getCardGallHome() {
+        return cardGallHome;
+    }
+
+    public Button getBtnAddPhoto() {
+        return btnAddPhoto;
+    }
+
+    public JButton[] getBtnPhoto() {
         return btnPhoto;
     }
+
+    public ArrayList<Photo> getPhotosArray() {
+        return photosArray;
+    }
+
+    public String[] getPhotoName() {
+        return photoName;
+    }
+
+    public JSONStoragePhoto getJsonPhotoBook() {
+        return jsonPhotoBook;
+    }
+
 }
