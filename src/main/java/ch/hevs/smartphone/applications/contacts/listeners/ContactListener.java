@@ -30,7 +30,7 @@ public class ContactListener implements ActionListener
         if(e.getSource() == contactsGUI.getBtnAddContact())
         {
             System.out.println("BTN ADD CONTACT CLIQUE");
-            contactsGUI.getCardsContact().show(contactsGUI, "AddContact");
+            contactsGUI.getCardLayoutContact().show(contactsGUI, "AddContact");
         }
 
         for (int i = 0; i < contactsGUI.getContacts().size(); i++)
@@ -40,7 +40,7 @@ public class ContactListener implements ActionListener
                 System.out.println("BTN SHOW CONTACT N° : " + i);
 
                 String finalName = contactsGUI.getContactName()[i];
-                contactsGUI.getCardsContact().show(contactsGUI, finalName);
+                contactsGUI.getCardLayoutContact().show(contactsGUI, finalName);
             }
 
         }

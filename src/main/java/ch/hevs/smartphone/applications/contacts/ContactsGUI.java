@@ -8,8 +8,6 @@ import ch.hevs.smartphone.structure.layout.ContentLayout;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -19,7 +17,7 @@ public class ContactsGUI extends JPanel
     // A T T R I B U T S
     //*****************************************************************************
     // LAYOUTS
-    private CardLayout cardsContact;        // Contiendra les différents cards de l'application
+    private CardLayout cardLayoutContact;        // Contiendra les différents cards de l'application
     //private JPanel contactsGUI = this;      // Permet de faire réference au panel parent Contact GUI dans les listeners.@TODO EFFACER
     private ContentLayout cl;               // Permet de récuperer & d'utiliser le content layout dans l'app
 
@@ -115,7 +113,7 @@ public class ContactsGUI extends JPanel
 
         try // Essaye de créer un pannel pour l'ajout des contactes
         {
-            pnlAddContact = new AddContact();
+            pnlAddContact = new AddContact(this);
         } catch (IOException | BusinessException e)
         {
             e.printStackTrace();
@@ -178,28 +176,25 @@ public class ContactsGUI extends JPanel
     }
 
 
-    private void buildCardsLayout()
+    protected void buildCardsLayout()
     {
-
-        cardsContact = new CardLayout();
-        this.setLayout(cardsContact);
+        cardLayoutContact = new CardLayout();
+        this.setLayout(cardLayoutContact);
 
         this.add("HomeContact", pnlHomeContact);
         this.add("AddContact",  pnlAddContact);
         // Création & ajout des cards de contact
         for (int i = 0; i < contacts.size(); i++)
         {
-            this.add(contactName[i], pnlShowContactInfo[i]); //@TODO : PAS SRU QUE CE SOIT CORRECTE !!!
+            this.add(contactName[i], pnlShowContactInfo[i]);
         }
-        //this.cl.refreshPanel("Home"); //@TODO : Ajouter une nouvelle methode REFRESH pour ce cardLayout ici ????
-
 
     }
 
     //*****************************************************************************
     // L I S T E N E R S  //@TODO : Mettre dans une autre classe !!
     //*****************************************************************************
-    private void setListeners()
+    protected void setListeners()
     {
         myListener = new ContactListener(this);
 
@@ -210,7 +205,6 @@ public class ContactsGUI extends JPanel
         {
             btnShowContacts[i].addActionListener(myListener);
         }
-
 
 
         // création des ActionListener en fonction du nombre de contacts présents
@@ -229,8 +223,6 @@ public class ContactsGUI extends JPanel
 
                     //cardsContact.show(finalName , pnlHomeContact);
                     cardsContact.show(contactsGUI, finalName);
-
-
                 }
             });
         }
@@ -261,9 +253,9 @@ public class ContactsGUI extends JPanel
         return jsonAddressBook;
     }
 
-    public CardLayout getCardsContact()
+    public CardLayout getCardLayoutContact()
     {
-        return cardsContact;
+        return cardLayoutContact;
     }
 
     public ContentLayout getCl()

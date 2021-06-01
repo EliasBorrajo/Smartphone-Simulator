@@ -116,9 +116,11 @@ public class ContentLayout extends JPanel
         this.add("Contact",     pnlContact);
         //this.add("AddContact",  pnlAddContact);
         this.add("Gallery",     pnlGallery);
-       // this.add("PhotoView",   pnlPhotoView);
+        //this.add("PhotoView",   pnlPhotoView);
         this.add("Weather",     pnlWeather);
 
+
+        refreshPanel("Home");
 
         //*****************************************************************************
         // L I S T E N E R S
@@ -153,7 +155,7 @@ public class ContentLayout extends JPanel
         });
 
         // FOOTER
-        this.footerLayout.getBtnBack().addActionListener(new ActionListener()
+     /*   this.footerLayout.getBtnBack().addActionListener(new ActionListener()
         {
             @Override
             public void actionPerformed(ActionEvent e)
@@ -166,26 +168,23 @@ public class ContentLayout extends JPanel
                     footerLayout.buildMenu();
                 }
             }
-        });
+        });*/
 
         this.footerLayout.getBtnHome().addActionListener(new ActionListener()
         {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                actionsCount = -1;
-                panelsOpen.removeAll(panelsOpen);
+                // RESET des CARDLAYOUTS des APP
+                pnlContact.getCardLayoutContact().show(pnlContact, "HomeContact");
+                //pnlGallery aura idem
+
+
+                //actionsCount = -1;
+                //panelsOpen.removeAll(panelsOpen);
                 refreshPanel("Home");
             }
         });
-
-
-                    //TODO : AJouter  avec la INNER classe à CONTACT pour le BTN save
-                 /*   pnlAddContact.getBtnSave().addActionListener(new ListenerSaveAddContact
-                            (this.getPnlAddContact().getTfFirstName(),
-                                    this.getPnlAddContact().getTfName(),
-                                    this.getPnlAddContact().getTfNoPhone()
-                            ));*/
 
 
 
