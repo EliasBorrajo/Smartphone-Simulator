@@ -39,7 +39,7 @@ public class ContentLayout extends JPanel
 
     // GALLERY
     private GalleryGUI pnlGallery;      // Application Gallerie
-        private PhotoView pnlPhotoView;                // Pannel de photo ouverte //@TODO : doit disparaitre d'ici
+        //private PhotoView pnlPhotoView;                // Pannel de photo ouverte //@TODO : doit disparaitre d'ici
     // WEATHER
     private WeatherGUI pnlWeather;      // Application Weather
 
@@ -59,12 +59,6 @@ public class ContentLayout extends JPanel
     private int actionsCount = -1;              // Compteur permettant de savoir quel PANNEL afficher (BtnHome & BtnRetour)
     private ArrayList<String> panelsOpen = new ArrayList<String>();
     private String currentPanel = "Home";       // Sert au refreshPannel
-
-    // CONTACT APP
-    //private JSONStorageContact addressBook;     // Conteint tous les contactes
-    //private int nbContact;                      // Nombre de contactes dans le carnet d'adresse
-    //private String[] contactName;               // Nom des contacts pour les nouvelles cards
-    //private String[] contactNoPhone;            //
 
 
     //*****************************************************************************
@@ -86,37 +80,15 @@ public class ContentLayout extends JPanel
     {
         cardlayout = new CardLayout();
 
-        pnlContent = this;                          // permet de faciliter la lecture & l'utiliser dans une methode
+        //pnlContent = this;                          // permet de faciliter la lecture & l'utiliser dans une BTN BACK
 
         pnlHome = new JPanel();                     //new GridLayout(2,3)
         pnlContact = new ContactsGUI(this);
-
-                // @TODO : AJouter cela à l'APP CONTACTES --> FAIT ! ligne : 91 ContactsGUI.java
-                //addressBook = pnlContact.getJsonAddressBook();
-                //ArrayList<Contact> contacts = this.addressBook.getContactArray();
-                //addressBook.sortDescending(contacts);
-                //nbContact = contacts.size();
-                //contactName = new String[nbContact];
-                //contactNoPhone = new String[nbContact];
-
-                //pnlAddContact = new AddContact();   // @TODO : Doit se retruver dans le cardLayout des CONTACTES --> FAIT
-                //pnlShowContactInfo = new ShowContactInfo[nbContact];
-
         pnlGallery = new GalleryGUI();
-                pnlPhotoView = new PhotoView();     // @TODO : Doit se retruver dans le cardLayout des PHOTOS
-
+               // pnlPhotoView = new PhotoView();     // @TODO : Doit se retruver dans le cardLayout des PHOTOS
         pnlWeather = new WeatherGUI();
 
 
-        // @TODO : DEPLACER DANS CONTACTES GUI  --> FAIT ligne : 122 ContactsGUI.java
-        // Création des arrays nécessaires pour les cards de contacts
-   /*     for (int i = 0; i < nbContact; i++)
-        {
-            contactName[i] = contacts.get(i).getFirstName() + " " + contacts.get(i).getLastName();
-            contactNoPhone[i] = contacts.get(i).getNoPhone();
-            pnlShowContactInfo[i] = new ShowContactInfo(contactName[i], contactNoPhone[i]);
-        }
-    */
 
         // HOME - CONSTUCTION DES IMAGES
         URL imageContact = ContentLayout.class.getClassLoader().getResource("ContentIcon/contactIcon2.png");
@@ -144,17 +116,9 @@ public class ContentLayout extends JPanel
         this.add("Contact",     pnlContact);
         //this.add("AddContact",  pnlAddContact);
         this.add("Gallery",     pnlGallery);
-        this.add("PhotoView",   pnlPhotoView);
+       // this.add("PhotoView",   pnlPhotoView);
         this.add("Weather",     pnlWeather);
 
-                            // @TODO AJOUTER CES CARDS AU CONTACTE GUI  --> FAIT ligne : 195 ContactsGUI.java
-                          // Création des cards de contact
-                /*          for (int l = 0; l < nbContact; l++)
-                            {
-                                this.add(contactName[l], pnlShowContactInfo[l]);
-                            }
-                            this.refreshPanel("Home");
-                 */
 
         //*****************************************************************************
         // L I S T E N E R S
@@ -215,33 +179,7 @@ public class ContentLayout extends JPanel
             }
         });
 
-        //@TODO : AJOUTER CONTACTE GUI --> FAIT ligne : 210 ContactsGUI.java
-                    // CONTACT APP
-             /*      pnlContact.getBtnAddContact().addActionListener(new ActionListener()
-                    {
-                        @Override
-                        public void actionPerformed(ActionEvent e)
-                        {
-                            refreshPanel("AddContact");
-                        }
-                    });
-*/
-                    // création des ActionListener en fonction du nombre de contacts présents*/
-               /*   for (int i = 0; i < nbContact; i++)
-                    {
-                        int finalI = i;
-                        pnlContact.getBtnShowContact()[i].addActionListener(new ActionListener()
-                        {
-                            @Override
-                            public void actionPerformed(ActionEvent e)
-                            {
-                                refreshPanel(contactName[finalI]);
-                            }
-                        });
-                    }
 
-
-              */
                     //TODO : AJouter  avec la INNER classe à CONTACT pour le BTN save
                  /*   pnlAddContact.getBtnSave().addActionListener(new ListenerSaveAddContact
                             (this.getPnlAddContact().getTfFirstName(),
@@ -307,11 +245,11 @@ public class ContentLayout extends JPanel
         return pnlWeather;
     }
 
-    public PhotoView getPnlPhotoView()
+   /* public PhotoView getPnlPhotoView()
     {
         return pnlPhotoView;
     }
-
+*/
     public ButtonIcon getBtnContact()
     {
         return btnContact;

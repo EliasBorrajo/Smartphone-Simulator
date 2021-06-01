@@ -8,7 +8,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.net.URL;
 
-public class FooterLayout extends JPanel {
+public class FooterLayout extends JPanel
+{
     //*****************************************************************************
     // A T T R I B U T S
     //*****************************************************************************
@@ -23,7 +24,8 @@ public class FooterLayout extends JPanel {
     //*****************************************************************************
     // C O N S T R U C T E U R
     //*****************************************************************************
-    public FooterLayout() {
+    public FooterLayout()
+    {
         setPreferredSize(new Dimension(ScreenSizeEnum.WIDTH.getSize(), ScreenSizeEnum.HEADER_FOOTER_HEIGHT.getSize()));
         setMinimumSize(new Dimension(ScreenSizeEnum.WIDTH.getSize(), ScreenSizeEnum.HEADER_FOOTER_HEIGHT.getSize()));
         setMaximumSize(new Dimension(ScreenSizeEnum.WIDTH.getSize(), ScreenSizeEnum.HEADER_FOOTER_HEIGHT.getSize()));
@@ -44,15 +46,18 @@ public class FooterLayout extends JPanel {
     // M E T H O D E S
     //*****************************************************************************
 
-    public ButtonIcon getBtnBack() {
+    public ButtonIcon getBtnBack()
+    {
         return btnBack;
     }
 
-    public ButtonIcon getBtnHome() {
+    public ButtonIcon getBtnHome()
+    {
         return btnHome;
     }
 
-    void buildMenu() {
+    void buildMenu()
+    {
         removeAll();
         menuBar = new JMenuBar();
         menuBar.setBackground(Color.WHITE);

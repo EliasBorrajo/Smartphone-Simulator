@@ -10,7 +10,9 @@ import java.io.IOException;
 
 public class AddContact extends JPanel
 {
-
+    //*****************************************************************************
+    // A T T R I B U T S
+    //*****************************************************************************
     // PANEL
     private JPanel pnlNorth = new JPanel();
     private JPanel pnlCentre = new JPanel();
@@ -38,13 +40,17 @@ public class AddContact extends JPanel
         return btnSave;
     }
 
-    // CONSTRUCTOR
+    //*****************************************************************************
+    // C O N S T R U C T E U R
+    //*****************************************************************************
     public AddContact() throws IOException, BusinessException
     {
         buildPnlContent();
     }
 
-    // METHODS
+    //*****************************************************************************
+    // M E T H O D E S
+    //*****************************************************************************
     private JPanel buildPnlContent() {
 
         // Parametre du frame

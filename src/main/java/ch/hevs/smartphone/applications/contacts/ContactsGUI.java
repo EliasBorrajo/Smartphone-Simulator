@@ -1,6 +1,7 @@
 package ch.hevs.smartphone.applications.contacts;
 
 import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
+import ch.hevs.smartphone.applications.contacts.listeners.ContactListener;
 import ch.hevs.smartphone.applications.contacts.serialization.JSONStorageContact;
 import ch.hevs.smartphone.parameters.button.Button;
 import ch.hevs.smartphone.structure.layout.ContentLayout;
@@ -19,7 +20,11 @@ public class ContactsGUI extends JPanel
     //*****************************************************************************
     // LAYOUTS
     private CardLayout cardsContact;        // Contiendra les différents cards de l'application
+    //private JPanel contactsGUI = this;      // Permet de faire réference au panel parent Contact GUI dans les listeners.@TODO EFFACER
     private ContentLayout cl;               // Permet de récuperer & d'utiliser le content layout dans l'app
+
+    // LISTENER
+    private ContactListener myListener;     // Permet d'avoir notre fichier de listeners
 
     // PANEL
     //private JPanel pnlContentCardsContact;    // Un pannel de type CardLayout qui va contenir TOUS nos pannels exstant dans l'APP
@@ -118,6 +123,7 @@ public class ContactsGUI extends JPanel
 
         pnlShowContactInfo = new ShowContactInfo[contacts.size()];
 
+        // Création des pannels, pour chaque contacte
         // CREATION des contenus des ARRAYS nécessaires pour les CARDS de contacts
         for (int i = 0; i < contacts.size(); i++)
         {
@@ -158,17 +164,6 @@ public class ContactsGUI extends JPanel
             {
                 btnShowContacts[i] = new JButton(contactName[i]);
 
-             /*   String finalName = contactName[i];
-                btnShowContacts[i].addActionListener(new ActionListener()
-                {
-                    @Override
-                    public void actionPerformed(ActionEvent e)
-                    {
-                        cardsContact.show(pnlHomeContact, finalName);
-                    }
-                });
-
-              */
 
                 pnlCenterJscrollContact.add(btnShowContacts[i]);
             }
@@ -190,16 +185,13 @@ public class ContactsGUI extends JPanel
         this.setLayout(cardsContact);
 
         this.add("HomeContact", pnlHomeContact);
-
-        // Création des cards de contact
+        this.add("AddContact",  pnlAddContact);
+        // Création & ajout des cards de contact
         for (int i = 0; i < contacts.size(); i++)
         {
             this.add(contactName[i], pnlShowContactInfo[i]); //@TODO : PAS SRU QUE CE SOIT CORRECTE !!!
         }
         //this.cl.refreshPanel("Home"); //@TODO : Ajouter une nouvelle methode REFRESH pour ce cardLayout ici ????
-
-
-
 
 
     }
@@ -209,23 +201,23 @@ public class ContactsGUI extends JPanel
     //*****************************************************************************
     private void setListeners()
     {
-        btnAddContact.addActionListener(new ActionListener()
-        {
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-                //@TODO : CREER UN REFRESH PANNEL OU REVOIR LA METHODE
-               // refreshPanel("AddContact");
-                System.out.println("BTN ADD CONTACT CLIQUE");
+        myListener = new ContactListener(this);
 
-            }
-        });
+        btnAddContact.addActionListener(myListener);
 
         // création des ActionListener en fonction du nombre de contacts présents
         for (int i = 0; i < contacts.size() ; i++)
         {
+            btnShowContacts[i].addActionListener(myListener);
+        }
 
+
+
+        // création des ActionListener en fonction du nombre de contacts présents
+    /*    for (int i = 0; i < contacts.size() ; i++)
+        {
             String finalName = contactName[i];
+            int finalI = i;
             btnShowContacts[i].addActionListener(new ActionListener()
             {
                 @Override
@@ -235,13 +227,14 @@ public class ContactsGUI extends JPanel
                     // refreshPanel(contactName[finalI]);
                     System.out.println("BTN SHOW CONTACT N° : ");
 
-                    cardsContact.show(pnlHomeContact, finalName);
+                    //cardsContact.show(finalName , pnlHomeContact);
+                    cardsContact.show(contactsGUI, finalName);
 
 
                 }
             });
         }
-
+*/
     }
 
 
@@ -266,6 +259,71 @@ public class ContactsGUI extends JPanel
     public JSONStorageContact getJsonAddressBook()
     {
         return jsonAddressBook;
+    }
+
+    public CardLayout getCardsContact()
+    {
+        return cardsContact;
+    }
+
+    public ContentLayout getCl()
+    {
+        return cl;
+    }
+
+    public ContactListener getMyListener()
+    {
+        return myListener;
+    }
+
+    public JPanel getPnlHomeContact()
+    {
+        return pnlHomeContact;
+    }
+
+    public JPanel getPnlNorth()
+    {
+        return pnlNorth;
+    }
+
+    public JScrollPane getScrollPaneContact()
+    {
+        return scrollPaneContact;
+    }
+
+    public AddContact getPnlAddContact()
+    {
+        return pnlAddContact;
+    }
+
+    public ShowContactInfo[] getPnlShowContactInfo()
+    {
+        return pnlShowContactInfo;
+    }
+
+    public JLabel getLblContactTitle()
+    {
+        return lblContactTitle;
+    }
+
+    public JButton[] getBtnShowContacts()
+    {
+        return btnShowContacts;
+    }
+
+    public ArrayList<Contact> getContacts()
+    {
+        return contacts;
+    }
+
+    public String[] getContactName()
+    {
+        return contactName;
+    }
+
+    public String[] getContactNoPhone()
+    {
+        return contactNoPhone;
     }
 
     //*****************************************************************************
