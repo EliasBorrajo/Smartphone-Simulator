@@ -1,7 +1,10 @@
 package ch.hevs.smartphone.structure.layout;
 
+import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
+import ch.hevs.smartphone.applications.gallery.GalleryGUI;
 import ch.hevs.smartphone.parameters.button.ButtonIcon;
 import ch.hevs.smartphone.parameters.ScreenSizeEnum;
+import ch.hevs.smartphone.structure.SmartphoneGUI;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,6 +21,7 @@ public class HeaderLayout extends JPanel {
     // LABEL
     private JLabel lblDate;
     private JLabel lblTime;
+    private SmartphoneGUI smartphoneGUI;
 
     // BUTTON
     private ButtonIcon btnShutdown;
@@ -28,7 +32,8 @@ public class HeaderLayout extends JPanel {
     //*****************************************************************************
     // C O N S T R U C T E U R
     //*****************************************************************************
-    public HeaderLayout(){
+    public HeaderLayout(SmartphoneGUI smartphoneGUI){
+        this.smartphoneGUI = smartphoneGUI;
         setPreferredSize(new Dimension(ScreenSizeEnum.WIDTH.getSize(), ScreenSizeEnum.HEADER_FOOTER_HEIGHT.getSize()));
         setMinimumSize(new Dimension(ScreenSizeEnum.WIDTH.getSize(), ScreenSizeEnum.HEADER_FOOTER_HEIGHT.getSize()));
         setMaximumSize(new Dimension(ScreenSizeEnum.WIDTH.getSize(), ScreenSizeEnum.HEADER_FOOTER_HEIGHT.getSize()));
@@ -52,6 +57,27 @@ public class HeaderLayout extends JPanel {
         btnShutdown.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                try {
+                    // SERIALISATION
+                    smartphoneGUI.getContentLayout().getPnlGallery().getJsonPhotoBook().write(
+                            smartphoneGUI.getContentLayout().getPnlGallery().getJsonPhotoBook().getmyObj(),
+                            smartphoneGUI.getContentLayout().getPnlGallery().getJsonPhotoBook().getPhotosArray());
+                } catch (BusinessException businessException) {
+                    businessException.printStackTrace();
+                    System.out.println("COULD NOT SAVE PHOTO -- INNER CLASS CONTENTLAYOUT LISTENERS");
+                }
+
+                try {
+                    // SERIALISATION
+                    smartphoneGUI.getContentLayout().getPnlContact().getJsonAddressBook().write(
+                            smartphoneGUI.getContentLayout().getPnlContact().getJsonAddressBook().getmyObj(),
+                            smartphoneGUI.getContentLayout().getPnlContact().getJsonAddressBook().getContactArray());
+                } catch (BusinessException businessException) {
+                    businessException.printStackTrace();
+                    System.out.println("COULD NOT SAVE PHOTO -- INNER CLASS CONTENTLAYOUT LISTENERS");
+                }
+
+
                 System.exit(0);
             }
         });

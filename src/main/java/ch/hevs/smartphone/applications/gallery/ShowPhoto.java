@@ -40,8 +40,8 @@ public class ShowPhoto extends JPanel {
     private ArrayList<Photo> photosArray;
 
     //String
-    private String name ="";
-    private String path ="";
+    private String name = "";
+    private String path = "";
 
     //Other
     private GalleryGUI galleryGUI;
@@ -52,7 +52,7 @@ public class ShowPhoto extends JPanel {
     //*****************************************************************************
     // C O N S T R U C T E U R
     //*****************************************************************************
-    public ShowPhoto(GalleryGUI galleryGUI, String name, String path){
+    public ShowPhoto(GalleryGUI galleryGUI, String name, String path) {
         this.galleryGUI = galleryGUI;
         this.name = name;
         this.path = path;
@@ -63,10 +63,11 @@ public class ShowPhoto extends JPanel {
     //*****************************************************************************
     // M E T H O D E S
     //*****************************************************************************
+
     /**
      * Création initiale du panel
-     * */
-    private JPanel buildpnlShowPhoto(){
+     */
+    private JPanel buildpnlShowPhoto() {
         buildvariables();
 
         /**Panel nord*/
@@ -74,7 +75,7 @@ public class ShowPhoto extends JPanel {
         lblNamePhoto = new JLabel("Name :");
         tfNamePhoto = new JTextField(this.name);
         tfNamePhoto.setOpaque(false);
-        tfNamePhoto.setPreferredSize(new Dimension(180,30));
+        tfNamePhoto.setPreferredSize(new Dimension(180, 30));
 
         pnlNamePhoto.add(lblNamePhoto);
         pnlNamePhoto.add(tfNamePhoto);
@@ -104,13 +105,13 @@ public class ShowPhoto extends JPanel {
         pnlCTSP = new JPanel(new BorderLayout());
         pnlCTSP.add(pnlNamePhoto, BorderLayout.NORTH);
         pnlCTSP.add(pnlShowPhoto, BorderLayout.CENTER);
-        pnlCTSP.add(pnlButton,    BorderLayout.SOUTH);
+        pnlCTSP.add(pnlButton, BorderLayout.SOUTH);
         return pnlCTSP;
     }
 
     /**
      * Création des variables
-     * */
+     */
     private void buildvariables() {
         try {
             galleryPhoto = new JSONStoragePhoto();
@@ -120,7 +121,7 @@ public class ShowPhoto extends JPanel {
             e.printStackTrace();
         }
         galleryActionListener = new GalleryActionListener(galleryGUI);
-        galleryMouseListener  = new GalleryMouseListener(galleryGUI);
+        galleryMouseListener = new GalleryMouseListener(galleryGUI);
 
         photosArray = galleryPhoto.getPhotosArray();
     }
@@ -128,9 +129,8 @@ public class ShowPhoto extends JPanel {
     /**
      * Listeners du bouton ajouter
      * On construit dans une autre méthode pour avoir accès après la création de TOUS les composants
-     * */
-    public void buildListeners()
-    {
+     */
+    public void buildListeners() {
         btnSave.addActionListener(galleryActionListener);
         btnDelete.addActionListener(galleryActionListener);
         btnCancel.addActionListener(galleryActionListener);
@@ -161,6 +161,7 @@ public class ShowPhoto extends JPanel {
     public String getName() {
         return name;
     }
+
     //*****************************************************************************
     // S E T T E R S
     //*****************************************************************************

@@ -68,7 +68,7 @@ public class SmartphoneGUI extends JFrame
         pnlScreen.setBackground(Color.BLACK);
 
         // Création de la structure principale
-        headerLayout = new HeaderLayout();
+        headerLayout = new HeaderLayout(this);
         footerLayout = new FooterLayout();
         contentLayout = new ContentLayout(footerLayout);
 

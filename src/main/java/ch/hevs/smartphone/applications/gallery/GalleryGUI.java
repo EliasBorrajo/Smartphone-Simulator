@@ -45,10 +45,12 @@ public class GalleryGUI extends JPanel {
     //Other
     private JSONStoragePhoto jsonPhotoBook;
     private GalleryActionListener galleryListener;
+
     //*****************************************************************************
     // C O N S T R U C T E U R
     //*****************************************************************************
-    public GalleryGUI(){
+    public GalleryGUI() {
+        buildJSON();
         buildPnlHomeGall();
         buildCardLayout();
         buildListeners();
@@ -56,13 +58,14 @@ public class GalleryGUI extends JPanel {
     //*****************************************************************************
     // M E T H O D E S
     //*****************************************************************************
+
     /**
      * Création initiale du panel
-     * */
-    public void buildPnlHomeGall(){
+     */
+    public void buildPnlHomeGall() {
         /**Panel nord*/
         pnlGallHome = new JPanel();
-        lblGallery  = new JLabel("Gallery");
+        lblGallery = new JLabel("Gallery");
         btnAddPhoto = new Button("+");
 
         pnlGallHome.add(lblGallery);
@@ -75,12 +78,13 @@ public class GalleryGUI extends JPanel {
         /**Panel qui contient le tout*/
         pnlCTGH = new JPanel(new BorderLayout());
         pnlCTGH.add(pnlGallHome, BorderLayout.NORTH);
-        pnlCTGH.add(jsGallHome,  BorderLayout.CENTER);
+        pnlCTGH.add(jsGallHome, BorderLayout.CENTER);
     }
+
     /**
-     * Création des variables
-     * */
-    private void buildvariables(){
+     * Création du fichier JSON
+     */
+    private void buildJSON(){
         try {
             jsonPhotoBook = new JSONStoragePhoto();
         } catch (BusinessException e) {
@@ -89,7 +93,12 @@ public class GalleryGUI extends JPanel {
             e.printStackTrace();
             System.out.println("Failed to create galleryBook in GALLERY GUI");
         }
+    }
 
+    /**
+     * Création des variables
+     */
+    private void buildvariables() {
         galleryListener = new GalleryActionListener(this);
 
         photosArray = jsonPhotoBook.getPhotosArray();    //On récupère les photos et on dé-sérialise
@@ -102,8 +111,7 @@ public class GalleryGUI extends JPanel {
 
         // Création des pannels, pour chaques photos
         // CREATION des contenus des ARRAYS nécessaires pour les CARDS de photos
-        for (int i = 0; i < photosArray.size(); i++)
-        {
+        for (int i = 0; i < photosArray.size(); i++) {
             photoName[i] = photosArray.get(i).getName();
             photoPath[i] = photosArray.get(i).getPath();
             pnlShowPhoto[i] = new ShowPhoto(this, photoName[i], photoPath[i]);
@@ -112,7 +120,7 @@ public class GalleryGUI extends JPanel {
 
     /**
      * Création du JscrollPane qui contient le panel qui affiche les images
-     * */
+     */
     private JScrollPane buildPnlImageJs() {
         buildvariables();
 
@@ -142,30 +150,30 @@ public class GalleryGUI extends JPanel {
     /**
      * Méthode qui contruit le cardLayout
      * Panel principale contient les card
-     * */
-    public void buildCardLayout(){
+     */
+    public void buildCardLayout() {
         cardGallHome = new CardLayout();
 
         this.setLayout(cardGallHome);
 
         this.add("GallHOME", pnlCTGH);
-        for(int i = 0; i < photosArray.size(); i++){
-            this.add(photoName[i],pnlShowPhoto[i]);
+        for (int i = 0; i < photosArray.size(); i++) {
+            this.add(photoName[i], pnlShowPhoto[i]);
         }
     }
 
     /**
      * Listeners du bouton ajouter
      * On construit dans une autre méthode pour avoir accès après la création de TOUS les composants
-     * */
-    public void buildListeners()
-    {
-        for (int i = 0; i < photosArray.size(); i++){
+     */
+    public void buildListeners() {
+        for (int i = 0; i < photosArray.size(); i++) {
             btnPhoto[i].addActionListener(galleryListener);
         }
 
         btnAddPhoto.addActionListener(galleryListener);
     }
+
     //*****************************************************************************
     // G E T T E R S
     //*****************************************************************************

@@ -28,8 +28,8 @@ public class GalleryMouseListener implements MouseListener {
     //*****************************************************************************
     @Override
     public void mouseClicked(MouseEvent e) {
-        for(int i = 0; i < galleryGUI.getPhotosArray().size(); i++) {
-            if(activate == false) {
+        for (int i = 0; i < galleryGUI.getPhotosArray().size(); i++) {
+            if (activate == false) {
                 galleryGUI.getPnlShowPhoto()[i].getTfNamePhoto().setText("");
             }
             activate = true;

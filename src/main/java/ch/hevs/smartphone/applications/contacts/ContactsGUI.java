@@ -17,18 +17,18 @@ public class ContactsGUI extends JPanel
     // A T T R I B U T S
     //*****************************************************************************
     // LAYOUTS
-    private CardLayout cardLayoutContact;        // Contiendra les différents cards de l'application
-    private ContentLayout cl;               // Permet de récuperer & d'utiliser le content layout dans l'app
+    private CardLayout cardLayoutContact;           // Contiendra les différents cards de l'application
+    private ContentLayout cl;                       // Permet de récuperer & d'utiliser le content layout dans l'app
 
     // LISTENER
-    private ContactListener myListener;     // Permet d'avoir notre fichier de listeners
+    private ContactListener myListener;             // Permet d'avoir notre fichier de listeners
 
     // PANEL
-    //private JPanel pnlContentCardsContact;    // Un pannel de type CardLayout qui va contenir TOUS nos pannels exstant dans l'APP
-    private JPanel pnlHomeContact;              // Pannel d'accueil BRODERLAYOUT
-        private JPanel pnlNorth;                // Pannel Nord comprenant le boutton + et tu texte
-        private JPanel pnlCenterJscrollContact; // Pannel comprenant le SCROLL
-        private JScrollPane scrollPaneContact;  // Pannel comprenant les Bouttons des contactes
+    //private JPanel pnlContentCardsContact;        // Un pannel de type CardLayout qui va contenir TOUS nos pannels exstant dans l'APP
+    private JPanel pnlHomeContact;                  // Pannel d'accueil BRODERLAYOUT
+    private JPanel pnlNorth;                        // Pannel Nord comprenant le boutton + et tu texte
+    private JPanel pnlCenterJscrollContact;         // Pannel comprenant le SCROLL
+    private JScrollPane scrollPaneContact;          // Pannel comprenant les Bouttons des contactes
 
     private AddContact pnlAddContact;               // Card de l'app contactes
     private ShowContactInfo[] pnlShowContactInfo;   // Cards des contactes que l'utilisateur va ajouter
@@ -37,13 +37,13 @@ public class ContactsGUI extends JPanel
     private JLabel lblContactTitle;
 
     // BUTTONS
-    private Button btnAddContact;               // boutton dans le pnlNorth
-    private JButton[] btnShowContacts;          // Les bouttons du ScrollPaneContact
+    private Button btnAddContact;                   // boutton dans le pnlNorth
+    private JButton[] btnShowContacts;              // Les bouttons du ScrollPaneContact
 
     // OTHER OBJECTS
-    private JSONStorageContact jsonAddressBook; // Contient le carnet d'adresse dé-sérialisé
-    private ArrayList<Contact> contacts;        // Contient tous les contactes
-    private String[] contactName;                 // Permet de donner le nom + Prénom à un cotacte
+    private JSONStorageContact jsonAddressBook;     // Contient le carnet d'adresse dé-sérialisé
+    private ArrayList<Contact> contacts;            // Contient tous les contactes
+    private String[] contactName;                   // Permet de donner le nom + Prénom à un cotacte
     private String[] contactNoPhone;
 
     //*****************************************************************************
@@ -84,8 +84,6 @@ public class ContactsGUI extends JPanel
         pnlHomeContact = new JPanel(new BorderLayout());
         pnlHomeContact.add(pnlNorth,          BorderLayout.NORTH);
         pnlHomeContact.add(scrollPaneContact, BorderLayout.CENTER);
-
-
     }
 
     /**

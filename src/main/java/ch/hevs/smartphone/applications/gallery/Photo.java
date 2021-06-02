@@ -11,12 +11,13 @@ public class Photo implements Serializable {
     public String path;
     public String name;
 
-    public Photo(String path, String name){
+    public Photo(String path, String name) {
         this.path = path;
         this.name = name;
     }
 
-    public Photo(){}
+    public Photo() {
+    }
 
     public String getPath() {
         return path;
