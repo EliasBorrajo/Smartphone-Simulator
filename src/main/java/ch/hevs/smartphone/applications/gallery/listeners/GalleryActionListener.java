@@ -1,6 +1,5 @@
 package ch.hevs.smartphone.applications.gallery.listeners;
 
-import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
 import ch.hevs.smartphone.applications.gallery.GalleryGUI;
 import ch.hevs.smartphone.applications.gallery.Photo;
 

@@ -52,12 +52,11 @@ public class ContactsGUI extends JPanel
     public ContactsGUI(ContentLayout cl)
     {
         this.cl = cl;
-
+        buildJSON();
         buildPnlContentContact();
         buildCardsLayout();
         setListeners();
     }
-
 
     //*****************************************************************************
     // M E T H O D E S
@@ -86,13 +85,7 @@ public class ContactsGUI extends JPanel
         pnlHomeContact.add(scrollPaneContact, BorderLayout.CENTER);
     }
 
-    /**
-     * Creation de toutes nos différentes variables
-     */
-    private void buildVariables()
-    {
-        myListener = new ContactListener(this);
-
+    private void buildJSON(){
         try // Essaye de dé-sérialer (READ) le fichier JSON
         {
             jsonAddressBook = new JSONStorageContact();
@@ -102,6 +95,14 @@ public class ContactsGUI extends JPanel
             e.printStackTrace();
             System.out.println("Failed to crate adressBook in CONTACTS GUI");
         }
+    }
+
+    /**
+     * Creation de toutes nos différentes variables
+     */
+    private void buildVariables()
+    {
+        myListener = new ContactListener(this);
 
         contacts = jsonAddressBook.getContactArray();       // On récupère le carnet d'adresse dé-serialisé
         btnShowContacts = new JButton[contacts.size()];     // Crée le tableau ayant la taille du nombre de bouttons que l'on possède
