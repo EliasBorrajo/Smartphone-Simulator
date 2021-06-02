@@ -8,21 +8,18 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class ShowContactInfo extends JPanel {
+public class EditContactInfo extends JPanel {
     //*****************************************************************************
     // V A R I A B L E S
     //*****************************************************************************
-
     // PANEL
     private JPanel pnlNorth;
     private JPanel pnlCentre;
     private JPanel pnlSouth;
-        private JPanel pnlSouthNorth;
-        private JPanel pnlSouthCentre;
-        private JPanel pnlSouthSouth;
+
 
     // LABEL
-    private JLabel lblIconContact;
+    private JButton lblIconContact;
     private JLabel lblFirstName;
     private JLabel lblLastName;
     private JLabel lblNoPhone;
@@ -38,8 +35,8 @@ public class ShowContactInfo extends JPanel {
 
     // BUTTON
     private JButton btnDeleteContact;
-    private JButton btnBack;
-    private JButton btnEdit;
+    private JButton btnBackEdit;
+    private JButton btnSaveEdit;
 
 
     // IMAGES
@@ -48,9 +45,9 @@ public class ShowContactInfo extends JPanel {
     private String iconPathContactPicture;
     private String iconPathBackPicture;
 
+
     // OTHER
-    private ContactsGUI contactsGUI;
-    private EditContactInfo editContactInfo;
+    private ShowContactInfo showContactInfo;
     private ArrayList<Contact> contacts;
     private ContactListener myListener;
 
@@ -58,21 +55,18 @@ public class ShowContactInfo extends JPanel {
     //*****************************************************************************
     // C O N S T R U  C T E U R
     //*****************************************************************************
-    public ShowContactInfo(ContactsGUI contactsGUI, String firstName, String lastName, String noPhone) throws IOException, BusinessException {
-        this.contactsGUI = contactsGUI;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.noPhone = noPhone;
-        buildpnlShowContactInfo();
-        setListeners();
+    public EditContactInfo(ShowContactInfo showContactInfo) {
+        this.showContactInfo = showContactInfo;
+        System.out.println("Edit panel for contact ");
+        //buildpnlShowContactInfo();
+        //setListeners();
     }
 
-    //*****************************************************************************
+    /*//*****************************************************************************
     // M E T H O D E S
     //*****************************************************************************
     private void buildpnlShowContactInfo() {
         contacts = contactsGUI.getJsonAddressBook().getContactArray();
-        editContactInfo = new EditContactInfo(this);
 
         this.setLayout(new BorderLayout());
         this.setBackground(Color.red);
@@ -81,34 +75,27 @@ public class ShowContactInfo extends JPanel {
         pnlNorth = new JPanel(new BorderLayout());
         pnlCentre = new JPanel(new BorderLayout());
         pnlSouth = new JPanel(new GridLayout(4,1));
-            pnlSouthNorth = new JPanel();
-            pnlSouthCentre = new JPanel();
-            pnlSouthSouth = new JPanel();
-
 
         buildIcon();
 
         btnDeleteContact = new JButton("Delete Contact");
-        btnBack = new JButton("Back");
-        btnEdit = new JButton("Edit");
-        btnBack = new JButton(iconDefaultBack);
+        btnBackEdit = new JButton("Back");
+        btnSaveEdit = new JButton("Edit");
+        btnBackEdit = new JButton(iconDefaultBack);
 
         lblIconContact = new JLabel(iconDefaultContact);
         lblFirstName = new JLabel(firstName);
         lblLastName = new JLabel(lastName);
         lblNoPhone = new JLabel(noPhone);
 
-        pnlSouthNorth.add(lblFirstName);
-        pnlSouthCentre.add(lblLastName);
-        pnlSouthSouth.add(lblNoPhone);
 
         /*tfFirstName = new JTextField("");
         tfLastName = new JTextField("");
-        tfPhone = new JTextField("");*/
+        tfPhone = new JTextField("");*//*
 
         // NORTH - Contient l'image du contacte
-        pnlNorth.add(btnEdit, BorderLayout.EAST);
-        pnlNorth.add(btnBack, BorderLayout.WEST);
+        pnlNorth.add(btnSaveEdit, BorderLayout.EAST);
+        pnlNorth.add(btnBackEdit, BorderLayout.WEST);
         pnlNorth.setPreferredSize(new Dimension(20,20));
 
 
@@ -128,13 +115,13 @@ public class ShowContactInfo extends JPanel {
         this.add(pnlNorth, BorderLayout.NORTH);
         this.add(pnlCentre, BorderLayout.CENTER);
         this.add(pnlSouth, BorderLayout.SOUTH);
-    }
+    }*/
 
     /**
      * Crée l'image de l'icone par défaut.
      * On passe par une étape intermédiaire pour pouvoir agrandire l'image.
      */
-    private void buildIcon() {
+    /*private void buildIcon() {
         // contactIcon
         iconPathContactPicture = "src/main/resources/ContentIcon/Apps/Contact_Icon.png";
         iconDefaultContact = new ImageIcon(iconPathContactPicture); //Récupère l'image
@@ -155,8 +142,8 @@ public class ShowContactInfo extends JPanel {
     //*****************************************************************************
     protected void setListeners() {
         myListener = new ContactListener(contactsGUI);
-        btnBack.addActionListener(myListener);
-        btnEdit.addActionListener(myListener);
+        btnBackEdit.addActionListener(myListener);
+        btnSaveEdit.addActionListener(myListener);
         btnDeleteContact.addActionListener(myListener);
     }
 
@@ -167,12 +154,12 @@ public class ShowContactInfo extends JPanel {
         return btnDeleteContact;
     }
 
-    public JButton getBtnBack() {
-        return btnBack;
+    public JButton getBtnBackEdit() {
+        return btnBackEdit;
     }
 
-    public JButton getBtnEdit() {
-        return btnEdit;
+    public JButton getBtnSaveEdit() {
+        return btnSaveEdit;
     }
 
     public JTextField getTfFirstName() {
@@ -185,9 +172,6 @@ public class ShowContactInfo extends JPanel {
 
     public JTextField getTfLastName() {
         return tfLastName;
-    }
+    }*/
 
-    public EditContactInfo getEditContactInfo() {
-        return editContactInfo;
-    }
 }

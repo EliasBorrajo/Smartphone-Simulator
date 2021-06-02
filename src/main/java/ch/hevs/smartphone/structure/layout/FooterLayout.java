@@ -36,11 +36,6 @@ public class FooterLayout extends JPanel
         ImageIcon iconHome = new ImageIcon(imageHome);
         this.btnHome = new ButtonIcon(iconHome);
 
-        // Construction du btn back
-        URL imageBack = FooterLayout.class.getClassLoader().getResource("FooterIcon/backIcon.png");
-        ImageIcon iconBack = new ImageIcon(imageBack);
-        this.btnBack = new ButtonIcon(iconBack);
-
     }
     //*****************************************************************************
     // M E T H O D E S
@@ -61,7 +56,6 @@ public class FooterLayout extends JPanel
         removeAll();
         menuBar = new JMenuBar();
         menuBar.setBackground(Color.WHITE);
-        menuBar.add(this.btnBack);
         menuBar.add(this.btnHome);
         this.add(menuBar);
     }

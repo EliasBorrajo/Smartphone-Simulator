@@ -32,13 +32,14 @@ public class ContactsGUI extends JPanel
 
     private AddContact pnlAddContact;               // Card de l'app contactes
     private ShowContactInfo[] pnlShowContactInfo;   // Cards des contactes que l'utilisateur va ajouter
+    //private EditContactInfo[] pnlEditContactInfo;
 
     // LABEL
     private JLabel lblContactTitle;
 
     // BUTTONS
     private Button btnAddContact;                   // boutton dans le pnlNorth
-    private JButton[] btnShowContacts;              // Les bouttons du ScrollPaneContact
+    private JButton[] btnShowContact;              // Les bouttons du ScrollPaneContact
 
     // OTHER OBJECTS
     private JSONStorageContact jsonAddressBook;     // Contient le carnet d'adresse dé-sérialisé
@@ -105,7 +106,7 @@ public class ContactsGUI extends JPanel
         myListener = new ContactListener(this);
 
         contacts = jsonAddressBook.getContactArray();       // On récupère le carnet d'adresse dé-serialisé
-        btnShowContacts = new JButton[contacts.size()];     // Crée le tableau ayant la taille du nombre de bouttons que l'on possède
+        btnShowContact = new JButton[contacts.size()];     // Crée le tableau ayant la taille du nombre de bouttons que l'on possède
         jsonAddressBook.sortDescending(contacts);           // Re-organise notre ArrayListe de contacts
 
 
@@ -164,9 +165,8 @@ public class ContactsGUI extends JPanel
             for (int i = 0; i < contacts.size(); i++)
             {
                 contactName[i] = contacts.get(i).getFirstName() + " " + contacts.get(i).getLastName();
-                btnShowContacts[i] = new JButton(contactName[i]);
-
-                pnlCenterJscrollContact.add(btnShowContacts[i]);
+                btnShowContact[i] = new JButton(contactName[i]);
+                pnlCenterJscrollContact.add(btnShowContact[i]);
             }
         }
         scrollPaneContact = new JScrollPane(pnlCenterJscrollContact);
@@ -203,7 +203,7 @@ public class ContactsGUI extends JPanel
         // création des ActionListener en fonction du nombre de contacts présents
         for (int i = 0; i < contacts.size() ; i++)
         {
-            btnShowContacts[i].addActionListener(myListener);
+            btnShowContact[i].addActionListener(myListener);
         }
 
     }
@@ -219,7 +219,7 @@ public class ContactsGUI extends JPanel
 
     public JButton[] getBtnShowContact()
     {
-        return btnShowContacts;
+        return btnShowContact;
     }
 
     public JPanel getPnlCenterJscrollContact()
@@ -277,10 +277,6 @@ public class ContactsGUI extends JPanel
         return lblContactTitle;
     }
 
-    public JButton[] getBtnShowContacts()
-    {
-        return btnShowContacts;
-    }
 
     public ArrayList<Contact> getContacts()
     {

@@ -1,6 +1,7 @@
 package ch.hevs.smartphone.applications.contacts.listeners;
 
 import ch.hevs.smartphone.applications.contacts.ContactsGUI;
+import ch.hevs.smartphone.applications.contacts.EditContactInfo;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -47,14 +48,14 @@ public class ContactListener implements ActionListener
         for (int i = 0; i < contactsGUI.getContacts().size(); i++)
         {
             // Listener pour les bouttons de chaque contacte de la liste
-            if(e.getSource() == contactsGUI.getBtnShowContacts()[i]) {
+            if(e.getSource() == contactsGUI.getBtnShowContact()[i]) {
                 System.out.println("BTN SHOW CONTACT N° : " + i);
 
                 String finalName = contactsGUI.getContactName()[i];
                 contactsGUI.getCardLayoutContact().show(contactsGUI, finalName);
             }
 
-            if(e.getSource() == contactsGUI.getPnlShowContactInfo()[i].getBtnIcon())
+            /*if(e.getSource() == contactsGUI.getPnlShowContactInfo()[i].getBtnIcon())
             {
                 // 1) CardLayout de la racine doit passer de l'APP contactes à l'APP Gallerie
                 // 2) CardLayout Galleryie doit passer sur son Home pour choisir une photo
@@ -62,7 +63,7 @@ public class ContactListener implements ActionListener
 
                 // x) Reset des CardLayout
                 // Serialiser la nouvelle photo
-            }
+            }*/
 
             // Listener pour BTN BACK
             if (e.getSource() == contactsGUI.getPnlShowContactInfo()[i].getBtnBack())
@@ -71,7 +72,7 @@ public class ContactListener implements ActionListener
                 contactsGUI.getCardLayoutContact().show(contactsGUI, "HomeContact");
             }
 
-            // Listener pour Editer le contacte + SERIALISER
+            /*// Listener pour Editer le contacte + SERIALISER
             if(e.getSource() == contactsGUI.getPnlShowContactInfo()[i].getBtnEdit())
             {
                 // Récuperer le contenu des Text Fields à editer
@@ -85,6 +86,10 @@ public class ContactListener implements ActionListener
                 contactsGUI.getJsonAddressBook().getContactArray().get(i).setNoPhone  (tfPhone);
 
                 reBuildApp();
+
+            }*/
+
+            if (e.getSource() == contactsGUI.getPnlShowContactInfo()[i].getBtnEdit()) {
 
             }
 
