@@ -35,71 +35,72 @@ public class ContactListener implements ActionListener
             contentLayout.getPnlContact().getCardLayoutContact().show(contentLayout.getPnlContact(), "AddContact");
         }
 
-       /* // Boutton retour sur la page d'ajout de contacte
-        if(e.getSource() == contactsGUI.getPnlAddContact().getBtnBack())
+       // Boutton retour sur la page d'ajout de contacte
+        if(e.getSource() == contentLayout.getPnlContact().getPnlAddContact().getBtnBack())
         {
             System.out.println("Back from adding a new contact");
-            contactsGUI.getCardLayoutContact().show(contactsGUI, "HomeContact");
+            contentLayout.getPnlContact().getCardLayoutContact().show(contentLayout.getPnlContact(), "HomeContact");
         }
 
         // FOR ShowContactInfo LOOP
         // Listeners pour chaque bouton de contactes
-        for (int i = 0; i < contactsGUI.getContacts().size(); i++)
+        for (int i = 0; i < contentLayout.getPnlContact().getContacts().size(); i++)
         {
             // Listener pour les bouttons de chaque contacte de la liste
-            if(e.getSource() == contactsGUI.getBtnShowContact()[i]) {
+            if(e.getSource() == contentLayout.getPnlContact().getBtnShowContact()[i]) {
                 System.out.println("BTN SHOW CONTACT N° : " + i);
 
-                String finalName = contactsGUI.getContactNameShowContact()[i];
-                contactsGUI.getCardLayoutContact().show(contactsGUI, finalName);
+                String finalName = contentLayout.getPnlContact().getContactNameShowContact()[i];
+                contentLayout.getPnlContact().getCardLayoutContact().show(contentLayout.getPnlContact(), finalName);
             }
 
             // Listener pour BTN BACK SHOWCONTACT
-            if (e.getSource() == contactsGUI.getPnlShowContactInfo()[i].getBtnBack())
+            if (e.getSource() == contentLayout.getPnlContact().getPnlShowContactInfo()[i].getBtnBack())
             {
                 System.out.println("Back from SHowing contact Info");
-                contactsGUI.getCardLayoutContact().show(contactsGUI, "HomeContact");
+                contentLayout.getPnlContact().getCardLayoutContact().show(contentLayout.getPnlContact(), "HomeContact");
             }
 
             // Listener pour BTN EDIT SHOWCONTACT
 
-            if(e.getSource() == contactsGUI.getPnlShowContactInfo()[i].getBtnEdit()) {
-                String finalNameEditContact = contactsGUI.getContactNameEditContact()[i];
-                contactsGUI.getCardLayoutContact().show(contactsGUI, finalNameEditContact);
+            if(e.getSource() == contentLayout.getPnlContact().getPnlShowContactInfo()[i].getBtnEdit()) {
+                String finalNameEditContact = contentLayout.getPnlContact().getContactNameEditContact()[i];
+                contentLayout.getPnlContact().getCardLayoutContact().show(contentLayout.getPnlContact(), finalNameEditContact);
             }
 
             // Listener pour BTN SAVE EDIT
-            if(e.getSource() == contactsGUI.getPnlEditContactInfo()[i].getBtnSaveEdit())
+            if(e.getSource() == contentLayout.getPnlContact().getPnlEditContactInfo()[i].getBtnSaveEdit())
             {
                 System.out.println("coucou");
                 // Récuperer le contenu des Text Fields à editer
-                String tfFisrtName = contactsGUI.getPnlEditContactInfo()[i].getTfFirstName().getText();
-                String tfLastname  = contactsGUI.getPnlEditContactInfo()[i].getTfLastName() .getText();
-                String tfPhone     = contactsGUI.getPnlEditContactInfo()[i].getTfPhone()    .getText();
+                String tfFisrtName = contentLayout.getPnlContact().getPnlEditContactInfo()[i].getTfFirstName().getText();
+                String tfLastname  = contentLayout.getPnlContact().getPnlEditContactInfo()[i].getTfLastName() .getText();
+                String tfPhone     = contentLayout.getPnlContact().getPnlEditContactInfo()[i].getTfPhone()    .getText();
 
                 // Set des nouvelles valeurs dans notre ADRESS BOOK
-                contactsGUI.getJsonAddressBook().getContactArray().get(i).setFirstName(tfFisrtName);
-                contactsGUI.getJsonAddressBook().getContactArray().get(i).setLastName (tfLastname);
-                contactsGUI.getJsonAddressBook().getContactArray().get(i).setNoPhone  (tfPhone);
-                System.out.println(contactsGUI.getJsonAddressBook().getContactArray().get(i).getNoPhone());
+                contentLayout.getPnlContact().getJsonAddressBook().getContactArray().get(i).setFirstName(tfFisrtName);
+                contentLayout.getPnlContact().getJsonAddressBook().getContactArray().get(i).setLastName (tfLastname);
+                contentLayout.getPnlContact().getJsonAddressBook().getContactArray().get(i).setNoPhone  (tfPhone);
+                System.out.println(contentLayout.getPnlContact().getJsonAddressBook().getContactArray().get(i).getNoPhone());
 
                 reBuildApp();
             }
 
             // Listener pour BTN BACK EDIT
-            if (e.getSource() == contactsGUI.getPnlEditContactInfo()[i].getBtnBackEdit()) {
-                contactsGUI.getCardLayoutContact().show(contactsGUI,contactsGUI.getContactNameShowContact()[i]);
+            if (e.getSource() == contentLayout.getPnlContact().getPnlEditContactInfo()[i].getBtnBackEdit()) {
+                contentLayout.getPnlContact().getCardLayoutContact().show(contentLayout.getPnlContact()
+                                            ,contentLayout.getPnlContact().getContactNameShowContact()[i]);
             }
 
             // Listener pour BTN ICON EDIT
-            if (e.getSource() == contactsGUI.getPnlEditContactInfo()[i].getBtnIconContact()) {
+            if (e.getSource() == contentLayout.getPnlContact().getPnlEditContactInfo()[i].getBtnIconContact()) {
 
             }
 
             // Listener pour DELETE CONTACT
-            if (e.getSource() == contactsGUI.getPnlShowContactInfo()[i].getBtnDeleteContact())
+            if (e.getSource() == contentLayout.getPnlContact().getPnlShowContactInfo()[i].getBtnDeleteContact())
             {
-                contactsGUI.getJsonAddressBook().getContactArray().remove(i); // supprime le contact de l'array
+                contentLayout.getPnlContact().getJsonAddressBook().getContactArray().remove(i); // supprime le contact de l'array
 
                 // Refresh des PANNELS
                 reBuildApp(); // @TODO : ATTENTION : Il peut tout casser, doit venir à la fin !
@@ -110,12 +111,12 @@ public class ContactListener implements ActionListener
     {
         // Refresh des PANNELS
         System.out.println("\nREBUILD APP CONTACTE\n");
-        contactsGUI.removeAll();
-        contactsGUI.validate();
-        contactsGUI.buildPnlContentContact();
-        contactsGUI.buildCardLayout();
-        contactsGUI.setListeners();
-        contactsGUI.revalidate();
-        contactsGUI.repaint();*/
+        contentLayout.getPnlContact().removeAll();
+        contentLayout.getPnlContact().validate();
+        contentLayout.getPnlContact().buildPnlContentContact();
+        contentLayout.getPnlContact().buildCardLayout();
+        contentLayout.getPnlContact().setListeners();
+        contentLayout.getPnlContact().revalidate();
+        contentLayout.getPnlContact().repaint();
     }
 }
