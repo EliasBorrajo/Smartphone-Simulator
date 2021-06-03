@@ -64,6 +64,7 @@ public class EditContactInfo extends JPanel {
         this.noPhone = noPhone;
 
         buildpnlEditContactInfo();
+        setListeners();
     }
 
     //*****************************************************************************
@@ -153,15 +154,9 @@ public class EditContactInfo extends JPanel {
     // L I S T E N E R S
     //*****************************************************************************
     protected void setListeners() {
-        /*myListener = new ContactListener(contactsGUI);
+        myListener = new ContactListener(contactsGUI);
         btnBackEdit.addActionListener(myListener);
-        btnSaveEdit.addActionListener(myListener);*/
-        btnSaveEdit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("coucou");
-            }
-        });
+        btnSaveEdit.addActionListener(myListener);
     }
 
     //*****************************************************************************

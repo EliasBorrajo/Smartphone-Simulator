@@ -68,7 +68,7 @@ public class ContactListener implements ActionListener
             }
 
             // Listener pour BTN SAVE EDIT
-            /*if(e.getSource() == contactsGUI.getPnlEditContactInfo()[i].getBtnSaveEdit())
+            if(e.getSource() == contactsGUI.getPnlEditContactInfo()[i].getBtnSaveEdit())
             {
                 System.out.println("coucou");
                 // Récuperer le contenu des Text Fields à editer
@@ -83,12 +83,12 @@ public class ContactListener implements ActionListener
                 System.out.println(contactsGUI.getJsonAddressBook().getContactArray().get(i).getNoPhone());
 
                 reBuildApp();
-            }*/
+            }
 
-            /*// Listener pour BTN BACK EDIT
+            // Listener pour BTN BACK EDIT
             if (e.getSource() == contactsGUI.getPnlEditContactInfo()[i].getBtnBackEdit()) {
                 contactsGUI.getCardLayoutContact().show(contactsGUI,contactsGUI.getContactNameShowContact()[i]);
-            }*/
+            }
 
             // Listener pour DELETE CONTACT
             if (e.getSource() == contactsGUI.getPnlShowContactInfo()[i].getBtnDeleteContact())
