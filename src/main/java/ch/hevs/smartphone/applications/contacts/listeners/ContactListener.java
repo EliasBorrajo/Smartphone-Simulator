@@ -18,7 +18,6 @@ public class ContactListener implements ActionListener
     public ContactListener(ContactsGUI contactsGUI)
     {
         this.contactsGUI = contactsGUI;
-        System.out.println(this.contactsGUI);
     }
 
 
@@ -54,50 +53,41 @@ public class ContactListener implements ActionListener
                 contactsGUI.getCardLayoutContact().show(contactsGUI, finalName);
             }
 
-            /*if(e.getSource() == contactsGUI.getPnlShowContactInfo()[i].getBtnIcon())
-            {
-                // 1) CardLayout de la racine doit passer de l'APP contactes à l'APP Gallerie
-                // 2) CardLayout Galleryie doit passer sur son Home pour choisir une photo
-                // 3) On mouse
-
-                // x) Reset des CardLayout
-                // Serialiser la nouvelle photo
-            }*/
-
-            // Listener pour BTN BACK
+            // Listener pour BTN BACK SHOWCONTACT
             if (e.getSource() == contactsGUI.getPnlShowContactInfo()[i].getBtnBack())
             {
                 System.out.println("Back from SHowing contact Info");
                 contactsGUI.getCardLayoutContact().show(contactsGUI, "HomeContact");
             }
 
-            // Listener pour Editer le contacte
+            // Listener pour BTN EDIT SHOWCONTACT
 
             if(e.getSource() == contactsGUI.getPnlShowContactInfo()[i].getBtnEdit()) {
                 String finalNameEditContact = contactsGUI.getContactNameEditContact()[i];
                 contactsGUI.getCardLayoutContact().show(contactsGUI, finalNameEditContact);
             }
-            /*for (int ii=0; ii<contactsGUI.getContacts().size(); ii++) {
 
-            }*/
-
-
-
-            /*// Listener pour Editer le contacte + SERIALISER
-            if(e.getSource() == contactsGUI.getPnlShowContactInfo()[i].getBtnEdit())
+            // Listener pour BTN SAVE EDIT
+            /*if(e.getSource() == contactsGUI.getPnlEditContactInfo()[i].getBtnSaveEdit())
             {
+                System.out.println("coucou");
                 // Récuperer le contenu des Text Fields à editer
-                String tfFisrtName = contactsGUI.getPnlShowContactInfo()[i].getTfFirstName().getText();
-                String tfLastname  = contactsGUI.getPnlShowContactInfo()[i].getTfLastName() .getText();
-                String tfPhone     = contactsGUI.getPnlShowContactInfo()[i].getTfPhone()    .getText();
+                String tfFisrtName = contactsGUI.getPnlEditContactInfo()[i].getTfFirstName().getText();
+                String tfLastname  = contactsGUI.getPnlEditContactInfo()[i].getTfLastName() .getText();
+                String tfPhone     = contactsGUI.getPnlEditContactInfo()[i].getTfPhone()    .getText();
 
                 // Set des nouvelles valeurs dans notre ADRESS BOOK
                 contactsGUI.getJsonAddressBook().getContactArray().get(i).setFirstName(tfFisrtName);
                 contactsGUI.getJsonAddressBook().getContactArray().get(i).setLastName (tfLastname);
                 contactsGUI.getJsonAddressBook().getContactArray().get(i).setNoPhone  (tfPhone);
+                System.out.println(contactsGUI.getJsonAddressBook().getContactArray().get(i).getNoPhone());
 
                 reBuildApp();
+            }*/
 
+            /*// Listener pour BTN BACK EDIT
+            if (e.getSource() == contactsGUI.getPnlEditContactInfo()[i].getBtnBackEdit()) {
+                contactsGUI.getCardLayoutContact().show(contactsGUI,contactsGUI.getContactNameShowContact()[i]);
             }*/
 
             // Listener pour DELETE CONTACT

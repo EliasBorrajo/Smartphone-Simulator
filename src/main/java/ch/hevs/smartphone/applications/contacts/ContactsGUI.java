@@ -119,6 +119,7 @@ public class ContactsGUI extends JPanel
             contactNameEditContact[i] = contacts.get(i).getFirstName() + " " +
                                 contacts.get(i).getLastName() + i;
         }
+
         contactNoPhone  = new String[contacts.size()];
 
         try // Essaye de créer un pannel pour l'ajout des contactes

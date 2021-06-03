@@ -5,6 +5,8 @@ import ch.hevs.smartphone.applications.contacts.listeners.ContactListener;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -151,13 +153,119 @@ public class EditContactInfo extends JPanel {
     // L I S T E N E R S
     //*****************************************************************************
     protected void setListeners() {
-        myListener = new ContactListener(contactsGUI);
+        /*myListener = new ContactListener(contactsGUI);
         btnBackEdit.addActionListener(myListener);
-        btnSaveEdit.addActionListener(myListener);
+        btnSaveEdit.addActionListener(myListener);*/
+        btnSaveEdit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("coucou");
+            }
+        });
     }
 
     //*****************************************************************************
     // G E T T E R S
     //*****************************************************************************
 
+
+    public JPanel getPnlNorth() {
+        return pnlNorth;
+    }
+
+    public JPanel getPnlCentre() {
+        return pnlCentre;
+    }
+
+    public JPanel getPnlSouth() {
+        return pnlSouth;
+    }
+
+    public JPanel getPnlSouthNorth() {
+        return pnlSouthNorth;
+    }
+
+    public JPanel getPnlSouthCentre() {
+        return pnlSouthCentre;
+    }
+
+    public JPanel getPnlSouthSouth() {
+        return pnlSouthSouth;
+    }
+
+    public JButton getLblIconContact() {
+        return lblIconContact;
+    }
+
+    public JLabel getLblFirstName() {
+        return lblFirstName;
+    }
+
+    public JLabel getLblLastName() {
+        return lblLastName;
+    }
+
+    public JLabel getLblNoPhone() {
+        return lblNoPhone;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getNoPhone() {
+        return noPhone;
+    }
+
+    public JTextField getTfFirstName() {
+        return tfFirstName;
+    }
+
+    public JTextField getTfLastName() {
+        return tfLastName;
+    }
+
+    public JTextField getTfPhone() {
+        return tfPhone;
+    }
+
+    public JButton getBtnBackEdit() {
+        return btnBackEdit;
+    }
+
+    public JButton getBtnSaveEdit() {
+        return btnSaveEdit;
+    }
+
+    public ImageIcon getIconDefaultContact() {
+        return iconDefaultContact;
+    }
+
+    public ImageIcon getIconDefaultBack() {
+        return iconDefaultBack;
+    }
+
+    public String getIconPathContactPicture() {
+        return iconPathContactPicture;
+    }
+
+    public String getIconPathBackPicture() {
+        return iconPathBackPicture;
+    }
+
+    public ContactsGUI getContactsGUI() {
+        return contactsGUI;
+    }
+
+    public ArrayList<Contact> getContacts() {
+        return contacts;
+    }
+
+    public ContactListener getMyListener() {
+        return myListener;
+    }
 }
