@@ -1,6 +1,7 @@
 package ch.hevs.smartphone.applications.contacts.listeners;
 
 import ch.hevs.smartphone.applications.contacts.ContactsGUI;
+import ch.hevs.smartphone.structure.layout.ContentLayout;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -88,6 +89,11 @@ public class ContactListener implements ActionListener
             // Listener pour BTN BACK EDIT
             if (e.getSource() == contactsGUI.getPnlEditContactInfo()[i].getBtnBackEdit()) {
                 contactsGUI.getCardLayoutContact().show(contactsGUI,contactsGUI.getContactNameShowContact()[i]);
+            }
+
+            // Listener pour BTN ICON EDIT
+            if (e.getSource() == contactsGUI.getPnlEditContactInfo()[i].getBtnIconContact()) {
+
             }
 
             // Listener pour DELETE CONTACT

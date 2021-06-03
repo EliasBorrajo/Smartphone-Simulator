@@ -1,13 +1,9 @@
 package ch.hevs.smartphone.applications.contacts;
 
-import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
 import ch.hevs.smartphone.applications.contacts.listeners.ContactListener;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class EditContactInfo extends JPanel {
@@ -23,7 +19,7 @@ public class EditContactInfo extends JPanel {
         private JPanel pnlSouthSouth;
 
     // LABEL
-    private JButton lblIconContact;
+    private JButton btnIconContact;
     private JLabel lblFirstName;
     private JLabel lblLastName;
     private JLabel lblNoPhone;
@@ -78,9 +74,6 @@ public class EditContactInfo extends JPanel {
         pnlNorth = new JPanel(new BorderLayout());
         pnlCentre = new JPanel(new BorderLayout());
         pnlSouth = new JPanel(new GridLayout(4,1));
-        /*pnlSouthNorth = new JPanel(new BorderLayout());
-        pnlSouthCentre = new JPanel(new BorderLayout());
-        pnlSouthSouth = new JPanel(new BorderLayout());*/
         pnlSouthNorth = new JPanel();
         pnlSouthCentre = new JPanel();
         pnlSouthSouth = new JPanel();
@@ -90,7 +83,7 @@ public class EditContactInfo extends JPanel {
         btnBackEdit = new JButton(iconDefaultBack);
         btnSaveEdit = new JButton("Save");
 
-        lblIconContact = new JButton(iconDefaultContact);
+        btnIconContact = new JButton(iconDefaultContact);
         lblFirstName = new JLabel(firstName);
         lblLastName = new JLabel(lastName);
         lblNoPhone = new JLabel(noPhone);
@@ -113,7 +106,7 @@ public class EditContactInfo extends JPanel {
 
 
         // CENTER - Contien les informations du contacte + Les textBox pour l'édition
-        pnlCentre.add(lblIconContact, BorderLayout.CENTER);
+        pnlCentre.add(btnIconContact, BorderLayout.CENTER);
         pnlCentre.setPreferredSize(new Dimension(20,20));
 
         // SOUTH
@@ -155,6 +148,7 @@ public class EditContactInfo extends JPanel {
     //*****************************************************************************
     protected void setListeners() {
         myListener = new ContactListener(contactsGUI);
+        btnIconContact.addActionListener(myListener);
         btnBackEdit.addActionListener(myListener);
         btnSaveEdit.addActionListener(myListener);
     }
@@ -188,8 +182,8 @@ public class EditContactInfo extends JPanel {
         return pnlSouthSouth;
     }
 
-    public JButton getLblIconContact() {
-        return lblIconContact;
+    public JButton getBtnIconContact() {
+        return btnIconContact;
     }
 
     public JLabel getLblFirstName() {
