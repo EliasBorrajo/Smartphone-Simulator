@@ -80,9 +80,20 @@ public class ContactListener implements ActionListener
                 String tfPhone     = contactsGUI.getPnlShowContactInfo()[i].getTfPhone()    .getText();
 
                 // Set des nouvelles valeurs dans notre ADRESS BOOK
-                contactsGUI.getJsonAddressBook().getContactArray().get(i).setFirstName(tfFisrtName);
-                contactsGUI.getJsonAddressBook().getContactArray().get(i).setLastName (tfLastname);
-                contactsGUI.getJsonAddressBook().getContactArray().get(i).setNoPhone  (tfPhone);
+                if(!tfFisrtName.equals(""))
+                {
+                    contactsGUI.getJsonAddressBook().getContactArray().get(i).setFirstName(tfFisrtName);
+                }
+                if(!tfLastname.equals(""))
+                {
+                    contactsGUI.getJsonAddressBook().getContactArray().get(i).setLastName (tfLastname);
+                }
+                if(!tfPhone.equals(""))
+                {
+                    contactsGUI.getJsonAddressBook().getContactArray().get(i).setNoPhone  (tfPhone);
+                }
+
+
 
                 reBuildApp();
 
