@@ -13,7 +13,11 @@ public class ShowContactInfo extends JPanel {
     // V A R I A B L E S
     //*****************************************************************************
 
+    // CARDLAYOUT POUR LES CARDS D'EDITION
+    private CardLayout cardLayoutShowContact;
+
     // PANEL
+    private JPanel pnlHomeShowContact;
     private JPanel pnlNorth;
     private JPanel pnlCentre;
     private JPanel pnlSouth;
@@ -50,7 +54,7 @@ public class ShowContactInfo extends JPanel {
 
     // OTHER
     private ContactsGUI contactsGUI;
-    private EditContactInfo editContactInfo;
+    private EditContactInfo[] pnlEditContactInfo;
     private ArrayList<Contact> contacts;
     private ContactListener myListener;
 
@@ -64,6 +68,7 @@ public class ShowContactInfo extends JPanel {
         this.lastName = lastName;
         this.noPhone = noPhone;
         buildpnlShowContactInfo();
+        buildCardLayout();
         setListeners();
     }
 
@@ -71,11 +76,10 @@ public class ShowContactInfo extends JPanel {
     // M E T H O D E S
     //*****************************************************************************
     private void buildpnlShowContactInfo() {
-        contacts = contactsGUI.getJsonAddressBook().getContactArray();
-        editContactInfo = new EditContactInfo(this);
 
-        this.setLayout(new BorderLayout());
-        this.setBackground(Color.red);
+        pnlHomeShowContact = new JPanel();
+        pnlHomeShowContact.setLayout(new BorderLayout());
+        pnlHomeShowContact.setBackground(Color.red);
 
         // Creation Variables
         pnlNorth = new JPanel(new BorderLayout());
@@ -86,6 +90,7 @@ public class ShowContactInfo extends JPanel {
             pnlSouthSouth = new JPanel();
 
 
+        buildVariables();
         buildIcon();
 
         btnDeleteContact = new JButton("Delete Contact");
@@ -124,10 +129,10 @@ public class ShowContactInfo extends JPanel {
         pnlSouth.setPreferredSize(new Dimension(100,100));
 
 
-        // CONTENEUR THIS
-        this.add(pnlNorth, BorderLayout.NORTH);
-        this.add(pnlCentre, BorderLayout.CENTER);
-        this.add(pnlSouth, BorderLayout.SOUTH);
+        // HOME PAGE - page d'accueil pour le cardlayout ShowContactInfo
+        pnlHomeShowContact.add(pnlNorth, BorderLayout.NORTH);
+        pnlHomeShowContact.add(pnlCentre, BorderLayout.CENTER);
+        pnlHomeShowContact.add(pnlSouth, BorderLayout.SOUTH);
     }
 
     /**
@@ -150,6 +155,36 @@ public class ShowContactInfo extends JPanel {
         iconDefaultBack = new ImageIcon(newImgBackIcon);
     }
 
+    private void buildVariables() {
+        contacts = contactsGUI.getJsonAddressBook().getContactArray();
+
+        pnlEditContactInfo = new EditContactInfo[contacts.size()];
+
+        // création des panels de cartes d'édition
+        for (int i=0; i<contacts.size(); i++) {
+            pnlEditContactInfo[i] = new EditContactInfo(this,
+                    contacts.get(i).getFirstName(),
+                    contacts.get(i).getLastName(),
+                    contacts.get(i).getNoPhone());
+
+            this.add(contactsGUI.getContactName()[i], pnlEditContactInfo[i]); // ajout des cards au cardlayout
+        }
+    }
+
+    /**
+     * création du cardlayout et des cards d'édition pour chaque contact
+     */
+    private void buildCardLayout() {
+        cardLayoutShowContact = new CardLayout(); // nouveau cardlayout pour l'édition des cartes contact
+        this.setLayout(cardLayoutShowContact);
+
+        this.add("HomeShowContact", pnlHomeShowContact);
+        // ajout des cards d'édition au cardlayout
+        for (int i=0; i<contacts.size(); i++) {
+            this.add(contactsGUI.getContactName()[i], pnlEditContactInfo[i]); // ajout des cards au cardlayout
+        }
+    }
+
     //*****************************************************************************
     // L I S T E N E R S
     //*****************************************************************************
@@ -163,6 +198,75 @@ public class ShowContactInfo extends JPanel {
     //*****************************************************************************
     // G E T T E R S
     //*****************************************************************************
+
+    public CardLayout getCardLayoutShowContact() {
+        return cardLayoutShowContact;
+    }
+
+    public JPanel getPnlNorth() {
+        return pnlNorth;
+    }
+
+    public JPanel getPnlCentre() {
+        return pnlCentre;
+    }
+
+    public JPanel getPnlSouth() {
+        return pnlSouth;
+    }
+
+    public JPanel getPnlSouthNorth() {
+        return pnlSouthNorth;
+    }
+
+    public JPanel getPnlSouthCentre() {
+        return pnlSouthCentre;
+    }
+
+    public JPanel getPnlSouthSouth() {
+        return pnlSouthSouth;
+    }
+
+    public JLabel getLblIconContact() {
+        return lblIconContact;
+    }
+
+    public JLabel getLblFirstName() {
+        return lblFirstName;
+    }
+
+    public JLabel getLblLastName() {
+        return lblLastName;
+    }
+
+    public JLabel getLblNoPhone() {
+        return lblNoPhone;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getNoPhone() {
+        return noPhone;
+    }
+
+    public JTextField getTfFirstName() {
+        return tfFirstName;
+    }
+
+    public JTextField getTfLastName() {
+        return tfLastName;
+    }
+
+    public JTextField getTfPhone() {
+        return tfPhone;
+    }
+
     public JButton getBtnDeleteContact() {
         return btnDeleteContact;
     }
@@ -175,19 +279,35 @@ public class ShowContactInfo extends JPanel {
         return btnEdit;
     }
 
-    public JTextField getTfFirstName() {
-        return tfFirstName;
+    public ImageIcon getIconDefaultContact() {
+        return iconDefaultContact;
     }
 
-    public JTextField getTfPhone() {
-        return tfPhone;
+    public ImageIcon getIconDefaultBack() {
+        return iconDefaultBack;
     }
 
-    public JTextField getTfLastName() {
-        return tfLastName;
+    public String getIconPathContactPicture() {
+        return iconPathContactPicture;
     }
 
-    public EditContactInfo getEditContactInfo() {
-        return editContactInfo;
+    public String getIconPathBackPicture() {
+        return iconPathBackPicture;
+    }
+
+    public ContactsGUI getContactsGUI() {
+        return contactsGUI;
+    }
+
+    public EditContactInfo[] getPnlEditContactInfo() {
+        return pnlEditContactInfo;
+    }
+
+    public ArrayList<Contact> getContacts() {
+        return contacts;
+    }
+
+    public ContactListener getMyListener() {
+        return myListener;
     }
 }

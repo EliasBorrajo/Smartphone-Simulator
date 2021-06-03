@@ -55,7 +55,7 @@ public class ContactsGUI extends JPanel
         this.cl = cl;
         buildJSON();
         buildPnlContentContact();
-        buildCardsLayout();
+        buildCardLayout();
         setListeners();
     }
 
@@ -179,7 +179,7 @@ public class ContactsGUI extends JPanel
     }
 
 
-    public void buildCardsLayout()
+    public void buildCardLayout()
     {
         cardLayoutContact = new CardLayout();
         this.setLayout(cardLayoutContact);

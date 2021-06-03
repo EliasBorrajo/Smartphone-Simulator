@@ -55,9 +55,12 @@ public class EditContactInfo extends JPanel {
     //*****************************************************************************
     // C O N S T R U  C T E U R
     //*****************************************************************************
-    public EditContactInfo(ShowContactInfo showContactInfo) {
+    public EditContactInfo(ShowContactInfo showContactInfo, String firstName, String lastName, String noPhone) {
         this.showContactInfo = showContactInfo;
-        System.out.println("Edit panel for contact ");
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.noPhone = noPhone;
+        System.out.println("Edit panel for contact " + firstName);
         //buildpnlShowContactInfo();
         //setListeners();
     }

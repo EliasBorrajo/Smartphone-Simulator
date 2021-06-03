@@ -1,7 +1,6 @@
 package ch.hevs.smartphone.applications.contacts.listeners;
 
 import ch.hevs.smartphone.applications.contacts.ContactsGUI;
-import ch.hevs.smartphone.applications.contacts.EditContactInfo;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -72,6 +71,19 @@ public class ContactListener implements ActionListener
                 contactsGUI.getCardLayoutContact().show(contactsGUI, "HomeContact");
             }
 
+            // Listener pour Editer le contacte
+
+            if(e.getSource() == contactsGUI.getPnlShowContactInfo()[i].getBtnEdit()) {
+                contactsGUI.getPnlShowContactInfo()[i].getCardLayoutShowContact().show(
+                        contactsGUI.getPnlShowContactInfo()[i],
+                        contactsGUI.getPnlShowContactInfo()[i].getFirstName());
+            }
+            /*for (int ii=0; ii<contactsGUI.getContacts().size(); ii++) {
+
+            }*/
+
+
+
             /*// Listener pour Editer le contacte + SERIALISER
             if(e.getSource() == contactsGUI.getPnlShowContactInfo()[i].getBtnEdit())
             {
@@ -110,7 +122,7 @@ public class ContactListener implements ActionListener
         contactsGUI.removeAll();
         contactsGUI.validate();
         contactsGUI.buildPnlContentContact();
-        contactsGUI.buildCardsLayout();
+        contactsGUI.buildCardLayout();
         contactsGUI.setListeners();
         contactsGUI.revalidate();
         contactsGUI.repaint();

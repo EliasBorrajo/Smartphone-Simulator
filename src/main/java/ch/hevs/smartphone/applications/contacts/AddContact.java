@@ -1,7 +1,6 @@
 package ch.hevs.smartphone.applications.contacts;
 
 import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
-import ch.hevs.smartphone.applications.contacts.listeners.ContactListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -202,7 +201,7 @@ public class AddContact extends JPanel
             contactsGUI.validate();
 
             contactsGUI.buildPnlContentContact();
-            contactsGUI.buildCardsLayout();
+            contactsGUI.buildCardLayout();
             contactsGUI.setListeners();
 
             contactsGUI.revalidate();
