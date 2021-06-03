@@ -2,6 +2,7 @@ package ch.hevs.smartphone.applications.contacts;
 
 import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
 import ch.hevs.smartphone.applications.contacts.listeners.ContactListener;
+import ch.hevs.smartphone.structure.layout.ContentLayout;
 
 import javax.swing.*;
 import java.awt.*;
@@ -50,7 +51,8 @@ public class ShowContactInfo extends JPanel {
     private String iconPathBackPicture;
 
     // OTHER
-    private ContactsGUI contactsGUI;
+    //private ContactsGUI contactsGUI;
+    private ContentLayout contentLayout;
     private ArrayList<Contact> contacts;
     private ContactListener myListener;
 
@@ -58,8 +60,8 @@ public class ShowContactInfo extends JPanel {
     //*****************************************************************************
     // C O N S T R U  C T E U R
     //*****************************************************************************
-    public ShowContactInfo(ContactsGUI contactsGUI, String firstName, String lastName, String noPhone) throws IOException, BusinessException {
-        this.contactsGUI = contactsGUI;
+    public ShowContactInfo(ContentLayout contentLayout, String firstName, String lastName, String noPhone) throws IOException, BusinessException {
+        this.contentLayout = contentLayout;
         this.firstName = firstName;
         this.lastName = lastName;
         this.noPhone = noPhone;
@@ -151,7 +153,7 @@ public class ShowContactInfo extends JPanel {
     // L I S T E N E R S
     //*****************************************************************************
     protected void setListeners() {
-        myListener = new ContactListener(contactsGUI);
+        myListener = new ContactListener(contentLayout);
         btnBack.addActionListener(myListener);
         btnEdit.addActionListener(myListener);
         btnDeleteContact.addActionListener(myListener);
@@ -253,8 +255,12 @@ public class ShowContactInfo extends JPanel {
         return iconPathBackPicture;
     }
 
-    public ContactsGUI getContactsGUI() {
-        return contactsGUI;
+    public JPanel getPnlHomeShowContact() {
+        return pnlHomeShowContact;
+    }
+
+    public ContentLayout getContentLayout() {
+        return contentLayout;
     }
 
     public ArrayList<Contact> getContacts() {

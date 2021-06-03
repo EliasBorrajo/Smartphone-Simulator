@@ -1,6 +1,7 @@
 package ch.hevs.smartphone.applications.contacts;
 
 import ch.hevs.smartphone.applications.contacts.listeners.ContactListener;
+import ch.hevs.smartphone.structure.layout.ContentLayout;
 
 import javax.swing.*;
 import java.awt.*;
@@ -45,7 +46,8 @@ public class EditContactInfo extends JPanel {
 
 
     // OTHER
-    private ContactsGUI contactsGUI;
+    //private ContactsGUI contactsGUI;
+    private ContentLayout contentLayout;
     private ArrayList<Contact> contacts;
     private ContactListener myListener;
 
@@ -53,8 +55,8 @@ public class EditContactInfo extends JPanel {
     //*****************************************************************************
     // C O N S T R U  C T E U R
     //*****************************************************************************
-    public EditContactInfo(ContactsGUI contactsGUI, String firstName, String lastName, String noPhone) {
-        this.contactsGUI = contactsGUI;
+    public EditContactInfo(ContentLayout contentLayout, String firstName, String lastName, String noPhone) {
+        this.contentLayout = contentLayout;
         this.firstName = firstName;
         this.lastName = lastName;
         this.noPhone = noPhone;
@@ -147,7 +149,7 @@ public class EditContactInfo extends JPanel {
     // L I S T E N E R S
     //*****************************************************************************
     protected void setListeners() {
-        myListener = new ContactListener(contactsGUI);
+        myListener = new ContactListener(contentLayout);
         btnIconContact.addActionListener(myListener);
         btnBackEdit.addActionListener(myListener);
         btnSaveEdit.addActionListener(myListener);
@@ -246,8 +248,8 @@ public class EditContactInfo extends JPanel {
         return iconPathBackPicture;
     }
 
-    public ContactsGUI getContactsGUI() {
-        return contactsGUI;
+    public ContentLayout getContentLayout() {
+        return contentLayout;
     }
 
     public ArrayList<Contact> getContacts() {

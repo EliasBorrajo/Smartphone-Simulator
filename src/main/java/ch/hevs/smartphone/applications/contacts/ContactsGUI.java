@@ -104,7 +104,7 @@ public class ContactsGUI extends JPanel
      */
     private void buildVariables()
     {
-        myListener = new ContactListener(this);
+        myListener = new ContactListener(cl);
 
         contacts = jsonAddressBook.getContactArray();       // On récupère le carnet d'adresse dé-serialisé
         btnShowContact = new JButton[contacts.size()];     // Crée le tableau ayant la taille du nombre de bouttons que l'on possède
@@ -140,11 +140,11 @@ public class ContactsGUI extends JPanel
             contactNoPhone[j] = contacts.get(j).getNoPhone();
             try
             {
-                pnlShowContactInfo[j] = new ShowContactInfo(this,
+                pnlShowContactInfo[j] = new ShowContactInfo(cl,
                                                             contacts.get(j).getFirstName(),
                                                             contacts.get(j).getLastName(),
                                                             contactNoPhone[j]);
-                pnlEditContactInfo[j] = new EditContactInfo(this,
+                pnlEditContactInfo[j] = new EditContactInfo(cl,
                                                             contacts.get(j).getFirstName(),
                                                             contacts.get(j).getLastName(),
                                                             contacts.get(j).getNoPhone());

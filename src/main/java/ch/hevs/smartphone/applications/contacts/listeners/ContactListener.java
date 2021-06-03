@@ -11,14 +11,14 @@ public class ContactListener implements ActionListener
     //*****************************************************************************
     // A T T R I B U T S
     //*****************************************************************************
-    ContactsGUI contactsGUI;
+    ContentLayout contentLayout;
 
     //*****************************************************************************
     // C O N S T R U C T E U R
     //*****************************************************************************
-    public ContactListener(ContactsGUI contactsGUI)
+    public ContactListener(ContentLayout contentLayout)
     {
-        this.contactsGUI = contactsGUI;
+        this.contentLayout = contentLayout;
     }
 
 
@@ -29,13 +29,13 @@ public class ContactListener implements ActionListener
     public void actionPerformed(ActionEvent e)
     {
         // Listener pour add Contact
-        if(e.getSource() == contactsGUI.getBtnAddContact())
+        if(e.getSource() == contentLayout.getPnlContact().getBtnAddContact())
         {
             System.out.println("BTN ADD CONTACT CLIQUE");
-            contactsGUI.getCardLayoutContact().show(contactsGUI, "AddContact");
+            contentLayout.getPnlContact().getCardLayoutContact().show(contentLayout.getPnlContact(), "AddContact");
         }
 
-        // Boutton retour sur la page d'ajout de contacte
+       /* // Boutton retour sur la page d'ajout de contacte
         if(e.getSource() == contactsGUI.getPnlAddContact().getBtnBack())
         {
             System.out.println("Back from adding a new contact");
@@ -116,6 +116,6 @@ public class ContactListener implements ActionListener
         contactsGUI.buildCardLayout();
         contactsGUI.setListeners();
         contactsGUI.revalidate();
-        contactsGUI.repaint();
+        contactsGUI.repaint();*/
     }
 }
