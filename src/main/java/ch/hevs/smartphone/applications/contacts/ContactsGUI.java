@@ -32,7 +32,7 @@ public class ContactsGUI extends JPanel
 
     private AddContact pnlAddContact;               // Card de l'app contactes
     private ShowContactInfo[] pnlShowContactInfo;   // Cards des contactes que l'utilisateur va ajouter
-    //private EditContactInfo[] pnlEditContactInfo;
+    private EditContactInfo[] pnlEditContactInfo;
 
     // LABEL
     private JLabel lblContactTitle;
@@ -122,6 +122,7 @@ public class ContactsGUI extends JPanel
         }
 
         pnlShowContactInfo = new ShowContactInfo[contacts.size()];
+        pnlEditContactInfo = new EditContactInfo[contacts.size()];
 
         // Création des pannels, pour chaque contacte
         // CREATION des contenus des ARRAYS nécessaires pour les CARDS de contacts
@@ -134,6 +135,10 @@ public class ContactsGUI extends JPanel
                                                             contacts.get(i).getFirstName(),
                                                             contacts.get(i).getLastName(),
                                                             contactNoPhone[i]);
+                pnlEditContactInfo[i] = new EditContactInfo(this,
+                                                            contacts.get(i).getFirstName(),
+                                                            contacts.get(i).getLastName(),
+                                                            contacts.get(i).getNoPhone());
             } catch (IOException | BusinessException e)
             {
                 e.printStackTrace();

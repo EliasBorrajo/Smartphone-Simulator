@@ -13,9 +13,6 @@ public class ShowContactInfo extends JPanel {
     // V A R I A B L E S
     //*****************************************************************************
 
-    // CARDLAYOUT POUR LES CARDS D'EDITION
-    private CardLayout cardLayoutShowContact;
-
     // PANEL
     private JPanel pnlHomeShowContact;
     private JPanel pnlNorth;
@@ -54,7 +51,6 @@ public class ShowContactInfo extends JPanel {
 
     // OTHER
     private ContactsGUI contactsGUI;
-    private EditContactInfo[] pnlEditContactInfo;
     private ArrayList<Contact> contacts;
     private ContactListener myListener;
 
@@ -77,9 +73,8 @@ public class ShowContactInfo extends JPanel {
     //*****************************************************************************
     private void buildpnlShowContactInfo() {
 
-        pnlHomeShowContact = new JPanel();
-        pnlHomeShowContact.setLayout(new BorderLayout());
-        pnlHomeShowContact.setBackground(Color.red);
+        this.setLayout(new BorderLayout());
+        this.setBackground(Color.red);
 
         // Creation Variables
         pnlNorth = new JPanel(new BorderLayout());
@@ -130,9 +125,9 @@ public class ShowContactInfo extends JPanel {
 
 
         // HOME PAGE - page d'accueil pour le cardlayout ShowContactInfo
-        pnlHomeShowContact.add(pnlNorth, BorderLayout.NORTH);
-        pnlHomeShowContact.add(pnlCentre, BorderLayout.CENTER);
-        pnlHomeShowContact.add(pnlSouth, BorderLayout.SOUTH);
+        this.add(pnlNorth, BorderLayout.NORTH);
+        this.add(pnlCentre, BorderLayout.CENTER);
+        this.add(pnlSouth, BorderLayout.SOUTH);
     }
 
     /**
