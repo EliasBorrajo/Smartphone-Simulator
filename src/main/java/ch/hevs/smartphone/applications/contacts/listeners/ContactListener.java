@@ -50,7 +50,7 @@ public class ContactListener implements ActionListener
             if(e.getSource() == contactsGUI.getBtnShowContact()[i]) {
                 System.out.println("BTN SHOW CONTACT N° : " + i);
 
-                String finalName = contactsGUI.getContactName()[i];
+                String finalName = contactsGUI.getContactNameShowContact()[i];
                 contactsGUI.getCardLayoutContact().show(contactsGUI, finalName);
             }
 
@@ -74,9 +74,8 @@ public class ContactListener implements ActionListener
             // Listener pour Editer le contacte
 
             if(e.getSource() == contactsGUI.getPnlShowContactInfo()[i].getBtnEdit()) {
-                contactsGUI.getPnlShowContactInfo()[i].getCardLayoutShowContact().show(
-                        contactsGUI.getPnlShowContactInfo()[i],
-                        contactsGUI.getPnlShowContactInfo()[i].getFirstName());
+                String finalNameEditContact = contactsGUI.getContactNameEditContact()[i];
+                contactsGUI.getCardLayoutContact().show(contactsGUI, finalNameEditContact);
             }
             /*for (int ii=0; ii<contactsGUI.getContacts().size(); ii++) {
 
@@ -100,10 +99,6 @@ public class ContactListener implements ActionListener
                 reBuildApp();
 
             }*/
-
-            if (e.getSource() == contactsGUI.getPnlShowContactInfo()[i].getBtnEdit()) {
-
-            }
 
             // Listener pour DELETE CONTACT
             if (e.getSource() == contactsGUI.getPnlShowContactInfo()[i].getBtnDeleteContact())

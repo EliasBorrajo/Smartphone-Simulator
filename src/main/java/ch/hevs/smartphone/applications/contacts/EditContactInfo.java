@@ -16,7 +16,9 @@ public class EditContactInfo extends JPanel {
     private JPanel pnlNorth;
     private JPanel pnlCentre;
     private JPanel pnlSouth;
-
+        private JPanel pnlSouthNorth;
+        private JPanel pnlSouthCentre;
+        private JPanel pnlSouthSouth;
 
     // LABEL
     private JButton lblIconContact;
@@ -34,10 +36,8 @@ public class EditContactInfo extends JPanel {
     private JTextField tfPhone;
 
     // BUTTON
-    private JButton btnDeleteContact;
     private JButton btnBackEdit;
     private JButton btnSaveEdit;
-
 
     // IMAGES
     private ImageIcon iconDefaultContact;
@@ -47,7 +47,7 @@ public class EditContactInfo extends JPanel {
 
 
     // OTHER
-    private ShowContactInfo showContactInfo;
+    private ContactsGUI contactsGUI;
     private ArrayList<Contact> contacts;
     private ContactListener myListener;
 
@@ -55,22 +55,19 @@ public class EditContactInfo extends JPanel {
     //*****************************************************************************
     // C O N S T R U  C T E U R
     //*****************************************************************************
-    public EditContactInfo(ShowContactInfo showContactInfo, String firstName, String lastName, String noPhone) {
-        this.showContactInfo = showContactInfo;
+    public EditContactInfo(ContactsGUI contactsGUI, String firstName, String lastName, String noPhone) {
+        this.contactsGUI = contactsGUI;
         this.firstName = firstName;
         this.lastName = lastName;
         this.noPhone = noPhone;
-        System.out.println("Edit panel for contact " + firstName);
-        //buildpnlShowContactInfo();
-        //setListeners();
+
+        buildpnlEditContactInfo();
     }
 
-    /*//*****************************************************************************
+    //*****************************************************************************
     // M E T H O D E S
     //*****************************************************************************
-    private void buildpnlShowContactInfo() {
-        contacts = contactsGUI.getJsonAddressBook().getContactArray();
-
+    private void buildpnlEditContactInfo() {
         this.setLayout(new BorderLayout());
         this.setBackground(Color.red);
 
@@ -78,27 +75,37 @@ public class EditContactInfo extends JPanel {
         pnlNorth = new JPanel(new BorderLayout());
         pnlCentre = new JPanel(new BorderLayout());
         pnlSouth = new JPanel(new GridLayout(4,1));
+        /*pnlSouthNorth = new JPanel(new BorderLayout());
+        pnlSouthCentre = new JPanel(new BorderLayout());
+        pnlSouthSouth = new JPanel(new BorderLayout());*/
+        pnlSouthNorth = new JPanel();
+        pnlSouthCentre = new JPanel();
+        pnlSouthSouth = new JPanel();
 
         buildIcon();
 
-        btnDeleteContact = new JButton("Delete Contact");
-        btnBackEdit = new JButton("Back");
-        btnSaveEdit = new JButton("Edit");
         btnBackEdit = new JButton(iconDefaultBack);
+        btnSaveEdit = new JButton("Save");
 
-        lblIconContact = new JLabel(iconDefaultContact);
+        lblIconContact = new JButton(iconDefaultContact);
         lblFirstName = new JLabel(firstName);
         lblLastName = new JLabel(lastName);
         lblNoPhone = new JLabel(noPhone);
 
+        tfFirstName = new JTextField(this.firstName);
+        tfLastName = new JTextField(this.lastName);
+        tfPhone = new JTextField(this.noPhone);
 
-        /*tfFirstName = new JTextField("");
-        tfLastName = new JTextField("");
-        tfPhone = new JTextField("");*//*
+        pnlSouthNorth.add(lblFirstName);
+        pnlSouthNorth.add(tfFirstName);
+        pnlSouthCentre.add(lblLastName);
+        pnlSouthCentre.add(tfLastName);
+        pnlSouthSouth.add(lblNoPhone);
+        pnlSouthSouth.add(tfPhone);
 
         // NORTH - Contient l'image du contacte
-        pnlNorth.add(btnSaveEdit, BorderLayout.EAST);
         pnlNorth.add(btnBackEdit, BorderLayout.WEST);
+        pnlNorth.add(btnSaveEdit, BorderLayout.EAST);
         pnlNorth.setPreferredSize(new Dimension(20,20));
 
 
@@ -110,21 +117,21 @@ public class EditContactInfo extends JPanel {
         pnlSouth.add(pnlSouthNorth);
         pnlSouth.add(pnlSouthCentre);
         pnlSouth.add(pnlSouthSouth);
-        pnlSouth.add(btnDeleteContact);
         pnlSouth.setPreferredSize(new Dimension(100,100));
 
 
-        // CONTENEUR THIS
+        // HOME PAGE - page d'accueil pour le cardlayout ShowContactInfo
         this.add(pnlNorth, BorderLayout.NORTH);
         this.add(pnlCentre, BorderLayout.CENTER);
         this.add(pnlSouth, BorderLayout.SOUTH);
-    }*/
+
+    }
 
     /**
      * Crée l'image de l'icone par défaut.
      * On passe par une étape intermédiaire pour pouvoir agrandire l'image.
      */
-    /*private void buildIcon() {
+    private void buildIcon() {
         // contactIcon
         iconPathContactPicture = "src/main/resources/ContentIcon/Apps/Contact_Icon.png";
         iconDefaultContact = new ImageIcon(iconPathContactPicture); //Récupère l'image
@@ -147,34 +154,10 @@ public class EditContactInfo extends JPanel {
         myListener = new ContactListener(contactsGUI);
         btnBackEdit.addActionListener(myListener);
         btnSaveEdit.addActionListener(myListener);
-        btnDeleteContact.addActionListener(myListener);
     }
 
     //*****************************************************************************
     // G E T T E R S
     //*****************************************************************************
-    public JButton getBtnDeleteContact() {
-        return btnDeleteContact;
-    }
-
-    public JButton getBtnBackEdit() {
-        return btnBackEdit;
-    }
-
-    public JButton getBtnSaveEdit() {
-        return btnSaveEdit;
-    }
-
-    public JTextField getTfFirstName() {
-        return tfFirstName;
-    }
-
-    public JTextField getTfPhone() {
-        return tfPhone;
-    }
-
-    public JTextField getTfLastName() {
-        return tfLastName;
-    }*/
 
 }

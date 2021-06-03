@@ -64,7 +64,6 @@ public class ShowContactInfo extends JPanel {
         this.lastName = lastName;
         this.noPhone = noPhone;
         buildpnlShowContactInfo();
-        buildCardLayout();
         setListeners();
     }
 
@@ -84,8 +83,6 @@ public class ShowContactInfo extends JPanel {
             pnlSouthCentre = new JPanel();
             pnlSouthSouth = new JPanel();
 
-
-        buildVariables();
         buildIcon();
 
         btnDeleteContact = new JButton("Delete Contact");
@@ -107,8 +104,8 @@ public class ShowContactInfo extends JPanel {
         tfPhone = new JTextField("");*/
 
         // NORTH - Contient l'image du contacte
-        pnlNorth.add(btnEdit, BorderLayout.EAST);
         pnlNorth.add(btnBack, BorderLayout.WEST);
+        pnlNorth.add(btnEdit, BorderLayout.EAST);
         pnlNorth.setPreferredSize(new Dimension(20,20));
 
 
@@ -150,36 +147,6 @@ public class ShowContactInfo extends JPanel {
         iconDefaultBack = new ImageIcon(newImgBackIcon);
     }
 
-    private void buildVariables() {
-        contacts = contactsGUI.getJsonAddressBook().getContactArray();
-
-        pnlEditContactInfo = new EditContactInfo[contacts.size()];
-
-        // création des panels de cartes d'édition
-        for (int i=0; i<contacts.size(); i++) {
-            pnlEditContactInfo[i] = new EditContactInfo(this,
-                    contacts.get(i).getFirstName(),
-                    contacts.get(i).getLastName(),
-                    contacts.get(i).getNoPhone());
-
-            this.add(contactsGUI.getContactName()[i], pnlEditContactInfo[i]); // ajout des cards au cardlayout
-        }
-    }
-
-    /**
-     * création du cardlayout et des cards d'édition pour chaque contact
-     */
-    private void buildCardLayout() {
-        cardLayoutShowContact = new CardLayout(); // nouveau cardlayout pour l'édition des cartes contact
-        this.setLayout(cardLayoutShowContact);
-
-        this.add("HomeShowContact", pnlHomeShowContact);
-        // ajout des cards d'édition au cardlayout
-        for (int i=0; i<contacts.size(); i++) {
-            this.add(contactsGUI.getContactName()[i], pnlEditContactInfo[i]); // ajout des cards au cardlayout
-        }
-    }
-
     //*****************************************************************************
     // L I S T E N E R S
     //*****************************************************************************
@@ -193,10 +160,6 @@ public class ShowContactInfo extends JPanel {
     //*****************************************************************************
     // G E T T E R S
     //*****************************************************************************
-
-    public CardLayout getCardLayoutShowContact() {
-        return cardLayoutShowContact;
-    }
 
     public JPanel getPnlNorth() {
         return pnlNorth;
@@ -292,10 +255,6 @@ public class ShowContactInfo extends JPanel {
 
     public ContactsGUI getContactsGUI() {
         return contactsGUI;
-    }
-
-    public EditContactInfo[] getPnlEditContactInfo() {
-        return pnlEditContactInfo;
     }
 
     public ArrayList<Contact> getContacts() {

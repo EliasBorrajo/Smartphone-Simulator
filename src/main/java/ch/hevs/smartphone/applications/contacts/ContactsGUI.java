@@ -44,7 +44,8 @@ public class ContactsGUI extends JPanel
     // OTHER OBJECTS
     private JSONStorageContact jsonAddressBook;     // Contient le carnet d'adresse dé-sérialisé
     private ArrayList<Contact> contacts;            // Contient tous les contactes
-    private String[] contactName;                   // Permet de donner le nom + Prénom à un cotacte
+    private String[] contactNameShowContact;                   // Permet de donner le nom + Prénom à un cotacte
+    private String[] contactNameEditContact;
     private String[] contactNoPhone;
 
     //*****************************************************************************
@@ -110,7 +111,14 @@ public class ContactsGUI extends JPanel
         jsonAddressBook.sortDescending(contacts);           // Re-organise notre ArrayListe de contacts
 
 
-        contactName     = new String[contacts.size()];
+        contactNameShowContact = new String[contacts.size()];
+        contactNameEditContact = new String[contacts.size()];
+
+        // construction d'un array de string pour identifier les nouvelles cards edit
+        for (int i=0; i<contacts.size(); i++) {
+            contactNameEditContact[i] = contacts.get(i).getFirstName() + " " +
+                                contacts.get(i).getLastName() + i;
+        }
         contactNoPhone  = new String[contacts.size()];
 
         try // Essaye de créer un pannel pour l'ajout des contactes
@@ -126,19 +134,19 @@ public class ContactsGUI extends JPanel
 
         // Création des pannels, pour chaque contacte
         // CREATION des contenus des ARRAYS nécessaires pour les CARDS de contacts
-        for (int i = 0; i < contacts.size(); i++)
+        for (int j = 0; j < contacts.size(); j++)
         {
-            contactNoPhone[i] = contacts.get(i).getNoPhone();
+            contactNoPhone[j] = contacts.get(j).getNoPhone();
             try
             {
-                pnlShowContactInfo[i] = new ShowContactInfo(this,
-                                                            contacts.get(i).getFirstName(),
-                                                            contacts.get(i).getLastName(),
-                                                            contactNoPhone[i]);
-                pnlEditContactInfo[i] = new EditContactInfo(this,
-                                                            contacts.get(i).getFirstName(),
-                                                            contacts.get(i).getLastName(),
-                                                            contacts.get(i).getNoPhone());
+                pnlShowContactInfo[j] = new ShowContactInfo(this,
+                                                            contacts.get(j).getFirstName(),
+                                                            contacts.get(j).getLastName(),
+                                                            contactNoPhone[j]);
+                pnlEditContactInfo[j] = new EditContactInfo(this,
+                                                            contacts.get(j).getFirstName(),
+                                                            contacts.get(j).getLastName(),
+                                                            contacts.get(j).getNoPhone());
             } catch (IOException | BusinessException e)
             {
                 e.printStackTrace();
@@ -169,8 +177,8 @@ public class ContactsGUI extends JPanel
             // CREATION des BOUTTONS pour chaque CONTACTE
             for (int i = 0; i < contacts.size(); i++)
             {
-                contactName[i] = contacts.get(i).getFirstName() + " " + contacts.get(i).getLastName();
-                btnShowContact[i] = new JButton(contactName[i]);
+                contactNameShowContact[i] = contacts.get(i).getFirstName() + " " + contacts.get(i).getLastName();
+                btnShowContact[i] = new JButton(contactNameShowContact[i]);
                 pnlCenterJscrollContact.add(btnShowContact[i]);
             }
         }
@@ -194,7 +202,8 @@ public class ContactsGUI extends JPanel
         // Création & ajout des cards de contact
         for (int i = 0; i < contacts.size(); i++)
         {
-            this.add(contactName[i], pnlShowContactInfo[i]);
+            this.add(contactNameShowContact[i], pnlShowContactInfo[i]);
+            this.add(contactNameEditContact[i], pnlEditContactInfo[i]);
         }
     }
 
@@ -288,9 +297,9 @@ public class ContactsGUI extends JPanel
         return contacts;
     }
 
-    public String[] getContactName()
+    public String[] getContactNameShowContact()
     {
-        return contactName;
+        return contactNameShowContact;
     }
 
     public String[] getContactNoPhone()
@@ -298,6 +307,13 @@ public class ContactsGUI extends JPanel
         return contactNoPhone;
     }
 
+    public EditContactInfo[] getPnlEditContactInfo() {
+        return pnlEditContactInfo;
+    }
+
+    public String[] getContactNameEditContact() {
+        return contactNameEditContact;
+    }
 
     //*****************************************************************************
     // S E T T E R S
