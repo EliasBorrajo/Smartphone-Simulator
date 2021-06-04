@@ -18,6 +18,7 @@ public class Config
 
     private Config()
     {
+        config = new File("src/main/java/ch/hevs/smartphone/jsonStorage/config.txt");
         configDoesExist(); //Vérifie que le fichier existe, si il n'exoste pas, le crée, sinon le lit
         //this.storePath = readConfigFile();
     }
@@ -50,7 +51,9 @@ public class Config
             else
             {
                 // Existe déja
-                readConfigFile();
+                storePath = readConfigFile();
+                System.out.println("File config already exist, read it ! : " + config.getName());
+
 
             }
         } catch (IOException e)

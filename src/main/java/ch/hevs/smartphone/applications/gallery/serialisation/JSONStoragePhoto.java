@@ -33,17 +33,20 @@ public class JSONStoragePhoto implements StorablePhoto {
      * sinon le lire.
      * Config doit RESTER ou il est.
      */
-    private static String storePath = Config.getConfig().getStorePath();
-    public static final String PATH = storePath +"photosList.json";
+    private String storePath ;
+    public static String PATH;
 
     // myObj FILE
-    File myObj = new File(PATH);
+    File myObj ;
 
     //*****************************************************************************
     // C O N S T R U C T E U R
     //*****************************************************************************
     public JSONStoragePhoto() throws IOException, BusinessException {
         // System.out.println(myObj.getAbsolutePath());
+        storePath = Config.getConfig().getStorePath();
+        PATH = storePath +"photosList.json";
+        myObj = new File(PATH);
         this.read();
     }
 
