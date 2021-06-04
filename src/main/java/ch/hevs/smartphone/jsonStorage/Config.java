@@ -16,7 +16,8 @@ public class Config
     // A T T R I B U T S
     //*****************************************************************************
     private static Config configSingleton = null;
-    private File config;
+    private File configFile;
+    private String configFilePath = "src/main/java/ch/hevs/smartphone/jsonStorage/config.txt";
     private String storePath;
 
     //*****************************************************************************
@@ -24,20 +25,22 @@ public class Config
     //*****************************************************************************
     private Config()
     {
-        config = new File("src/main/java/ch/hevs/smartphone/jsonStorage/config.txt");
+        // A la première création du fichier, le stoquer à cet emplacement.
+        configFile = new File(configFilePath);
         configDoesExist(); //Vérifie que le fichier existe, si il n'exoste pas, le crée, sinon le lit
-        //this.storePath = readConfigFile();
+
     }
 
     //*****************************************************************************
     // S I N G L E T O N  -  A C C E S   T O   O B J E C T
     //*****************************************************************************
     /**
-     * Si l'objet n'existe pas, on crée l'objet
+     * Si l'objet n'existe pas, on crée l'objet et ainsi on utilise le ocnstructeur.
      * VOIR THEORIE SINGLETON
      */
     public static Config getConfig()
     {
+        // verifie que le singleTOn CONFIG a été crée ou non.
         if(configSingleton == null)
         {
             configSingleton = new Config();
@@ -55,24 +58,26 @@ public class Config
     {
         try
         {
-            if (config.createNewFile())
+            // Si le fichier n'existe pas, le créer et le remplire
+            if (configFile.createNewFile())
             {
-                //Création
-                System.out.println("File config has been created ! : " + config.getName());
+                //Création du fichier avec son contenu
+                System.out.println("File config has been created ! : " + configFile.getName());
                 writeConfigFile();
 
             }
             else
             {
-                // Existe déja
+                // le fichier existe déja
                 storePath = readConfigFile();
-                System.out.println("File config already exist, read it ! : " + config.getName());
 
-
+                System.out.println("File config already exist, read it ! : " + configFile.getName());
+                System.out.println("Congig file path : "+ storePath);
             }
         } catch (IOException e)
         {
             e.printStackTrace();
+            System.out.println("An error has occured by verifying the configFile : METHODE configDoesExist() in Config.java");
         }
     }
 
@@ -85,15 +90,15 @@ public class Config
     String line = null;
         try
         {
-            BufferedReader br = new BufferedReader( new FileReader("src/main/java/ch/hevs/smartphone/jsonStorage/config.txt"));
-            line = br.readLine();
-        } catch (FileNotFoundException e)
-        {
-            e.printStackTrace();
+            BufferedReader br = new BufferedReader( new FileReader(configFilePath));
+            line = br.readLine();   //On ne lit que une ligne, le fichier ne contient pas plus de lignes
+            System.out.println("READ CONFIG FILE : LINE CONTENT = " +line);
+            br.close();
         } catch (IOException e)
         {
             e.printStackTrace();
         }
+
         return line;
     }
 
@@ -101,8 +106,9 @@ public class Config
     {
         try
         {
-            BufferedWriter bw = new BufferedWriter( new FileWriter(config) );
+            BufferedWriter bw = new BufferedWriter( new FileWriter(configFilePath) );
             bw.write("src/main/java/ch/hevs/smartphone/jsonStorage/");
+            bw.close();
 
         } catch (IOException e)
         {
@@ -110,6 +116,9 @@ public class Config
         }
     }
 
+    //*****************************************************************************
+    // G E T T E R S
+    //*****************************************************************************
     public String getStorePath()
     {
         return storePath;

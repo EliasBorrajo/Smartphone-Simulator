@@ -68,9 +68,9 @@ public class JSONStorageContact implements StorableContact
             else if (myObj.length() > 0)
             {
                 contactArray.clear();
-                System.out.println("test1");
+
                 contactList = mapper.readValue(myObj, new TypeReference<List<Contact>>() { });
-                System.out.println("test2");
+
                 contactArray = (ArrayList<Contact>) contactList;        // casting de la LISTE en ARRAYLISTE
             } else
             {
@@ -78,7 +78,7 @@ public class JSONStorageContact implements StorableContact
             }
         } catch (IOException e)
         {
-            System.out.println("An error occurred.");
+            System.out.println("An error occurred while READING JSON STORAGE CONTACT.");
             e.printStackTrace();
         }
         return contactArray;

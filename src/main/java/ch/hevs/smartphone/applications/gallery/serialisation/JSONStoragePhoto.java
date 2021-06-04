@@ -34,25 +34,42 @@ public class JSONStoragePhoto implements StorablePhoto {
      * Config doit RESTER ou il est.
      */
     private String storePath ;
-    public static String PATH;
+    public static String PATH = (Config.getConfig().getStorePath() + "photosList.json");
 
     // myObj FILE
-    File myObj ;
+    File myObj = new File(PATH);
 
     //*****************************************************************************
     // C O N S T R U C T E U R
     //*****************************************************************************
-    public JSONStoragePhoto() throws IOException, BusinessException {
-        // System.out.println(myObj.getAbsolutePath());
-        storePath = Config.getConfig().getStorePath();
-        PATH = storePath +"photosList.json";
-        myObj = new File(PATH);
+    public JSONStoragePhoto() throws IOException, BusinessException
+    {
+        //definePathToStoreData();
         this.read();
     }
 
     //*****************************************************************************
     // M E T H O D E S
     //*****************************************************************************
+
+    /**
+     * NE FONCTIONNE PAS COMME JE VEUX - A SUPPRIMER
+     */
+    private void definePathToStoreData()
+    {
+        System.out.println("\nstoring PATH 1 is : "+ storePath);
+        storePath = Config.getConfig().getStorePath();
+        System.out.println("\nstoring PATH 2 is : "+ storePath);
+
+
+        PATH = storePath +"photosList.json";
+        System.out.println("Final path is : "+ PATH);
+
+
+        myObj = new File(PATH);
+        System.out.println("REAL REAL PATH OBJECT FILE IS : "+ myObj.getAbsolutePath() );
+        System.out.println("REAL REAL PATH OBJECT FILE IS : "+ myObj.getPath() );
+    }
 
     /**
      * SERIALISATION READ DATA IN A JSON FILE
@@ -63,10 +80,13 @@ public class JSONStoragePhoto implements StorablePhoto {
      */
     @Override
     public ArrayList<Photo> read() throws BusinessException, IOException {
+
         ObjectMapper mapper = new ObjectMapper();       // Mapper n'aime pas les fichiers vides !!
+
         try {
             // Verifie que le fichier existe pas & Crée le ficher
-            if (myObj.createNewFile()) {
+            if (myObj.createNewFile())
+            {
                 System.out.println("File created: " + myObj.getName());
             }
             // verifie que le ficher n'est pas vide (NULL)
@@ -81,7 +101,7 @@ public class JSONStoragePhoto implements StorablePhoto {
                 System.out.println("Empty file");
             }
         } catch (IOException e) {
-            System.out.println("An error occurred.");
+            System.out.println("An error occurred while READING JSON STORAGE PHOTOS.");
             e.printStackTrace();
         }
         return photosArray;
@@ -112,6 +132,7 @@ public class JSONStoragePhoto implements StorablePhoto {
     public void addPhoto(Photo photo) {
         photosArray.add(photo);
     }
+
 
 
     //*****************************************************************************
