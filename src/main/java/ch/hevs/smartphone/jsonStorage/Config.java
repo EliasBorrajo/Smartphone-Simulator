@@ -1,14 +1,14 @@
 package ch.hevs.smartphone.jsonStorage;
-
-
 import java.io.*;
 
 /**
- * Classe permetant de lire le fichier d'INIT CONFIG
- * Permet de récuperer le chemin d'accès d'ou doivent se stoquer les fichers JSON
+ * Classe permetant de lire le fichier d'CONFIG.TXT
+ * Permet de récuperer le chemin d'accès d'ou doivent se stoquer les fichers JSON de nos applications
  *
- * CETTE CLASSE EST UN SINGLETON, EXISTE PARTOUT DANS LE PROJET
+ * CETTE CLASSE EST UN SINGLETON, EXISTE PARTOUT DANS LE PROJET SI ON L'IMPORTE. CET OBJET EST UNIQUE !!
  * On a accès à cette classe de partout dans notre projet, grâce à l'import de la classe.
+ * Le concepte de SINGLETON, permet d'éviter de passer des objets par les constructeurs à n'en plus finir,
+ * et d'utiliser l'objet à l'endroit ou nous en avons besoin.
  */
 public class Config
 {
