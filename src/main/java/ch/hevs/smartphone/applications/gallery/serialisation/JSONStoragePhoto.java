@@ -3,6 +3,7 @@ package ch.hevs.smartphone.applications.gallery.serialisation;
 import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
 import ch.hevs.smartphone.applications.contacts.errors.ErrorCode;
 import ch.hevs.smartphone.applications.gallery.Photo;
+import ch.hevs.smartphone.jsonStorage.Config;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -26,7 +27,14 @@ public class JSONStoragePhoto implements StorablePhoto {
     private List<Photo> photoList;
 
     //PATH
-    public static final String PATH = "photosList.json";
+    /**
+     * Classe qui gère la configuration, s'execute à la création
+     * permet de voir si config.TXT existe, si il n'existe pas, le créer,
+     * sinon le lire.
+     * Config doit RESTER ou il est.
+     */
+    private static String storePath = Config.getConfig().getStorePath();
+    public static final String PATH = storePath +"photosList.json";
 
     // myObj FILE
     File myObj = new File(PATH);

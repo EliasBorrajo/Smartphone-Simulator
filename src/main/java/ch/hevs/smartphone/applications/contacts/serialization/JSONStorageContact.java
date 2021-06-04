@@ -29,7 +29,8 @@ public class JSONStorageContact implements StorableContact
     private List<Contact> contactList;
 
     // myObj FILE
-    File myObj = new File("contactList.json");
+    File myObj = new File("src/main/java/ch/hevs/smartphone/jsonStorage/contactList.json");
+
 
 
     //*****************************************************************************

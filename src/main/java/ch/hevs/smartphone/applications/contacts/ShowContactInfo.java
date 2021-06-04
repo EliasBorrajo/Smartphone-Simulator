@@ -90,7 +90,7 @@ public class ShowContactInfo extends JPanel {
         btnDeleteContact = new JButton("Delete Contact");
         btnBack = new JButton("Back");
         btnEdit = new JButton("Edit");
-        btnBack = new JButton(iconDefaultBack);
+        //btnBack = new JButton(iconDefaultBack);
 
         lblIconContact = new JLabel(iconDefaultContact);
         lblFirstName = new JLabel(firstName);
@@ -133,7 +133,8 @@ public class ShowContactInfo extends JPanel {
      * Crée l'image de l'icone par défaut.
      * On passe par une étape intermédiaire pour pouvoir agrandire l'image.
      */
-    private void buildIcon() {
+    private void buildIcon()
+    {
         // contactIcon
         iconPathContactPicture = "src/main/resources/ContentIcon/Apps/Contact_Icon.png";
         iconDefaultContact = new ImageIcon(iconPathContactPicture); //Récupère l'image

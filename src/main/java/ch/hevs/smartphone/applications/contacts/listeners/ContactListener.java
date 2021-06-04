@@ -32,14 +32,14 @@ public class ContactListener implements ActionListener
     public void actionPerformed(ActionEvent e)
     {
         // Listener pour add Contact
-        if(e.getSource() == contentLayout.getPnlContact().getBtnAddContact())
+        if (e.getSource() == contentLayout.getPnlContact().getBtnAddContact())
         {
             System.out.println("BTN ADD CONTACT CLIQUE");
             contentLayout.getPnlContact().getCardLayoutContact().show(contentLayout.getPnlContact(), "AddContact");
         }
 
-       // Boutton retour sur la page d'ajout de contacte
-        if(e.getSource() == contentLayout.getPnlContact().getPnlAddContact().getBtnBack())
+        // Boutton retour sur la page d'ajout de contacte
+        if (e.getSource() == contentLayout.getPnlContact().getPnlAddContact().getBtnBack())
         {
             System.out.println("Back from adding a new contact");
             contentLayout.getPnlContact().getCardLayoutContact().show(contentLayout.getPnlContact(), "HomeContact");
@@ -50,7 +50,8 @@ public class ContactListener implements ActionListener
         for (int i = 0; i < contentLayout.getPnlContact().getContacts().size(); i++)
         {
             // Listener pour les bouttons de chaque contacte de la liste
-            if(e.getSource() == contentLayout.getPnlContact().getBtnShowContact()[i]) {
+            if (e.getSource() == contentLayout.getPnlContact().getBtnShowContact()[i])
+            {
                 System.out.println("BTN SHOW CONTACT N° : " + i);
 
                 String finalName = contentLayout.getPnlContact().getContactNameShowContact()[i];
@@ -65,36 +66,56 @@ public class ContactListener implements ActionListener
             }
 
             // Listener pour BTN EDIT SHOWCONTACT
-
-            if(e.getSource() == contentLayout.getPnlContact().getPnlShowContactInfo()[i].getBtnEdit()) {
+            if (e.getSource() == contentLayout.getPnlContact().getPnlShowContactInfo()[i].getBtnEdit())
+            {
                 String finalNameEditContact = contentLayout.getPnlContact().getContactNameEditContact()[i];
                 contentLayout.getPnlContact().getCardLayoutContact().show(contentLayout.getPnlContact(), finalNameEditContact);
             }
 
             // Listener pour BTN SAVE EDIT
-            if(e.getSource() == contentLayout.getPnlContact().getPnlEditContactInfo()[i].getBtnSaveEdit())
+            if (e.getSource() == contentLayout.getPnlContact().getPnlEditContactInfo()[i].getBtnSaveEdit())
             {
                 // Récuperer le contenu des Text Fields à editer
                 String tfFisrtName = contentLayout.getPnlContact().getPnlEditContactInfo()[i].getTfFirstName().getText();
-                String tfLastname  = contentLayout.getPnlContact().getPnlEditContactInfo()[i].getTfLastName() .getText();
-                String tfPhone     = contentLayout.getPnlContact().getPnlEditContactInfo()[i].getTfPhone()    .getText();
+                String tfLastname = contentLayout.getPnlContact().getPnlEditContactInfo()[i].getTfLastName().getText();
+                String tfPhone = contentLayout.getPnlContact().getPnlEditContactInfo()[i].getTfPhone().getText();
 
                 // Set des nouvelles valeurs dans notre ADRESS BOOK
                 contentLayout.getPnlContact().getJsonAddressBook().getContactArray().get(i).setFirstName(tfFisrtName);
-                contentLayout.getPnlContact().getJsonAddressBook().getContactArray().get(i).setLastName (tfLastname);
-                contentLayout.getPnlContact().getJsonAddressBook().getContactArray().get(i).setNoPhone  (tfPhone);
+                contentLayout.getPnlContact().getJsonAddressBook().getContactArray().get(i).setLastName(tfLastname);
+                contentLayout.getPnlContact().getJsonAddressBook().getContactArray().get(i).setNoPhone(tfPhone);
 
                 reBuildApp();
             }
 
             // Listener pour BTN BACK EDIT
-            if (e.getSource() == contentLayout.getPnlContact().getPnlEditContactInfo()[i].getBtnBackEdit()) {
+            if (e.getSource() == contentLayout.getPnlContact().getPnlEditContactInfo()[i].getBtnBackEdit())
+            {
                 contentLayout.getPnlContact().getCardLayoutContact().show(contentLayout.getPnlContact()
-                                            ,contentLayout.getPnlContact().getContactNameShowContact()[i]);
+                        , contentLayout.getPnlContact().getContactNameShowContact()[i]);
             }
 
             // Listener pour BTN ICON EDIT
-            if (e.getSource() == contentLayout.getPnlContact().getPnlEditContactInfo()[i].getBtnIconContact()) {
+            if (e.getSource() == contentLayout.getPnlContact().getPnlEditContactInfo()[i].getBtnIconContact())
+            {
+                // 1) On ouvre la fenetre de l'APP Gallery
+                contentLayout.getCardlayout().show(contentLayout, "Gallery");
+
+                // 2) On Sélectione la fenêtre que l'on veut afficher dans l'app Gallery
+                contentLayout.getPnlGallery().getCardGallHome().show(contentLayout.getPnlGallery(), "Choose"); // @TODO : Changer le STRING avec le nouveau panneau à MILENA
+
+                // Selectionner la PHOTO à utiliser en profil
+
+                // Reset du cardLayout de l'APP Gallery
+
+                // Reset du cardlayout principale, et ainsi retour sur notre APP contacte.
+
+                // @TODO : NOTE : Sur le click du bouton, dans le pannel de GAllery, pour choisir sa photo, ce click la va donner le chemin d'accès à la photo pour le boutonIcon
+                // setIconPathContactPicture = PathimageSelected
+                // reBuildIcon(); -- > = BuildPanelShowContacte --> ReBuild = refresh à faire
+
+
+
 
                 /*//rebuildGalleryWOListener();
                 contentLayout.removeAll();
@@ -123,6 +144,7 @@ public class ContactListener implements ActionListener
             }
         }
     }
+
     private void reBuildApp()
     {
         // Refresh des PANNELS
@@ -136,20 +158,28 @@ public class ContactListener implements ActionListener
         contentLayout.getPnlContact().repaint();
     }
 
-    private void rebuildGalleryWOListener() {
+    private void rebuildGalleryWOListener()
+    {
         System.out.println("\nREBUILD APP GALLERY\n");
+
         contentLayout.getPnlGallery().removeAll();
         System.out.println("remove");
+
         contentLayout.getPnlGallery().validate();
         System.out.println("validate");
+
         contentLayout.getPnlGallery().buildPnlHomeGall();
         System.out.println("buildHomePanel");
+
         contentLayout.getPnlGallery().buildCardLayout();
         System.out.println("buildCardLayout");
+
         contentLayout.getPnlGallery().buildListeners();
         System.out.println("buildListeners");
+
         contentLayout.getPnlGallery().revalidate();
         System.out.println("revalidate");
+
         contentLayout.getPnlGallery().repaint();
         System.out.println("repaint");
     }
