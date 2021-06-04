@@ -74,7 +74,7 @@ public class ContentLayout extends JPanel
     //*****************************************************************************
     // M E T H O D E S
     //*****************************************************************************
-    private void buildpnlContent() throws IOException, BusinessException
+    public void buildpnlContent() throws IOException, BusinessException
     {
         cardlayout = new CardLayout();
 
@@ -82,7 +82,7 @@ public class ContentLayout extends JPanel
 
         pnlHome = new JPanel();                     //new GridLayout(2,3)
         pnlContact = new ContactsGUI(this);
-        pnlGallery = new GalleryGUI();
+        pnlGallery = new GalleryGUI(this);
                // pnlPhotoView = new PhotoView();     // @TODO : Doit se retruver dans le cardLayout des PHOTOS
         pnlWeather = new WeatherGUI();
 

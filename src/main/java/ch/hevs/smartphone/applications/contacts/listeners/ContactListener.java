@@ -1,10 +1,13 @@
 package ch.hevs.smartphone.applications.contacts.listeners;
 
 import ch.hevs.smartphone.applications.contacts.ContactsGUI;
+import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
+import ch.hevs.smartphone.structure.SmartphoneGUI;
 import ch.hevs.smartphone.structure.layout.ContentLayout;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class ContactListener implements ActionListener
 {
@@ -71,7 +74,6 @@ public class ContactListener implements ActionListener
             // Listener pour BTN SAVE EDIT
             if(e.getSource() == contentLayout.getPnlContact().getPnlEditContactInfo()[i].getBtnSaveEdit())
             {
-                System.out.println("coucou");
                 // Récuperer le contenu des Text Fields à editer
                 String tfFisrtName = contentLayout.getPnlContact().getPnlEditContactInfo()[i].getTfFirstName().getText();
                 String tfLastname  = contentLayout.getPnlContact().getPnlEditContactInfo()[i].getTfLastName() .getText();
@@ -81,7 +83,6 @@ public class ContactListener implements ActionListener
                 contentLayout.getPnlContact().getJsonAddressBook().getContactArray().get(i).setFirstName(tfFisrtName);
                 contentLayout.getPnlContact().getJsonAddressBook().getContactArray().get(i).setLastName (tfLastname);
                 contentLayout.getPnlContact().getJsonAddressBook().getContactArray().get(i).setNoPhone  (tfPhone);
-                System.out.println(contentLayout.getPnlContact().getJsonAddressBook().getContactArray().get(i).getNoPhone());
 
                 reBuildApp();
             }
@@ -95,6 +96,21 @@ public class ContactListener implements ActionListener
             // Listener pour BTN ICON EDIT
             if (e.getSource() == contentLayout.getPnlContact().getPnlEditContactInfo()[i].getBtnIconContact()) {
 
+                /*//rebuildGalleryWOListener();
+                contentLayout.removeAll();
+                contentLayout.getPnlContact().validate();
+                try {
+                    contentLayout.buildpnlContent();
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                } catch (BusinessException businessException) {
+                    businessException.printStackTrace();
+                }
+                contentLayout.getPnlContact().revalidate();
+                contentLayout.getPnlContact().repaint();
+
+                contentLayout.getPnlGallery().getCardGallHome().show(contentLayout.getPnlGallery(),"Photo0");
+                System.out.println("done");*/
             }
 
             // Listener pour DELETE CONTACT
@@ -118,5 +134,23 @@ public class ContactListener implements ActionListener
         contentLayout.getPnlContact().setListeners();
         contentLayout.getPnlContact().revalidate();
         contentLayout.getPnlContact().repaint();
+    }
+
+    private void rebuildGalleryWOListener() {
+        System.out.println("\nREBUILD APP GALLERY\n");
+        contentLayout.getPnlGallery().removeAll();
+        System.out.println("remove");
+        contentLayout.getPnlGallery().validate();
+        System.out.println("validate");
+        contentLayout.getPnlGallery().buildPnlHomeGall();
+        System.out.println("buildHomePanel");
+        contentLayout.getPnlGallery().buildCardLayout();
+        System.out.println("buildCardLayout");
+        contentLayout.getPnlGallery().buildListeners();
+        System.out.println("buildListeners");
+        contentLayout.getPnlGallery().revalidate();
+        System.out.println("revalidate");
+        contentLayout.getPnlGallery().repaint();
+        System.out.println("repaint");
     }
 }

@@ -18,7 +18,7 @@ public class ContactsGUI extends JPanel
     //*****************************************************************************
     // LAYOUTS
     private CardLayout cardLayoutContact;           // Contiendra les différents cards de l'application
-    private ContentLayout cl;                       // Permet de récuperer & d'utiliser le content layout dans l'app
+    private ContentLayout contentLayout;                       // Permet de récuperer & d'utiliser le content layout dans l'app
 
     // LISTENER
     private ContactListener myListener;             // Permet d'avoir notre fichier de listeners
@@ -51,9 +51,9 @@ public class ContactsGUI extends JPanel
     //*****************************************************************************
     // C O N S T R U C T E U R
     //*****************************************************************************
-    public ContactsGUI(ContentLayout cl)
+    public ContactsGUI(ContentLayout contentLayout)
     {
-        this.cl = cl;
+        this.contentLayout = contentLayout;
         buildJSON();
         buildPnlContentContact();
         buildCardLayout();
@@ -104,7 +104,7 @@ public class ContactsGUI extends JPanel
      */
     private void buildVariables()
     {
-        myListener = new ContactListener(cl);
+        myListener = new ContactListener(contentLayout);
 
         contacts = jsonAddressBook.getContactArray();       // On récupère le carnet d'adresse dé-serialisé
         btnShowContact = new JButton[contacts.size()];     // Crée le tableau ayant la taille du nombre de bouttons que l'on possède
@@ -140,11 +140,11 @@ public class ContactsGUI extends JPanel
             contactNoPhone[j] = contacts.get(j).getNoPhone();
             try
             {
-                pnlShowContactInfo[j] = new ShowContactInfo(cl,
+                pnlShowContactInfo[j] = new ShowContactInfo(contentLayout,
                                                             contacts.get(j).getFirstName(),
                                                             contacts.get(j).getLastName(),
                                                             contactNoPhone[j]);
-                pnlEditContactInfo[j] = new EditContactInfo(cl,
+                pnlEditContactInfo[j] = new EditContactInfo(contentLayout,
                                                             contacts.get(j).getFirstName(),
                                                             contacts.get(j).getLastName(),
                                                             contacts.get(j).getNoPhone());
@@ -252,9 +252,9 @@ public class ContactsGUI extends JPanel
         return cardLayoutContact;
     }
 
-    public ContentLayout getCl()
+    public ContentLayout getContentLayout()
     {
-        return cl;
+        return contentLayout;
     }
 
     public ContactListener getMyListener()

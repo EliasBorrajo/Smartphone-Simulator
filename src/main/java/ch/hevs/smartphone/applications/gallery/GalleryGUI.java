@@ -5,6 +5,7 @@ import ch.hevs.smartphone.applications.gallery.listeners.GalleryActionListener;
 import ch.hevs.smartphone.applications.gallery.serialisation.JSONStoragePhoto;
 import ch.hevs.smartphone.parameters.button.ButtonIcon;
 import ch.hevs.smartphone.parameters.utils.Util;
+import ch.hevs.smartphone.structure.layout.ContentLayout;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,6 +21,7 @@ public class GalleryGUI extends JPanel {
 
     //Layout
     private CardLayout cardGallHome;
+    private ContentLayout contentLayout;
 
     //Jscroll
     private JScrollPane jsGallHome;
@@ -49,7 +51,8 @@ public class GalleryGUI extends JPanel {
     //*****************************************************************************
     // C O N S T R U C T E U R
     //*****************************************************************************
-    public GalleryGUI() {
+    public GalleryGUI(ContentLayout contentLayout) {
+        this.contentLayout = contentLayout;
         buildJSON();
         buildPnlHomeGall();
         buildCardLayout();
@@ -177,6 +180,20 @@ public class GalleryGUI extends JPanel {
     //*****************************************************************************
     // G E T T E R S
     //*****************************************************************************
+
+
+    public JPanel getPnlCTGH() {
+        return pnlCTGH;
+    }
+
+    public JPanel getPnlGallHome() {
+        return pnlGallHome;
+    }
+
+    public JPanel getPnlImages() {
+        return pnlImages;
+    }
+
     public ShowPhoto[] getPnlShowPhoto() {
         return pnlShowPhoto;
     }
@@ -185,12 +202,32 @@ public class GalleryGUI extends JPanel {
         return cardGallHome;
     }
 
+    public ContentLayout getContentLayout() {
+        return contentLayout;
+    }
+
+    public JScrollPane getJsGallHome() {
+        return jsGallHome;
+    }
+
+    public JLabel getLblGallery() {
+        return lblGallery;
+    }
+
+    public JLabel getLblmsg() {
+        return lblmsg;
+    }
+
     public Button getBtnAddPhoto() {
         return btnAddPhoto;
     }
 
-    public JButton[] getBtnPhoto() {
+    public ButtonIcon[] getBtnPhoto() {
         return btnPhoto;
+    }
+
+    public ImageIcon getIc() {
+        return ic;
     }
 
     public ArrayList<Photo> getPhotosArray() {
@@ -201,8 +238,15 @@ public class GalleryGUI extends JPanel {
         return photoName;
     }
 
+    public String[] getPhotoPath() {
+        return photoPath;
+    }
+
     public JSONStoragePhoto getJsonPhotoBook() {
         return jsonPhotoBook;
     }
 
+    public GalleryActionListener getGalleryListener() {
+        return galleryListener;
+    }
 }
