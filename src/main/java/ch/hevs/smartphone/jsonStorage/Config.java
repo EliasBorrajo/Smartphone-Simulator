@@ -59,6 +59,8 @@ public class Config
             {
                 //Création
                 System.out.println("File config has been created ! : " + config.getName());
+                writeConfigFile();
+
             }
             else
             {
@@ -93,6 +95,19 @@ public class Config
             e.printStackTrace();
         }
         return line;
+    }
+
+    private void writeConfigFile()
+    {
+        try
+        {
+            BufferedWriter bw = new BufferedWriter( new FileWriter(config) );
+            bw.write("src/main/java/ch/hevs/smartphone/jsonStorage/");
+
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     public String getStorePath()
