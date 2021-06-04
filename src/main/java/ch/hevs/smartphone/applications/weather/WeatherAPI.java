@@ -42,7 +42,7 @@ public class WeatherAPI
 
     private Icon   weatherIcon;     // "weather" --> icon
 
-
+// @TODO : POUR RECUPERER LE TABLEAU, RECUPERER NORMAL 1 FOIS DEJA; PUIS RöCUPERER DE CE RESULTAT LA STRING
 
 
     //*****************************************************************************
