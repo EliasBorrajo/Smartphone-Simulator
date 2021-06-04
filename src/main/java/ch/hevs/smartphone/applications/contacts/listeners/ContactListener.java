@@ -5,6 +5,7 @@ import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
 import ch.hevs.smartphone.structure.SmartphoneGUI;
 import ch.hevs.smartphone.structure.layout.ContentLayout;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -111,10 +112,18 @@ public class ContactListener implements ActionListener
                 // Reset du cardlayout principale, et ainsi retour sur notre APP contacte.
 
                 // @TODO : NOTE : Sur le click du bouton, dans le pannel de GAllery, pour choisir sa photo, ce click la va donner le chemin d'accès à la photo pour le boutonIcon
-                // setIconPathContactPicture = PathimageSelected
+
+                // Copie le pannel
+                /*JSCROLLPanel choose = pnlJSCROLLPHOTOS;
+                choose Remove BTN;
+                Choose BUILD NEW BTN;
+                CHOOSE SET LISTENER;
+                setIconPathContactPicture[i] = getPathimageSelected[i];
+                */
+
+                contentLayout.getCardlayout().show(contentLayout, "Contactes");
+
                 // reBuildIcon(); -- > = BuildPanelShowContacte --> ReBuild = refresh à faire
-
-
 
 
                 /*//rebuildGalleryWOListener();
