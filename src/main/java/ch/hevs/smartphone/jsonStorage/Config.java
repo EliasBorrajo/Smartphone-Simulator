@@ -12,10 +12,16 @@ import java.io.*;
  */
 public class Config
 {
+    //*****************************************************************************
+    // A T T R I B U T S
+    //*****************************************************************************
     private static Config configSingleton = null;
     private File config;
     private String storePath;
 
+    //*****************************************************************************
+    // C O N S T R U C T E U R - PRIVATE SINGLETON
+    //*****************************************************************************
     private Config()
     {
         config = new File("src/main/java/ch/hevs/smartphone/jsonStorage/config.txt");
@@ -23,6 +29,9 @@ public class Config
         //this.storePath = readConfigFile();
     }
 
+    //*****************************************************************************
+    // S I N G L E T O N  -  A C C E S   T O   O B J E C T
+    //*****************************************************************************
     /**
      * Si l'objet n'existe pas, on crée l'objet
      * VOIR THEORIE SINGLETON
@@ -36,6 +45,9 @@ public class Config
         return configSingleton;
     }
 
+    //*****************************************************************************
+    // M E T H O D E S
+    //*****************************************************************************
     /**
      * MEthode qui vérifie que le fichier config existe ou pas à l'emplacement demandé
      */
