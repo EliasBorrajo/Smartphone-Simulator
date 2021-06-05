@@ -58,7 +58,7 @@ public class HeaderLayout extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    // SERIALISATION
+                    // SERIALISATION PHOTOS
                     smartphoneGUI.getContentLayout().getPnlGallery().getJsonPhotoBook().write(
                             smartphoneGUI.getContentLayout().getPnlGallery().getJsonPhotoBook().getmyObj(),
                             smartphoneGUI.getContentLayout().getPnlGallery().getJsonPhotoBook().getPhotosArray());
@@ -68,7 +68,7 @@ public class HeaderLayout extends JPanel {
                 }
 
                 try {
-                    // SERIALISATION
+                    // SERIALISATION CONTACTES
                     smartphoneGUI.getContentLayout().getPnlContact().getJsonAddressBook().write(
                             smartphoneGUI.getContentLayout().getPnlContact().getJsonAddressBook().getmyObj(),
                             smartphoneGUI.getContentLayout().getPnlContact().getJsonAddressBook().getContactArray());

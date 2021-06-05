@@ -27,7 +27,7 @@ public class Config
     {
         // A la première création du fichier, le stoquer à cet emplacement.
         configFile = new File(configFilePath);
-        configDoesExist(); //Vérifie que le fichier existe, si il n'exoste pas, le crée, sinon le lit
+        configDoesExist(); //Vérifie que le fichier existe, si il n'existe pas, le crée, sinon le lit
 
     }
 

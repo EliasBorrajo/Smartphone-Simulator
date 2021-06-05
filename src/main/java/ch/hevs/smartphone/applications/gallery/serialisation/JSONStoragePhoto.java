@@ -34,7 +34,7 @@ public class JSONStoragePhoto implements StorablePhoto {
      * Config doit RESTER ou il est.
      */
     private String storePath ;
-    public static String PATH = (Config.getConfig().getStorePath() + "photosList.json");
+    public String PATH = (Config.getConfig().getStorePath() + "photosList.json");
 
     // myObj FILE
     File myObj = new File(PATH);
@@ -85,8 +85,9 @@ public class JSONStoragePhoto implements StorablePhoto {
 
         try {
             // Verifie que le fichier existe pas & Crée le ficher
-            if (myObj.createNewFile())
+            if (!myObj.exists())
             {
+                myObj.createNewFile();
                 System.out.println("File created: " + myObj.getName());
             }
             // verifie que le ficher n'est pas vide (NULL)
