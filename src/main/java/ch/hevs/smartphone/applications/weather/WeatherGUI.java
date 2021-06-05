@@ -5,6 +5,9 @@ import ch.hevs.smartphone.parameters.ScreenSizeEnum;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * @author Elias
+ */
 public class WeatherGUI extends JPanel
 {
     //*****************************************************************************

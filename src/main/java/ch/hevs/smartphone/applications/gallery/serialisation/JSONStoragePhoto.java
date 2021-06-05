@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * @author Milena
  * Contient la galerie de photos.
  * Récupère le fichier JSON sur le PC à l'endroit ou l'utilisateur a défini afin de créer nos photos
  */
@@ -65,20 +66,19 @@ public class JSONStoragePhoto implements StorablePhoto
      */
     private void definePathToStoreData()
     {
-        System.out.println("\nstoring PATH 1 is : " + storePath);
+        // Récupère le CONTENU de la VARIABLE D'ENVIRONNEMENT
         storePath = Config.getConfig().getStorePath();
-        System.out.println("\nstoring PATH 2 is : " + storePath);
 
-        // va m'écrire le chemin d'accès de manière coherente, et non faire du bricolage
+
+        // Va m'écrire le chemin d'accès de manière coherente grâce à PATH & PATHS, et non faire du bricolage
+        // COncatène correctement mon PATH qui sera stoqué dans la STRING
         Path path = Paths.get(storePath, "photosList.json");
 
         jsonPath = path.toString();
-        System.out.println("Final path is : " + jsonPath);
-
+        System.out.println("Final path storing my JSON file is : " + jsonPath);
 
         myObj = new File(jsonPath);
         System.out.println("REAL REAL PATH OBJECT FILE IS : " + myObj.getAbsolutePath());
-        System.out.println("REAL REAL PATH OBJECT FILE IS : " + myObj.getPath());
     }
 
     /**

@@ -14,6 +14,7 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
+ * @author Elias, Jonathan
  * Contient le carnet d'adresse des differents contactes.
  * Récupère le fichier JSON sur le PC afin de créer nos contactes
  */

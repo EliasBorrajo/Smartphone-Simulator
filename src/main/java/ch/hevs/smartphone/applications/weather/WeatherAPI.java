@@ -14,8 +14,12 @@ import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Map;
 
-// Tutoriel trouvé sur : https://stackoverflow.com/questions/58759133/openweathermap-api-java
 
+
+/**
+ * @author Elias
+ * Tutoriel trouvé sur : https://stackoverflow.com/questions/58759133/openweathermap-api-java
+ */
 public class WeatherAPI
 {
     //*****************************************************************************

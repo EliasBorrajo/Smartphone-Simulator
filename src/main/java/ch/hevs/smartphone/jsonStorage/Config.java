@@ -7,6 +7,7 @@ import java.io.*;
  * CONTENANT LE CHEMIN D'ACCES DE OU NOUS VOULONS STOQUER LES FICHIERS QUE CREE NOTRE APPLICATION !!
  * SI LA VARIABLE N'EST PAS CREE, LE PROGRAMME NE PEUT ABSOLUMENT PAS DEMARER !
  *
+ * @author Elias
  * - B U T
  * Classe permettant de récuperer le contenu de la VARIABLE D'ENVIRONNEMENT crée par l'utilisateur,
  * afin de décider OU seront stoquées ses informations personelles. EX : FICHIERS JSON.
@@ -38,8 +39,6 @@ public class Config
     //*****************************************************************************
     private Config()
     {
-        // A la première création du fichier, le stoquer à cet emplacement.
-
         // Recuperer le CONTENU de la VARIABLE D'ENVIRONNEMENT sur le PC.
         storePath = System.getenv(VARIABLE_ENVIRONNEMENT);
         if (storePath == null)
@@ -48,22 +47,26 @@ public class Config
             System.exit(1); // On quitte BRUTALEMENT l'application.
         }
 
+        // A la première création du fichier, le stoquer à cet emplacement.
+        // Ce fichier sera un dossier contenant nos DATAS (tel queles JSON) crées par le projet.
         storeFile = new File(storePath);
 
-        // Si le dossier ou l'on va stoquer les JSON n'existe pas, on va le créer
+
+        // Test pour savoir si le FILE que l'on a crée est un DOSSIER ou non.
+        // Si le dossier ou l'on va stoquer les JSON n'existe pas, on va le créer.
         if(! storeFile.isDirectory())
         {
-            // Est ce que la création a fonctionné ?
+            // Est ce que la création du DOSSIER a fonctionné ?
             if(! storeFile.mkdir())
             {
                 System.err.println("La création du dossier n'a pas fonctionné");
-                System.exit(1);
-
+                System.exit(1); // On quitte BRUTALEMENT l'application.
             }
         }
 
         // Si j'arrive ici, c'est que mon dossier a pu être crée correctement et il EXISTE !
-
+        System.out.println("DIRECTORY NAME AS : "+ storeFile.getName()
+                            +"\n at location : "+storeFile.getAbsolutePath());
 
     }
 
@@ -84,9 +87,6 @@ public class Config
         return configSingleton;
     }
 
-    //*****************************************************************************
-    // M E T H O D E S
-    //*****************************************************************************
 
     //*****************************************************************************
     // G E T T E R S
