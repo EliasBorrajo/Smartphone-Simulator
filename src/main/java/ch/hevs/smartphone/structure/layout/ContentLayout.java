@@ -83,7 +83,6 @@ public class ContentLayout extends JPanel
         pnlHome = new JPanel();                     //new GridLayout(2,3)
         pnlContact = new ContactsGUI(this);
         pnlGallery = new GalleryGUI(this);
-               // pnlPhotoView = new PhotoView();     // @TODO : Doit se retruver dans le cardLayout des PHOTOS
         pnlWeather = new WeatherGUI();
 
 
@@ -153,21 +152,6 @@ public class ContentLayout extends JPanel
         });
 
         // FOOTER
-     /*   this.footerLayout.getBtnBack().addActionListener(new ActionListener()
-        {
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-                if (actionsCount > 0)
-                {
-                    panelsOpen.remove(actionsCount);
-                    actionsCount--;
-                    cardlayout.show(pnlContent, panelsOpen.get(actionsCount));
-                    footerLayout.buildMenu();
-                }
-            }
-        });*/
-
         this.footerLayout.getBtnHome().addActionListener(new ActionListener()
         {
             @Override

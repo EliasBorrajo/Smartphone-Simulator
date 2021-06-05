@@ -39,7 +39,6 @@ public class SmartphoneGUI extends JFrame
     public SmartphoneGUI() throws IOException, BusinessException
     {
         buildFrame();
-       // setListeners();
         setTimerUpdate();
     }
 
@@ -90,13 +89,6 @@ public class SmartphoneGUI extends JFrame
         return borderPanel;
     }
 
-    private void setListeners()
-    {
-        // On crée le listener, en lui donnant accès à TOUS les attributs PROTECTED du SMARTPHONE
-        myListener = new ContentListener(this );
-
-        //contentLayout.getPnlAddContact().getBtnSave().addActionListener(myListener);
-    }
 
     private void setTimerUpdate()
     {

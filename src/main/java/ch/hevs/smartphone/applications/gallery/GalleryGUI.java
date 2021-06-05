@@ -99,6 +99,7 @@ public class GalleryGUI extends JPanel {
     }
 
     /**
+     *
      * Création des variables
      */
     private void buildvariables() {

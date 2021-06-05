@@ -54,6 +54,9 @@ public class HeaderLayout extends JPanel {
         iconPower = new ImageIcon(imagePower);
         btnShutdown = new ButtonIcon(iconPower);
 
+        /**
+         * Quand on éteint le smartphone, il faut SERIALISER toutes nos informations
+         */
         btnShutdown.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -74,7 +77,7 @@ public class HeaderLayout extends JPanel {
                             smartphoneGUI.getContentLayout().getPnlContact().getJsonAddressBook().getContactArray());
                 } catch (BusinessException businessException) {
                     businessException.printStackTrace();
-                    System.out.println("COULD NOT SAVE PHOTO -- INNER CLASS CONTENTLAYOUT LISTENERS");
+                    System.out.println("COULD NOT SAVE CONTACTES -- INNER CLASS CONTENTLAYOUT LISTENERS");
                 }
 
 

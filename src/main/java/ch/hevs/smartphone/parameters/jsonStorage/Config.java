@@ -1,4 +1,4 @@
-package ch.hevs.smartphone.jsonStorage;
+package ch.hevs.smartphone.parameters.jsonStorage;
 import java.io.*;
 
 /**

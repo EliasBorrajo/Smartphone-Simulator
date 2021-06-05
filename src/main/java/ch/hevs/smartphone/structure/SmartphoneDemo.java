@@ -16,7 +16,7 @@
 package ch.hevs.smartphone.structure;
 
 import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
-import ch.hevs.smartphone.jsonStorage.Config;
+import ch.hevs.smartphone.parameters.jsonStorage.Config;
 
 import java.io.IOException;
 

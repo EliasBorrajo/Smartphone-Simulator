@@ -95,9 +95,9 @@ public class ShowContactInfo extends JPanel
         buildIcon();
 
         btnDeleteContact = new JButton("Delete Contact");
-        btnBack = new JButton("Back");
+        //btnBack = new JButton("Back");
         btnEdit = new JButton("Edit");
-        //btnBack = new JButton(iconDefaultBack);
+        btnBack = new JButton(iconDefaultBack);
 
         lblIconContact = new JLabel(iconDefaultContact);
         lblFirstName = new JLabel(firstName);
@@ -145,10 +145,6 @@ public class ShowContactInfo extends JPanel
         // contactIcon
         //iconPathContactPicture = "src/main/resources/ContentIcon/Apps/Contact_Icon.png";
         ClassLoader classLoader = getClass().getClassLoader();
-        // Récupère le fichier
-        File tmp = new File(classLoader.getResource("ContentIcon/Apps/Contact_Icon.png").getFile());
-        System.out.println("\nFILE IMAGE FROM RESOURCES\n");
-        System.out.println(tmp.toString());
 
         iconDefaultContact = new ImageIcon(classLoader.getResource("ContentIcon/Apps/Contact_Icon.png")); //Récupère l'image
         Image imageContactIcon = iconDefaultContact.getImage();  // transform it
@@ -156,8 +152,7 @@ public class ShowContactInfo extends JPanel
         iconDefaultContact = new ImageIcon(newImgContactIcon);  // transform it back
 
         // btn back icon
-        iconPathBackPicture = "src/main/resources/HeaderIcon/backIcon.png";
-        iconDefaultBack = new ImageIcon(iconPathBackPicture);
+        iconDefaultBack = new ImageIcon(classLoader.getResource("FooterIcon/backIcon.png"));
         Image imageBackIcon = iconDefaultBack.getImage();
         Image newImgBackIcon = imageBackIcon.getScaledInstance(10, 10, java.awt.Image.SCALE_SMOOTH);
         iconDefaultBack = new ImageIcon(newImgBackIcon);

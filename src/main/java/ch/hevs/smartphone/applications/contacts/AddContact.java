@@ -34,11 +34,12 @@ public class AddContact extends JPanel
     protected JTextField tfLastName;
     protected JTextField tfNoPhone;
 
+    // IMAGE
+    private ImageIcon iconDefaultBack;
+
     // OTHER CLASS USED FOR COMPOSITION
     protected ContactsGUI contactsGUI;
     protected Contact contact;
-
-    // TODO : Fonction pour ajouter une image de la galerie
 
 
     //*****************************************************************************
@@ -103,15 +104,17 @@ public class AddContact extends JPanel
     public void buildPanelAndButton()
     {
 
+
         // PANEL
         pnlNorth  = new JPanel();
         pnlCentre = new JPanel();
         pnlSouth  = new JPanel();
 
         // BUTTON
+        buildIcon();
         btnPhotoContact = new JButton("Add picture");
         btnSave = new JButton("Save");
-        btnBack = new JButton("Back");
+        btnBack = new JButton( iconDefaultBack );
 
         // LABEL
         lblContactsTitle = new JLabel("Add new contact");
@@ -123,6 +126,19 @@ public class AddContact extends JPanel
         tfFirstName = new JTextField("First Name",  50);
         tfLastName  = new JTextField("Last Name",   50);
         tfNoPhone   = new JTextField("Phone Number",50);
+    }
+    /**
+     * Construction de l'ICONE à la taille desirée
+     */
+    private void buildIcon()
+    {
+        // permet de récuperer les fichiers des ressources
+        ClassLoader classLoader = getClass().getClassLoader();
+
+        iconDefaultBack = new ImageIcon(classLoader.getResource("FooterIcon/backIcon.png"));
+        Image imageBackIcon = iconDefaultBack.getImage();
+        Image newImgBackIcon = imageBackIcon.getScaledInstance(10, 10, java.awt.Image.SCALE_SMOOTH);
+        iconDefaultBack = new ImageIcon(newImgBackIcon);
     }
 
     //*****************************************************************************
@@ -209,6 +225,8 @@ public class AddContact extends JPanel
 
 
         }
+
+
     }
 
     //*****************************************************************************

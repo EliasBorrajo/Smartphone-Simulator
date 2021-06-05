@@ -1,9 +1,8 @@
 package ch.hevs.smartphone.applications.gallery.serialisation;
 
 import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
-import ch.hevs.smartphone.applications.contacts.errors.ErrorCode;
 import ch.hevs.smartphone.applications.gallery.Photo;
-import ch.hevs.smartphone.jsonStorage.Config;
+import ch.hevs.smartphone.parameters.jsonStorage.Config;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -75,10 +74,10 @@ public class JSONStoragePhoto implements StorablePhoto
         Path path = Paths.get(storePath, "photosList.json");
 
         jsonPath = path.toString();
-        System.out.println("Final path storing my JSON file is : " + jsonPath);
+        //System.out.println("Final path storing my JSON file is : " + jsonPath);
 
         myObj = new File(jsonPath);
-        System.out.println("REAL REAL PATH OBJECT FILE IS : " + myObj.getAbsolutePath());
+        System.out.println("REAL REAL PATH OBJECT PHOTO FILE IS : " + myObj.getAbsolutePath());
     }
 
     /**

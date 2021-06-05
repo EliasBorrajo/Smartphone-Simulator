@@ -85,7 +85,7 @@ public class EditContactInfo extends JPanel
 
         buildIcon();
 
-        btnBackEdit = new JButton( "BACK"         /*iconDefaultBack*/);
+        btnBackEdit = new JButton( iconDefaultBack);
         btnSaveEdit = new JButton("Save");
         btnIconContact = new JButton(iconDefaultContact);
 
@@ -135,15 +135,16 @@ public class EditContactInfo extends JPanel
     private void buildIcon()
     {
         // contactIcon
-        iconPathContactPicture = "src/main/resources/ContentIcon/Apps/Contact_Icon.png";
-        iconDefaultContact = new ImageIcon(iconPathContactPicture); //Récupère l'image
+        //iconPathContactPicture = "src/main/resources/ContentIcon/Apps/Contact_Icon.png";
+        ClassLoader classLoader = getClass().getClassLoader();
+
+        iconDefaultContact = new ImageIcon(classLoader.getResource("ContentIcon/Apps/Contact_Icon.png")); //Récupère l'image
         Image imageContactIcon = iconDefaultContact.getImage();  // transform it
         Image newImgContactIcon = imageContactIcon.getScaledInstance(150, 150, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
         iconDefaultContact = new ImageIcon(newImgContactIcon);  // transform it back
 
         // btn back icon
-        iconPathBackPicture = "src/main/resources/HeaderIcon/backIcon.png";
-        iconDefaultBack = new ImageIcon(iconPathBackPicture);
+        iconDefaultBack = new ImageIcon(classLoader.getResource("FooterIcon/backIcon.png"));
         Image imageBackIcon = iconDefaultBack.getImage();
         Image newImgBackIcon = imageBackIcon.getScaledInstance(10, 10, java.awt.Image.SCALE_SMOOTH);
         iconDefaultBack = new ImageIcon(newImgBackIcon);

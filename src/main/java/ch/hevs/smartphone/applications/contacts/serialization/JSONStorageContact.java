@@ -2,8 +2,7 @@ package ch.hevs.smartphone.applications.contacts.serialization;
 
 import ch.hevs.smartphone.applications.contacts.Contact;
 import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
-import ch.hevs.smartphone.applications.contacts.errors.ErrorCode;
-import ch.hevs.smartphone.jsonStorage.Config;
+import ch.hevs.smartphone.parameters.jsonStorage.Config;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -80,10 +79,10 @@ public class JSONStorageContact implements StorableContact
         Path path = Paths.get(storePath, "contactsList.json");
 
         jsonPath = path.toString();
-        System.out.println("Final path storing my JSON file is : " + jsonPath);
+        //System.out.println("Final path storing my JSON file is : " + jsonPath);
 
         myObj = new File(jsonPath);
-        System.out.println("REAL REAL PATH OBJECT FILE IS : " + myObj.getAbsolutePath());
+        System.out.println("REAL REAL PATH OBJECT CONTACT FILE IS : " + myObj.getAbsolutePath());
     }
 
     /**
