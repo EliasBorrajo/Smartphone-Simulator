@@ -6,6 +6,7 @@ import ch.hevs.smartphone.structure.layout.ContentLayout;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -136,8 +137,14 @@ public class ShowContactInfo extends JPanel {
     private void buildIcon()
     {
         // contactIcon
-        iconPathContactPicture = "src/main/resources/ContentIcon/Apps/Contact_Icon.png";
-        iconDefaultContact = new ImageIcon(iconPathContactPicture); //Récupère l'image
+        //iconPathContactPicture = "src/main/resources/ContentIcon/Apps/Contact_Icon.png";
+        ClassLoader classLoader = getClass().getClassLoader();
+        // Récupère le fichier
+        File tmp = new File( classLoader.getResource("ContentIcon/Apps/Contact_Icon.png").getFile() );
+        System.out.println("\nFILE IMAGE FROM RESOURCES\n");
+        System.out.println(tmp.toString());
+
+        iconDefaultContact = new ImageIcon(classLoader.getResource("ContentIcon/Apps/Contact_Icon.png")); //Récupère l'image
         Image imageContactIcon = iconDefaultContact.getImage();  // transform it
         Image newImgContactIcon = imageContactIcon.getScaledInstance(150, 150, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
         iconDefaultContact = new ImageIcon(newImgContactIcon);  // transform it back

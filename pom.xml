@@ -11,6 +11,8 @@
     <properties>
         <maven.compiler.source>15</maven.compiler.source>
         <maven.compiler.target>15</maven.compiler.target>
+        <maven.assembly.plugin.version>3.3.0</maven.assembly.plugin.version>
+        <maven.jar.plugin.version>3.2.0</maven.jar.plugin.version>
     </properties>
 
     <!--Récupere les librairies pour les compiler le projet
@@ -48,5 +50,62 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+
+    <!-- Le build permet de dire à notre projet MAVEN l'ors de la compilation / package,
+    COMMENT nous voulons créer le ficher .JAR.
+
+    il faut ajouter les PLUGINS de :
+    1)          <artifactId>maven-assembly-plugin</artifactId>
+                + sa balise <maven.assembly.plugin.version>3.3.0</maven.assembly.plugin.version>
+
+    2)          <artifactId>maven-jar-plugin</artifactId>
+                + sa balise <maven.jar.plugin.version>3.2.0</maven.jar.plugin.version>
+    -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>${maven.assembly.plugin.version}</version> <!-- Rajouter le Num de version -->
+
+                <executions>
+                    <execution>
+                        <id>build-exercise01</id>
+                        <configuration>
+                            <finalName>Smartphone</finalName>
+                            <descriptorRefs>
+                                <descriptorRef>jar-with-dependencies</descriptorRef>
+                            </descriptorRefs>
+                            <archive>
+                                <manifest>
+                                    <addClasspath>true</addClasspath>
+                                    <mainClass>ch.hevs.smartphone.structure.SmartphoneDemo</mainClass> <!-- Le chemin d'acc^ès à notre MAIN -->
+                                </manifest>
+                            </archive>
+                        </configuration>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Permet de NE PAS générer le SNAPSHOT, qui lui est le JAR SANS les dependencies, qui ne FONCTIONNERAIT donc PAS -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>${maven.jar.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>default-jar</id>
+                        <phase>none</phase>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
 
 </project>
