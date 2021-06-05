@@ -17,8 +17,9 @@ public class Config
     //*****************************************************************************
     private static Config configSingleton = null;
     private File configFile;
-    private String configFilePath = "src/main/java/ch/hevs/smartphone/jsonStorage/config.txt";
+    private String configFilePath;
     private String storePath;
+    private static final String VARIABLE_ENVIRONNEMENT = "SMARTPHONEPROJECT";
 
     //*****************************************************************************
     // C O N S T R U C T E U R - PRIVATE SINGLETON
@@ -26,8 +27,30 @@ public class Config
     private Config()
     {
         // A la première création du fichier, le stoquer à cet emplacement.
-        configFile = new File(configFilePath);
-        configDoesExist(); //Vérifie que le fichier existe, si il n'existe pas, le crée, sinon le lit
+        storePath = System.getenv(VARIABLE_ENVIRONNEMENT);
+
+        if (storePath == null)
+        {
+            System.err.println("Aucunne variable d'environnement n'a été trouvé !");
+            System.exit(1);
+        }
+
+        configFile = new File(storePath);
+
+        // Si le dossier ou l'on va stoquer les JSON n'existe pas, on va le créer
+        if(! configFile.isDirectory())
+        {
+            // Est ce que la création a fonctionné ?
+            if(! configFile.mkdir())
+            {
+                System.err.println("La création du dossier n'a pas fonctionné");
+                System.exit(1);
+
+            }
+        }
+
+        // Si j'arrive ici, c'est que mon dossier a pu être crée correctement et il EXISTE !
+
 
     }
 
@@ -51,70 +74,8 @@ public class Config
     //*****************************************************************************
     // M E T H O D E S
     //*****************************************************************************
-    /**
-     * MEthode qui vérifie que le fichier config existe ou pas à l'emplacement demandé
-     */
-    private void configDoesExist()
-    {
-        try
-        {
-            // Si le fichier n'existe pas, le créer et le remplire
-            if (configFile.createNewFile())
-            {
-                //Création du fichier avec son contenu
-                System.out.println("File config has been created ! : " + configFile.getName());
-                writeConfigFile();
 
-            }
-            else
-            {
-                // le fichier existe déja
-                storePath = readConfigFile();
 
-                System.out.println("File config already exist, read it ! : " + configFile.getName());
-                System.out.println("Congig file path : "+ storePath);
-            }
-        } catch (IOException e)
-        {
-            e.printStackTrace();
-            System.out.println("An error has occured by verifying the configFile : METHODE configDoesExist() in Config.java");
-        }
-    }
-
-    /**
-     * permet de lire OU l'on veut stoquer le fichier d'après le fichier CONFIG.TXT
-     * @return
-     */
-    private String readConfigFile()
-    {
-    String line = null;
-        try
-        {
-            BufferedReader br = new BufferedReader( new FileReader(configFilePath));
-            line = br.readLine();   //On ne lit que une ligne, le fichier ne contient pas plus de lignes
-            System.out.println("READ CONFIG FILE : LINE CONTENT = " +line);
-            br.close();
-        } catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-
-        return line;
-    }
-
-    private void writeConfigFile()
-    {
-        try
-        {
-            BufferedWriter bw = new BufferedWriter( new FileWriter(configFilePath) );
-            bw.write("src/main/java/ch/hevs/smartphone/jsonStorage/");
-            bw.close();
-
-        } catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-    }
 
     //*****************************************************************************
     // G E T T E R S

@@ -9,6 +9,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,17 +36,17 @@ public class JSONStoragePhoto implements StorablePhoto {
      * Config doit RESTER ou il est.
      */
     private String storePath ;
-    public String PATH = (Config.getConfig().getStorePath() + "photosList.json");
+    public String jsonPath;//= (Config.getConfig().getStorePath() + "photosList.json");
 
     // myObj FILE
-    File myObj = new File(PATH);
+    private File myObj ;//= new File(PATH);
 
     //*****************************************************************************
     // C O N S T R U C T E U R
     //*****************************************************************************
     public JSONStoragePhoto() throws IOException, BusinessException
     {
-        //definePathToStoreData();
+        definePathToStoreData();
         this.read();
     }
 
@@ -61,12 +63,14 @@ public class JSONStoragePhoto implements StorablePhoto {
         storePath = Config.getConfig().getStorePath();
         System.out.println("\nstoring PATH 2 is : "+ storePath);
 
+        // va m'écrire le chemin d'accès de manière coherente, et non faire du bricolage
+        Path path = Paths.get(storePath , "photosList.json");
 
-        PATH = storePath +"photosList.json";
-        System.out.println("Final path is : "+ PATH);
+        jsonPath = path.toString();
+        System.out.println("Final path is : "+ jsonPath);
 
 
-        myObj = new File(PATH);
+        myObj = new File(jsonPath);
         System.out.println("REAL REAL PATH OBJECT FILE IS : "+ myObj.getAbsolutePath() );
         System.out.println("REAL REAL PATH OBJECT FILE IS : "+ myObj.getPath() );
     }
