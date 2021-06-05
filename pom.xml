@@ -67,12 +67,14 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
-                <version>${maven.assembly.plugin.version}</version> <!-- Rajouter le Num de version -->
+                <version>${maven.assembly.plugin.version}</version>
+                <!-- Rajouter le Num de version  dans les PROPERTIES-->
 
                 <executions>
                     <execution>
                         <id>build-exercise01</id>
                         <configuration>
+                            <!-- Donner le NOM du PROJET -->
                             <finalName>Smartphone</finalName>
                             <descriptorRefs>
                                 <descriptorRef>jar-with-dependencies</descriptorRef>
@@ -80,7 +82,8 @@
                             <archive>
                                 <manifest>
                                     <addClasspath>true</addClasspath>
-                                    <mainClass>ch.hevs.smartphone.structure.SmartphoneDemo</mainClass> <!-- Le chemin d'acc^ès à notre MAIN -->
+                                    <!-- Le chemin d'accès à notre MAIN -->
+                                    <mainClass>ch.hevs.smartphone.structure.SmartphoneDemo</mainClass>
                                 </manifest>
                             </archive>
                         </configuration>
@@ -92,11 +95,14 @@
                 </executions>
             </plugin>
 
-            <!-- Permet de NE PAS générer le SNAPSHOT, qui lui est le JAR SANS les dependencies, qui ne FONCTIONNERAIT donc PAS -->
+            <!-- Permet de NE PAS générer le SNAPSHOT, qui lui est le JAR SANS les dependencies,
+            qui ne FONCTIONNERAIT donc PAS -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>${maven.jar.plugin.version}</version>
+                <!-- Rajouter le Num de version  dans les PROPERTIES-->
+
                 <executions>
                     <execution>
                         <id>default-jar</id>
@@ -104,6 +110,7 @@
                     </execution>
                 </executions>
             </plugin>
+
         </plugins>
     </build>
 

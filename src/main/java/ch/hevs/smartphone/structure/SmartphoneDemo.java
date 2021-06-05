@@ -5,11 +5,14 @@ import ch.hevs.smartphone.jsonStorage.Config;
 
 import java.io.IOException;
 
-public class SmartphoneDemo {
+public class SmartphoneDemo
+{
     public static void main(String[] args) throws IOException, BusinessException
     {
-        Config.getConfig(); //Créer le singleTon
+        //Créer le singleTon au début.
+        Config.getConfig();
 
+        // Démarer le smartPhone
         new SmartphoneGUI();
     }
 }
