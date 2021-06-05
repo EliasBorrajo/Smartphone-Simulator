@@ -3,11 +3,14 @@ package ch.hevs.smartphone.applications.contacts.serialization;
 import ch.hevs.smartphone.applications.contacts.Contact;
 import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
 import ch.hevs.smartphone.applications.contacts.errors.ErrorCode;
+import ch.hevs.smartphone.jsonStorage.Config;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -24,13 +27,18 @@ public class JSONStorageContact implements StorableContact
     // A T T R I B U T S
     //*****************************************************************************
     // ARRAY LIST - Ce sera le carnet d'adresse
-    private ArrayList<Contact> contactArray = new ArrayList<>();    //@TODO déplacer le NEW dans READ ?
+    private ArrayList<Contact> contactArray = new ArrayList<>();
 
     // Liste qui permet de lire le JSOn et sera converti ensuite en ArrayList du carnet d'adresse
     private List<Contact> contactList;
 
+    //PATH
+    private String storePath;        // Permet de stoquer le contenu de notre VARIABLE D'ENVIRONNEMENT SYSTEME
+    private String jsonPath;         // Est la variable qui contiendra le chemin FINAl sur le PC et selon l'OS,
+                                     // à l'emplacement de stockage de notre fichier JSON
+
     // myObj FILE
-    File myObj = new File("src/main/java/ch/hevs/smartphone/jsonStorage/contactList.json");
+    File myObj;
 
 
 
@@ -39,14 +47,44 @@ public class JSONStorageContact implements StorableContact
     //*****************************************************************************
     public JSONStorageContact() throws IOException, BusinessException
     {
-        // System.out.println(myObj.getAbsolutePath());
-        this.read();
+        definePathToStoreData();
+        read();
         sortDescending(contactArray);
     }
 
     //*****************************************************************************
     // M E T H O D E S
     //*****************************************************************************
+    /**
+     * Permet de récuperer la valeur stoqué sur le PC de l'utilisateur de l'app.
+     * L'utilisateur va créer une VARIABLE D'ENVIRONNEMENT sur son OS / PC, pour décider à quel emplacement
+     * il shouaite stoquer les fichiers JSON.
+     *
+     * 1) Il faut récuperer cette VARIABLE grâce à notre SINGLETON
+     *
+     * 2) Utiliser la classe PATH pour créer un chemin d'accès correcte peu importe l'OS.
+     *    Cette classe utilise l'import java.nio, qui va grandement nous aider pour homogeneiser notre code.
+     *
+     *    Puis utiliser la clate PATHS pour CONCATENER le chemin d'accès de la VAARIABLE + le nom du fichier que l'on veut.
+     *
+     * 3) Définir dans une string le chemin d'accès finale crée par PATH, et l'utiliser pour la création de notre FILE.
+     */
+    private void definePathToStoreData()
+    {
+        // Récupère le CONTENU de la VARIABLE D'ENVIRONNEMENT
+        storePath = Config.getConfig().getStorePath();
+
+
+        // Va m'écrire le chemin d'accès de manière coherente grâce à PATH & PATHS, et non faire du bricolage
+        // COncatène correctement mon PATH qui sera stoqué dans la STRING
+        Path path = Paths.get(storePath, "contactsList.json");
+
+        jsonPath = path.toString();
+        System.out.println("Final path storing my JSON file is : " + jsonPath);
+
+        myObj = new File(jsonPath);
+        System.out.println("REAL REAL PATH OBJECT FILE IS : " + myObj.getAbsolutePath());
+    }
 
     /**
      * SERIALISATION READ DATA IN A JSON FILE
@@ -61,8 +99,9 @@ public class JSONStorageContact implements StorableContact
         try
         {
             // Verifie que le fichier existe pas & Crée le ficher
-            if (myObj.createNewFile())
+            if ( ! myObj.exists())
             {
+                myObj.createNewFile();
                 System.out.println("File created: " + myObj.getName());
             }
             // verifie que le ficher n'est pas vide (NULL)
@@ -100,8 +139,8 @@ public class JSONStorageContact implements StorableContact
             mapper.writeValue(destination, contacts);
         } catch (IOException e)
         {
-            // System.out.println("Error writing");
-            throw new BusinessException("failed to save", e, ErrorCode.IO_ERROR); //@TODO : ERRORCODE n'est pas IO_ERROR mais BUSINES NON ?
+            System.out.println("SERIALISATION of contactList.JSON has failed : ");
+            e.printStackTrace();
         }
     }
 

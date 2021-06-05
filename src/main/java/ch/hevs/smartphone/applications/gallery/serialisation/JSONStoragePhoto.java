@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Milena
+ * @author Milena, Elias
  * Contient la galerie de photos.
  * Récupère le fichier JSON sur le PC à l'endroit ou l'utilisateur a défini afin de créer nos photos
  */
@@ -90,7 +90,6 @@ public class JSONStoragePhoto implements StorablePhoto
     @Override
     public ArrayList<Photo> read() throws BusinessException, IOException
     {
-
         ObjectMapper mapper = new ObjectMapper();       // Mapper n'aime pas les fichiers vides !!
 
         try
@@ -106,9 +105,7 @@ public class JSONStoragePhoto implements StorablePhoto
             {
                 photosArray.clear();
 
-                photoList = mapper.readValue(myObj, new TypeReference<List<Photo>>()
-                {
-                });
+                photoList = mapper.readValue(myObj, new TypeReference<List<Photo>>()  { });
 
                 photosArray = (ArrayList<Photo>) photoList;        // casting de la LISTE en ARRAYLISTE
             } else
@@ -139,7 +136,7 @@ public class JSONStoragePhoto implements StorablePhoto
             mapper.writeValue(destination, photosArray);
         } catch (IOException e)
         {
-            System.out.println("SERIALISATION of photoList.JSON has faile : ");
+            System.out.println("SERIALISATION of photoList.JSON has failed : ");
             e.printStackTrace();
         }
     }
