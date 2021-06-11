@@ -176,7 +176,7 @@ public class AddContact extends JPanel
         public void actionPerformed(ActionEvent e)
         {
 
-            contact = new Contact("", "", "");
+            contact = new Contact("", "", "", iconDefaultContact);
 
 
             String text1 = "";
@@ -191,18 +191,19 @@ public class AddContact extends JPanel
             text3 = inputNP.getText();
             contact.setNoPhone(text3);
 
+            // Ajouter une image par défaut au contacte
+            ClassLoader classLoader = getClass().getClassLoader();
+            iconDefaultContact = new ImageIcon(classLoader.getResource("ContentIcon/Apps/Contact_Icon.png")); //Récupère l'image
+            Image imageContactIcon = iconDefaultContact.getImage();  // transform it
+            Image newImgContactIcon = imageContactIcon.getScaledInstance(150, 150, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+            iconDefaultContact = new ImageIcon(newImgContactIcon);  // transform it back
+
             System.out.println(contact);
 
             contactsGUI.getJsonAddressBook().addContact(contact);
             contactsGUI.getJsonAddressBook().sortDescending(contactsGUI.getJsonAddressBook().getContactArray()); // trie l'Arraylist contacts par ordre alphabétique
 
-            // Ajouter une image par défaut au contacte
-            ClassLoader classLoader = getClass().getClassLoader();
 
-            iconDefaultContact = new ImageIcon(classLoader.getResource("ContentIcon/Apps/Contact_Icon.png")); //Récupère l'image
-            Image imageContactIcon = iconDefaultContact.getImage();  // transform it
-            Image newImgContactIcon = imageContactIcon.getScaledInstance(150, 150, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
-            iconDefaultContact = new ImageIcon(newImgContactIcon);  // transform it back
 
 /*
             System.out.println("AddContact1");

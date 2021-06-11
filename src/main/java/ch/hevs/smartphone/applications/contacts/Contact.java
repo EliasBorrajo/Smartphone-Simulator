@@ -61,10 +61,11 @@ public class Contact implements Serializable
     }
 
     // CONSTRUCTOR
-    public Contact(String firstName, String lastName, String noPhone){
+    public Contact(String firstName, String lastName, String noPhone, ImageIcon contactPhoto){
         this.firstName = firstName;
         this.lastName = lastName;
         this.noPhone = noPhone;
+        this.contactPhoto = contactPhoto;
 //        this.btnContactInfo = new JButton(this.firstName + " " + this.lastName);
     }
     public Contact(){
