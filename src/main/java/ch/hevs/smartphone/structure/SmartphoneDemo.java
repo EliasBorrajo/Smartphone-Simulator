@@ -22,6 +22,7 @@ import java.io.IOException;
 
 /**
  * Main qui va nous créer le projet au complêt
+ *
  */
 public class SmartphoneDemo
 {
