@@ -103,7 +103,7 @@ public class GalleryGUI extends JPanel {
     private void buildvariables() {
         galleryListener = new GalleryActionListener(this);
 
-        photosArray = jsonPhotoBook.getPhotosArray();    //On récupère les photos et on dé-sérialise
+        photosArray = jsonPhotoBook.getPhotosArray();       //On récupère les photos et on dé-sérialise
         btnPhoto = new ButtonIcon[photosArray.size()];      //Création du tableau de bouton ayant la taille de photos
 
         photoName = new String[photosArray.size()];
@@ -158,7 +158,7 @@ public class GalleryGUI extends JPanel {
 
         this.setLayout(cardGallHome);
 
-        this.add("GallHOME", pnlCTGH);
+        this.add("HomeGallery", pnlCTGH);
         for (int i = 0; i < photosArray.size(); i++) {
             this.add(photoName[i], pnlShowPhoto[i]);
         }

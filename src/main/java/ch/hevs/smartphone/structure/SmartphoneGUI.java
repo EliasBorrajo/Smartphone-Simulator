@@ -68,8 +68,8 @@ public class SmartphoneGUI extends JFrame
 
         // Création de la structure principale
         headerLayout = new HeaderLayout(this);
-        footerLayout = new FooterLayout();
-        contentLayout = new ContentLayout(footerLayout);
+        contentLayout = new ContentLayout();
+        footerLayout = new FooterLayout(contentLayout);
 
         pnlScreen.add(headerLayout, BorderLayout.NORTH);
         pnlScreen.add(contentLayout, BorderLayout.CENTER);

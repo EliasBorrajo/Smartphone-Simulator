@@ -63,7 +63,7 @@ public class GalleryActionListener implements ActionListener {
 
             //Action pour annuler les changements
             if (e.getSource() == galleryGUI.getPnlShowPhoto()[i].getBtnCancel()) {
-                galleryGUI.getCardGallHome().show(galleryGUI, "GallHOME");
+                galleryGUI.getCardGallHome().show(galleryGUI, "HomeGallery");
             }
 
             //@TODO Donner la possibilité de changer de photo depuis le panel show photo?

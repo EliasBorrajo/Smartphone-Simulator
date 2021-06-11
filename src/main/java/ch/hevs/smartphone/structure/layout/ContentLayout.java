@@ -32,15 +32,12 @@ public class ContentLayout extends JPanel
     // HOME
     private JPanel pnlContent;          // Panel principal qui va contenir tous les cards
     private JPanel pnlHome;             // Panneau d'accueil
-    // CONTACTES
+    // CONTACTS
     private ContactsGUI pnlContact;     // Application Contactes
-
     // GALLERY
     private GalleryGUI pnlGallery;      // Application Gallerie
-        //private PhotoView pnlPhotoView;                // Pannel de photo ouverte //@TODO : doit disparaitre d'ici
     // WEATHER
     private WeatherGUI pnlWeather;      // Application Weather
-
 
     // BUTTON - lancent les applicatons
     private ButtonIcon btnContact;
@@ -52,22 +49,13 @@ public class ContentLayout extends JPanel
     private ImageIcon iconContact;
     private ImageIcon iconGallery;
 
-    // FooterLayout
-    private FooterLayout footerLayout;
-    private int actionsCount = -1;              // Compteur permettant de savoir quel PANNEL afficher (BtnHome & BtnRetour)
-    private ArrayList<String> panelsOpen = new ArrayList<String>();
-    private String currentPanel = "Home";       // Sert au refreshPannel
-
-
     //*****************************************************************************
     // C O N S T R U C T E U R
     //*****************************************************************************
-    public ContentLayout(FooterLayout footerLayout) throws IOException, BusinessException
+    public ContentLayout() throws IOException, BusinessException
     {
-        this.footerLayout = footerLayout;
         setPreferredSize(new Dimension(ScreenSizeEnum.CONTENT_PANEL_WIDTH.getSize(), ScreenSizeEnum.CONTENT_PANEL_HEIGHT.getSize()));
         setMinimumSize(new Dimension(ScreenSizeEnum.CONTENT_PANEL_WIDTH.getSize(), ScreenSizeEnum.CONTENT_PANEL_HEIGHT.getSize()));
-
         buildpnlContent();
     }
 
@@ -78,14 +66,12 @@ public class ContentLayout extends JPanel
     {
         cardlayout = new CardLayout();
 
-        //pnlContent = this;                          // permet de faciliter la lecture & l'utiliser dans une BTN BACK
+        pnlContent = this;                          // permet de faciliter la lecture
 
         pnlHome = new JPanel();                     //new GridLayout(2,3)
         pnlContact = new ContactsGUI(this);
         pnlGallery = new GalleryGUI(this);
         pnlWeather = new WeatherGUI();
-
-
 
         // HOME - CONSTUCTION DES IMAGES
         URL imageContact = ContentLayout.class.getClassLoader().getResource("ContentIcon/contactIcon2.png");
@@ -111,25 +97,21 @@ public class ContentLayout extends JPanel
         //Ajouteur les cards au panel conteneur
         this.add("Home",        pnlHome);
         this.add("Contact",     pnlContact);
-        //this.add("AddContact",  pnlAddContact);
         this.add("Gallery",     pnlGallery);
-        //this.add("PhotoView",   pnlPhotoView);
         this.add("Weather",     pnlWeather);
 
-
-        refreshPanel("Home");
+        cardlayout.show(this, "Home");
 
         //*****************************************************************************
         // L I S T E N E R S
         //*****************************************************************************
-
         // BOUTTONS DE HOME-PAGE
         btnContact.addActionListener(new ActionListener()
         {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                refreshPanel("Contact");
+               cardlayout.show(pnlContent, "Contact");
             }
         });
 
@@ -138,7 +120,7 @@ public class ContentLayout extends JPanel
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                refreshPanel("Gallery");
+                cardlayout.show(pnlContent, "Gallery");
             }
         });
 
@@ -147,51 +129,10 @@ public class ContentLayout extends JPanel
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                refreshPanel("Weather");
+                cardlayout.show(pnlContent, "Weather");
             }
         });
-
-        // FOOTER
-        this.footerLayout.getBtnHome().addActionListener(new ActionListener()
-        {
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-                // RESET des CARDLAYOUTS des APP
-                pnlContact.getCardLayoutContact().show(pnlContact, "HomeContact");
-                //pnlGallery aura idem
-
-
-                //actionsCount = -1;
-                //panelsOpen.removeAll(panelsOpen);
-                refreshPanel("Home");
-            }
-        });
-
-
-
-
     }
-
-    //*****************************************************************************
-    // M E T H O D E S
-    //*****************************************************************************
-    public void refreshPanel(String currentPanel)
-    {
-        System.out.println();
-        System.out.println("AVANT REFRESH" + panelsOpen);
-        this.currentPanel = currentPanel;
-        cardlayout.show(this, this.currentPanel);
-        footerLayout.buildMenu();
-        // HISTRORIQUE des panels affichés pour le bouton retour
-        this.actionsCount++;
-        this.panelsOpen.add(this.currentPanel);
-        System.out.println("APRES REFRESH" + panelsOpen);
-
-    }
-
-    // @TODO : DEPLACER INNER CLASS DANS ADD CONTACTE
-
 
     //*****************************************************************************
     // G E T T E R S
@@ -226,11 +167,6 @@ public class ContentLayout extends JPanel
         return pnlWeather;
     }
 
-   /* public PhotoView getPnlPhotoView()
-    {
-        return pnlPhotoView;
-    }
-*/
     public ButtonIcon getBtnContact()
     {
         return btnContact;
@@ -259,26 +195,6 @@ public class ContentLayout extends JPanel
     public ImageIcon getIconGallery()
     {
         return iconGallery;
-    }
-
-    public FooterLayout getfLayout()
-    {
-        return footerLayout;
-    }
-
-    public int getActionsCount()
-    {
-        return actionsCount;
-    }
-
-    public ArrayList<String> getPanelsOpen()
-    {
-        return panelsOpen;
-    }
-
-    public String getCurrentPanel()
-    {
-        return currentPanel;
     }
 
 }
