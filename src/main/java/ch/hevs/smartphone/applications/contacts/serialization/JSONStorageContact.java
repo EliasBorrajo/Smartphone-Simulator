@@ -37,7 +37,7 @@ public class JSONStorageContact implements StorableContact
                                      // à l'emplacement de stockage de notre fichier JSON
 
     // myObj FILE
-    File myObj;
+    private File myObj;
 
 
 
