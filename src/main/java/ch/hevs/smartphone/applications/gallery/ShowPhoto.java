@@ -46,7 +46,6 @@ public class ShowPhoto extends JPanel {
 
     //Other
     private GalleryGUI galleryGUI;
-    private JSONStoragePhoto galleryPhoto;
     private GalleryActionListener galleryActionListener;
     private GalleryMouseListener galleryMouseListener;
 
@@ -118,8 +117,6 @@ public class ShowPhoto extends JPanel {
     private void buildvariables() {
         galleryActionListener = new GalleryActionListener(galleryGUI);
         galleryMouseListener = new GalleryMouseListener(galleryGUI);
-
-        photosArray = galleryPhoto.getPhotosArray();
     }
 
     /**
