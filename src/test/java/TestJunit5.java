@@ -2,21 +2,14 @@ import ch.hevs.smartphone.applications.contacts.Contact;
 import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
 import ch.hevs.smartphone.applications.contacts.errors.ErrorCode;
 import ch.hevs.smartphone.applications.contacts.serialization.JSONStorageContact;
-import ch.hevs.smartphone.parameters.jsonStorage.Config;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -55,9 +48,6 @@ public class TestJunit5
 
     }
 
-
-
-
     /**
      * test si une erreur de désérialisation retourne bien le bon message d'erreur
      * @throws IOException
@@ -73,7 +63,7 @@ public class TestJunit5
         File testFileContact = jsonStorageContact.getMyObj();
         Random garbage = new Random(); // objet contenant des nombres pseudo aléatoire qu'on va utiliser pour corrompre notre fichier json
 
-        writegarbage(testFileContact,garbage.nextInt()); // methode qui écrit ces nombres pseudo aléatoire à la place de l'information sur les contacts
+        writeGarbage(testFileContact,garbage.nextInt()); // methode qui écrit ces nombres pseudo aléatoire à la place de l'information sur les contacts
 
         // retourne l'erreur générée par la lecture du fichier corrompu
         e = assertThrows(BusinessException.class, new Executable() {
@@ -87,7 +77,7 @@ public class TestJunit5
 
     }
 
-    private void writegarbage(File testFile, int garbageBytes) throws IOException {
+    private void writeGarbage(File testFile, int garbageBytes) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(testFile, garbageBytes);
     }
