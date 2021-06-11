@@ -25,7 +25,7 @@ public class ContentLayout extends JPanel
     //*****************************************************************************
     // A T T R I B U T S
     //*****************************************************************************
-    // LAYOUT
+    // LAYOUTS
     private CardLayout cardlayout;
 
     // PANEL
