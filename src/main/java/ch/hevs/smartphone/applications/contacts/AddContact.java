@@ -38,11 +38,12 @@ public class AddContact extends JPanel
     private ImageIcon iconDefaultBack;
     private ImageIcon iconDefaultContact;
 
-
     // OTHER CLASS USED FOR COMPOSITION
     protected ContactsGUI contactsGUI;
     protected Contact contact;
 
+    //STRING
+    private String pathPhoto;
 
     //*****************************************************************************
     // C O N S T R U C T E U R
@@ -63,7 +64,6 @@ public class AddContact extends JPanel
      */
     private void buildPnlContent()
     {
-
         buildPanelAndButton();
 
         // Parametre du panel
@@ -95,7 +95,6 @@ public class AddContact extends JPanel
         this.add(pnlSouth,  BorderLayout.SOUTH);
 
         setListenerAddContact();
-
     }
 
     /**
@@ -105,8 +104,6 @@ public class AddContact extends JPanel
      */
     public void buildPanelAndButton()
     {
-
-
         // PANEL
         pnlNorth  = new JPanel();
         pnlCentre = new JPanel();
@@ -128,6 +125,9 @@ public class AddContact extends JPanel
         tfFirstName = new JTextField("First Name",  50);
         tfLastName  = new JTextField("Last Name",   50);
         tfNoPhone   = new JTextField("Phone Number",50);
+
+        // STRING
+        //pathPhoto = new String();
     }
     /**
      * Construction de l'ICONE à la taille desirée
@@ -151,7 +151,6 @@ public class AddContact extends JPanel
         btnSave.addActionListener(new ListenerSaveAddContact(tfFirstName, tfLastName, tfNoPhone));
 
         btnBack.addActionListener(contactsGUI.getMyListener());
-
     }
 
     //*****************************************************************************
@@ -160,7 +159,6 @@ public class AddContact extends JPanel
     // INNER CLASS
     class ListenerSaveAddContact implements ActionListener
     {
-
         JTextField inputFN;
         JTextField inputN;
         JTextField inputNP;
@@ -175,9 +173,7 @@ public class AddContact extends JPanel
         @Override
         public void actionPerformed(ActionEvent e)
         {
-
-            contact = new Contact("", "", "", iconDefaultContact);
-
+            contact = new Contact("", "", "", pathPhoto);
 
             String text1 = "";
             text1 = inputFN.getText();
@@ -191,35 +187,18 @@ public class AddContact extends JPanel
             text3 = inputNP.getText();
             contact.setNoPhone(text3);
 
+            //pathPhoto = "src/main/resources/ContentIcon/Apps/Contact_Icon.png";
+
             // Ajouter une image par défaut au contacte
-            ClassLoader classLoader = getClass().getClassLoader();
-            iconDefaultContact = new ImageIcon(classLoader.getResource("ContentIcon/Apps/Contact_Icon.png")); //Récupère l'image
-            Image imageContactIcon = iconDefaultContact.getImage();  // transform it
-            Image newImgContactIcon = imageContactIcon.getScaledInstance(150, 150, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
-            iconDefaultContact = new ImageIcon(newImgContactIcon);  // transform it back
+            //pathPhoto = "ContentIcon/Apps/Contact_Icon.png";
+
+            //contact.setContactPhoto(pathPhoto);
 
             System.out.println(contact);
 
             contactsGUI.getJsonAddressBook().addContact(contact);
             contactsGUI.getJsonAddressBook().sortDescending(contactsGUI.getJsonAddressBook().getContactArray()); // trie l'Arraylist contacts par ordre alphabétique
 
-
-
-/*
-            System.out.println("AddContact1");
-
-            // Serialisation des informations
-            try
-            {
-                contactsGUI.getJsonAddressBook().write(contactsGUI.getJsonAddressBook().getmyObj(),
-                        contactsGUI.getJsonAddressBook().getContactArray());
-
-                System.out.println(contactsGUI.getJsonAddressBook().getmyObj());
-            } catch (BusinessException businessException)
-            {
-                businessException.printStackTrace();
-            }
-*/
             System.out.println("AddContact2");
 
             inputFN.setText("");
@@ -237,9 +216,7 @@ public class AddContact extends JPanel
             contactsGUI.revalidate();
             contactsGUI.repaint();
 
-
         }
-
 
     }
 

@@ -2,6 +2,7 @@ package ch.hevs.smartphone.applications.contacts;
 
 import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
 import ch.hevs.smartphone.applications.contacts.listeners.ContactListener;
+import ch.hevs.smartphone.parameters.utils.Util;
 import ch.hevs.smartphone.structure.layout.ContentLayout;
 
 import javax.swing.*;
@@ -20,7 +21,6 @@ public class ShowContactInfo extends JPanel
     //*****************************************************************************
 
     // PANEL
-    private JPanel pnlHomeShowContact;
     private JPanel pnlNorth;
     private JPanel pnlCentre;
     private JPanel pnlSouth;
@@ -37,27 +37,18 @@ public class ShowContactInfo extends JPanel
     private String firstName = "";
     private String lastName = "";
     private String noPhone = "";
-
-    // TEXT FIELD
-    private JTextField tfFirstName;
-    private JTextField tfLastName;
-    private JTextField tfPhone;
+    private String pathContactPhoto;
 
     // BUTTON
     private JButton btnDeleteContact;
     private JButton btnBack;
     private JButton btnEdit;
 
-
     // IMAGES
-    //private ImageIcon iconDefaultContact;
     private ImageIcon iconDefaultBack;
     private ImageIcon iconContact;
-    private String iconPathContactPicture;
-    private String iconPathBackPicture;
 
     // OTHER
-    //private ContactsGUI contactsGUI;
     private ContentLayout contentLayout;
     private ArrayList<Contact> contacts;
     private ContactListener myListener;
@@ -66,13 +57,13 @@ public class ShowContactInfo extends JPanel
     //*****************************************************************************
     // C O N S T R U  C T E U R
     //*****************************************************************************
-    public ShowContactInfo(ContentLayout contentLayout, String firstName, String lastName, String noPhone, ImageIcon iconContact) throws IOException, BusinessException
+    public ShowContactInfo(ContentLayout contentLayout, String firstName, String lastName, String noPhone, String pathContactPhoto) throws IOException, BusinessException
     {
         this.contentLayout = contentLayout;
         this.firstName = firstName;
         this.lastName = lastName;
         this.noPhone = noPhone;
-        this.iconContact = iconContact;
+        this.pathContactPhoto = pathContactPhoto;
 
         buildIcon();
         buildpnlShowContactInfo();
@@ -97,9 +88,10 @@ public class ShowContactInfo extends JPanel
         pnlSouthSouth = new JPanel();
 
         btnDeleteContact = new JButton("Delete Contact");
-        //btnBack = new JButton("Back");
         btnEdit = new JButton("Edit");
         btnBack = new JButton(iconDefaultBack);
+
+        //iconContact = new ImageIcon(pathContactPhoto);
 
         lblIconContact = new JLabel(iconContact);
         lblFirstName = new JLabel(firstName);
@@ -109,10 +101,6 @@ public class ShowContactInfo extends JPanel
         pnlSouthNorth.add(lblFirstName);
         pnlSouthCentre.add(lblLastName);
         pnlSouthSouth.add(lblNoPhone);
-
-        /*tfFirstName = new JTextField("");
-        tfLastName = new JTextField("");
-        tfPhone = new JTextField("");*/
 
         // NORTH - Contient l'image du contacte
         pnlNorth.add(btnBack, BorderLayout.WEST);
@@ -131,7 +119,6 @@ public class ShowContactInfo extends JPanel
         pnlSouth.add(btnDeleteContact);
         pnlSouth.setPreferredSize(new Dimension(100, 100));
 
-
         // HOME PAGE - page d'accueil pour le cardlayout ShowContactInfo
         this.add(pnlNorth, BorderLayout.NORTH);
         this.add(pnlCentre, BorderLayout.CENTER);
@@ -144,21 +131,32 @@ public class ShowContactInfo extends JPanel
      */
     private void buildIcon()
     {
-        /*
-        iconDefaultContact = new ImageIcon(classLoader.getResource(iconPathContactPicture)); //Récupère l'image
-        Image imageContactIcon = iconDefaultContact.getImage();  // transform it
-        Image newImgContactIcon = imageContactIcon.getScaledInstance(150, 150, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
-        iconDefaultContact = new ImageIcon(newImgContactIcon);  // transform it back
-        */
-
         ClassLoader classLoader = getClass().getClassLoader();
-
 
         // btn back icon
         iconDefaultBack = new ImageIcon(classLoader.getResource("FooterIcon/backIcon.png"));
         Image imageBackIcon = iconDefaultBack.getImage();
         Image newImgBackIcon = imageBackIcon.getScaledInstance(10, 10, java.awt.Image.SCALE_SMOOTH);
         iconDefaultBack = new ImageIcon(newImgBackIcon);
+
+        if(pathContactPhoto == null)
+        {
+            iconContact = new ImageIcon(classLoader.getResource("ContentIcon/Apps/Contact_Icon.png")); //Récupère l'image
+            Image imageContactIcon = iconContact.getImage();  // transform it
+            Image newImgContactIcon = imageContactIcon.getScaledInstance(150, 150, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+            iconContact = new ImageIcon(newImgContactIcon);  // transform it back
+        }
+        else
+        {
+            System.out.println("PATH CONTACT PHOTO "+pathContactPhoto);
+            iconContact = new ImageIcon(pathContactPhoto); //Récupère l'image
+            Image imageContactIcon = iconContact.getImage();  // transform it
+            //Image newImgContactIcon = imageContactIcon.getScaledInstance(150, 150, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+            Image newImgContactIcon = imageContactIcon;
+            iconContact = new ImageIcon(newImgContactIcon);  // transform it back
+            iconContact = Util.getScaledImageIcon(iconContact, 250);
+
+        }
     }
 
     //*****************************************************************************
@@ -241,21 +239,6 @@ public class ShowContactInfo extends JPanel
         return noPhone;
     }
 
-    public JTextField getTfFirstName()
-    {
-        return tfFirstName;
-    }
-
-    public JTextField getTfLastName()
-    {
-        return tfLastName;
-    }
-
-    public JTextField getTfPhone()
-    {
-        return tfPhone;
-    }
-
     public JButton getBtnDeleteContact()
     {
         return btnDeleteContact;
@@ -271,26 +254,9 @@ public class ShowContactInfo extends JPanel
         return btnEdit;
     }
 
-
-
     public ImageIcon getIconDefaultBack()
     {
         return iconDefaultBack;
-    }
-
-    public String getIconPathContactPicture()
-    {
-        return iconPathContactPicture;
-    }
-
-    public String getIconPathBackPicture()
-    {
-        return iconPathBackPicture;
-    }
-
-    public JPanel getPnlHomeShowContact()
-    {
-        return pnlHomeShowContact;
     }
 
     public ContentLayout getContentLayout()
@@ -308,6 +274,14 @@ public class ShowContactInfo extends JPanel
         return myListener;
     }
 
+    public String getPathContactPhoto() {
+        return pathContactPhoto;
+    }
+
+    public ImageIcon getIconContact() {
+        return iconContact;
+    }
+
     //*****************************************************************************
     // S E T T E R S
     //*****************************************************************************
@@ -316,8 +290,7 @@ public class ShowContactInfo extends JPanel
         this.lblIconContact = lblIconContact;
     }
 
-    public void setIconPathContactPicture(String iconPathContactPicture)
-    {
-        this.iconPathContactPicture = iconPathContactPicture;
+    public void setPathContactPhoto(String pathContactPhoto) {
+        this.pathContactPhoto = pathContactPhoto;
     }
 }

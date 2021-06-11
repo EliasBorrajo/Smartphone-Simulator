@@ -1,6 +1,7 @@
 package ch.hevs.smartphone.applications.contacts;
 
 import ch.hevs.smartphone.applications.contacts.listeners.ContactListener;
+import ch.hevs.smartphone.parameters.utils.Util;
 import ch.hevs.smartphone.structure.layout.ContentLayout;
 
 import javax.swing.*;
@@ -42,12 +43,11 @@ public class EditContactInfo extends JPanel
     // IMAGES
     private ImageIcon iconContact;
     private ImageIcon iconDefaultBack;
-    private String iconPathContactPicture;
+    private String pathContactPhoto;
     private String iconPathBackPicture;
 
 
     // OTHER
-    //private ContactsGUI contactsGUI;
     private ContentLayout contentLayout;
     private ArrayList<Contact> contacts;
     private ContactListener myListener;
@@ -56,13 +56,13 @@ public class EditContactInfo extends JPanel
     //*****************************************************************************
     // C O N S T R U  C T E U R
     //*****************************************************************************
-    public EditContactInfo(ContentLayout contentLayout, String firstName, String lastName, String noPhone, ImageIcon contactPhoto)
+    public EditContactInfo(ContentLayout contentLayout, String firstName, String lastName, String noPhone, String pathContactPhoto)
     {
         this.contentLayout = contentLayout;
         this.firstName = firstName;
         this.lastName = lastName;
         this.noPhone = noPhone;
-        this.iconContact = contactPhoto;
+        this.pathContactPhoto = pathContactPhoto;
 
         buildpnlEditContactInfo();
         setListeners();
@@ -88,6 +88,8 @@ public class EditContactInfo extends JPanel
 
         btnBackEdit = new JButton( iconDefaultBack);
         btnSaveEdit = new JButton("Save");
+        //iconContact = new ImageIcon(pathContactPhoto);
+        //iconContact = contentLayout.getPnlContact().
         btnIconContact = new JButton(iconContact);
 
         lblFirstName = new JLabel(firstName);
@@ -110,7 +112,6 @@ public class EditContactInfo extends JPanel
         pnlNorth.add(btnSaveEdit, BorderLayout.EAST);
         pnlNorth.setPreferredSize(new Dimension(20, 20));
 
-
         // CENTER - Contien les informations du contacte + Les textBox pour l'édition
         pnlCentre.add(btnIconContact, BorderLayout.CENTER);
         pnlCentre.setPreferredSize(new Dimension(20, 20));
@@ -120,7 +121,6 @@ public class EditContactInfo extends JPanel
         pnlSouth.add(pnlSouthCentre);
         pnlSouth.add(pnlSouthSouth);
         pnlSouth.setPreferredSize(new Dimension(100, 100));
-
 
         // HOME PAGE - page d'accueil pour le cardlayout ShowContactInfo
         this.add(pnlNorth,  BorderLayout.NORTH);
@@ -135,21 +135,35 @@ public class EditContactInfo extends JPanel
      */
     private void buildIcon()
     {
-        // contactIcon
-        //iconPathContactPicture = "src/main/resources/ContentIcon/Apps/Contact_Icon.png";
         ClassLoader classLoader = getClass().getClassLoader();
-/*
 
-        iconContact = new ImageIcon(classLoader.getResource("ContentIcon/Apps/Contact_Icon.png")); //Récupère l'image
-        Image imageContactIcon = iconContact.getImage();  // transform it
-        Image newImgContactIcon = imageContactIcon.getScaledInstance(150, 150, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
-        iconContact = new ImageIcon(newImgContactIcon);  // transform it back
-*/
         // btn back icon
         iconDefaultBack = new ImageIcon(classLoader.getResource("FooterIcon/backIcon.png"));
         Image imageBackIcon = iconDefaultBack.getImage();
         Image newImgBackIcon = imageBackIcon.getScaledInstance(10, 10, java.awt.Image.SCALE_SMOOTH);
         iconDefaultBack = new ImageIcon(newImgBackIcon);
+
+
+        if(pathContactPhoto == null)
+        {
+            iconContact = new ImageIcon(classLoader.getResource("ContentIcon/Apps/Contact_Icon.png")); //Récupère l'image
+            Image imageContactIcon = iconContact.getImage();  // transform it
+            Image newImgContactIcon = imageContactIcon.getScaledInstance(150, 150, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+            iconContact = new ImageIcon(newImgContactIcon);  // transform it back
+        }
+        else
+        {
+            System.out.println("PATH CONTACT PHOTO "+pathContactPhoto);
+            iconContact = new ImageIcon(pathContactPhoto); //Récupère l'image
+            Image imageContactIcon = iconContact.getImage();  // transform it
+            //Image newImgContactIcon = imageContactIcon.getScaledInstance(150, 150, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+            Image newImgContactIcon = imageContactIcon;
+            iconContact = new ImageIcon(newImgContactIcon);  // transform it back
+            iconContact = Util.getScaledImageIcon(iconContact, 250);
+
+        }
+
+
     }
 
     //*****************************************************************************
@@ -266,11 +280,6 @@ public class EditContactInfo extends JPanel
     public ImageIcon getIconDefaultBack()
     {
         return iconDefaultBack;
-    }
-
-    public String getIconPathContactPicture()
-    {
-        return iconPathContactPicture;
     }
 
     public String getIconPathBackPicture()

@@ -118,9 +118,10 @@ public class ContactListener implements ActionListener
                         public void actionPerformed(ActionEvent e)
                         {
                             String pathImage = contentLayout.getPnlGallery().getPnlShowPhoto()[finalJ].getPath();
+                            System.out.println("path image " + contentLayout.getPnlGallery().getPnlShowPhoto()[finalJ].getPath());
 
-                            contentLayout.getPnlContact().getPnlShowContactInfo()[finalI].setIconPathContactPicture(pathImage);
-
+                           // Modifier dans mon contact séléctionner le path de l'ancienne photo par le path de la photo choisie
+                            contentLayout.getPnlContact().getJsonAddressBook().getContactArray().get(finalI).setContactPhoto(pathImage);
 
                             // 4) on masque le btn selecte
                             contentLayout.getPnlGallery().getPnlShowPhoto()[finalJ].showNormalBtn();
@@ -129,12 +130,11 @@ public class ContactListener implements ActionListener
 
                             // 6)  retour à l'application contactes
                             contentLayout.getCardlayout().show(contentLayout, "Contact");
+                            contentLayout.getPnlGallery().getCardGallHome().show(contentLayout.getPnlGallery(), "GallHOME");
                         }
                     });
 
-
                 }
-
 
             }
 

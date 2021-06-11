@@ -18,8 +18,7 @@ public class Contact implements Serializable
     private String firstName;
     private String lastName;
     private String noPhone;
-    private ImageIcon contactPhoto;
-    //private JButton btnContactInfo;
+    private String pathContactPhoto;
 
     // GETTERS
     public String getFirstName() {
@@ -34,13 +33,9 @@ public class Contact implements Serializable
         return noPhone;
     }
 
-    public ImageIcon getContactPhoto() {
-        return contactPhoto;
+    public String getContactPhoto() {
+        return pathContactPhoto;
     }
-
-//    public JButton getBtnContactInfo() {
-//        return btnContactInfo;
-//    }
 
     // SETTERS
     public void setFirstName(String firstName) {
@@ -55,18 +50,17 @@ public class Contact implements Serializable
         this.noPhone = noPhone;
     }
 
-    public void setContactPhoto(ImageIcon contactPhoto)
+    public void setContactPhoto(String pathContactPhoto)
     {
-        this.contactPhoto = contactPhoto;
+        this.pathContactPhoto = pathContactPhoto;
     }
 
     // CONSTRUCTOR
-    public Contact(String firstName, String lastName, String noPhone, ImageIcon contactPhoto){
+    public Contact(String firstName, String lastName, String noPhone, String pathContactPhoto){
         this.firstName = firstName;
         this.lastName = lastName;
         this.noPhone = noPhone;
-        this.contactPhoto = contactPhoto;
-//        this.btnContactInfo = new JButton(this.firstName + " " + this.lastName);
+        this.pathContactPhoto = pathContactPhoto;
     }
     public Contact(){
 
@@ -79,7 +73,7 @@ public class Contact implements Serializable
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", noPhone='" + noPhone + '\'' +
-                ", contactPhoto=" + contactPhoto +
+                ", contactPhoto=" + pathContactPhoto +
                 '}';
     }
 }

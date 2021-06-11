@@ -104,8 +104,6 @@ public class ShowPhoto extends JPanel {
         pnlButton.add(btnCancel);
         pnlButton.add(btnSelect);
 
-
-
         /**Panel qui contient le tout*/
         pnlCTSP = new JPanel(new BorderLayout());
         pnlCTSP.add(pnlNamePhoto, BorderLayout.NORTH);
@@ -118,13 +116,6 @@ public class ShowPhoto extends JPanel {
      * Création des variables
      */
     private void buildvariables() {
-        try {
-            galleryPhoto = new JSONStoragePhoto();
-        } catch (BusinessException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         galleryActionListener = new GalleryActionListener(galleryGUI);
         galleryMouseListener = new GalleryMouseListener(galleryGUI);
 
@@ -153,7 +144,7 @@ public class ShowPhoto extends JPanel {
         btnSave.setVisible(true);
         btnDelete.setVisible(true);
         //btnCancel.setVisible(false);
-
+        galleryGUI.getBtnAddPhoto().setVisible(true);
         btnSelect.setVisible(false);
     }
 
@@ -165,7 +156,7 @@ public class ShowPhoto extends JPanel {
         btnSave.setVisible(false);
         btnDelete.setVisible(false);
         //btnCancel.setVisible(false);
-
+        galleryGUI.getBtnAddPhoto().setVisible(false);
         btnSelect.setVisible(true);
     }
 

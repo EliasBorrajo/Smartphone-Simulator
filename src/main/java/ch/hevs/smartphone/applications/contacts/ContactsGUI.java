@@ -95,7 +95,7 @@ public class ContactsGUI extends JPanel
         catch (IOException | BusinessException e)
         {
             e.printStackTrace();
-            System.out.println("Failed to crate adressBook in CONTACTS GUI");
+            System.out.println("Failed to create adressBook in CONTACTS GUI");
         }
     }
 
@@ -149,7 +149,8 @@ public class ContactsGUI extends JPanel
                                                             contacts.get(j).getFirstName(),
                                                             contacts.get(j).getLastName(),
                                                             contacts.get(j).getNoPhone(),
-                                                            contacts.get(j).getContactPhoto());
+                                                            contacts.get(j).getContactPhoto()
+                                                            /*this.getPnlShowContactInfo()[j].getIconContact()*/);
             } catch (IOException | BusinessException e)
             {
                 e.printStackTrace();

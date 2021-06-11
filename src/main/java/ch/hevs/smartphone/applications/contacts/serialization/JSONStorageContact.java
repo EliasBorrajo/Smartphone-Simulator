@@ -75,7 +75,7 @@ public class JSONStorageContact implements StorableContact
 
 
         // Va m'écrire le chemin d'accès de manière coherente grâce à PATH & PATHS, et non faire du bricolage
-        // COncatène correctement mon PATH qui sera stoqué dans la STRING
+        // Concatène correctement mon PATH qui sera stoqué dans la STRING
         Path path = Paths.get(storePath, "contactsList.json");
 
         jsonPath = path.toString();
