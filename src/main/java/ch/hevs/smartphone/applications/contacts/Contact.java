@@ -18,7 +18,7 @@ public class Contact implements Serializable
     private String firstName;
     private String lastName;
     private String noPhone;
-    private Photo  contactPhoto;
+    private ImageIcon contactPhoto;
     //private JButton btnContactInfo;
 
     // GETTERS
@@ -34,7 +34,7 @@ public class Contact implements Serializable
         return noPhone;
     }
 
-    public Photo getContactPhoto() {
+    public ImageIcon getContactPhoto() {
         return contactPhoto;
     }
 
@@ -55,7 +55,8 @@ public class Contact implements Serializable
         this.noPhone = noPhone;
     }
 
-    public void setContactPhoto(Photo contactPhoto) {
+    public void setContactPhoto(ImageIcon contactPhoto)
+    {
         this.contactPhoto = contactPhoto;
     }
 

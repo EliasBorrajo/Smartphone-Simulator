@@ -13,6 +13,13 @@ import org.junit.jupiter.api.Test;
  */
 public class TestJunit5
 {
+    // Serialisation
+    // 1- coropmre fichier
+        //write.to.fichier("YOLOJECORROMP")
+    // 2- fichier manquant
+    // 3- dossier manquant
+
+
     @Test
     void testApp()
     {

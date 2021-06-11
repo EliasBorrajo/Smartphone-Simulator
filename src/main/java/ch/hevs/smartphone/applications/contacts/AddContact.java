@@ -36,6 +36,8 @@ public class AddContact extends JPanel
 
     // IMAGE
     private ImageIcon iconDefaultBack;
+    private ImageIcon iconDefaultContact;
+
 
     // OTHER CLASS USED FOR COMPOSITION
     protected ContactsGUI contactsGUI;
@@ -193,8 +195,19 @@ public class AddContact extends JPanel
 
             contactsGUI.getJsonAddressBook().addContact(contact);
             contactsGUI.getJsonAddressBook().sortDescending(contactsGUI.getJsonAddressBook().getContactArray()); // trie l'Arraylist contacts par ordre alphabétique
+
+            // Ajouter une image par défaut au contacte
+            ClassLoader classLoader = getClass().getClassLoader();
+
+            iconDefaultContact = new ImageIcon(classLoader.getResource("ContentIcon/Apps/Contact_Icon.png")); //Récupère l'image
+            Image imageContactIcon = iconDefaultContact.getImage();  // transform it
+            Image newImgContactIcon = imageContactIcon.getScaledInstance(150, 150, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+            iconDefaultContact = new ImageIcon(newImgContactIcon);  // transform it back
+
+/*
             System.out.println("AddContact1");
 
+            // Serialisation des informations
             try
             {
                 contactsGUI.getJsonAddressBook().write(contactsGUI.getJsonAddressBook().getmyObj(),
@@ -205,7 +218,7 @@ public class AddContact extends JPanel
             {
                 businessException.printStackTrace();
             }
-
+*/
             System.out.println("AddContact2");
 
             inputFN.setText("");

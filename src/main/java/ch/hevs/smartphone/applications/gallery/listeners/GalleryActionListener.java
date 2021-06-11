@@ -71,6 +71,7 @@ public class GalleryActionListener implements ActionListener {
                 galleryGUI.getJsonPhotoBook().getPhotosArray().remove(i);
                 rebuildApp();
             }
+
         }
     }
 

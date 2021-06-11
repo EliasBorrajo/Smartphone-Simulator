@@ -40,7 +40,7 @@ public class EditContactInfo extends JPanel
     private JButton btnIconContact;
 
     // IMAGES
-    private ImageIcon iconDefaultContact;
+    private ImageIcon iconContact;
     private ImageIcon iconDefaultBack;
     private String iconPathContactPicture;
     private String iconPathBackPicture;
@@ -56,12 +56,13 @@ public class EditContactInfo extends JPanel
     //*****************************************************************************
     // C O N S T R U  C T E U R
     //*****************************************************************************
-    public EditContactInfo(ContentLayout contentLayout, String firstName, String lastName, String noPhone)
+    public EditContactInfo(ContentLayout contentLayout, String firstName, String lastName, String noPhone, ImageIcon contactPhoto)
     {
         this.contentLayout = contentLayout;
         this.firstName = firstName;
         this.lastName = lastName;
         this.noPhone = noPhone;
+        this.iconContact = contactPhoto;
 
         buildpnlEditContactInfo();
         setListeners();
@@ -87,7 +88,7 @@ public class EditContactInfo extends JPanel
 
         btnBackEdit = new JButton( iconDefaultBack);
         btnSaveEdit = new JButton("Save");
-        btnIconContact = new JButton(iconDefaultContact);
+        btnIconContact = new JButton(iconContact);
 
         lblFirstName = new JLabel(firstName);
         lblLastName = new JLabel(lastName);
@@ -137,12 +138,12 @@ public class EditContactInfo extends JPanel
         // contactIcon
         //iconPathContactPicture = "src/main/resources/ContentIcon/Apps/Contact_Icon.png";
         ClassLoader classLoader = getClass().getClassLoader();
-
-        iconDefaultContact = new ImageIcon(classLoader.getResource("ContentIcon/Apps/Contact_Icon.png")); //Récupère l'image
-        Image imageContactIcon = iconDefaultContact.getImage();  // transform it
+/*
+        iconContact = new ImageIcon(classLoader.getResource("ContentIcon/Apps/Contact_Icon.png")); //Récupère l'image
+        Image imageContactIcon = iconContact.getImage();  // transform it
         Image newImgContactIcon = imageContactIcon.getScaledInstance(150, 150, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
-        iconDefaultContact = new ImageIcon(newImgContactIcon);  // transform it back
-
+        iconContact = new ImageIcon(newImgContactIcon);  // transform it back
+*/
         // btn back icon
         iconDefaultBack = new ImageIcon(classLoader.getResource("FooterIcon/backIcon.png"));
         Image imageBackIcon = iconDefaultBack.getImage();
@@ -256,9 +257,9 @@ public class EditContactInfo extends JPanel
         return btnSaveEdit;
     }
 
-    public ImageIcon getIconDefaultContact()
+    public ImageIcon getIconContact()
     {
-        return iconDefaultContact;
+        return iconContact;
     }
 
     public ImageIcon getIconDefaultBack()

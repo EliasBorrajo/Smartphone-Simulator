@@ -102,45 +102,40 @@ public class ContactListener implements ActionListener
                 // 1) On ouvre la fenetre de l'APP Gallery
                 contentLayout.getCardlayout().show(contentLayout, "Gallery");
 
-                // 2) On Sélectione la fenêtre que l'on veut afficher dans l'app Gallery
-                contentLayout.getPnlGallery().getCardGallHome().show(contentLayout.getPnlGallery(), "Choose"); // @TODO : Changer le STRING avec le nouveau panneau à MILENA
+                // 2) On masque les bouttons du pannel de l'image, et on affiche le bouton select
+                // On masque les btns normeauc de toutes les images, et on affiche les btns que on veut
+                for (int j = 0; j < contentLayout.getPnlGallery().getPnlShowPhoto().length; j++)
+                {
+                    // 3) On affiche le bouton selected
+                    contentLayout.getPnlGallery().getPnlShowPhoto()[j].showSelectImageBtn();
 
-                // Selectionner la PHOTO à utiliser en profil
+                    // Récupère le PATH sur le click du boutton
+                    int finalJ = j;     // Index image
+                    int finalI = i;     // Index Contacte
+                    contentLayout.getPnlGallery().getPnlShowPhoto()[j].getBtnSelect().addActionListener(new ActionListener()
+                    {
+                        @Override
+                        public void actionPerformed(ActionEvent e)
+                        {
+                            String pathImage = contentLayout.getPnlGallery().getPnlShowPhoto()[finalJ].getPath();
 
-                // Reset du cardLayout de l'APP Gallery
-
-                // Reset du cardlayout principale, et ainsi retour sur notre APP contacte.
-
-                // @TODO : NOTE : Sur le click du bouton, dans le pannel de GAllery, pour choisir sa photo, ce click la va donner le chemin d'accès à la photo pour le boutonIcon
-
-                // Copie le pannel
-                /*JSCROLLPanel choose = pnlJSCROLLPHOTOS;
-                choose Remove BTN;
-                Choose BUILD NEW BTN;
-                CHOOSE SET LISTENER;
-                setIconPathContactPicture[i] = getPathimageSelected[i];
-                */
-
-                contentLayout.getCardlayout().show(contentLayout, "Contactes");
-
-                // reBuildIcon(); -- > = BuildPanelShowContacte --> ReBuild = refresh à faire
+                            contentLayout.getPnlContact().getPnlShowContactInfo()[finalI].setIconPathContactPicture(pathImage);
 
 
-                /*//rebuildGalleryWOListener();
-                contentLayout.removeAll();
-                contentLayout.getPnlContact().validate();
-                try {
-                    contentLayout.buildpnlContent();
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
-                } catch (BusinessException businessException) {
-                    businessException.printStackTrace();
+                            // 4) on masque le btn selecte
+                            contentLayout.getPnlGallery().getPnlShowPhoto()[finalJ].showNormalBtn();
+                            // 5) Rebuild des contactes
+                            reBuildApp();
+
+                            // 6)  retour à l'application contactes
+                            contentLayout.getCardlayout().show(contentLayout, "Contact");
+                        }
+                    });
+
+
                 }
-                contentLayout.getPnlContact().revalidate();
-                contentLayout.getPnlContact().repaint();
 
-                contentLayout.getPnlGallery().getCardGallHome().show(contentLayout.getPnlGallery(),"Photo0");
-                System.out.println("done");*/
+
             }
 
             // Listener pour DELETE CONTACT

@@ -32,6 +32,7 @@ public class ShowPhoto extends JPanel {
     private JButton btnSave;
     private JButton btnDelete;
     private JButton btnCancel;
+    private JButton btnSelect; // Permet de choisir la photo en tant qu'image de profil du contacte
 
     //ImageIcon
     private ImageIcon icPhoto;
@@ -92,13 +93,17 @@ public class ShowPhoto extends JPanel {
 
         /**Panel sud*/
         pnlButton = new JPanel();
-        btnSave = new JButton("Save change");
+        btnSave   = new JButton("Save change");
         btnDelete = new JButton("Delete");
         btnCancel = new JButton("Cancel");
+        btnSelect = new JButton("Select image as contact image");
+        btnSelect.setVisible(false); // On n'affichera ce boutton que depuis l'app CONTACTES
 
         pnlButton.add(btnSave);
         pnlButton.add(btnDelete);
         pnlButton.add(btnCancel);
+        pnlButton.add(btnSelect);
+
 
 
         /**Panel qui contient le tout*/
@@ -130,12 +135,38 @@ public class ShowPhoto extends JPanel {
      * Listeners du bouton ajouter
      * On construit dans une autre méthode pour avoir accès après la création de TOUS les composants
      */
-    public void buildListeners() {
+    public void buildListeners()
+    {
         btnSave.addActionListener(galleryActionListener);
         btnDelete.addActionListener(galleryActionListener);
         btnCancel.addActionListener(galleryActionListener);
+        //btnSelect.addActionListener(galleryActionListener);
 
         tfNamePhoto.addMouseListener(galleryMouseListener);
+    }
+
+    /**
+     * Permet de afficher les boutons que l'on a pas besoin depuis l'app gallery
+     */
+    public void showNormalBtn()
+    {
+        btnSave.setVisible(true);
+        btnDelete.setVisible(true);
+        //btnCancel.setVisible(false);
+
+        btnSelect.setVisible(false);
+    }
+
+    /**
+     * Permet d'afficher les bouttons que l'on a besoin depuis l'app contacte
+     */
+    public void showSelectImageBtn()
+    {
+        btnSave.setVisible(false);
+        btnDelete.setVisible(false);
+        //btnCancel.setVisible(false);
+
+        btnSelect.setVisible(true);
     }
 
     //*****************************************************************************
@@ -160,6 +191,16 @@ public class ShowPhoto extends JPanel {
     @Override
     public String getName() {
         return name;
+    }
+
+    public String getPath()
+    {
+        return path;
+    }
+
+    public JButton getBtnSelect()
+    {
+        return btnSelect;
     }
 
     //*****************************************************************************
