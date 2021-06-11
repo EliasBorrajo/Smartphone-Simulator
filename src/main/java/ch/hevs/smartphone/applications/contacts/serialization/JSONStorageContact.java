@@ -2,6 +2,7 @@ package ch.hevs.smartphone.applications.contacts.serialization;
 
 import ch.hevs.smartphone.applications.contacts.Contact;
 import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
+import ch.hevs.smartphone.applications.contacts.errors.ErrorCode;
 import ch.hevs.smartphone.parameters.jsonStorage.Config;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -92,7 +93,7 @@ public class JSONStorageContact implements StorableContact
      * @throws IOException
      */
     @Override
-    public ArrayList<Contact> read( ) throws BusinessException, IOException
+    public ArrayList<Contact> read( ) throws BusinessException
     {
         ObjectMapper mapper = new ObjectMapper();       // Mapper n'aime pas les fichiers vides !!
         try
@@ -117,8 +118,8 @@ public class JSONStorageContact implements StorableContact
             }
         } catch (IOException e)
         {
-            System.out.println("An error occurred while READING JSON STORAGE CONTACT.");
-            e.printStackTrace();
+            //System.out.println("An error occurred while READING JSON STORAGE CONTACT.");
+            throw new BusinessException("An error occurred while READING JSON STORAGE CONTACT.", ErrorCode.READING_JSON_STORAGE_ERROR);
         }
         return contactArray;
     }
@@ -166,13 +167,25 @@ public class JSONStorageContact implements StorableContact
     //*****************************************************************************
     // G E T T E R S
     //*****************************************************************************
-    public ArrayList<Contact> getContactArray()
-    {
+
+
+    public ArrayList<Contact> getContactArray() {
         return contactArray;
     }
 
-    public File getmyObj()
-    {
+    public List<Contact> getContactList() {
+        return contactList;
+    }
+
+    public String getStorePath() {
+        return storePath;
+    }
+
+    public String getJsonPath() {
+        return jsonPath;
+    }
+
+    public File getMyObj() {
         return myObj;
     }
 

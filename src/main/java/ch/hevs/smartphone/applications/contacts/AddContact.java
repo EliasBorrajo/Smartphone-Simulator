@@ -197,10 +197,10 @@ public class AddContact extends JPanel
 
             try
             {
-                contactsGUI.getJsonAddressBook().write(contactsGUI.getJsonAddressBook().getmyObj(),
+                contactsGUI.getJsonAddressBook().write(contactsGUI.getJsonAddressBook().getMyObj(),
                         contactsGUI.getJsonAddressBook().getContactArray());
 
-                System.out.println(contactsGUI.getJsonAddressBook().getmyObj());
+                System.out.println(contactsGUI.getJsonAddressBook().getMyObj());
             } catch (BusinessException businessException)
             {
                 businessException.printStackTrace();

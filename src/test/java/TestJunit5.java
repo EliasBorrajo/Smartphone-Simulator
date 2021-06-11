@@ -1,4 +1,22 @@
+import ch.hevs.smartphone.applications.contacts.Contact;
+import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
+import ch.hevs.smartphone.applications.contacts.errors.ErrorCode;
+import ch.hevs.smartphone.applications.contacts.serialization.JSONStorageContact;
+import ch.hevs.smartphone.parameters.jsonStorage.Config;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 /**
  * Le testing permet, en cas de MAJ de Java, de vérifer rapidement que tout le projet fonctionne,
@@ -13,8 +31,56 @@ import org.junit.jupiter.api.Test;
  */
 public class TestJunit5
 {
+
+    //*****************************************************************************
+    // A T T R I B U T S
+    //*****************************************************************************
+    // ARRAY LIST - Ce sera le carnet d'adresse
+    private ArrayList<Contact> contactArray = new ArrayList<>();
+
+    // Liste qui permet de lire le JSOn et sera converti ensuite en ArrayList du carnet d'adresse
+    private List<Contact> contactList;
+
+    //PATH
+    private String storePath;        // Permet de stoquer le contenu de notre VARIABLE D'ENVIRONNEMENT SYSTEME
+    private String jsonPath;         // Est la variable qui contiendra le chemin FINAl sur le PC et selon l'OS,
+    // à l'emplacement de stockage de notre fichier JSON
+
+    // myObj FILE
+    private File myObj;
+
+    /**
+     * test si une erreur de désérialisation retourne bien le bon message d'erreur
+     * @throws IOException
+     * @throws BusinessException
+     */
     @Test
-    void testApp()
-    {
+    void testDeserializationCorruptedFile() throws IOException, BusinessException {
+
+        JSONStorageContact jsonStorageContact = new JSONStorageContact();
+        ArrayList<Contact> contactArrayList = new ArrayList<>();
+        BusinessException e; // erreur qui sera testée
+
+        File testFileContact = jsonStorageContact.getMyObj();
+        Random garbage = new Random(); // objet contenant des nombres pseudo aléatoire qu'on va utiliser pour corrompre notre fichier json
+
+        writegarbage(testFileContact,garbage.nextInt()); // methode qui écrit ces nombres pseudo aléatoire à la place de l'information sur les contacts
+
+        // retourne l'erreur générée par la lecture du fichier corrompu
+        e = assertThrows(BusinessException.class, new Executable() {
+                    @Override
+                    public void execute() throws Throwable {
+                        jsonStorageContact.read();
+                    }
+                });
+
+        assertEquals(ErrorCode.READING_JSON_STORAGE_ERROR.getCode(), e.getErrorCode()); // vérifier que le code d'erreur est le même que celui qui devrait apparaitre lors d'une erreur de lecture du fichier json
+
     }
+
+    private void writegarbage(File testFile, int garbageBytes) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.writeValue(testFile, garbageBytes);
+    }
+
 }
