@@ -101,6 +101,7 @@ public class ContactListener implements ActionListener
             {
                 // 1) On ouvre la fenetre de l'APP Gallery
                 contentLayout.getCardlayout().show(contentLayout, "Gallery");
+                contentLayout.getPnlGallery().getBtnAddPhoto().setVisible(false);
 
                 // 2) On masque les bouttons du pannel de l'image, et on affiche le bouton select
                 // On masque les btns normeauc de toutes les images, et on affiche les btns que on veut

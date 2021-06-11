@@ -78,7 +78,7 @@ public class ContentLayout extends JPanel
     {
         cardlayout = new CardLayout();
 
-        //pnlContent = this;                          // permet de faciliter la lecture & l'utiliser dans une BTN BACK
+        pnlContent = this;                          // permet de faciliter la lecture & l'utiliser dans une BTN BACK
 
         pnlHome = new JPanel();                     //new GridLayout(2,3)
         pnlContact = new ContactsGUI(this);
@@ -159,12 +159,19 @@ public class ContentLayout extends JPanel
             {
                 // RESET des CARDLAYOUTS des APP
                 pnlContact.getCardLayoutContact().show(pnlContact, "HomeContact");
-                //pnlGallery aura idem
+                pnlGallery.getCardGallHome().show(pnlGallery, "GalleryHOME");
+
+                // Re- affcihe tous les bouttons normeaux du pannel gallery, en cas d'interruption dans
+                // la procedure d'attribuer une photo à un contacte
+                for (int i = 0; i < pnlGallery.getPnlShowPhoto().length; i++)
+                {
+                    pnlGallery.getPnlShowPhoto()[i].showNormalBtn();
+                }
 
 
-                //actionsCount = -1;
-                //panelsOpen.removeAll(panelsOpen);
-                refreshPanel("Home");
+                cardlayout.show(pnlContent, "Home");
+                footerLayout.buildMenu();
+
             }
         });
 
@@ -178,19 +185,18 @@ public class ContentLayout extends JPanel
     //*****************************************************************************
     public void refreshPanel(String currentPanel)
     {
-        System.out.println();
-        System.out.println("AVANT REFRESH" + panelsOpen);
+        //System.out.println();
+        //System.out.println("AVANT REFRESH" + panelsOpen);
         this.currentPanel = currentPanel;
         cardlayout.show(this, this.currentPanel);
         footerLayout.buildMenu();
         // HISTRORIQUE des panels affichés pour le bouton retour
-        this.actionsCount++;
-        this.panelsOpen.add(this.currentPanel);
-        System.out.println("APRES REFRESH" + panelsOpen);
+        //this.actionsCount++;
+        //this.panelsOpen.add(this.currentPanel);
+        //System.out.println("APRES REFRESH" + panelsOpen);
 
     }
 
-    // @TODO : DEPLACER INNER CLASS DANS ADD CONTACTE
 
 
     //*****************************************************************************
@@ -199,16 +205,6 @@ public class ContentLayout extends JPanel
     public CardLayout getCardlayout()
     {
         return cardlayout;
-    }
-
-    public JPanel getPnlContent()
-    {
-        return pnlContent;
-    }
-
-    public JPanel getPnlHome()
-    {
-        return pnlHome;
     }
 
     public ContactsGUI getPnlContact()
@@ -221,64 +217,5 @@ public class ContentLayout extends JPanel
         return pnlGallery;
     }
 
-    public WeatherGUI getPnlWeather()
-    {
-        return pnlWeather;
-    }
-
-   /* public PhotoView getPnlPhotoView()
-    {
-        return pnlPhotoView;
-    }
-*/
-    public ButtonIcon getBtnContact()
-    {
-        return btnContact;
-    }
-
-    public ButtonIcon getBtnGallery()
-    {
-        return btnGallery;
-    }
-
-    public ButtonIcon getBtnWeather()
-    {
-        return btnWeather;
-    }
-
-    public ImageIcon getIconWeather()
-    {
-        return iconWeather;
-    }
-
-    public ImageIcon getIconContact()
-    {
-        return iconContact;
-    }
-
-    public ImageIcon getIconGallery()
-    {
-        return iconGallery;
-    }
-
-    public FooterLayout getfLayout()
-    {
-        return footerLayout;
-    }
-
-    public int getActionsCount()
-    {
-        return actionsCount;
-    }
-
-    public ArrayList<String> getPanelsOpen()
-    {
-        return panelsOpen;
-    }
-
-    public String getCurrentPanel()
-    {
-        return currentPanel;
-    }
 
 }

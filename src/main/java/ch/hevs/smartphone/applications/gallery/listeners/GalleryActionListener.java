@@ -66,8 +66,6 @@ public class GalleryActionListener implements ActionListener {
                 galleryGUI.getCardGallHome().show(galleryGUI, "GallHOME");
             }
 
-            //@TODO Donner la possibilité de changer de photo depuis le panel show photo?
-
             //Action pour supprimer la photo
             if (e.getSource() == galleryGUI.getPnlShowPhoto()[i].getBtnDelete()) {
                 galleryGUI.getJsonPhotoBook().getPhotosArray().remove(i);
