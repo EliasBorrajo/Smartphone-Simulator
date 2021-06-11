@@ -3,15 +3,18 @@ import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
 import ch.hevs.smartphone.applications.contacts.errors.ErrorCode;
 import ch.hevs.smartphone.applications.contacts.serialization.JSONStorageContact;
 import ch.hevs.smartphone.parameters.jsonStorage.Config;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
-
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -31,23 +34,29 @@ import java.util.Random;
  */
 public class TestJunit5
 {
+    @Test
+    public void testSerialization() throws IOException, BusinessException {
+        JSONStorageContact jsonStorageContact = new JSONStorageContact();
+        ArrayList<Contact> contactArray = new ArrayList<>();
+        List<Contact> contactList;
+        ObjectMapper om = new ObjectMapper();
 
-    //*****************************************************************************
-    // A T T R I B U T S
-    //*****************************************************************************
-    // ARRAY LIST - Ce sera le carnet d'adresse
-    private ArrayList<Contact> contactArray = new ArrayList<>();
+        File myFile = new File(jsonStorageContact.getJsonPath());
+        myFile.createNewFile();
+        //System.out.println(myFile);
+        // compter le nombre d'objet dans le fichier json, puis sérialiser l'objet
+         //   et comparer la taille de l'array avec celle du fichier json. si les deux correspondent la sérialisation s'est bien déroulée
 
-    // Liste qui permet de lire le JSOn et sera converti ensuite en ArrayList du carnet d'adresse
-    private List<Contact> contactList;
+        contactList = om.readValue(myFile, new TypeReference<List<Contact>>() { });
+        contactArray = (ArrayList<Contact>) contactList;
+        System.out.println(contactArray);
 
-    //PATH
-    private String storePath;        // Permet de stoquer le contenu de notre VARIABLE D'ENVIRONNEMENT SYSTEME
-    private String jsonPath;         // Est la variable qui contiendra le chemin FINAl sur le PC et selon l'OS,
-    // à l'emplacement de stockage de notre fichier JSON
 
-    // myObj FILE
-    private File myObj;
+
+    }
+
+
+
 
     /**
      * test si une erreur de désérialisation retourne bien le bon message d'erreur
@@ -74,7 +83,7 @@ public class TestJunit5
                     }
                 });
 
-        assertEquals(ErrorCode.READING_JSON_STORAGE_ERROR.getCode(), e.getErrorCode()); // vérifier que le code d'erreur est le même que celui qui devrait apparaitre lors d'une erreur de lecture du fichier json
+        assertEquals(ErrorCode.READING_JSON_STORAGE_ERROR.getCode(), e.getErrorCode()); // vérifie que le code d'erreur est le même que celui qui devrait apparaitre lors d'une erreur de lecture du fichier json
 
     }
 
