@@ -70,7 +70,7 @@ public class JSONStorageContact implements StorableContact
      */
     private void definePathToStoreData()
     {
-        // Récupère le CONTENU de la VARIABLE D'ENVIRONNEMENT
+        // Récupère le CONTENU de la VARIABLE D'ENVIRONNEMENT --> le PATH contenu dans la variable d'environnement
         storePath = Config.getConfig().getStorePath();
 
 

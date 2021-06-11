@@ -67,7 +67,6 @@ public class Config
         // Si j'arrive ici, c'est que mon dossier a pu être crée correctement et il EXISTE !
         System.out.println("DIRECTORY NAME AS : "+ storeFile.getName()
                             +"\n at location : "+storeFile.getAbsolutePath());
-
     }
 
     //*****************************************************************************
