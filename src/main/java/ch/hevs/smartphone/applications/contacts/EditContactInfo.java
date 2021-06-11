@@ -139,6 +139,7 @@ public class EditContactInfo extends JPanel
         //iconPathContactPicture = "src/main/resources/ContentIcon/Apps/Contact_Icon.png";
         ClassLoader classLoader = getClass().getClassLoader();
 /*
+
         iconContact = new ImageIcon(classLoader.getResource("ContentIcon/Apps/Contact_Icon.png")); //Récupère l'image
         Image imageContactIcon = iconContact.getImage();  // transform it
         Image newImgContactIcon = imageContactIcon.getScaledInstance(150, 150, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
