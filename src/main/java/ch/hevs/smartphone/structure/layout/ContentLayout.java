@@ -92,7 +92,6 @@ public class ContentLayout extends JPanel
         pnlHome.add(btnContact);
         pnlHome.add(btnGallery);
         pnlHome.add(btnWeather);
-        pnlHome.setBackground(Color.darkGray);
 
         //Ajouteur les cards au panel conteneur
         this.add("Home",        pnlHome);

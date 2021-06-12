@@ -43,6 +43,7 @@ public class GalleryActionListener implements ActionListener {
                 String photoNameDef = "photo" + cpt;
                 Photo photo = new Photo(path, photoNameDef);
                 galleryGUI.getJsonPhotoBook().addPhoto(photo);
+
                 rebuildApp();
             }
         }

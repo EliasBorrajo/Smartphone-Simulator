@@ -104,10 +104,10 @@ public class ShowPhoto extends JPanel {
         pnlButton.add(btnSelect);
 
         /**Panel qui contient le tout*/
-        pnlCTSP = new JPanel(new BorderLayout());
-        pnlCTSP.add(pnlNamePhoto, BorderLayout.NORTH);
-        pnlCTSP.add(pnlShowPhoto, BorderLayout.CENTER);
-        pnlCTSP.add(pnlButton, BorderLayout.SOUTH);
+        pnlCTSP = new JPanel(new GridLayout(3,0));
+        pnlCTSP.add(pnlNamePhoto);
+        pnlCTSP.add(pnlShowPhoto);
+        pnlCTSP.add(pnlButton);
         return pnlCTSP;
     }
 

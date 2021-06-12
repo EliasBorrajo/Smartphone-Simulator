@@ -4,6 +4,7 @@ import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
 import ch.hevs.smartphone.applications.gallery.listeners.GalleryActionListener;
 import ch.hevs.smartphone.applications.gallery.serialisation.JSONStoragePhoto;
 import ch.hevs.smartphone.parameters.button.ButtonIcon;
+import ch.hevs.smartphone.parameters.button.myButton;
 import ch.hevs.smartphone.parameters.utils.Util;
 import ch.hevs.smartphone.structure.layout.ContentLayout;
 
@@ -31,7 +32,7 @@ public class GalleryGUI extends JPanel {
     private JLabel lblmsg;
 
     //Button
-    private Button btnAddPhoto;
+    private myButton btnAddPhoto;
     private ButtonIcon[] btnPhoto;
 
     //ImageIcon
@@ -69,7 +70,7 @@ public class GalleryGUI extends JPanel {
         /**Panel nord*/
         pnlGallHome = new JPanel();
         lblGallery = new JLabel("Gallery");
-        btnAddPhoto = new Button("+");
+        btnAddPhoto = new myButton("+");
 
         pnlGallHome.add(lblGallery);
         pnlGallHome.add(btnAddPhoto);
@@ -97,7 +98,6 @@ public class GalleryGUI extends JPanel {
     }
 
     /**
-     *
      * Création des variables
      */
     private void buildvariables() {
@@ -217,7 +217,7 @@ public class GalleryGUI extends JPanel {
         return lblmsg;
     }
 
-    public Button getBtnAddPhoto() {
+    public myButton getBtnAddPhoto() {
         return btnAddPhoto;
     }
 

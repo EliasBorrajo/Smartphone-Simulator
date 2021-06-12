@@ -77,7 +77,6 @@ public class ShowContactInfo extends JPanel
     {
 
         this.setLayout(new BorderLayout());
-        this.setBackground(Color.red);
 
         // Creation Variables
         pnlNorth = new JPanel(new BorderLayout());
@@ -90,8 +89,6 @@ public class ShowContactInfo extends JPanel
         btnDeleteContact = new JButton("Delete Contact");
         btnEdit = new JButton("Edit");
         btnBack = new JButton(iconDefaultBack);
-
-        //iconContact = new ImageIcon(pathContactPhoto);
 
         lblIconContact = new JLabel(iconContact);
         lblFirstName = new JLabel(firstName);

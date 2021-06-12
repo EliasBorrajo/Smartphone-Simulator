@@ -64,7 +64,6 @@ public class SmartphoneGUI extends JFrame
     {
         // Création du pannel qui contiendra TOUT
         pnlScreen = new JPanel(new BorderLayout());
-        pnlScreen.setBackground(Color.BLACK);
 
         // Création de la structure principale
         headerLayout = new HeaderLayout(this);

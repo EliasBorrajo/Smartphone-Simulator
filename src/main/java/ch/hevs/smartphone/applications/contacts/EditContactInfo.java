@@ -74,7 +74,6 @@ public class EditContactInfo extends JPanel
     private void buildpnlEditContactInfo()
     {
         this.setLayout(new BorderLayout());
-        this.setBackground(Color.red);
 
         // Creation Variables
         pnlNorth = new JPanel(new BorderLayout());
@@ -162,7 +161,6 @@ public class EditContactInfo extends JPanel
             iconContact = Util.getScaledImageIcon(iconContact, 250);
 
         }
-
 
     }
 

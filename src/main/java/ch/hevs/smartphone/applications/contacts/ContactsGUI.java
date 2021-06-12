@@ -3,7 +3,7 @@ package ch.hevs.smartphone.applications.contacts;
 import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
 import ch.hevs.smartphone.applications.contacts.listeners.ContactListener;
 import ch.hevs.smartphone.applications.contacts.serialization.JSONStorageContact;
-import ch.hevs.smartphone.parameters.button.Button;
+import ch.hevs.smartphone.parameters.button.myButton;
 import ch.hevs.smartphone.structure.layout.ContentLayout;
 
 import javax.swing.*;
@@ -38,7 +38,7 @@ public class ContactsGUI extends JPanel
     private JLabel lblContactTitle;
 
     // BUTTONS
-    private Button btnAddContact;                   // boutton dans le pnlNorth
+    private myButton btnAddContact;                   // boutton dans le pnlNorth
     private JButton[] btnShowContact;              // Les bouttons du ScrollPaneContact
 
     // OTHER OBJECTS
@@ -71,7 +71,7 @@ public class ContactsGUI extends JPanel
     {
         // NORTH
         lblContactTitle = new JLabel("Contacts");
-        btnAddContact = new Button("+");
+        btnAddContact = new myButton("+");
         pnlNorth = new JPanel();
         pnlNorth.add(lblContactTitle);
         pnlNorth.add(btnAddContact);
@@ -79,7 +79,6 @@ public class ContactsGUI extends JPanel
         //CENTER
         scrollPaneContact = new JScrollPane();
         scrollPaneContact = buildScrollPaneContact();
-        //scrollPaneContact.setBackground(Color.CYAN);
 
         // HOME PAGE
         pnlHomeContact = new JPanel(new BorderLayout());
@@ -167,7 +166,6 @@ public class ContactsGUI extends JPanel
         buildVariables();
 
         pnlCenterJscrollContact = new JPanel(new GridLayout(0, 1, 5, 5));
-        pnlCenterJscrollContact.setBackground(Color.LIGHT_GRAY);
 
         // Si la liste de contactes est vide on affiche un message par défaut
         if (contacts.size() == 0)
@@ -230,7 +228,7 @@ public class ContactsGUI extends JPanel
     //*****************************************************************************
     // G E T T E R S
     //*****************************************************************************
-    public Button getBtnAddContact()
+    public myButton getBtnAddContact()
     {
         return btnAddContact;
     }

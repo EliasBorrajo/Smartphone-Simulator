@@ -8,12 +8,14 @@ import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
+import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Map;
-
+import java.util.TreeMap;
 
 
 /**
@@ -26,9 +28,10 @@ public class WeatherAPI
     // A T T R I B U T S
     //*****************************************************************************
     // Attributs nécessaire pour récuperer les infos de l'API
-    private static final String API_KEY = "ec290e8fe580091860106fddb502ce81"; // Est la clé lié à mon compte au fournisseur de l'API
-    private static final String UNITS   = "&units=metric";                    // Permet d'avoir des unitées METRICS, donc les temperatures en °C
-    private String urlLocation = "Sion";                                         // La ville sera par défaut "Sion"
+    private static final String API_KEY = "ec290e8fe580091860106fddb502ce81";   // Est la clé lié à mon compte au fournisseur de l'API
+    private static final String UNITS   = "&units=metric";                      // Permet d'avoir des unitées METRICS, donc les temperatures en °C
+    private String urlLocation = "Sion";                                        // La ville sera par défaut "Sion"
+    private boolean isConnected;
 
     // Attributs a retourner au système pour afficher dans le GUI
     // @TODO : NON STRING MAIS OBJECTS POUR ETRE PAREIL QUE LES MAPS ??
@@ -42,7 +45,6 @@ public class WeatherAPI
     private String windSpeed;       // metres/sec
     private String nuage;           // % de nuages
     private String pluie1h;         // Volume de pluie la dernière heure
-
 
     private Icon   weatherIcon;     // "weather" --> icon
 
@@ -83,7 +85,8 @@ public class WeatherAPI
         return map;
     }
 
-    private void getAPIDetails()
+
+    protected void getAPIDetails()
     {
         // Se connecter à l'API
         String urlString = "http://api.openweathermap.org/data/2.5/weather?q="
@@ -92,6 +95,7 @@ public class WeatherAPI
                                                                             +"&appid="
                                                                             + API_KEY;
 
+        isConnected = false;
 
         /**
          * Tentative de récuperer les informations de l'API
@@ -110,14 +114,23 @@ public class WeatherAPI
                 result.append(line);      // Ajoute au resultat la ligne en cours de lecture
             }
             br.close();
-            System.out.println(result);
 
             Map<String, Object> resultMap = jsonToMap(result.toString());
-            System.out.println(result.toString());
+            System.out.println("Resultat : " + result.toString());
             System.out.println("API infos are on : "+connection.getURL());
             System.out.println();
 
             // Crée les différents MAP à partir de la MAP resultat.
+            //System.out.println(resultMap.get("weather"));
+            /*resultMap.
+            String weatherInfos = resultMap.get("weather").toString();
+            weatherInfos = weatherInfos.replace("[","");
+            weatherInfos = weatherInfos.replace("]","");
+            System.out.println(weatherInfos);
+            JsonObject jsonObject =  JsonParser.parseString(weatherInfos).getAsJsonObject();
+            System.out.println("YAAAAAAAAAAAAAAAAAAAAAAAA : " + jsonObject.toString());
+            System.out.println("WEATHER    " + resultMap.get("weather"));*/
+
             //Map<String, Object> weatherMap= jsonToMap(resultMap.get("weather").toString());
             Map<String, Object> mainMap   = jsonToMap(resultMap.get("main").toString());
             Map<String, Object> windMap   = jsonToMap(resultMap.get("wind").toString());
@@ -151,11 +164,16 @@ public class WeatherAPI
             System.out.println(getTempMax());
             System.out.println(getDescription());
             System.out.println(getHumidite());
+            isConnected = true;
 
         }
         catch (IOException e)
         {
+            isConnected = false;
             System.out.println("Erreur dans WEATHER_API : methode = getAPIDetails");
+            JOptionPane.showMessageDialog(null, "Ville non valide" +
+                                                                        "\n Ville par défault initialisée : Sion");
+            setUrlLocation("Sion");
             e.printStackTrace();
         }
 
@@ -216,6 +234,14 @@ public class WeatherAPI
     public Icon getWeatherIcon()
     {
         return weatherIcon;
+    }
+
+    public boolean isConnected() {
+        return isConnected;
+    }
+
+    public String getUrlLocation() {
+        return urlLocation;
     }
 
     //*****************************************************************************

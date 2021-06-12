@@ -187,13 +187,6 @@ public class AddContact extends JPanel
             text3 = inputNP.getText();
             contact.setNoPhone(text3);
 
-            //pathPhoto = "src/main/resources/ContentIcon/Apps/Contact_Icon.png";
-
-            // Ajouter une image par défaut au contacte
-            //pathPhoto = "ContentIcon/Apps/Contact_Icon.png";
-
-            //contact.setContactPhoto(pathPhoto);
-
             System.out.println(contact);
 
             contactsGUI.getJsonAddressBook().addContact(contact);
