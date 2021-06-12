@@ -92,10 +92,6 @@ public class ContactsGUI extends JPanel
         // Dé-sérialer (READ) le fichier JSON
         jsonAddressBook = new JSONStorageContact();
 
-
-
-
-
     }
 
     /**
@@ -121,13 +117,8 @@ public class ContactsGUI extends JPanel
 
         contactNoPhone  = new String[contacts.size()];
 
-        try // Essaye de créer un pannel pour l'ajout des contactes
-        {
-            pnlAddContact = new AddContact(this);
-        } catch (IOException | BusinessException e)
-        {
-            e.printStackTrace();
-        }
+        pnlAddContact = new AddContact(this);
+
 
         pnlShowContactInfo = new ShowContactInfo[contacts.size()];
         pnlEditContactInfo = new EditContactInfo[contacts.size()];
@@ -137,23 +128,19 @@ public class ContactsGUI extends JPanel
         for (int j = 0; j < contacts.size(); j++)
         {
             contactNoPhone[j] = contacts.get(j).getNoPhone();
-            try
-            {
-                pnlShowContactInfo[j] = new ShowContactInfo(contentLayout,
-                                                            contacts.get(j).getFirstName(),
-                                                            contacts.get(j).getLastName(),
-                                                            contactNoPhone[j],
-                                                            contacts.get(j).getContactPhoto());
-                pnlEditContactInfo[j] = new EditContactInfo(contentLayout,
-                                                            contacts.get(j).getFirstName(),
-                                                            contacts.get(j).getLastName(),
-                                                            contacts.get(j).getNoPhone(),
-                                                            contacts.get(j).getContactPhoto()
-                                                            /*this.getPnlShowContactInfo()[j].getIconContact()*/);
-            } catch (IOException | BusinessException e)
-            {
-                e.printStackTrace();
-            }
+
+            pnlShowContactInfo[j] = new ShowContactInfo(contentLayout,
+                                                        contacts.get(j).getFirstName(),
+                                                        contacts.get(j).getLastName(),
+                                                        contactNoPhone[j],
+                                                        contacts.get(j).getContactPhoto());
+
+            pnlEditContactInfo[j] = new EditContactInfo(contentLayout,
+                                                        contacts.get(j).getFirstName(),
+                                                        contacts.get(j).getLastName(),
+                                                        contacts.get(j).getNoPhone(),
+                                                        contacts.get(j).getContactPhoto());
+
         }
     }
 

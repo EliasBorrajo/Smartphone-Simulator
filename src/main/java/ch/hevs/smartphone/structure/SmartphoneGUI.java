@@ -1,16 +1,13 @@
 package ch.hevs.smartphone.structure;
 
-import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
 import ch.hevs.smartphone.parameters.ScreenSizeEnum;
 import ch.hevs.smartphone.structure.layout.ContentLayout;
 import ch.hevs.smartphone.structure.layout.FooterLayout;
 import ch.hevs.smartphone.structure.layout.HeaderLayout;
-import ch.hevs.smartphone.structure.listeners.ContentListener;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
-import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -31,12 +28,12 @@ public class SmartphoneGUI extends JFrame
     // VARIABLES
     private boolean isOn;
     private java.util.Timer timer;
-    private ContentListener myListener;
+
 
     //*****************************************************************************
     // C O N S T R U C T E U R
     //*****************************************************************************
-    public SmartphoneGUI() throws IOException, BusinessException
+    public SmartphoneGUI()
     {
         buildFrame();
         setTimerUpdate();
@@ -46,7 +43,7 @@ public class SmartphoneGUI extends JFrame
     //*****************************************************************************
     // M E T H O D E S
     //*****************************************************************************
-    private void buildFrame() throws IOException, BusinessException
+    private void buildFrame()
     {
         setSize(ScreenSizeEnum.WIDTH.getSize(), ScreenSizeEnum.HEIGHT.getSize());
         setUndecorated(true);
@@ -60,7 +57,7 @@ public class SmartphoneGUI extends JFrame
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    private JPanel builPnlScreen() throws IOException, BusinessException
+    private JPanel builPnlScreen()
     {
         // Création du pannel qui contiendra TOUT
         pnlScreen = new JPanel(new BorderLayout());

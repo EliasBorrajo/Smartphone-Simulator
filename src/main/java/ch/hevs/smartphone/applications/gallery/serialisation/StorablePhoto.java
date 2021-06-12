@@ -9,8 +9,8 @@ import java.util.ArrayList;
 
 public interface StorablePhoto {
     // To read JSON File
-    ArrayList<Photo> read() throws BusinessException, IOException;
+    ArrayList<Photo> read() ;
 
     // To write JSON File
-    void write(File destination, ArrayList<Photo> photos) throws BusinessException;
+    void write(File destination, ArrayList<Photo> photos) ;
 }

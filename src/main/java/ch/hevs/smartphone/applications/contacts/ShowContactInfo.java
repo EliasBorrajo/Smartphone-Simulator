@@ -57,7 +57,7 @@ public class ShowContactInfo extends JPanel
     //*****************************************************************************
     // C O N S T R U  C T E U R
     //*****************************************************************************
-    public ShowContactInfo(ContentLayout contentLayout, String firstName, String lastName, String noPhone, String pathContactPhoto) throws IOException, BusinessException
+    public ShowContactInfo(ContentLayout contentLayout, String firstName, String lastName, String noPhone, String pathContactPhoto)
     {
         this.contentLayout = contentLayout;
         this.firstName = firstName;

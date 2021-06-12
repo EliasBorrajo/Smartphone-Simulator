@@ -87,13 +87,9 @@ public class GalleryGUI extends JPanel {
     /**
      * Création du fichier JSON
      */
-    private void buildJSON(){
-        try {
-            jsonPhotoBook = new JSONStoragePhoto();
-        } catch (IOException | BusinessException e) {
-            e.printStackTrace();
-            System.out.println("Failed to create galleryBook in GALLERY GUI");
-        }
+    private void buildJSON()
+    {
+        jsonPhotoBook = new JSONStoragePhoto();
     }
 
     /**

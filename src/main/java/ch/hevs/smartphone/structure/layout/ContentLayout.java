@@ -52,7 +52,7 @@ public class ContentLayout extends JPanel
     //*****************************************************************************
     // C O N S T R U C T E U R
     //*****************************************************************************
-    public ContentLayout() throws IOException, BusinessException
+    public ContentLayout()
     {
         setPreferredSize(new Dimension(ScreenSizeEnum.CONTENT_PANEL_WIDTH.getSize(), ScreenSizeEnum.CONTENT_PANEL_HEIGHT.getSize()));
         setMinimumSize(new Dimension(ScreenSizeEnum.CONTENT_PANEL_WIDTH.getSize(), ScreenSizeEnum.CONTENT_PANEL_HEIGHT.getSize()));
@@ -62,7 +62,7 @@ public class ContentLayout extends JPanel
     //*****************************************************************************
     // M E T H O D E S
     //*****************************************************************************
-    public void buildpnlContent() throws IOException, BusinessException
+    public void buildpnlContent()
     {
         cardlayout = new CardLayout();
 

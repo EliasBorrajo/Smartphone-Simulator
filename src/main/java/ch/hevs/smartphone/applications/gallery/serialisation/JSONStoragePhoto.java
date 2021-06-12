@@ -6,6 +6,7 @@ import ch.hevs.smartphone.parameters.jsonStorage.Config;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -39,7 +40,7 @@ public class JSONStoragePhoto implements StorablePhoto
     //*****************************************************************************
     // C O N S T R U C T E U R
     //*****************************************************************************
-    public JSONStoragePhoto() throws IOException, BusinessException
+    public JSONStoragePhoto()
     {
         definePathToStoreData();
         read();
@@ -87,7 +88,7 @@ public class JSONStoragePhoto implements StorablePhoto
      * @throws IOException
      */
     @Override
-    public ArrayList<Photo> read() throws BusinessException, IOException
+    public ArrayList<Photo> read()
     {
         ObjectMapper mapper = new ObjectMapper();       // Mapper n'aime pas les fichiers vides !!
 
@@ -114,7 +115,11 @@ public class JSONStoragePhoto implements StorablePhoto
         } catch (IOException e)
         {
             System.out.println("An error occurred while READING JSON STORAGE PHOTOS.");
-            e.printStackTrace();
+            System.out.println("Le fichier est corrompu");
+            //e.printStackTrace();
+            JOptionPane.showMessageDialog(null,"Une erreur est survenue lors de la récuperation de la gallerie d'images." +
+                    "                                                 \nUne gallerie d'images vierge a été initialisé" +
+                    "                                                 \nPossibles causes : Corruption du fichiers JSON");
         }
         return photosArray;
     }
@@ -127,7 +132,7 @@ public class JSONStoragePhoto implements StorablePhoto
      * @throws BusinessException
      */
     @Override
-    public void write(File destination, ArrayList<Photo> photosArray) throws BusinessException
+    public void write(File destination, ArrayList<Photo> photosArray)
     {
         ObjectMapper mapper = new ObjectMapper();
         try
@@ -137,6 +142,8 @@ public class JSONStoragePhoto implements StorablePhoto
         {
             System.out.println("SERIALISATION of photoList.JSON has failed : ");
             e.printStackTrace();
+            JOptionPane.showMessageDialog(null,"Une erreur est survenue lors de l'écriture / SERIALISATION de la gallerie d'images." +
+                    "                                                 \nLa gallerie d'images n'est pas enregistré, re-démarrer le smartphone.");
         }
     }
 

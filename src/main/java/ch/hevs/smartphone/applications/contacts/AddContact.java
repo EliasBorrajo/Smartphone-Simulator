@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
+
 public class AddContact extends JPanel
 {
     //*****************************************************************************
@@ -48,7 +49,7 @@ public class AddContact extends JPanel
     //*****************************************************************************
     // C O N S T R U C T E U R
     //*****************************************************************************
-    public AddContact(ContactsGUI contactsGUI) throws IOException, BusinessException
+    public AddContact(ContactsGUI contactsGUI)
     {
         this.contactsGUI = contactsGUI;
         buildPnlContent();
@@ -185,13 +186,6 @@ public class AddContact extends JPanel
             String text3 = "";
             text3 = inputNP.getText();
             contact.setNoPhone(text3);
-
-            //pathPhoto = "src/main/resources/ContentIcon/Apps/Contact_Icon.png";
-
-            // Ajouter une image par défaut au contacte
-            //pathPhoto = "ContentIcon/Apps/Contact_Icon.png";
-
-            //contact.setContactPhoto(pathPhoto);
 
             System.out.println(contact);
 

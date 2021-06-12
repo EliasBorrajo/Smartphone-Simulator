@@ -10,9 +10,9 @@ import java.util.ArrayList;
 public interface StorableContact
 {
     // To read JSON File
-    ArrayList<Contact> read() throws BusinessException, IOException;
+    ArrayList<Contact> read() ;
 
     // To write JSON File
-    void write(File destination, ArrayList<Contact> contacts) throws BusinessException;
+    void write(File destination, ArrayList<Contact> contacts);
 }
 

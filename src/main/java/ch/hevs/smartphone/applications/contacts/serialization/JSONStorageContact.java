@@ -6,6 +6,7 @@ import ch.hevs.smartphone.parameters.jsonStorage.Config;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -87,8 +88,10 @@ public class JSONStorageContact implements StorableContact
 
     /**
      * SERIALISATION READ DATA IN A JSON FILE
+     * Si le fichier est vide, le lit sans problème.
+     * Si le fichier n'existe pas, il le crée
+     * SI le fichier est corrompu, il ne le lit pas, et le fichier sera overWrite lors de la prochaine sérialisation quand on éteint le smartphone
      * @return
-     * @throws BusinessException
      * @throws IOException
      */
     @Override
@@ -120,11 +123,13 @@ public class JSONStorageContact implements StorableContact
         {
             System.out.println("An error occurred while READING JSON STORAGE CONTACT.");
             System.out.println("Le fichier est corrompu");
-            System.out.println("Le fichier est vide");
-            // @TODO AJouter fenetere popup AVERTIR d'un problème (qqch s'est mal passé, le programme recommence normalement)
+            //System.out.println("Le fichier est vide");
+            JOptionPane.showMessageDialog(null,"Une erreur est survenue lors de la récuperation du carnet d'adresse." +
+                    "                                                 \nUn carnet d'adresse vierge a été initialisé" +
+                    "                                                 \nPossibles causes : Corruption du fichiers JSON");
             //e.printStackTrace();
             // copie du Json corrompu er acceder à la main @TODO : FUTURE AMELIORATION
-            // overwrite (déja le cas)
+
         }
         return contactArray;
     }
@@ -136,7 +141,7 @@ public class JSONStorageContact implements StorableContact
      * @throws BusinessException
      */
     @Override
-    public void write(File destination, ArrayList<Contact> contacts) throws BusinessException
+    public void write(File destination, ArrayList<Contact> contacts)
     {
         ObjectMapper mapper = new ObjectMapper();
         try
@@ -146,6 +151,8 @@ public class JSONStorageContact implements StorableContact
         {
             System.out.println("SERIALISATION of contactList.JSON has failed : ");
             e.printStackTrace();
+            JOptionPane.showMessageDialog(null,"Une erreur est survenue lors de l'écriture / SERIALISATION du carnet d'adresse." +
+                    "                                                 \nLe carnet d'adresse n'est pas enregistré, re-démarrer le smartphone.");
         }
     }
 

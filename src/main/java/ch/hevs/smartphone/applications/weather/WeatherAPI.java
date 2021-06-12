@@ -28,7 +28,8 @@ public class WeatherAPI
     // Attributs nécessaire pour récuperer les infos de l'API
     private static final String API_KEY = "ec290e8fe580091860106fddb502ce81"; // Est la clé lié à mon compte au fournisseur de l'API
     private static final String UNITS   = "&units=metric";                    // Permet d'avoir des unitées METRICS, donc les temperatures en °C
-    private String urlLocation = "Sion";                                         // La ville sera par défaut "Sion"
+    private String urlLocation = "Sion";                                      // La ville sera par défaut "Sion"
+
 
     // Attributs a retourner au système pour afficher dans le GUI
     // @TODO : NON STRING MAIS OBJECTS POUR ETRE PAREIL QUE LES MAPS ??
@@ -218,6 +219,7 @@ public class WeatherAPI
         return weatherIcon;
     }
 
+
     //*****************************************************************************
     // S E T T E R S
     //*****************************************************************************
@@ -280,4 +282,5 @@ public class WeatherAPI
     {
         this.weatherIcon = weatherIcon;
     }
+
 }

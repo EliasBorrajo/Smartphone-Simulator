@@ -38,6 +38,15 @@ public class WeatherGUI extends JPanel
     {
         weatherInfos = new WeatherAPI();
         buildMainPanel();
+
+        // Pour changer de ville :
+        /**
+         * 1) recuperer textField
+         * 2) sur le click bouton,
+         *          Changer urlLocation avec la valeur du textfield
+         *          re-appeler getAPI details
+         *          refresh du pannel --> Build Main Pannel
+         */
     }
 
 

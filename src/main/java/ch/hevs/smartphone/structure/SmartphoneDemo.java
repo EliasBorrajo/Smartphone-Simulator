@@ -15,10 +15,9 @@
  */
 package ch.hevs.smartphone.structure;
 
-import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
 import ch.hevs.smartphone.parameters.jsonStorage.Config;
 
-import java.io.IOException;
+
 
 /**
  * Main qui va nous créer le projet au complêt
@@ -26,7 +25,7 @@ import java.io.IOException;
  */
 public class SmartphoneDemo
 {
-    public static void main(String[] args) throws IOException, BusinessException
+    public static void main(String[] args)
     {
         //Créer le singleTon au début.
         Config.getConfig();
