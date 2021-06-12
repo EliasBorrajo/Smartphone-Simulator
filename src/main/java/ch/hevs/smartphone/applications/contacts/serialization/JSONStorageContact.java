@@ -109,7 +109,8 @@ public class JSONStorageContact implements StorableContact
             {
                 contactArray.clear();
 
-                contactList = mapper.readValue(myObj, new TypeReference<List<Contact>>() { });
+                contactList = mapper.readValue(myObj,
+                        mapper.getTypeFactory().constructCollectionType(ArrayList.class, Contact.class));
 
                 contactArray = (ArrayList<Contact>) contactList;        // casting de la LISTE en ARRAYLISTE
             } else

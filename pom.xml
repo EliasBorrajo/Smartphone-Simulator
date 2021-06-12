@@ -55,6 +55,11 @@
             <version>5.6.2</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.7.2</version>
+        </dependency>
     </dependencies>
 
 
@@ -113,6 +118,54 @@
                     <execution>
                         <id>default-jar</id>
                         <phase>none</phase>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- start toxiproxy via docker and docker-maven-plugin -->
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.26.0</version>
+                <executions>
+                    <execution>
+                        <id>prepare-it-toxiproxy</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>start</goal>
+                        </goals>
+                        <configuration>
+                            <images>
+                                <image>
+                                    <name>shopify/toxiproxy</name>
+                                    <alias>it-toxiproxy</alias>
+                                    <run>
+                                        <network>
+                                            <mode>host</mode>
+                                        </network>
+                                        <wait>
+                                            <tcp>
+                                                <host>localhost</host>
+                                                <ports>
+                                                    <port>8474</port>
+                                                </ports>
+                                            </tcp>
+                                            <kill>2000</kill>
+                                        </wait>
+                                    </run>
+                                </image>
+                            </images>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>remove-it-toxiproxy</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>stop</goal>
+                        </goals>
+                        <configuration>
+                            <removeVolumes>true</removeVolumes>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>

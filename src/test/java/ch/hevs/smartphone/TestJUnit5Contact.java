@@ -1,11 +1,16 @@
+package ch.hevs.smartphone;
+
 import ch.hevs.smartphone.applications.contacts.Contact;
 import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
 import ch.hevs.smartphone.applications.contacts.errors.ErrorCode;
 import ch.hevs.smartphone.applications.contacts.serialization.JSONStorageContact;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
+
+import static ch.hevs.smartphone.TempFile.TempFile.getTempFile;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.File;
@@ -25,39 +30,68 @@ import java.util.Random;
  * - Tester l'API APP, Si il arrive à se connecter, récuperer les data correctement.
  * - Gallery totalement UI, donc
  */
-public class TestJunit5
+public class TestJUnit5Contact
 {
-    @Test
-    public void testSerialization() throws IOException, BusinessException {
-        JSONStorageContact jsonStorageContact = new JSONStorageContact();
-        ArrayList<Contact> contactArray = new ArrayList<>();
-        List<Contact> contactList;
-        ObjectMapper om = new ObjectMapper();
 
-        File myFile = new File(jsonStorageContact.getJsonPath());
-        myFile.createNewFile();
-        //System.out.println(myFile);
-        // compter le nombre d'objet dans le fichier json, puis sérialiser l'objet
-         //   et comparer la taille de l'array avec celle du fichier json. si les deux correspondent la sérialisation s'est bien déroulée
-
-        contactList = om.readValue(myFile, new TypeReference<List<Contact>>() { });
-        contactArray = (ArrayList<Contact>) contactList;
-        System.out.println(contactArray);
+    private JSONStorageContact jsonStorageContact = new JSONStorageContact();
+    private ArrayList<Contact> contactArrayList = new ArrayList<>();
+    private Contact contact1;
+    private Contact contact2;
+    private Contact contact3;
 
 
+    public TestJUnit5Contact() throws IOException, BusinessException {
+    }
 
+    @BeforeEach
+    void setup() {
+        contact1 = new Contact("Contact1", "Contact1", "1111");
+        contact2 = new Contact("Contact2", "Contact2", "2222");
+        contact3 = new Contact("Contact3", "Contact3", "3333");
     }
 
     /**
-     * test si une erreur de désérialisation retourne bien le bon message d'erreur
+     * Test la sérialisation et la désérialisation d'un fichier temp
      * @throws IOException
      * @throws BusinessException
      */
     @Test
-    void testDeserializationCorruptedFile() throws IOException, BusinessException {
+    public void testSerializationDeserialization() throws IOException, BusinessException {
+        ArrayList<Contact> deserializedContactArrayList = null;
+        ObjectMapper om = new ObjectMapper();
 
-        JSONStorageContact jsonStorageContact = new JSONStorageContact();
-        ArrayList<Contact> contactArrayList = new ArrayList<>();
+        contactArrayList.add(contact1);
+        contactArrayList.add(contact2);
+        contactArrayList.add(contact3);
+
+        File tmp = getTempFile(true);
+
+        // Serialize data
+        try {
+            om.writeValue(tmp, contactArrayList);
+        } catch(Exception e) {
+            fail("Erreur de sérialisation de l'ArrayList");
+        }
+
+        // Read JSON file
+        try {
+            deserializedContactArrayList = om.readValue(tmp,
+                    om.getTypeFactory().constructCollectionType(ArrayList.class, Contact.class));
+        } catch (Exception e) {
+            fail("Erreur de désérialisation de l'ArrayList");
+        }
+
+        assertEquals(contactArrayList.toString(), deserializedContactArrayList.toString());
+    }
+
+    /**
+     * Test si une erreur de désérialisation retourne bien le bon message d'erreur
+     * @throws IOException
+     *
+     */
+    @Test
+    void testDeserializationCorruptedFile() throws IOException {
+
         BusinessException e; // erreur qui sera testée
 
         File testFileContact = jsonStorageContact.getMyObj();
@@ -77,6 +111,12 @@ public class TestJunit5
 
     }
 
+    /**
+     * Méthode qui écrit des int pseudo aléatoire dans un fichier de type File
+     * @param testFile
+     * @param garbageBytes
+     * @throws IOException
+     */
     private void writeGarbage(File testFile, int garbageBytes) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(testFile, garbageBytes);

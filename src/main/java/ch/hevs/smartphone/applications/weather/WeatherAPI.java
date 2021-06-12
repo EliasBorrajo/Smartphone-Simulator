@@ -221,63 +221,56 @@ public class WeatherAPI
     //*****************************************************************************
     // S E T T E R S
     //*****************************************************************************
-    public void setUrlLocation(String urlLocation)
-    {
+
+    public void setUrlLocation(String urlLocation) {
         this.urlLocation = urlLocation;
     }
 
-    public void setNomVille(String nomVille)
-    {
+    public void setNomVille(String nomVille) {
         this.nomVille = nomVille;
     }
 
-    public void setTemperature(String temperature)
-    {
+    public void setTemperature(String temperature) {
         this.temperature = temperature;
     }
 
-    public void setTempMax(String tempMax)
-    {
+    public void setTempMax(String tempMax) {
         this.tempMax = tempMax;
     }
 
-    public void setTempMin(String tempMin)
-    {
+    public void setTempMin(String tempMin) {
         this.tempMin = tempMin;
     }
 
-    public void setTempRessenti(String tempRessenti)
-    {
+    public void setTempRessenti(String tempRessenti) {
         this.tempRessenti = tempRessenti;
     }
 
-    public void setDescription(String description)
-    {
+    public void setDescription(String description) {
         this.description = description;
     }
 
-    public void setHumidite(String humidite)
-    {
+    public void setHumidite(String humidite) {
         this.humidite = humidite;
     }
 
-    public void setWindSpeed(String windSpeed)
-    {
+    public void setWindSpeed(String windSpeed) {
         this.windSpeed = windSpeed;
     }
 
-    public void setNuage(String nuage)
-    {
+    public void setNuage(String nuage) {
         this.nuage = nuage;
     }
 
-    public void setPluie1h(String pluie1h)
-    {
+    public void setPluie1h(String pluie1h) {
         this.pluie1h = pluie1h;
     }
 
-    public void setWeatherIcon(Icon weatherIcon)
-    {
+    public void setWeatherIcon(Icon weatherIcon) {
         this.weatherIcon = weatherIcon;
+    }
+
+    public static void setApiKey(String apiKey) {
+        API_KEY = apiKey;
     }
 }
