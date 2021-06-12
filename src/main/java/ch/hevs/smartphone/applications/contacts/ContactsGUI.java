@@ -87,16 +87,15 @@ public class ContactsGUI extends JPanel
         pnlHomeContact.add(scrollPaneContact, BorderLayout.CENTER);
     }
 
-    private void buildJSON(){
-        try // Essaye de dé-sérialer (READ) le fichier JSON
-        {
-            jsonAddressBook = new JSONStorageContact();
-        }
-        catch (IOException | BusinessException e)
-        {
-            e.printStackTrace();
-            System.out.println("Failed to create adressBook in CONTACTS GUI");
-        }
+    private void buildJSON()
+    {
+        // Dé-sérialer (READ) le fichier JSON
+        jsonAddressBook = new JSONStorageContact();
+
+
+
+
+
     }
 
     /**

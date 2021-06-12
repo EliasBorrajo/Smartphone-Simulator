@@ -44,7 +44,7 @@ public class JSONStorageContact implements StorableContact
     //*****************************************************************************
     // C O N S T R U C T E U R
     //*****************************************************************************
-    public JSONStorageContact() throws IOException, BusinessException
+    public JSONStorageContact()
     {
         definePathToStoreData();
         read();
@@ -92,7 +92,7 @@ public class JSONStorageContact implements StorableContact
      * @throws IOException
      */
     @Override
-    public ArrayList<Contact> read( ) throws BusinessException, IOException
+    public ArrayList<Contact> read( )
     {
         ObjectMapper mapper = new ObjectMapper();       // Mapper n'aime pas les fichiers vides !!
         try
@@ -115,10 +115,16 @@ public class JSONStorageContact implements StorableContact
             {
                 System.out.println("Empty file");
             }
+
         } catch (IOException e)
         {
             System.out.println("An error occurred while READING JSON STORAGE CONTACT.");
-            e.printStackTrace();
+            System.out.println("Le fichier est corrompu");
+            System.out.println("Le fichier est vide");
+            // @TODO AJouter fenetere popup AVERTIR d'un problème (qqch s'est mal passé, le programme recommence normalement)
+            //e.printStackTrace();
+            // copie du Json corrompu er acceder à la main @TODO : FUTURE AMELIORATION
+            // overwrite (déja le cas)
         }
         return contactArray;
     }
