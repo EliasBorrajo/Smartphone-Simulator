@@ -112,21 +112,25 @@
             </plugin>
 
             <!-- Permet de génerer la JAVADOC -->
-            <plugin>
+           <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>3.3.0</version>
-                <configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>
+                                jar
+                            </goal>
+                        </goals>
+
+                    </execution>
+                </executions>
+               <!-- <configuration>
                     <show>private</show>
                     <nohelp>true</nohelp>
-                </configuration>
-            </plugin>
-
-
-
-
-
-
+                </configuration> -->
+             </plugin>
 
         </plugins>
     </build>

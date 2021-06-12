@@ -60,7 +60,6 @@ public class AddContact extends JPanel
     /**
      * build pnlContent va créer tous les Pannels et leurs contenus
      *
-     * @return JPanel
      */
     private void buildPnlContent()
     {
