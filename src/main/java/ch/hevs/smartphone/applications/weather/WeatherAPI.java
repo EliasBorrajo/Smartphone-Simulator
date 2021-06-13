@@ -54,9 +54,7 @@ public class WeatherAPI {
 
     }*/
 
-    public WeatherAPI() {
-        getAPIDetails();
-    }
+    public WeatherAPI() { getAPIDetails(); }
 
     //*****************************************************************************
     // M E T H O D E S
@@ -160,11 +158,15 @@ public class WeatherAPI {
             isConnected = false;
             System.out.println("Erreur dans WEATHER_API : methode = getAPIDetails");
             JOptionPane.showMessageDialog(null, "Ville non valide" +
-                    "\n Ville par défault initialisée : Sion");
+                    "                                                   \n Ville par défault initialisée : Sion");
+
             setUrlLocation("Sion");
+            setNomVille("Sion");
+            getAPIDetails();
+            isConnected = true;
+
             e.printStackTrace();
         }
-
     }
 
     //*****************************************************************************

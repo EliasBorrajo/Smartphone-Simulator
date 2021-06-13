@@ -20,21 +20,21 @@ public class WeatherGUI extends JPanel {
     WeatherAPI weatherInfos;
 
     // Panel
-    private JPanel pnlNord;
-    private JPanel pnlCentre;
-    private JPanel pnlVille;
+    private JPanel pnlNorth;
+    private JPanel pnlCenter;
+    private JPanel pnlLocation;
     private JPanel pnlTemp;
     private JPanel pnlTempMax;
     private JPanel pnlTempMin;
-    private JPanel pnlHumidite;
+    private JPanel pnlHumidity;
     private JPanel pnlNoConnexion;
 
     // Label
-    private JLabel lblVille;
+    private JLabel lblLocation;
     private JLabel lblTemp;
     private JLabel lblTempMax;
     private JLabel lblTempMin;
-    private JLabel lblHumidite;
+    private JLabel lblHumidity;
     private JLabel lblNoConnexion;
 
     // Button
@@ -58,8 +58,6 @@ public class WeatherGUI extends JPanel {
     // M E T H O D E S
     //*****************************************************************************
     private void buildMainPanel() {
-        setPreferredSize(new Dimension(ScreenSizeEnum.CONTENT_PANEL_WIDTH.getSize(), ScreenSizeEnum.CONTENT_PANEL_HEIGHT.getSize()));
-        setMinimumSize(new Dimension(ScreenSizeEnum.CONTENT_PANEL_WIDTH.getSize(), ScreenSizeEnum.CONTENT_PANEL_HEIGHT.getSize()));
         setLayout(new BorderLayout());
 
         buildIcon();
@@ -88,60 +86,57 @@ public class WeatherGUI extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //Change URL location
-                System.out.println("Ancien URL : " + weatherInfos.getUrlLocation());
                 weatherInfos.setUrlLocation(tfLocation.getText());
-                System.out.println("Nouvel URL : " + weatherInfos.getUrlLocation());
+
                 //remettre les valeurs getAPIDetails
                 weatherInfos.getAPIDetails();
 
-                // Changer le nom à l'affichage
-                weatherInfos.setNomVille(tfLocation.getText());
+                // Changer les informations à l'affichage
+                weatherInfos.setNomVille(weatherInfos.getNomVille());
                 weatherInfos.setTemperature(weatherInfos.getTemperature());
                 weatherInfos.setTempMax(weatherInfos.getTempMax());
                 weatherInfos.setTempMin(weatherInfos.getTempMin());
                 weatherInfos.setHumidite(weatherInfos.getHumidite());
-
                 removeAll();
                 validate();
                 buildPanel();
                 revalidate();
                 repaint();
+
             }
         });
 
         // Création des labels
-        // @TODO METTRE DES VALEURS PAR DEFAUT
-        // @TODO POUVOIR SAISIR DANS UN TEXTBOX NOM DE LA VILLE A CHERCHER
-        lblVille = new JLabel("Location : " + weatherInfos.getNomVille());
+        lblLocation = new JLabel("Location : " + weatherInfos.getNomVille());
         lblTemp = new JLabel("Temperature : " + weatherInfos.getTemperature() + "°C");
         lblTempMax = new JLabel("Maximum temperature : " + weatherInfos.getTempMax() + "°C");
         lblTempMin = new JLabel("Minimum temperature : " + weatherInfos.getTempMin() + "°C");
-        lblHumidite = new JLabel("Humidity level : " + weatherInfos.getHumidite() + "%");
+        lblHumidity = new JLabel("Humidity level : " + weatherInfos.getHumidite() + "%");
 
-        // NORD
-        pnlNord = new JPanel();
-        pnlNord.add(tfLocation);
-        pnlNord.add(btnSearch);
+        // Panel nord
+        pnlNorth = new JPanel();
+        pnlNorth.add(tfLocation);
+        pnlNorth.add(btnSearch);
 
-        // CENTRE
-        pnlCentre = new JPanel(new GridLayout(20, 0, 5, 5));
-        pnlVille = new JPanel();
+        // Panel centre
+        pnlCenter = new JPanel(new GridLayout(20, 0, 5, 5));
+        pnlLocation = new JPanel();
         pnlTemp = new JPanel();
         pnlTempMax = new JPanel();
         pnlTempMin = new JPanel();
-        pnlHumidite = new JPanel();
+        pnlHumidity = new JPanel();
 
-        pnlVille.add(lblVille);
+        pnlLocation.add(lblLocation);
         pnlTemp.add(lblTemp);
         pnlTempMax.add(lblTempMax);
         pnlTempMin.add(lblTempMin);
-        pnlHumidite.add(lblHumidite);
+        pnlHumidity.add(lblHumidity);
 
-        pnlCentre.add(pnlVille);
-        pnlCentre.add(pnlTemp);
-        pnlCentre.add(pnlTempMax);
-        pnlCentre.add(pnlTempMin);
-        pnlCentre.add(pnlHumidite);
+        pnlCenter.add(pnlLocation);
+        pnlCenter.add(pnlTemp);
+        pnlCenter.add(pnlTempMax);
+        pnlCenter.add(pnlTempMin);
+        pnlCenter.add(pnlHumidity);
 
         // Panel si pas de connexion internet
         pnlNoConnexion = new JPanel();
@@ -149,18 +144,18 @@ public class WeatherGUI extends JPanel {
         pnlNoConnexion.add(lblNoConnexion);
 
         // Ajout des PANELS au Layout
-        this.add(pnlNord, BorderLayout.NORTH);
+        this.add(pnlNorth, BorderLayout.NORTH);
         this.add(pnlNoConnexion, BorderLayout.SOUTH);
-        this.add(pnlCentre, BorderLayout.CENTER);
+        this.add(pnlCenter, BorderLayout.CENTER);
 
-
+        // Si connection non valide
         if (weatherInfos.isConnected() == false) {
-            pnlCentre.setVisible(false);
-            pnlNord.setVisible(true);
+            pnlCenter.setVisible(false);
+            pnlNorth.setVisible(true);
             pnlNoConnexion.setVisible(true);
         } else {
-            pnlCentre.setVisible(true);
-            pnlNord.setVisible(true);
+            pnlCenter.setVisible(true);
+            pnlNorth.setVisible(true);
             pnlNoConnexion.setVisible(false);
         }
 
