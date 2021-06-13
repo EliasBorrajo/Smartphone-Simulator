@@ -80,7 +80,7 @@ public class HeaderLayout extends JPanel {
 
                 // SERIALISATION CONTACTES
                 smartphoneGUI.getContentLayout().getPnlContact().getJsonAddressBook().write(
-                        smartphoneGUI.getContentLayout().getPnlContact().getJsonAddressBook().getmyObj(),
+                        smartphoneGUI.getContentLayout().getPnlContact().getJsonAddressBook().getMyObj(),
                         smartphoneGUI.getContentLayout().getPnlContact().getJsonAddressBook().getContactArray());
 
                 System.exit(0);

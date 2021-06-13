@@ -170,7 +170,7 @@ public class JSONStorageContact implements StorableContact {
         return contactArray;
     }
 
-    public File getmyObj() {
+    public File getMyObj() {
         return myObj;
     }
 
