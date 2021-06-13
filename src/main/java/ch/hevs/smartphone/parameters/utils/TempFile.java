@@ -1,4 +1,4 @@
-package ch.hevs.smartphone.TempFile;
+package ch.hevs.smartphone.parameters.utils;
 
 import java.io.File;
 import java.io.IOException;

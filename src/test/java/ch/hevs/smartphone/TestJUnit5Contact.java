@@ -10,8 +10,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
-import static ch.hevs.smartphone.TempFile.TempFile.getTempFile;
+import static ch.hevs.smartphone.parameters.utils.TempFile.getTempFile;
 import static org.junit.jupiter.api.Assertions.*;
+
 
 import java.io.File;
 import java.io.IOException;
@@ -24,10 +25,6 @@ import java.util.Random;
  * - Serialization and deserialization
  * - Error code testing for corrupted .json contact file
  *
- * (Tester la partie fonctionelle NON_Graphique
- * - Serialisation
- * - Tester l'API APP, Si il arrive à se connecter, récuperer les data correctement.
- * - Gallery totalement UI, donc)
  */
 public class TestJUnit5Contact
 {

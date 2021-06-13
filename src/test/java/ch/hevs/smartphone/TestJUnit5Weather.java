@@ -19,13 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * Testing for weather app:
  * - Corruption of the API_KEY
- * - correct gathering of the data
- *
- * (Tests pour l'application weather
- * Liste des tests :
- * - récupération correcte des données
- * - réaction en cas de perte de connexion internet --> régler timeout super court
- * - URL corrompue --> API_KEY corrompue)
+ * - Correct gathering of the data --> URL corruption
  *
  */
 
@@ -68,12 +62,16 @@ public class TestJUnit5Weather {
         assertEquals(finalErrorCode, successRequestCode);
     }
 
+    /**
+     * Testing API_KEY corruption --> checking if returning 401 code (unauthorized request)
+     * @throws IOException
+     */
     @Test
-    public void testCorruptedAPIKey() {
-        String apiKey = "euhje3434jhkhu334353535";               // corrupted API key with empty string
+    public void testCorruptedAPIKey() throws IOException {
+        String apiKey = " ";                // simulate corrupted API_KEY
         String units   = "&units=metric";
         String urlLocation = "Sion";
-        //String successRequestCode = "200";
+        String unauthorizedRequestCode = "401";  // error code when URL connection is unauthorized
 
         String urlString = "http://api.openweathermap.org/data/2.5/weather?q="
                 + urlLocation
@@ -82,42 +80,21 @@ public class TestJUnit5Weather {
                 + apiKey;
 
         StringBuilder result = new StringBuilder();
-        URL url = null;
-        try {
-            url = new URL(urlString);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        URLConnection connection = null;
-        try {
-            connection = url.openConnection();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        /*try {
-            BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
+        URL url = new URL(urlString);
+        URLConnection connection = url.openConnection();
 
         // System.out.println(connection.getHeaderFields());
-
-        //BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         Map<String, List<String>> myConnection = connection.getHeaderFields();
 
         // myConnection.forEach((k, v)-> System.out.println(k + " - " + v));
         List<String> httpCodeList = myConnection.get(null);
-        System.out.println(httpCodeList.toString());
+        // System.out.println(httpCodeList.toString());
         String tmpCode = String.join(" ", httpCodeList);
         // System.out.println(tmpCode);
         String finalErrorCode = tmpCode.substring(9,12);
         // System.out.println(finalErrorCode);
 
-        //assertEquals(finalErrorCode, successRequestCode);
+        assertEquals(finalErrorCode, unauthorizedRequestCode);
     }
-
-
-
 
 }
