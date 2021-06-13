@@ -13,25 +13,17 @@
  *                          Il est nécessaire d'avoir 3 apps au minimum sur le téléphone,
  *                          dont 2 qui communiqueront ensembles, et une qui devra récuperer des informations d'une API.
  */
+
 package ch.hevs.smartphone.structure;
 
-import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
 import ch.hevs.smartphone.parameters.jsonStorage.Config;
 
-import java.io.IOException;
-
 /**
- * @author Borrajo Elias
  * Main qui va nous créer le projet au complet
  */
 public class SmartphoneDemo
 {
-    /**
-     * Création du main
-     * @throws IOException
-     * @throws BusinessException
-     * */
-    public static void main(String[] args) throws IOException, BusinessException
+    public static void main(String[] args)
     {
         //Créer le singleTon au début.
         Config.getConfig();
@@ -40,3 +32,4 @@ public class SmartphoneDemo
         SmartphoneGUI myPhone =  new SmartphoneGUI();
     }
 }
+

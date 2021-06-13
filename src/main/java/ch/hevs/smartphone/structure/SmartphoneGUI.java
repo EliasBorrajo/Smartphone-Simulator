@@ -5,7 +5,6 @@ import ch.hevs.smartphone.parameters.ScreenSizeEnum;
 import ch.hevs.smartphone.structure.layout.ContentLayout;
 import ch.hevs.smartphone.structure.layout.FooterLayout;
 import ch.hevs.smartphone.structure.layout.HeaderLayout;
-import ch.hevs.smartphone.structure.listeners.ContentListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -44,11 +43,8 @@ public class SmartphoneGUI extends JFrame {
     //*****************************************************************************
     /**
      * Constructeur
-     *
-     * @throws IOException
-     * @throws BusinessException
      */
-    public SmartphoneGUI() throws IOException, BusinessException {
+    public SmartphoneGUI() {
         buildFrame();
         setTimerUpdate();
     }
@@ -58,11 +54,8 @@ public class SmartphoneGUI extends JFrame {
     //*****************************************************************************
     /**
      * Construction de la Frame
-     *
-     * @throws IOException
-     * @throws BusinessException
      */
-    private void buildFrame() throws IOException, BusinessException {
+    private void buildFrame() {
         setSize(ScreenSizeEnum.WIDTH.getSize(), ScreenSizeEnum.HEIGHT.getSize());
         setUndecorated(true);
         setShape(new RoundRectangle2D.Double(0, 0, this.getWidth(), this.getHeight(), 30, 30));
@@ -76,12 +69,10 @@ public class SmartphoneGUI extends JFrame {
     }
 
     /**
-     * Construction du panel pnlScreen qui contient le content, header et footer
-     *
-     * @throws IOException
-     * @throws BusinessException
+     * Construction de pnlScreen qui contient le content, header et footer
+     * @return un JPanel qui contient le content, header et footer
      */
-    private JPanel builPnlScreen() throws IOException, BusinessException {
+    private JPanel builPnlScreen() {
         // Création du pannel qui contiendra TOUT
         pnlScreen = new JPanel(new BorderLayout());
 
@@ -103,6 +94,7 @@ public class SmartphoneGUI extends JFrame {
 
     /**
      * Construction des bords pour donner l'apparence d'un smartphone
+     * @return un Jpanel qui nous servira à faire les bords de notre smartphone
      */
     private JPanel buildBorderPanel() {
         borderPanel = new JPanel();

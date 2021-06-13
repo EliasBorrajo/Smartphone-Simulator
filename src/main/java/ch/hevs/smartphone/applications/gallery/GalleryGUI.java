@@ -107,12 +107,8 @@ public class GalleryGUI extends JPanel {
      * Création du fichier JSON
      */
     private void buildJSON() {
-        try {
-            jsonPhotoBook = new JSONStoragePhoto();
-        } catch (IOException | BusinessException e) {
-            e.printStackTrace();
-            System.out.println("Failed to create galleryBook in GALLERY GUI");
-        }
+        // Dé-sérialer (READ) le fichier JSON
+        jsonPhotoBook = new JSONStoragePhoto();
     }
 
     /**
@@ -141,7 +137,7 @@ public class GalleryGUI extends JPanel {
     /**
      * Création du JscrollPane qui contient le panel qui affiche les images
      *
-     * @return
+     * @return un JscrollPane qui contient un panel de boutons de toutes nos photos
      */
     protected JScrollPane buildPnlImageJs() {
         buildvariables();

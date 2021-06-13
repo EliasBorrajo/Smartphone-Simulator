@@ -55,10 +55,8 @@ public class AddContact extends JPanel {
      * Constructeur
      *
      * @param contactsGUI
-     * @throws IOException
-     * @throws BusinessException
      */
-    public AddContact(ContactsGUI contactsGUI) throws IOException, BusinessException {
+    public AddContact(ContactsGUI contactsGUI) {
         this.contactsGUI = contactsGUI;
         buildPnlContent();
     }
@@ -67,7 +65,7 @@ public class AddContact extends JPanel {
     // M E T H O D E S
     //*****************************************************************************
     /**
-     * build pnlContent va créer tous les Pannels et leurs contenus
+     * buildPnlContent va créer tous les Pannels et leurs contenus
      */
     private void buildPnlContent() {
         buildPanelAndButton();

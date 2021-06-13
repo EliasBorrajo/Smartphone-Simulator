@@ -7,7 +7,6 @@ import ch.hevs.smartphone.structure.layout.ContentLayout;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -15,6 +14,7 @@ import java.util.ArrayList;
  * @author Bourquin Jonathan, Borrajo Elias
  * Panel qui affiche les informations du contact
  */
+
 public class ShowContactInfo extends JPanel {
     //*****************************************************************************
     // A T T R I B U T S
@@ -68,7 +68,7 @@ public class ShowContactInfo extends JPanel {
      * @param noPhone
      * @param pathContactPhoto
      * */
-    public ShowContactInfo(ContentLayout contentLayout, String firstName, String lastName, String noPhone, String pathContactPhoto) throws IOException, BusinessException {
+    public ShowContactInfo(ContentLayout contentLayout, String firstName, String lastName, String noPhone, String pathContactPhoto) {
         this.contentLayout = contentLayout;
         this.firstName = firstName;
         this.lastName = lastName;

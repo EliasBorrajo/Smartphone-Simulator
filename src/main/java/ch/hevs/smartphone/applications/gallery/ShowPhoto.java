@@ -1,15 +1,11 @@
 package ch.hevs.smartphone.applications.gallery;
 
-import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
 import ch.hevs.smartphone.applications.gallery.listeners.GalleryActionListener;
 import ch.hevs.smartphone.applications.gallery.listeners.GalleryMouseListener;
-import ch.hevs.smartphone.applications.gallery.serialisation.JSONStoragePhoto;
 import ch.hevs.smartphone.parameters.utils.Util;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * @author Lonfat Milena

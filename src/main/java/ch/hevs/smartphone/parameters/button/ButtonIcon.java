@@ -1,7 +1,6 @@
 package ch.hevs.smartphone.parameters.button;
 
 import javax.swing.*;
-import java.awt.*;
 
 /**
  * @author Lonfat Milena

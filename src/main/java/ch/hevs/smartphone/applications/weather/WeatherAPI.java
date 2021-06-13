@@ -9,18 +9,13 @@ import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.reflect.Array;
-import java.lang.reflect.Type;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
-
 
 /**
- * @author Borrajo Elias
+ * @author Borrajo Elias, Milena Lonfat
  * Tutoriel trouvé sur : https://stackoverflow.com/questions/58759133/openweathermap-api-java
  */
 public class WeatherAPI {
@@ -41,15 +36,14 @@ public class WeatherAPI {
     private String tempMin;
     private String tempRessenti;
     private String description;
-    private String humidite;       // en %
+    private String humidite;        // en %
     private String windSpeed;       // metres/sec
     private String nuage;           // % de nuages
     private String pluie1h;         // Volume de pluie la dernière heure
 
-    private Icon weatherIcon;     // "weather" --> icon
+    private Icon weatherIcon;       // "weather" --> icon
 
 // @TODO : POUR RECUPERER LE TABLEAU, RECUPERER NORMAL 1 FOIS DEJA; PUIS RöCUPERER DE CE RESULTAT LA STRING
-
 
     //*****************************************************************************
     // C O N S T R U C T E U R
@@ -67,7 +61,6 @@ public class WeatherAPI {
     //*****************************************************************************
     // M E T H O D E S
     //*****************************************************************************
-
     /**
      * Convert JSON into a MAP
      * ON donne en entrée le fichier JSON que l'on veut,
@@ -75,7 +68,7 @@ public class WeatherAPI {
      * Ex : "location" string est lié à "Bern" object
      *
      * @param str
-     * @return
+     * @return @TODO contrôler : retourne une map des informations dont on a besoin
      */
     private static Map<String, Object> jsonToMap(String str) {
         Map<String, Object> map = new Gson().fromJson(
@@ -85,7 +78,6 @@ public class WeatherAPI {
         );
         return map;
     }
-
 
     protected void getAPIDetails() {
         // Se connecter à l'API

@@ -49,6 +49,9 @@ public class Photo implements Serializable {
         return name;
     }
 
+    //*****************************************************************************
+    // S E T T E R S
+    //*****************************************************************************
     public void setName(String name) {
         this.name = name;
     }

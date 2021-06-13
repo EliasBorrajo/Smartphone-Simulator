@@ -3,7 +3,6 @@ package ch.hevs.smartphone.structure.layout;
 import ch.hevs.smartphone.parameters.button.ButtonIcon;
 import ch.hevs.smartphone.parameters.ScreenSizeEnum;
 
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

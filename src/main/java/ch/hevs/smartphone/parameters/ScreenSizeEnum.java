@@ -7,6 +7,9 @@ package ch.hevs.smartphone.parameters;
  */
 
 public enum ScreenSizeEnum {
+    //*****************************************************************************
+    // A T T R I B U T S
+    //*****************************************************************************
     WIDTH(300),                 // WIDTH = largeur
     HEIGHT(600),                // HEIGHT = hauteur
 
@@ -17,6 +20,13 @@ public enum ScreenSizeEnum {
 
     private int size;
 
+    //*****************************************************************************
+    // C O N S T R U C T E U R
+    //*****************************************************************************
+    /**
+     * Constructeur
+     * @param size
+     * */
     private ScreenSizeEnum(int size) { this.size = size; }
 
     //*****************************************************************************

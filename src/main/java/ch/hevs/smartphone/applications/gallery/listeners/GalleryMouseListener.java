@@ -38,6 +38,7 @@ public class GalleryMouseListener implements MouseListener {
     //*****************************************************************************
     @Override
     public void mouseClicked(MouseEvent e) {
+        // Permet d'effacer le texte du JTextfield au clique de la souris
         for (int i = 0; i < galleryGUI.getPhotosArray().size(); i++) {
             if (activate == false) {
                 galleryGUI.getPnlShowPhoto()[i].getTfNamePhoto().setText("");

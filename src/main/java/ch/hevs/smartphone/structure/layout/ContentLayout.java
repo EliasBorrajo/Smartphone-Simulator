@@ -13,7 +13,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 
 /**
  * @author Lonfat Milena, Borrajo Elias, Bourquin Jonathan
@@ -21,6 +20,7 @@ import java.util.ArrayList;
  * On peut lancer 3 applications différentes depuis le Home.
  * ContentLayout est de type CardLayout.
  */
+
 public class ContentLayout extends JPanel {
     //*****************************************************************************
     // A T T R I B U T S
@@ -52,12 +52,8 @@ public class ContentLayout extends JPanel {
     //*****************************************************************************
     // C O N S T R U C T E U R
     //*****************************************************************************
-
     /**
      * Constructeur
-     *
-     * @throws IOException
-     * @throws BusinessException
      */
     public ContentLayout() {
         setPreferredSize(new Dimension(ScreenSizeEnum.CONTENT_PANEL_WIDTH.getSize(), ScreenSizeEnum.CONTENT_PANEL_HEIGHT.getSize()));
@@ -68,6 +64,9 @@ public class ContentLayout extends JPanel {
     //*****************************************************************************
     // M E T H O D E S
     //*****************************************************************************
+    /**
+     * Construction du panel
+     * */
     public void buildpnlContent() {
         cardlayout = new CardLayout();
 
@@ -110,7 +109,7 @@ public class ContentLayout extends JPanel {
         //*****************************************************************************
         // L I S T E N E R S
         //*****************************************************************************
-        // Boutons de la page home
+
         // Ouvre l'application contact
         btnContact.addActionListener(new ActionListener() {
             @Override

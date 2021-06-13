@@ -1,7 +1,5 @@
 package ch.hevs.smartphone.structure.layout;
 
-import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
-import ch.hevs.smartphone.applications.gallery.GalleryGUI;
 import ch.hevs.smartphone.parameters.button.ButtonIcon;
 import ch.hevs.smartphone.parameters.ScreenSizeEnum;
 import ch.hevs.smartphone.structure.SmartphoneGUI;
@@ -56,7 +54,6 @@ public class HeaderLayout extends JPanel {
         add(buildButtonIconShutdown());
         add(buildLabelDate());
         add(buildLabelTime());
-        //this.add(buildBattery());
     }
 
     //*****************************************************************************
@@ -76,28 +73,18 @@ public class HeaderLayout extends JPanel {
         btnShutdown.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    // SERIALISATION PHOTOS
-                    smartphoneGUI.getContentLayout().getPnlGallery().getJsonPhotoBook().write(
-                            smartphoneGUI.getContentLayout().getPnlGallery().getJsonPhotoBook().getmyObj(),
-                            smartphoneGUI.getContentLayout().getPnlGallery().getJsonPhotoBook().getPhotosArray());
-                } catch (BusinessException businessException) {
-                    businessException.printStackTrace();
-                    System.out.println("COULD NOT SAVE PHOTO -- INNER CLASS CONTENTLAYOUT LISTENERS");
-                }
+                // SERIALISATION PHOTOS
+                smartphoneGUI.getContentLayout().getPnlGallery().getJsonPhotoBook().write(
+                        smartphoneGUI.getContentLayout().getPnlGallery().getJsonPhotoBook().getmyObj(),
+                        smartphoneGUI.getContentLayout().getPnlGallery().getJsonPhotoBook().getPhotosArray());
 
-                try {
-                    // SERIALISATION CONTACTES
-                    smartphoneGUI.getContentLayout().getPnlContact().getJsonAddressBook().write(
-                            smartphoneGUI.getContentLayout().getPnlContact().getJsonAddressBook().getmyObj(),
-                            smartphoneGUI.getContentLayout().getPnlContact().getJsonAddressBook().getContactArray());
-                } catch (BusinessException businessException) {
-                    businessException.printStackTrace();
-                    System.out.println("COULD NOT SAVE CONTACTES -- INNER CLASS CONTENTLAYOUT LISTENERS");
-                }
-
+                // SERIALISATION CONTACTES
+                smartphoneGUI.getContentLayout().getPnlContact().getJsonAddressBook().write(
+                        smartphoneGUI.getContentLayout().getPnlContact().getJsonAddressBook().getmyObj(),
+                        smartphoneGUI.getContentLayout().getPnlContact().getJsonAddressBook().getContactArray());
 
                 System.exit(0);
+
             }
         });
         return btnShutdown;

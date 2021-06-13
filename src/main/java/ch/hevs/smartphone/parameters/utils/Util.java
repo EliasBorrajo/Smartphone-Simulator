@@ -7,10 +7,11 @@ abstract public class Util
 {
     /**
      * Redimensionne les imagesicon selon le ratio donné
+     * Code trouvé sur internet
      *
      * @param imageToScale ImageIcon à redimensionner
      * @param smaller      Ratio de redimensionnement
-     * @return Imageicon redimensionnée
+     * @return ImageIcon redimensionnée
      */
     public static ImageIcon getScaledImageIcon(ImageIcon imageToScale, int smaller)
     {
@@ -22,11 +23,11 @@ abstract public class Util
             if (widhOriginal > heightOriginal)
             {
                 float ratio = (float) (widhOriginal / smaller);
-                icon = new ImageIcon(imageToScale.getImage().getScaledInstance(smaller, (int) (heightOriginal / ratio), Image.SCALE_SMOOTH)); //(int)(heightOriginal*ratio)
+                icon = new ImageIcon(imageToScale.getImage().getScaledInstance(smaller, (int) (heightOriginal / ratio), Image.SCALE_SMOOTH));
             } else
             {
                 float ratio = (float) (heightOriginal / smaller);
-                icon = new ImageIcon(imageToScale.getImage().getScaledInstance((int) (widhOriginal / ratio), smaller, Image.SCALE_SMOOTH)); //(int)(heightOriginal*ratio)
+                icon = new ImageIcon(imageToScale.getImage().getScaledInstance((int) (widhOriginal / ratio), smaller, Image.SCALE_SMOOTH));
             }
         }
         return icon;

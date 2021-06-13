@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * @author Borrajo Elias
+ * @author Borrajo Elias, Milena Lonfat
  * Classe qui gère l'application météo
  * Changement de ville possible
  * Donne la température maximale, minimale et celle du moment, avec le taux d'humidité
@@ -60,7 +60,6 @@ public class WeatherGUI extends JPanel {
     private void buildMainPanel() {
         setPreferredSize(new Dimension(ScreenSizeEnum.CONTENT_PANEL_WIDTH.getSize(), ScreenSizeEnum.CONTENT_PANEL_HEIGHT.getSize()));
         setMinimumSize(new Dimension(ScreenSizeEnum.CONTENT_PANEL_WIDTH.getSize(), ScreenSizeEnum.CONTENT_PANEL_HEIGHT.getSize()));
-
         setLayout(new BorderLayout());
 
         buildIcon();

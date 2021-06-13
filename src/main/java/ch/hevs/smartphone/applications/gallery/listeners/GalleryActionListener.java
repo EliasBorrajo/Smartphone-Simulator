@@ -40,7 +40,7 @@ public class GalleryActionListener implements ActionListener {
     //*****************************************************************************
     public void actionPerformed(ActionEvent e) {
 
-        // Action pour l'ajout d'une photo
+        // Action de btnAdd pour l'ajout d'une photo
         if (e.getSource() == galleryGUI.getBtnAddPhoto()) {
             String path = null;
             JFileChooser chooser = new JFileChooser();
@@ -60,25 +60,25 @@ public class GalleryActionListener implements ActionListener {
 
         for (int i = 0; i < galleryGUI.getPhotosArray().size(); i++) {
 
-            // Action pour montrer les infos de la photo en question
+            // Action sur chaque bouton des photos de la gallerie ouvre pnlShowPhoto
             if (e.getSource() == galleryGUI.getBtnPhoto()[i]) {
                 // Récupère le bon
                 String photoName = galleryGUI.getPhotoName()[i];
                 galleryGUI.getCardGallHome().show(galleryGUI, photoName);
             }
 
-            // Action pour modifier le nom de la photo
+            // Action de btnSave de pnlShowPhoto pour sauvagarder le changement de nom de la photo
             if (e.getSource() == galleryGUI.getPnlShowPhoto()[i].getBtnSave()) {
                 galleryGUI.getJsonPhotoBook().getPhotosArray().get(i).setName(galleryGUI.getPnlShowPhoto()[i].getTfNamePhoto().getText());
                 rebuildApp();
             }
 
-            //Action pour annuler les changements
+            //Action de btnCancel de pnlShowPhoto pour annuler les changements
             if (e.getSource() == galleryGUI.getPnlShowPhoto()[i].getBtnCancel()) {
                 galleryGUI.getCardGallHome().show(galleryGUI, "HomeGallery");
             }
 
-            //Action pour supprimer la photo
+            //Action de btnDelete de pnlShowPhoto pour supprimer la photo
             if (e.getSource() == galleryGUI.getPnlShowPhoto()[i].getBtnDelete()) {
                 galleryGUI.getJsonPhotoBook().getPhotosArray().remove(i);
                 rebuildApp();
@@ -86,6 +86,9 @@ public class GalleryActionListener implements ActionListener {
         }
     }
 
+    //*****************************************************************************
+    // M E T H O D E S
+    //*****************************************************************************
     /**
      * Méthode qui permet de reconstruire l'application
      */

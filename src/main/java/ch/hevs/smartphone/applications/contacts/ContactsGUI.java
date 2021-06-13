@@ -104,13 +104,8 @@ public class ContactsGUI extends JPanel {
      * Création du fichier JSON
      */
     private void buildJSON() {
-        try // Essaye de dé-sérialer (READ) le fichier JSON
-        {
-            jsonAddressBook = new JSONStorageContact();
-        } catch (IOException | BusinessException e) {
-            e.printStackTrace();
-            System.out.println("Failed to create adressBook in CONTACTS GUI");
-        }
+        // Dé-sérialer (READ) le fichier JSON
+        jsonAddressBook = new JSONStorageContact();
     }
 
     /**
@@ -135,12 +130,8 @@ public class ContactsGUI extends JPanel {
 
         contactNoPhone = new String[contacts.size()];
 
-        try // Essaye de créer un pannel pour l'ajout des contactes
-        {
-            pnlAddContact = new AddContact(this);
-        } catch (IOException | BusinessException e) {
-            e.printStackTrace();
-        }
+
+        pnlAddContact = new AddContact(this);
 
         pnlShowContactInfo = new ShowContactInfo[contacts.size()];
         pnlEditContactInfo = new EditContactInfo[contacts.size()];
@@ -149,28 +140,25 @@ public class ContactsGUI extends JPanel {
         // CREATION des contenus des ARRAYS nécessaires pour les CARDS de contacts
         for (int j = 0; j < contacts.size(); j++) {
             contactNoPhone[j] = contacts.get(j).getNoPhone();
-            try {
-                pnlShowContactInfo[j] = new ShowContactInfo(contentLayout,
-                        contacts.get(j).getFirstName(),
-                        contacts.get(j).getLastName(),
-                        contactNoPhone[j],
-                        contacts.get(j).getContactPhoto());
-                pnlEditContactInfo[j] = new EditContactInfo(contentLayout,
-                        contacts.get(j).getFirstName(),
-                        contacts.get(j).getLastName(),
-                        contacts.get(j).getNoPhone(),
-                        contacts.get(j).getContactPhoto()
-                        /*this.getPnlShowContactInfo()[j].getIconContact()*/);
-            } catch (IOException | BusinessException e) {
-                e.printStackTrace();
-            }
+
+            pnlShowContactInfo[j] = new ShowContactInfo(contentLayout,
+                                                        contacts.get(j).getFirstName(),
+                                                        contacts.get(j).getLastName(),
+                                                        contactNoPhone[j],
+                                                        contacts.get(j).getContactPhoto());
+
+            pnlEditContactInfo[j] = new EditContactInfo(contentLayout,
+                                                        contacts.get(j).getFirstName(),
+                                                        contacts.get(j).getLastName(),
+                                                        contacts.get(j).getNoPhone(),
+                                                        contacts.get(j).getContactPhoto());
         }
     }
 
     /**
      * Création du Pannel qui aura une scrollBar et la liste des contactes
      *
-     * @return
+     * @return un JscrollPane qui contient un panel de boutons de tous nos contacts
      */
     public JScrollPane buildScrollPaneContact() {
         buildVariables();
@@ -182,7 +170,6 @@ public class ContactsGUI extends JPanel {
             JLabel emptyContactMessage = new JLabel("No contact to show");
             pnlCenterJscrollContact.add(emptyContactMessage);
         } else {
-
             // Création des boutons pour chaque contact
             for (int i = 0; i < contacts.size(); i++) {
                 contactNameShowContact[i] = contacts.get(i).getFirstName() + " " + contacts.get(i).getLastName();
