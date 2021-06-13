@@ -29,6 +29,7 @@ public class WeatherAPI
     private static final String API_KEY = "ec290e8fe580091860106fddb502ce81"; // Est la clé lié à mon compte au fournisseur de l'API
     private static final String UNITS   = "&units=metric";                    // Permet d'avoir des unitées METRICS, donc les temperatures en °C
     private String urlLocation = "Sion";                                         // La ville sera par défaut "Sion"
+    private boolean isConnected;
 
     // Attributs a retourner au système pour afficher dans le GUI
     // @TODO : NON STRING MAIS OBJECTS POUR ETRE PAREIL QUE LES MAPS ??
@@ -151,12 +152,18 @@ public class WeatherAPI
             System.out.println(getTempMax());
             System.out.println(getDescription());
             System.out.println(getHumidite());
+            isConnected = true;
 
         }
         catch (IOException e)
         {
+            isConnected = false;
             System.out.println("Erreur dans WEATHER_API : methode = getAPIDetails");
+            JOptionPane.showMessageDialog(null, "Ville non valide" +
+                    "\n Ville par défault initialisée : Sion");
+            setUrlLocation("Sion");
             e.printStackTrace();
+
         }
 
     }

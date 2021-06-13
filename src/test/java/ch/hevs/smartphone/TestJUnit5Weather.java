@@ -95,6 +95,12 @@ public class TestJUnit5Weather {
             e.printStackTrace();
         }
 
+        /*try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
+
         // System.out.println(connection.getHeaderFields());
 
         //BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
