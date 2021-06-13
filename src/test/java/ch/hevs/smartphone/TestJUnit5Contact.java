@@ -20,15 +20,14 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Le testing permet, en cas de MAJ de Java, de vérifer rapidement que tout le projet fonctionne,
- * et si ce n'est pas le cas, de voir quelle partie ne fonctionne plus.
+ * Testing for contact app:
+ * - Serialization and deserialization
+ * - Error code testing for corrupted .json contact file
  *
- * Le test devra fournir un resultat, qui doit être PAREILLE que le résultat attendu.
- *
- * Tester la partie fonctionelle NON_Graphique
+ * (Tester la partie fonctionelle NON_Graphique
  * - Serialisation
  * - Tester l'API APP, Si il arrive à se connecter, récuperer les data correctement.
- * - Gallery totalement UI, donc
+ * - Gallery totalement UI, donc)
  */
 public class TestJUnit5Contact
 {
@@ -43,6 +42,9 @@ public class TestJUnit5Contact
     public TestJUnit5Contact() throws IOException, BusinessException {
     }
 
+    /**
+     * variables initialization for testing
+     */
     @BeforeEach
     void setup() {
         contact1 = new Contact("Contact1", "Contact1", "1111");
@@ -51,7 +53,7 @@ public class TestJUnit5Contact
     }
 
     /**
-     * Test la sérialisation et la désérialisation d'un fichier temp
+     * Testing serialization and deserialization of a temporary File
      * @throws IOException
      * @throws BusinessException
      */
@@ -85,7 +87,7 @@ public class TestJUnit5Contact
     }
 
     /**
-     * Test si une erreur de désérialisation retourne bien le bon message d'erreur
+     * Testing error code return after .json file deserialization of a corrupted file
      * @throws IOException
      *
      */
@@ -112,7 +114,7 @@ public class TestJUnit5Contact
     }
 
     /**
-     * Méthode qui écrit des int pseudo aléatoire dans un fichier de type File
+     * Method to write pseudo random integer in an object mapper
      * @param testFile
      * @param garbageBytes
      * @throws IOException

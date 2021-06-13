@@ -270,7 +270,5 @@ public class WeatherAPI
         this.weatherIcon = weatherIcon;
     }
 
-    public static void setApiKey(String apiKey) {
-        API_KEY = apiKey;
-    }
+
 }

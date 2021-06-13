@@ -2,8 +2,6 @@ package ch.hevs.smartphone;
 
 import ch.hevs.smartphone.applications.weather.WeatherAPI;
 import org.junit.jupiter.api.Test;
-
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -13,12 +11,18 @@ import java.net.URLConnection;
 import java.util.List;
 import java.util.Map;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 /**
- * Tests pour l'application weather
+ * Testing for weather app:
+ * - Corruption of the API_KEY
+ * -
+ *
+ * (Tests pour l'application weather
  * Liste des tests :
  * - récupération correcte des données
  * - réaction en cas de perte de connexion internet --> régler timeout super court
- * - URL corrompue --> API_KEY corrompue
+ * - URL corrompue --> API_KEY corrompue)
  *
  */
 
@@ -29,6 +33,7 @@ public class TestJUnit5Weather {
         String apiKey = "ec290e8fe580091860106fddb502ce81"; // Est la clé lié à mon compte au fournisseur de l'API
         String units   = "&units=metric";                    // Permet d'avoir des unitées METRICS, donc les temperatures en °C
         String urlLocation = "Sion";
+        String successRequestCode = "200";
 
         String urlString = "http://api.openweathermap.org/data/2.5/weather?q="
                 + urlLocation
@@ -40,12 +45,20 @@ public class TestJUnit5Weather {
         URL url = new URL(urlString);
         URLConnection connection = url.openConnection();
 
-        System.out.println(connection.getHeaderFields());
+        // System.out.println(connection.getHeaderFields());
 
         //BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         Map<String, List<String>> myConnection = connection.getHeaderFields();
 
-        myConnection.forEach((k, v)-> System.out.println(k + " - " + v));
+        // myConnection.forEach((k, v)-> System.out.println(k + " - " + v));
+        List<String> httpCodeList = myConnection.get(null);
+        // System.out.println(httpCodeList.toString());
+        String tmpCode = String.join(" ", httpCodeList);
+        // System.out.println(tmpCode);
+        String finalErrorCode = tmpCode.substring(9,12);
+        // System.out.println(finalErrorCode);
+
+        assertEquals(finalErrorCode, successRequestCode);
 
     }
 
