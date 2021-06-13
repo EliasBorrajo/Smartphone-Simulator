@@ -1,13 +1,8 @@
 package ch.hevs.smartphone.applications.contacts;
 
-
-import ch.hevs.smartphone.applications.gallery.Photo;
-
-import javax.swing.*;
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.Arrays;
-import java.util.Scanner;
+
 /**
  * @author Bourquin Jonathan
  * Attribut les strings qui seront enregistrées dans le JSON pour chaque contact

@@ -117,22 +117,22 @@ public class EditContactInfo extends JPanel {
         pnlSouthSouth.add(lblNoPhone);
         pnlSouthSouth.add(tfPhone);
 
-        // NORTH - Contient l'image du contacte
+        // Panel nord - Contient l'image du contacte
         pnlNorth.add(btnBackEdit, BorderLayout.WEST);
         pnlNorth.add(btnSaveEdit, BorderLayout.EAST);
         pnlNorth.setPreferredSize(new Dimension(20, 20));
 
-        // CENTER - Contien les informations du contacte + Les textBox pour l'édition
+        // Panel Centre - Contien les informations du contacte + Les textBox pour l'édition
         pnlCentre.add(btnIconContact, BorderLayout.CENTER);
         pnlCentre.setPreferredSize(new Dimension(20, 20));
 
-        // SOUTH
+        // Panel sud
         pnlSouth.add(pnlSouthNorth);
         pnlSouth.add(pnlSouthCentre);
         pnlSouth.add(pnlSouthSouth);
         pnlSouth.setPreferredSize(new Dimension(100, 100));
 
-        // HOME PAGE - page d'accueil pour le cardlayout ShowContactInfo
+        // Homepage - page d'accueil pour le cardlayout ShowContactInfo
         this.add(pnlNorth, BorderLayout.NORTH);
         this.add(pnlCentre, BorderLayout.CENTER);
         this.add(pnlSouth, BorderLayout.SOUTH);

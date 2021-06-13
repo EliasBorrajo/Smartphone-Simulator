@@ -60,6 +60,14 @@ public class ShowContactInfo extends JPanel {
     //*****************************************************************************
     // C O N S T R U  C T E U R
     //*****************************************************************************
+    /**
+     * Constructeur
+     * @param contentLayout
+     * @param firstName
+     * @param lastName
+     * @param noPhone
+     * @param pathContactPhoto
+     * */
     public ShowContactInfo(ContentLayout contentLayout, String firstName, String lastName, String noPhone, String pathContactPhoto) throws IOException, BusinessException {
         this.contentLayout = contentLayout;
         this.firstName = firstName;
@@ -75,6 +83,9 @@ public class ShowContactInfo extends JPanel {
     //*****************************************************************************
     // M E T H O D E S
     //*****************************************************************************
+    /**
+     * Construction du panel ShowContactInfo
+     * */
     private void buildpnlShowContactInfo() {
 
         this.setLayout(new BorderLayout());
@@ -100,23 +111,23 @@ public class ShowContactInfo extends JPanel {
         pnlSouthCentre.add(lblLastName);
         pnlSouthSouth.add(lblNoPhone);
 
-        // NORTH - Contient l'image du contacte
+        // Panel nord - Contient l'image du contacte
         pnlNorth.add(btnBack, BorderLayout.WEST);
         pnlNorth.add(btnEdit, BorderLayout.EAST);
         pnlNorth.setPreferredSize(new Dimension(20, 20));
 
-        // CENTER - Contien les informations du contacte + Les textBox pour l'édition
+        // Panel centre - Contien les informations du contacte + Les textBox pour l'édition
         pnlCentre.add(lblIconContact, BorderLayout.CENTER);
         pnlCentre.setPreferredSize(new Dimension(20, 20));
 
-        // SOUTH
+        // Panel sud
         pnlSouth.add(pnlSouthNorth);
         pnlSouth.add(pnlSouthCentre);
         pnlSouth.add(pnlSouthSouth);
         pnlSouth.add(btnDeleteContact);
         pnlSouth.setPreferredSize(new Dimension(100, 100));
 
-        // HOME PAGE - page d'accueil pour le cardlayout ShowContactInfo
+        // Homepage - page d'accueil pour le cardlayout ShowContactInfo
         this.add(pnlNorth, BorderLayout.NORTH);
         this.add(pnlCentre, BorderLayout.CENTER);
         this.add(pnlSouth, BorderLayout.SOUTH);
@@ -129,7 +140,7 @@ public class ShowContactInfo extends JPanel {
     private void buildIcon() {
         ClassLoader classLoader = getClass().getClassLoader();
 
-        // btn back icon
+        // Icon btnBack
         iconDefaultBack = new ImageIcon(classLoader.getResource("FooterIcon/backIcon.png"));
         Image imageBackIcon = iconDefaultBack.getImage();
         Image newImgBackIcon = imageBackIcon.getScaledInstance(10, 10, java.awt.Image.SCALE_SMOOTH);

@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 
 /**
- * @author Bourqunin Jonathan
+ * @author Bourquin Jonathan
  * Panel qui permet d'ajouter un contact
  */
 
@@ -193,7 +193,7 @@ public class AddContact extends JPanel {
             inputN.setText("");
             inputNP.setText("");
 
-            // Refresh des PANNELS
+            // Refresh des panels
             contactsGUI.removeAll();
             contactsGUI.validate();
 
