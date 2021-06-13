@@ -21,10 +21,16 @@ import ch.hevs.smartphone.parameters.jsonStorage.Config;
 import java.io.IOException;
 
 /**
- * Main qui va nous créer le projet au complêt
+ * @author Borrajo Elias
+ * Main qui va nous créer le projet au complet
  */
 public class SmartphoneDemo
 {
+    /**
+     * Création du main
+     * @throws IOException
+     * @throws BusinessException
+     * */
     public static void main(String[] args) throws IOException, BusinessException
     {
         //Créer le singleTon au début.

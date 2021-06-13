@@ -12,15 +12,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * @author Jonathan, Elias
+ * @author Bourquin Jonathan, Borrajo Elias
+ * Panel qui affiche les informations du contact
  */
-public class ShowContactInfo extends JPanel
-{
+public class ShowContactInfo extends JPanel {
     //*****************************************************************************
-    // V A R I A B L E S
+    // A T T R I B U T S
     //*****************************************************************************
-
-    // PANEL
+    // Panel
     private JPanel pnlNorth;
     private JPanel pnlCentre;
     private JPanel pnlSouth;
@@ -28,37 +27,40 @@ public class ShowContactInfo extends JPanel
     private JPanel pnlSouthCentre;
     private JPanel pnlSouthSouth;
 
-    // LABEL
+    // Layout
+    private ContentLayout contentLayout;
+
+    // Label
     private JLabel lblIconContact;
     private JLabel lblFirstName;
     private JLabel lblLastName;
     private JLabel lblNoPhone;
 
+    // String
     private String firstName = "";
     private String lastName = "";
     private String noPhone = "";
     private String pathContactPhoto;
 
-    // BUTTON
+    // Button
     private JButton btnDeleteContact;
     private JButton btnBack;
     private JButton btnEdit;
 
-    // IMAGES
+    // ImageIcon
     private ImageIcon iconDefaultBack;
     private ImageIcon iconContact;
 
-    // OTHER
-    private ContentLayout contentLayout;
+    // ArrayList
     private ArrayList<Contact> contacts;
-    private ContactListener myListener;
 
+    // ActionListener
+    private ContactListener myListener;
 
     //*****************************************************************************
     // C O N S T R U  C T E U R
     //*****************************************************************************
-    public ShowContactInfo(ContentLayout contentLayout, String firstName, String lastName, String noPhone, String pathContactPhoto) throws IOException, BusinessException
-    {
+    public ShowContactInfo(ContentLayout contentLayout, String firstName, String lastName, String noPhone, String pathContactPhoto) throws IOException, BusinessException {
         this.contentLayout = contentLayout;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -73,8 +75,7 @@ public class ShowContactInfo extends JPanel
     //*****************************************************************************
     // M E T H O D E S
     //*****************************************************************************
-    private void buildpnlShowContactInfo()
-    {
+    private void buildpnlShowContactInfo() {
 
         this.setLayout(new BorderLayout());
 
@@ -104,7 +105,6 @@ public class ShowContactInfo extends JPanel
         pnlNorth.add(btnEdit, BorderLayout.EAST);
         pnlNorth.setPreferredSize(new Dimension(20, 20));
 
-
         // CENTER - Contien les informations du contacte + Les textBox pour l'édition
         pnlCentre.add(lblIconContact, BorderLayout.CENTER);
         pnlCentre.setPreferredSize(new Dimension(20, 20));
@@ -126,8 +126,7 @@ public class ShowContactInfo extends JPanel
      * Crée l'image de l'icone par défaut.
      * On passe par une étape intermédiaire pour pouvoir agrandire l'image.
      */
-    private void buildIcon()
-    {
+    private void buildIcon() {
         ClassLoader classLoader = getClass().getClassLoader();
 
         // btn back icon
@@ -136,21 +135,18 @@ public class ShowContactInfo extends JPanel
         Image newImgBackIcon = imageBackIcon.getScaledInstance(10, 10, java.awt.Image.SCALE_SMOOTH);
         iconDefaultBack = new ImageIcon(newImgBackIcon);
 
-        if(pathContactPhoto == null)
-        {
+        // Afficher l'image attribuer au contact ou celle par défaut
+        if (pathContactPhoto == null) {
             iconContact = new ImageIcon(classLoader.getResource("ContentIcon/Apps/Contact_Icon.png")); //Récupère l'image
-            Image imageContactIcon = iconContact.getImage();  // transform it
+            Image imageContactIcon = iconContact.getImage();        // transform it
             Image newImgContactIcon = imageContactIcon.getScaledInstance(150, 150, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
-            iconContact = new ImageIcon(newImgContactIcon);  // transform it back
-        }
-        else
-        {
-            System.out.println("PATH CONTACT PHOTO "+pathContactPhoto);
-            iconContact = new ImageIcon(pathContactPhoto); //Récupère l'image
-            Image imageContactIcon = iconContact.getImage();  // transform it
-            //Image newImgContactIcon = imageContactIcon.getScaledInstance(150, 150, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+            iconContact = new ImageIcon(newImgContactIcon);         // transform it back
+        } else {
+            System.out.println("PATH CONTACT PHOTO " + pathContactPhoto);
+            iconContact = new ImageIcon(pathContactPhoto);          //Récupère l'image
+            Image imageContactIcon = iconContact.getImage();        // transform it
             Image newImgContactIcon = imageContactIcon;
-            iconContact = new ImageIcon(newImgContactIcon);  // transform it back
+            iconContact = new ImageIcon(newImgContactIcon);         // transform it back
             iconContact = Util.getScaledImageIcon(iconContact, 250);
 
         }
@@ -159,8 +155,7 @@ public class ShowContactInfo extends JPanel
     //*****************************************************************************
     // L I S T E N E R S
     //*****************************************************************************
-    protected void setListeners()
-    {
+    protected void setListeners() {
         myListener = new ContactListener(contentLayout);
         btnBack.addActionListener(myListener);
         btnEdit.addActionListener(myListener);
@@ -170,104 +165,83 @@ public class ShowContactInfo extends JPanel
     //*****************************************************************************
     // G E T T E R S
     //*****************************************************************************
-
-    public JPanel getPnlNorth()
-    {
+    public JPanel getPnlNorth() {
         return pnlNorth;
     }
 
-    public JPanel getPnlCentre()
-    {
+    public JPanel getPnlCentre() {
         return pnlCentre;
     }
 
-    public JPanel getPnlSouth()
-    {
+    public JPanel getPnlSouth() {
         return pnlSouth;
     }
 
-    public JPanel getPnlSouthNorth()
-    {
+    public JPanel getPnlSouthNorth() {
         return pnlSouthNorth;
     }
 
-    public JPanel getPnlSouthCentre()
-    {
+    public JPanel getPnlSouthCentre() {
         return pnlSouthCentre;
     }
 
-    public JPanel getPnlSouthSouth()
-    {
+    public JPanel getPnlSouthSouth() {
         return pnlSouthSouth;
     }
 
-    public JLabel getLblIconContact()
-    {
+    public JLabel getLblIconContact() {
         return lblIconContact;
     }
 
-    public JLabel getLblFirstName()
-    {
+    public JLabel getLblFirstName() {
         return lblFirstName;
     }
 
-    public JLabel getLblLastName()
-    {
+    public JLabel getLblLastName() {
         return lblLastName;
     }
 
-    public JLabel getLblNoPhone()
-    {
+    public JLabel getLblNoPhone() {
         return lblNoPhone;
     }
 
-    public String getFirstName()
-    {
+    public String getFirstName() {
         return firstName;
     }
 
-    public String getLastName()
-    {
+    public String getLastName() {
         return lastName;
     }
 
-    public String getNoPhone()
-    {
+    public String getNoPhone() {
         return noPhone;
     }
 
-    public JButton getBtnDeleteContact()
-    {
+    public JButton getBtnDeleteContact() {
         return btnDeleteContact;
     }
 
-    public JButton getBtnBack()
-    {
+    public JButton getBtnBack() {
         return btnBack;
     }
 
-    public JButton getBtnEdit()
-    {
+    public JButton getBtnEdit() {
         return btnEdit;
     }
 
-    public ImageIcon getIconDefaultBack()
-    {
+    public ImageIcon getIconDefaultBack() {
         return iconDefaultBack;
     }
 
-    public ContentLayout getContentLayout()
-    {
+    public ContentLayout getContentLayout() {
         return contentLayout;
     }
 
-    public ArrayList<Contact> getContacts()
-    {
+    public ArrayList<Contact> getContacts() {
         return contacts;
     }
 
-    public ContactListener getMyListener()
-    {
+    public ContactListener getMyListener() {
         return myListener;
     }
 
@@ -282,8 +256,7 @@ public class ShowContactInfo extends JPanel
     //*****************************************************************************
     // S E T T E R S
     //*****************************************************************************
-    public void setLblIconContact(JLabel lblIconContact)
-    {
+    public void setLblIconContact(JLabel lblIconContact) {
         this.lblIconContact = lblIconContact;
     }
 

@@ -11,66 +11,82 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * @author Lonfat Milena
+ * La classe ShowPhoto est le deuxième panel du card de l'application galerie.
+ * Affiche la miniature et le nom de la photo séléctionner dans la galerie.
+ * Il permet de changer le nom ou supprimer la photo en question.
+ * Le deuxième accès se fait depuis un contact pour lui attribuer une photo.
+ * Les boutons sont visibles ou non suivant l'accès pris (galerie ou contact).
+ * Accès à la class des actionListeners.
+ */
+
 public class ShowPhoto extends JPanel {
     //*****************************************************************************
     // A T T R I B U T S
     //*****************************************************************************
-    //Panel
-    private JPanel pnlCTSP;
+    // Panel
     private JPanel pnlNamePhoto;
     private JPanel pnlShowPhoto;
     private JPanel pnlButton;
 
-    // JTextField
+    // Layout
+    private GalleryGUI galleryGUI;
+
+    // TextField
     private JTextField tfNamePhoto;
 
-    //Label
+    // Label
     private JLabel lblNamePhoto;
     private JLabel lblContentPhoto;
 
-    //Button
+    // Button
     private JButton btnSave;
     private JButton btnDelete;
     private JButton btnCancel;
-    private JButton btnSelect; // Permet de choisir la photo en tant qu'image de profil du contacte
+    private JButton btnSelect; // Permet de choisir la photo en tant qu'image de profil du contact
 
-    //ImageIcon
+    // ImageIcon
     private ImageIcon icPhoto;
 
-    //ArrayList
-    private ArrayList<Photo> photosArray;
-
-    //String
+    // String
     private String name = "";
     private String path = "";
 
-    //Other
-    private GalleryGUI galleryGUI;
+    // ActionListener
     private GalleryActionListener galleryActionListener;
+
+    // MouseListener
     private GalleryMouseListener galleryMouseListener;
 
     //*****************************************************************************
     // C O N S T R U C T E U R
     //*****************************************************************************
+    /**
+     * Constructeur
+     *
+     * @param galleryGUI
+     * @param name
+     * @param path
+     */
     public ShowPhoto(GalleryGUI galleryGUI, String name, String path) {
         this.galleryGUI = galleryGUI;
         this.name = name;
         this.path = path;
-        this.add(buildpnlShowPhoto());
+        buildpnlShowPhoto();
         buildListeners();
     }
 
     //*****************************************************************************
     // M E T H O D E S
     //*****************************************************************************
-
     /**
      * Création initiale du panel
      */
-    private JPanel buildpnlShowPhoto() {
+    private void buildpnlShowPhoto() {
         buildvariables();
 
-        /**Panel nord*/
+        // Panel nord
         pnlNamePhoto = new JPanel();
         lblNamePhoto = new JLabel("Name :");
         tfNamePhoto = new JTextField(this.name);
@@ -80,19 +96,18 @@ public class ShowPhoto extends JPanel {
         pnlNamePhoto.add(lblNamePhoto);
         pnlNamePhoto.add(tfNamePhoto);
 
-        /**Panel centre*/
+        // Panel centre
         pnlShowPhoto = new JPanel();
         lblContentPhoto = new JLabel();
 
-        //@TODO Faire en sorte de récupérer l'image et de l'afficher dans le JLabel (ImageIcon puis associer au JLabel)
         icPhoto = new ImageIcon(this.path);
         icPhoto = Util.getScaledImageIcon(icPhoto, 250);
         lblContentPhoto.setIcon(icPhoto);
         pnlShowPhoto.add(lblContentPhoto);
 
-        /**Panel sud*/
+        // Panel sud
         pnlButton = new JPanel();
-        btnSave   = new JButton("Save change");
+        btnSave = new JButton("Save change");
         btnDelete = new JButton("Delete");
         btnCancel = new JButton("Cancel");
         btnSelect = new JButton("Select image as contact image");
@@ -103,12 +118,10 @@ public class ShowPhoto extends JPanel {
         pnlButton.add(btnCancel);
         pnlButton.add(btnSelect);
 
-        /**Panel qui contient le tout*/
-        pnlCTSP = new JPanel(new GridLayout(3,0));
-        pnlCTSP.add(pnlNamePhoto);
-        pnlCTSP.add(pnlShowPhoto);
-        pnlCTSP.add(pnlButton);
-        return pnlCTSP;
+        // Panel qui contient le tout
+        this.add(pnlNamePhoto);
+        this.add(pnlShowPhoto);
+        this.add(pnlButton);
     }
 
     /**
@@ -123,36 +136,29 @@ public class ShowPhoto extends JPanel {
      * Listeners du bouton ajouter
      * On construit dans une autre méthode pour avoir accès après la création de TOUS les composants
      */
-    public void buildListeners()
-    {
+    public void buildListeners() {
         btnSave.addActionListener(galleryActionListener);
         btnDelete.addActionListener(galleryActionListener);
         btnCancel.addActionListener(galleryActionListener);
-        //btnSelect.addActionListener(galleryActionListener);
-
         tfNamePhoto.addMouseListener(galleryMouseListener);
     }
 
     /**
-     * Permet de afficher les boutons que l'on a pas besoin depuis l'app gallery
+     * Permet de afficher les boutons que l'on a pas besoin depuis l'application gallery
      */
-    public void showNormalBtn()
-    {
+    public void showNormalBtn() {
         btnSave.setVisible(true);
         btnDelete.setVisible(true);
-        //btnCancel.setVisible(false);
         galleryGUI.getBtnAddPhoto().setVisible(true);
         btnSelect.setVisible(false);
     }
 
     /**
-     * Permet d'afficher les bouttons que l'on a besoin depuis l'app contacte
+     * Permet d'afficher les bouttons que l'on a besoin depuis l'application contact
      */
-    public void showSelectImageBtn()
-    {
+    public void showSelectImageBtn() {
         btnSave.setVisible(false);
         btnDelete.setVisible(false);
-        //btnCancel.setVisible(false);
         galleryGUI.getBtnAddPhoto().setVisible(false);
         btnSelect.setVisible(true);
     }
@@ -181,13 +187,11 @@ public class ShowPhoto extends JPanel {
         return name;
     }
 
-    public String getPath()
-    {
+    public String getPath() {
         return path;
     }
 
-    public JButton getBtnSelect()
-    {
+    public JButton getBtnSelect() {
         return btnSelect;
     }
 

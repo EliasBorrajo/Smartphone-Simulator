@@ -14,12 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Milena, Elias
+ * @author Lonfat Milena, Borrajo Elias
  * Contient la galerie de photos.
  * Récupère le fichier JSON sur le PC à l'endroit ou l'utilisateur a défini afin de créer nos photos
  */
-public class JSONStoragePhoto implements StorablePhoto
-{
+public class JSONStoragePhoto implements StorablePhoto {
     //*****************************************************************************
     // A T T R I B U T S
     //*****************************************************************************
@@ -30,17 +29,21 @@ public class JSONStoragePhoto implements StorablePhoto
     private List<Photo> photoList;
 
     //PATH
-    private String storePath;        // Permet de stoquer le contenu de notre VARIABLE D'ENVIRONNEMENT SYSTEME
-    private String jsonPath;         // Est la variable qui contiendra le chemin FINAl sur le PC et selon l'OS,
-                                     // à l'emplacement de stockage de notre fichier JSON
+    private String storePath;       // Permet de stoquer le contenu de notre VARIABLE D'ENVIRONNEMENT SYSTEME
+    private String jsonPath;        // Est la variable qui contiendra le chemin FINAl sur le PC et selon l'OS,
+                                    // à l'emplacement de stockage de notre fichier JSON
     // myObj FILE
     private File myObj;
 
     //*****************************************************************************
     // C O N S T R U C T E U R
     //*****************************************************************************
-    public JSONStoragePhoto() throws IOException, BusinessException
-    {
+    /**
+     * Constructeur
+     * @throws IOException
+     * @throws BusinessException
+     * */
+    public JSONStoragePhoto() throws IOException, BusinessException {
         definePathToStoreData();
         read();
     }
@@ -48,23 +51,21 @@ public class JSONStoragePhoto implements StorablePhoto
     //*****************************************************************************
     // M E T H O D E S
     //*****************************************************************************
-
     /**
      * Permet de récuperer la valeur stoqué sur le PC de l'utilisateur de l'app.
      * L'utilisateur va créer une VARIABLE D'ENVIRONNEMENT sur son OS / PC, pour décider à quel emplacement
      * il shouaite stoquer les fichiers JSON.
-     *
+     * <p>
      * 1) Il faut récuperer cette VARIABLE grâce à notre SINGLETON
-     *
+     * <p>
      * 2) Utiliser la classe PATH pour créer un chemin d'accès correcte peu importe l'OS.
-     *    Cette classe utilise l'import java.nio, qui va grandement nous aider pour homogeneiser notre code.
-     *
-     *    Puis utiliser la clate PATHS pour CONCATENER le chemin d'accès de la VAARIABLE + le nom du fichier que l'on veut.
-     *
+     * Cette classe utilise l'import java.nio, qui va grandement nous aider pour homogeneiser notre code.
+     * <p>
+     * Puis utiliser la clate PATHS pour CONCATENER le chemin d'accès de la VAARIABLE + le nom du fichier que l'on veut.
+     * <p>
      * 3) Définir dans une string le chemin d'accès finale crée par PATH, et l'utiliser pour la création de notre FILE.
      */
-    private void definePathToStoreData()
-    {
+    private void definePathToStoreData() {
         // Récupère le CONTENU de la VARIABLE D'ENVIRONNEMENT
         storePath = Config.getConfig().getStorePath();
 
@@ -82,37 +83,33 @@ public class JSONStoragePhoto implements StorablePhoto
 
     /**
      * DE-SERIALISATION READ DATA IN A JSON FILE
+     *
      * @return
      * @throws BusinessException
      * @throws IOException
      */
     @Override
-    public ArrayList<Photo> read() throws BusinessException, IOException
-    {
+    public ArrayList<Photo> read() throws BusinessException, IOException {
         ObjectMapper mapper = new ObjectMapper();       // Mapper n'aime pas les fichiers vides !!
 
-        try
-        {
+        try {
             // Verifie que le fichier existe pas & Crée le ficher
-            if (!myObj.exists())
-            {
+            if (!myObj.exists()) {
                 myObj.createNewFile();
                 System.out.println("File created: " + myObj.getName());
             }
             // verifie que le ficher n'est pas vide (NULL)
-            else if (myObj.length() > 0)
-            {
+            else if (myObj.length() > 0) {
                 photosArray.clear();
 
-                photoList = mapper.readValue(myObj, new TypeReference<List<Photo>>()  { });
+                photoList = mapper.readValue(myObj, new TypeReference<List<Photo>>() {
+                });
 
                 photosArray = (ArrayList<Photo>) photoList;        // casting de la LISTE en ARRAYLISTE
-            } else
-            {
+            } else {
                 System.out.println("Empty file");
             }
-        } catch (IOException e)
-        {
+        } catch (IOException e) {
             System.out.println("An error occurred while READING JSON STORAGE PHOTOS.");
             e.printStackTrace();
         }
@@ -127,14 +124,11 @@ public class JSONStoragePhoto implements StorablePhoto
      * @throws BusinessException
      */
     @Override
-    public void write(File destination, ArrayList<Photo> photosArray) throws BusinessException
-    {
+    public void write(File destination, ArrayList<Photo> photosArray) throws BusinessException {
         ObjectMapper mapper = new ObjectMapper();
-        try
-        {
+        try {
             mapper.writeValue(destination, photosArray);
-        } catch (IOException e)
-        {
+        } catch (IOException e) {
             System.out.println("SERIALISATION of photoList.JSON has failed : ");
             e.printStackTrace();
         }
@@ -145,8 +139,7 @@ public class JSONStoragePhoto implements StorablePhoto
      *
      * @param photo
      */
-    public void addPhoto(Photo photo)
-    {
+    public void addPhoto(Photo photo) {
         photosArray.add(photo);
     }
 
@@ -154,21 +147,18 @@ public class JSONStoragePhoto implements StorablePhoto
     //*****************************************************************************
     // G E T T E R S
     //*****************************************************************************
-    public ArrayList<Photo> getPhotosArray()
-    {
+    public ArrayList<Photo> getPhotosArray() {
         return photosArray;
     }
 
-    public File getmyObj()
-    {
+    public File getmyObj() {
         return myObj;
     }
 
     //*****************************************************************************
     // S E T T E R S
     //*****************************************************************************
-    public void setTabPhoto(ArrayList<Photo> tabContact)
-    {
+    public void setTabPhoto(ArrayList<Photo> tabContact) {
         this.photosArray = tabContact;
     }
 }

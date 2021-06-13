@@ -8,50 +8,48 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * @author Elias
+ * @author Borrajo Elias
+ * Classe qui gère l'application météo
+ * Changement de ville possible
+ * Donne la température maximale, minimale et celle du moment, avec le taux d'humidité
  */
-public class WeatherGUI extends JPanel
-{
+public class WeatherGUI extends JPanel {
     //*****************************************************************************
     // A T T R I B U T S
     //*****************************************************************************
     WeatherAPI weatherInfos;
 
-    // PANEL
+    // Panel
     private JPanel pnlNord;
     private JPanel pnlCentre;
-
     private JPanel pnlVille;
     private JPanel pnlTemp;
     private JPanel pnlTempMax;
     private JPanel pnlTempMin;
     private JPanel pnlHumidite;
-
     private JPanel pnlNoConnexion;
 
-    // TEXTFIELD
-    private JTextField tfLocation;
-
-    // BUTTONS
-    private JButton btnSearch;
-
-    // ICON
-    private ImageIcon iconSearch;
-
-    // LABEL
+    // Label
     private JLabel lblVille;
     private JLabel lblTemp;
     private JLabel lblTempMax;
     private JLabel lblTempMin;
     private JLabel lblHumidite;
-
     private JLabel lblNoConnexion;
+
+    // Button
+    private JButton btnSearch;
+
+    // ImageIcon
+    private ImageIcon iconSearch;
+
+    // TextField
+    private JTextField tfLocation;
 
     //*****************************************************************************
     // C O N S T R U C T E U R
     //*****************************************************************************
-    public WeatherGUI()
-    {
+    public WeatherGUI() {
         weatherInfos = new WeatherAPI();
         buildMainPanel();
     }
@@ -59,8 +57,7 @@ public class WeatherGUI extends JPanel
     //*****************************************************************************
     // M E T H O D E S
     //*****************************************************************************
-    private void buildMainPanel()
-    {
+    private void buildMainPanel() {
         setPreferredSize(new Dimension(ScreenSizeEnum.CONTENT_PANEL_WIDTH.getSize(), ScreenSizeEnum.CONTENT_PANEL_HEIGHT.getSize()));
         setMinimumSize(new Dimension(ScreenSizeEnum.CONTENT_PANEL_WIDTH.getSize(), ScreenSizeEnum.CONTENT_PANEL_HEIGHT.getSize()));
 
@@ -69,8 +66,8 @@ public class WeatherGUI extends JPanel
         buildIcon();
         buildPanel();
     }
-    private void buildIcon()
-    {
+
+    private void buildIcon() {
         //Création icon
         ClassLoader classLoader = getClass().getClassLoader();
 
@@ -81,14 +78,13 @@ public class WeatherGUI extends JPanel
         iconSearch = new ImageIcon(newImgSearchIcon);
     }
 
-    private void buildPanel()
-    {
+    private void buildPanel() {
         // Création textfield
         tfLocation = new JTextField();
-        tfLocation.setPreferredSize(new Dimension(200,25));
+        tfLocation.setPreferredSize(new Dimension(200, 25));
 
         //Création bouton
-        btnSearch   = new JButton(iconSearch);
+        btnSearch = new JButton(iconSearch);
         btnSearch.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -117,24 +113,24 @@ public class WeatherGUI extends JPanel
         // Création des labels
         // @TODO METTRE DES VALEURS PAR DEFAUT
         // @TODO POUVOIR SAISIR DANS UN TEXTBOX NOM DE LA VILLE A CHERCHER
-        lblVille        = new JLabel("Location : " + weatherInfos.getNomVille());
-        lblTemp         = new JLabel("Temperature : " + weatherInfos.getTemperature() + "°C");
-        lblTempMax      = new JLabel("Maximum temperature : " + weatherInfos.getTempMax() + "°C");
-        lblTempMin      = new JLabel("Minimum temperature : " + weatherInfos.getTempMin() + "°C");
-        lblHumidite     = new JLabel("Humidity level : " + weatherInfos.getHumidite() + "%");
+        lblVille = new JLabel("Location : " + weatherInfos.getNomVille());
+        lblTemp = new JLabel("Temperature : " + weatherInfos.getTemperature() + "°C");
+        lblTempMax = new JLabel("Maximum temperature : " + weatherInfos.getTempMax() + "°C");
+        lblTempMin = new JLabel("Minimum temperature : " + weatherInfos.getTempMin() + "°C");
+        lblHumidite = new JLabel("Humidity level : " + weatherInfos.getHumidite() + "%");
 
         // NORD
-        pnlNord         = new JPanel();
+        pnlNord = new JPanel();
         pnlNord.add(tfLocation);
         pnlNord.add(btnSearch);
 
         // CENTRE
-        pnlCentre       = new JPanel(new GridLayout(20,0,5,5));
-        pnlVille        = new JPanel();
-        pnlTemp         = new JPanel();
-        pnlTempMax      = new JPanel();
-        pnlTempMin      = new JPanel();
-        pnlHumidite     = new JPanel();
+        pnlCentre = new JPanel(new GridLayout(20, 0, 5, 5));
+        pnlVille = new JPanel();
+        pnlTemp = new JPanel();
+        pnlTempMax = new JPanel();
+        pnlTempMin = new JPanel();
+        pnlHumidite = new JPanel();
 
         pnlVille.add(lblVille);
         pnlTemp.add(lblTemp);
@@ -149,22 +145,21 @@ public class WeatherGUI extends JPanel
         pnlCentre.add(pnlHumidite);
 
         // Panel si pas de connexion internet
-        pnlNoConnexion  = new JPanel();
-        lblNoConnexion  = new JLabel("Could not connect to server");
+        pnlNoConnexion = new JPanel();
+        lblNoConnexion = new JLabel("Could not connect to server");
         pnlNoConnexion.add(lblNoConnexion);
 
         // Ajout des PANELS au Layout
-        this.add(pnlNord,   BorderLayout.NORTH);
+        this.add(pnlNord, BorderLayout.NORTH);
         this.add(pnlNoConnexion, BorderLayout.SOUTH);
         this.add(pnlCentre, BorderLayout.CENTER);
 
 
-        if(weatherInfos.isConnected() == false){
+        if (weatherInfos.isConnected() == false) {
             pnlCentre.setVisible(false);
             pnlNord.setVisible(true);
             pnlNoConnexion.setVisible(true);
-        }
-        else{
+        } else {
             pnlCentre.setVisible(true);
             pnlNord.setVisible(true);
             pnlNoConnexion.setVisible(false);

@@ -1,6 +1,7 @@
 package ch.hevs.smartphone.applications.weather;
 
 // Les deux imports de google sont nécessaires pour la methode "jsonToMap"
+
 import com.google.gson.*;
 import com.google.gson.reflect.*;
 
@@ -19,17 +20,16 @@ import java.util.TreeMap;
 
 
 /**
- * @author Elias
+ * @author Borrajo Elias
  * Tutoriel trouvé sur : https://stackoverflow.com/questions/58759133/openweathermap-api-java
  */
-public class WeatherAPI
-{
+public class WeatherAPI {
     //*****************************************************************************
     // A T T R I B U T S
     //*****************************************************************************
     // Attributs nécessaire pour récuperer les infos de l'API
     private static final String API_KEY = "ec290e8fe580091860106fddb502ce81";   // Est la clé lié à mon compte au fournisseur de l'API
-    private static final String UNITS   = "&units=metric";                      // Permet d'avoir des unitées METRICS, donc les temperatures en °C
+    private static final String UNITS = "&units=metric";                      // Permet d'avoir des unitées METRICS, donc les temperatures en °C
     private String urlLocation = "Sion";                                        // La ville sera par défaut "Sion"
     private boolean isConnected;
 
@@ -41,12 +41,12 @@ public class WeatherAPI
     private String tempMin;
     private String tempRessenti;
     private String description;
-    private String humidite ;       // en %
+    private String humidite;       // en %
     private String windSpeed;       // metres/sec
     private String nuage;           // % de nuages
     private String pluie1h;         // Volume de pluie la dernière heure
 
-    private Icon   weatherIcon;     // "weather" --> icon
+    private Icon weatherIcon;     // "weather" --> icon
 
 // @TODO : POUR RECUPERER LE TABLEAU, RECUPERER NORMAL 1 FOIS DEJA; PUIS RöCUPERER DE CE RESULTAT LA STRING
 
@@ -60,48 +60,47 @@ public class WeatherAPI
 
     }*/
 
-    public WeatherAPI()
-    {
+    public WeatherAPI() {
         getAPIDetails();
     }
 
     //*****************************************************************************
     // M E T H O D E S
     //*****************************************************************************
+
     /**
      * Convert JSON into a MAP
      * ON donne en entrée le fichier JSON que l'on veut,
      * et en sortie, on crée une HasMap qui nous liée une information à une string.
      * Ex : "location" string est lié à "Bern" object
+     *
      * @param str
      * @return
      */
-    private static Map <String, Object> jsonToMap(String str)
-    {
-        Map <String, Object> map = new Gson().fromJson(
+    private static Map<String, Object> jsonToMap(String str) {
+        Map<String, Object> map = new Gson().fromJson(
                 str,
-                new TypeToken<HashMap <String, Object>>() {}.getType()
+                new TypeToken<HashMap<String, Object>>() {
+                }.getType()
         );
         return map;
     }
 
 
-    protected void getAPIDetails()
-    {
+    protected void getAPIDetails() {
         // Se connecter à l'API
         String urlString = "http://api.openweathermap.org/data/2.5/weather?q="
-                                                                            + urlLocation
-                                                                            + UNITS
-                                                                            +"&appid="
-                                                                            + API_KEY;
+                + urlLocation
+                + UNITS
+                + "&appid="
+                + API_KEY;
 
         isConnected = false;
 
         /**
          * Tentative de récuperer les informations de l'API
          */
-        try
-        {
+        try {
             StringBuilder result = new StringBuilder();
             URL url = new URL(urlString);
             URLConnection connection = url.openConnection();
@@ -109,15 +108,14 @@ public class WeatherAPI
             // Lecture du flux de l'API, la lecture additionne la STRING resultat de la lecture à la suite.
             BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             String line;                            // Permet de contenir la ligne que nous lisons actuellement
-            while ((line = br.readLine()) != null)
-            {
+            while ((line = br.readLine()) != null) {
                 result.append(line);      // Ajoute au resultat la ligne en cours de lecture
             }
             br.close();
 
             Map<String, Object> resultMap = jsonToMap(result.toString());
             System.out.println("Resultat : " + result.toString());
-            System.out.println("API infos are on : "+connection.getURL());
+            System.out.println("API infos are on : " + connection.getURL());
             System.out.println();
 
             // Crée les différents MAP à partir de la MAP resultat.
@@ -132,8 +130,8 @@ public class WeatherAPI
             System.out.println("WEATHER    " + resultMap.get("weather"));*/
 
             //Map<String, Object> weatherMap= jsonToMap(resultMap.get("weather").toString());
-            Map<String, Object> mainMap   = jsonToMap(resultMap.get("main").toString());
-            Map<String, Object> windMap   = jsonToMap(resultMap.get("wind").toString());
+            Map<String, Object> mainMap = jsonToMap(resultMap.get("main").toString());
+            Map<String, Object> windMap = jsonToMap(resultMap.get("wind").toString());
             //Map<String, Object> nameMap   = jsonToMap(resultMap.get("name").toString());
             //Map<String, Object> sysMap    = jsonToMap(resultMap.get("sys").toString());
 
@@ -150,11 +148,11 @@ public class WeatherAPI
             // Attribue les informations récuperés à mes variables
             setNomVille(resultMap.get("name").toString());
 
-            setTemperature( mainMap.get("temp").toString());
-            setTempMax(     mainMap.get("temp_max").toString());
-            setTempMin(     mainMap.get("temp_min").toString());
+            setTemperature(mainMap.get("temp").toString());
+            setTempMax(mainMap.get("temp_max").toString());
+            setTempMin(mainMap.get("temp_min").toString());
             setTempRessenti(mainMap.get("feels_like").toString());
-            setHumidite(    mainMap.get("humidity").toString());
+            setHumidite(mainMap.get("humidity").toString());
 
             //setDescription(weatherMap.get("description").toString());
 
@@ -166,73 +164,61 @@ public class WeatherAPI
             System.out.println(getHumidite());
             isConnected = true;
 
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             isConnected = false;
             System.out.println("Erreur dans WEATHER_API : methode = getAPIDetails");
             JOptionPane.showMessageDialog(null, "Ville non valide" +
-                                                                        "\n Ville par défault initialisée : Sion");
+                    "\n Ville par défault initialisée : Sion");
             setUrlLocation("Sion");
             e.printStackTrace();
         }
 
     }
+
     //*****************************************************************************
     // G E T T E R S
     //*****************************************************************************
-    public String getNomVille()
-    {
+    public String getNomVille() {
         return nomVille;
     }
 
-    public String getTemperature()
-    {
+    public String getTemperature() {
         return temperature;
     }
 
-    public String getTempMax()
-    {
+    public String getTempMax() {
         return tempMax;
     }
 
-    public String getTempMin()
-    {
+    public String getTempMin() {
         return tempMin;
     }
 
-    public String getTempRessenti()
-    {
+    public String getTempRessenti() {
         return tempRessenti;
     }
 
-    public String getDescription()
-    {
+    public String getDescription() {
         return description;
     }
 
-    public String getHumidite()
-    {
+    public String getHumidite() {
         return humidite;
     }
 
-    public String getWindSpeed()
-    {
+    public String getWindSpeed() {
         return windSpeed;
     }
 
-    public String getNuage()
-    {
+    public String getNuage() {
         return nuage;
     }
 
-    public String getPluie1h()
-    {
+    public String getPluie1h() {
         return pluie1h;
     }
 
-    public Icon getWeatherIcon()
-    {
+    public Icon getWeatherIcon() {
         return weatherIcon;
     }
 
@@ -247,63 +233,51 @@ public class WeatherAPI
     //*****************************************************************************
     // S E T T E R S
     //*****************************************************************************
-    public void setUrlLocation(String urlLocation)
-    {
+    public void setUrlLocation(String urlLocation) {
         this.urlLocation = urlLocation;
     }
 
-    public void setNomVille(String nomVille)
-    {
+    public void setNomVille(String nomVille) {
         this.nomVille = nomVille;
     }
 
-    public void setTemperature(String temperature)
-    {
+    public void setTemperature(String temperature) {
         this.temperature = temperature;
     }
 
-    public void setTempMax(String tempMax)
-    {
+    public void setTempMax(String tempMax) {
         this.tempMax = tempMax;
     }
 
-    public void setTempMin(String tempMin)
-    {
+    public void setTempMin(String tempMin) {
         this.tempMin = tempMin;
     }
 
-    public void setTempRessenti(String tempRessenti)
-    {
+    public void setTempRessenti(String tempRessenti) {
         this.tempRessenti = tempRessenti;
     }
 
-    public void setDescription(String description)
-    {
+    public void setDescription(String description) {
         this.description = description;
     }
 
-    public void setHumidite(String humidite)
-    {
+    public void setHumidite(String humidite) {
         this.humidite = humidite;
     }
 
-    public void setWindSpeed(String windSpeed)
-    {
+    public void setWindSpeed(String windSpeed) {
         this.windSpeed = windSpeed;
     }
 
-    public void setNuage(String nuage)
-    {
+    public void setNuage(String nuage) {
         this.nuage = nuage;
     }
 
-    public void setPluie1h(String pluie1h)
-    {
+    public void setPluie1h(String pluie1h) {
         this.pluie1h = pluie1h;
     }
 
-    public void setWeatherIcon(Icon weatherIcon)
-    {
+    public void setWeatherIcon(Icon weatherIcon) {
         this.weatherIcon = weatherIcon;
     }
 }

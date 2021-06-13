@@ -8,10 +8,16 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Scanner;
+/**
+ * @author Bourquin Jonathan
+ * Attribut les strings qui seront enregistrées dans le JSON pour chaque contact
+ */
 
 public class Contact implements Serializable
 {
-
+    //*****************************************************************************
+    // A T T R I B U T S
+    //*****************************************************************************
     @Serial
     private static final long serialVersionUID = -7259141374952645688L;
 
@@ -20,7 +26,46 @@ public class Contact implements Serializable
     private String noPhone;
     private String pathContactPhoto;
 
-    // GETTERS
+    //*****************************************************************************
+    // C O N S T R U C T E U R
+    //*****************************************************************************
+    /**
+     * Constructeur
+     * @param firstName
+     * @param lastName
+     * @param noPhone
+     * @param pathContactPhoto
+     * */
+    public Contact(String firstName, String lastName, String noPhone, String pathContactPhoto){
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.noPhone = noPhone;
+        this.pathContactPhoto = pathContactPhoto;
+    }
+
+    /**
+     * Constructeur Vide
+     * */
+    public Contact(){
+
+    }
+
+    //*****************************************************************************
+    // M E T H O D E S
+    //*****************************************************************************
+    @Override
+    public String toString() {
+        return "Contact{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", noPhone='" + noPhone + '\'' +
+                ", contactPhoto=" + pathContactPhoto +
+                '}';
+    }
+
+    //*****************************************************************************
+    // G E T T E R S
+    //*****************************************************************************
     public String getFirstName() {
         return firstName;
     }
@@ -37,7 +82,9 @@ public class Contact implements Serializable
         return pathContactPhoto;
     }
 
-    // SETTERS
+    //*****************************************************************************
+    // S E T T E R S
+    //*****************************************************************************
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -53,27 +100,5 @@ public class Contact implements Serializable
     public void setContactPhoto(String pathContactPhoto)
     {
         this.pathContactPhoto = pathContactPhoto;
-    }
-
-    // CONSTRUCTOR
-    public Contact(String firstName, String lastName, String noPhone, String pathContactPhoto){
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.noPhone = noPhone;
-        this.pathContactPhoto = pathContactPhoto;
-    }
-    public Contact(){
-
-    }
-
-    // METHODS
-    @Override
-    public String toString() {
-        return "Contact{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", noPhone='" + noPhone + '\'' +
-                ", contactPhoto=" + pathContactPhoto +
-                '}';
     }
 }

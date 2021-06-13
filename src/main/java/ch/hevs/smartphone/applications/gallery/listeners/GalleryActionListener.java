@@ -8,19 +8,29 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * @author Lonfat Milena
+ * Classe pour gérer tous les listeners qui concernent l'application galerie
+ */
+
 public class GalleryActionListener implements ActionListener {
     //*****************************************************************************
     // A T T R I B U T S
     //*****************************************************************************
-    //Panel
+    // Layout
     GalleryGUI galleryGUI;
 
-    //Int
+    // Int
     private int cpt;
 
     //*****************************************************************************
     // C O N S T R U C T E U R
     //*****************************************************************************
+    /**
+     * Constructeur
+     *
+     * @param galleryGUI
+     */
     public GalleryActionListener(GalleryGUI galleryGUI) {
         this.galleryGUI = galleryGUI;
     }
@@ -49,8 +59,9 @@ public class GalleryActionListener implements ActionListener {
         }
 
         for (int i = 0; i < galleryGUI.getPhotosArray().size(); i++) {
+
             // Action pour montrer les infos de la photo en question
-            if (e.getSource() == galleryGUI.getBtnPhoto()[i]) {  //On met le i pour savoir quel btn c'est
+            if (e.getSource() == galleryGUI.getBtnPhoto()[i]) {
                 // Récupère le bon
                 String photoName = galleryGUI.getPhotoName()[i];
                 galleryGUI.getCardGallHome().show(galleryGUI, photoName);
@@ -67,16 +78,14 @@ public class GalleryActionListener implements ActionListener {
                 galleryGUI.getCardGallHome().show(galleryGUI, "HomeGallery");
             }
 
-            //@TODO Donner la possibilité de changer de photo depuis le panel show photo?
-
             //Action pour supprimer la photo
             if (e.getSource() == galleryGUI.getPnlShowPhoto()[i].getBtnDelete()) {
                 galleryGUI.getJsonPhotoBook().getPhotosArray().remove(i);
                 rebuildApp();
             }
-
         }
     }
+
     /**
      * Méthode qui permet de reconstruire l'application
      */

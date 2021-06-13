@@ -13,45 +13,64 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * @author Lonfat Milena
+ * Panel principale de l'application galerie de type cardLayout
+ * Contrôle du fichier JSON et création si manquant
+ * Création de l'affichage de la galerie
+ * Accès à la class des actionListeners
+ * Permet d'ajouter des photos à notre galerie
+ */
+
 public class GalleryGUI extends JPanel {
-    //Panel
+    //*****************************************************************************
+    // A T T R I B U T S
+    //*****************************************************************************
+    // Panel
     private JPanel pnlCTGH;
     private JPanel pnlGallHome;
     private JPanel pnlImages;
     private ShowPhoto[] pnlShowPhoto;
 
-    //Layout
-    private CardLayout cardGallHome;
+    // Layout
     private ContentLayout contentLayout;
+    private CardLayout cardGallHome;
 
-    //Jscroll
+    // JScrollPane
     private JScrollPane jsGallHome;
 
-    //Label
+    // Label
     private JLabel lblGallery;
     private JLabel lblmsg;
 
-    //Button
+    // Button
     private myButton btnAddPhoto;
     private ButtonIcon[] btnPhoto;
 
-    //ImageIcon
+    // ImageIcon
     private ImageIcon ic;
 
-    //ArrayList
+    // ArrayList
     private ArrayList<Photo> photosArray;
 
-    //String
+    // String
     private String[] photoName;
     private String[] photoPath;
 
-    //Other
+    // JSON
     private JSONStoragePhoto jsonPhotoBook;
+
+    // ActionListener
     private GalleryActionListener galleryListener;
 
     //*****************************************************************************
     // C O N S T R U C T E U R
     //*****************************************************************************
+    /**
+     * Constructeur
+     *
+     * @param contentLayout
+     */
     public GalleryGUI(ContentLayout contentLayout) {
         this.contentLayout = contentLayout;
         buildJSON();
@@ -62,12 +81,11 @@ public class GalleryGUI extends JPanel {
     //*****************************************************************************
     // M E T H O D E S
     //*****************************************************************************
-
     /**
      * Création initiale du panel
      */
     public void buildPnlHomeGall() {
-        /**Panel nord*/
+        // Panel nord
         pnlGallHome = new JPanel();
         lblGallery = new JLabel("Gallery");
         btnAddPhoto = new myButton("+");
@@ -75,11 +93,11 @@ public class GalleryGUI extends JPanel {
         pnlGallHome.add(lblGallery);
         pnlGallHome.add(btnAddPhoto);
 
-        /**Panel centre*/
+        // Panel centre
         jsGallHome = new JScrollPane();
         jsGallHome = buildPnlImageJs();
 
-        /**Panel qui contient le tout*/
+        // Panel qui contient le tout
         pnlCTGH = new JPanel(new BorderLayout());
         pnlCTGH.add(pnlGallHome, BorderLayout.NORTH);
         pnlCTGH.add(jsGallHome, BorderLayout.CENTER);
@@ -88,7 +106,7 @@ public class GalleryGUI extends JPanel {
     /**
      * Création du fichier JSON
      */
-    private void buildJSON(){
+    private void buildJSON() {
         try {
             jsonPhotoBook = new JSONStoragePhoto();
         } catch (IOException | BusinessException e) {
@@ -112,7 +130,7 @@ public class GalleryGUI extends JPanel {
         pnlShowPhoto = new ShowPhoto[photosArray.size()];
 
         // Création des pannels, pour chaques photos
-        // CREATION des contenus des ARRAYS nécessaires pour les CARDS de photos
+        // Création des contenus des ARRAYS nécessaires pour les CARDS de photos
         for (int i = 0; i < photosArray.size(); i++) {
             photoName[i] = photosArray.get(i).getName();
             photoPath[i] = photosArray.get(i).getPath();
@@ -122,8 +140,10 @@ public class GalleryGUI extends JPanel {
 
     /**
      * Création du JscrollPane qui contient le panel qui affiche les images
+     *
+     * @return
      */
-    private JScrollPane buildPnlImageJs() {
+    protected JScrollPane buildPnlImageJs() {
         buildvariables();
 
         pnlImages = new JPanel(new GridLayout(0, 2, 5, 5));
@@ -132,7 +152,7 @@ public class GalleryGUI extends JPanel {
             lblmsg = new JLabel("Gallery is empty");
             pnlImages.add(lblmsg);
         } else {
-            //Création des boutons pour chaques images
+            // Création des boutons pour chaques images
             for (int i = 0; i < photosArray.size(); i++) {
                 ic = new ImageIcon(String.valueOf(photosArray.get(i).getPath()));
                 ic = Util.getScaledImageIcon(ic, 100);
@@ -151,7 +171,6 @@ public class GalleryGUI extends JPanel {
 
     /**
      * Méthode qui contruit le cardLayout
-     * Panel principale contient les card
      */
     public void buildCardLayout() {
         cardGallHome = new CardLayout();
@@ -164,23 +183,22 @@ public class GalleryGUI extends JPanel {
         }
     }
 
-    /**
-     * Listeners du bouton ajouter
-     * On construit dans une autre méthode pour avoir accès après la création de TOUS les composants
-     */
+    //*****************************************************************************
+    // L I S T E N E R S
+    //*****************************************************************************
     public void buildListeners() {
+        // Bouton qui permet d'ajouter des photos
+        btnAddPhoto.addActionListener(galleryListener);
+
+        // Création des ActionListeners en fonction du nombre d'image
         for (int i = 0; i < photosArray.size(); i++) {
             btnPhoto[i].addActionListener(galleryListener);
         }
-
-        btnAddPhoto.addActionListener(galleryListener);
     }
 
     //*****************************************************************************
     // G E T T E R S
     //*****************************************************************************
-
-
     public JPanel getPnlCTGH() {
         return pnlCTGH;
     }

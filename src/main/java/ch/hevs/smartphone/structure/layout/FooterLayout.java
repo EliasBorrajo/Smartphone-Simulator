@@ -10,23 +10,31 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
 
-public class FooterLayout extends JPanel
-{
+/**
+ * @author Lonfat Milena, Borrajo Elias, Bourquin Jonathan
+ * Bas de notre frame qui sera visible de partout
+ * Sert à revenir sur la page home
+ */
+
+public class FooterLayout extends JPanel {
     //*****************************************************************************
     // A T T R I B U T S
     //*****************************************************************************
-    // BUTTONS
-    private ButtonIcon btnHome;
-
-    // PANEL
+    // Layout
     private ContentLayout contentLayout;
 
+    // Button
+    private ButtonIcon btnHome;
 
     //*****************************************************************************
     // C O N S T R U C T E U R
     //*****************************************************************************
-    public FooterLayout(ContentLayout contentLayout)
-    {
+    /**
+     * Constructeur
+     *
+     * @param contentLayout
+     */
+    public FooterLayout(ContentLayout contentLayout) {
         this.contentLayout = contentLayout;
 
         setPreferredSize(new Dimension(ScreenSizeEnum.WIDTH.getSize(), ScreenSizeEnum.HEADER_FOOTER_HEIGHT.getSize()));
@@ -39,12 +47,13 @@ public class FooterLayout extends JPanel
         ImageIcon iconHome = new ImageIcon(imageHome);
         btnHome = new ButtonIcon(iconHome);
 
+        // ActionListener du btnHome
         btnHome.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 contentLayout.getPnlContact().getCardLayoutContact().show(contentLayout.getPnlContact(), "HomeContact");
                 contentLayout.getPnlGallery().getCardGallHome().show(contentLayout.getPnlGallery(), "HomeGallery");
-                for(int i = 0; i < contentLayout.getPnlGallery().getPnlShowPhoto().length; i++){
+                for (int i = 0; i < contentLayout.getPnlGallery().getPnlShowPhoto().length; i++) {
                     // Réaffiche tous les bouttons normaux du panel gallery, en cas d'interruption dans
                     // la procedure d'attribuer une photo à un contacte
                     contentLayout.getPnlGallery().getPnlShowPhoto()[i].showNormalBtn();

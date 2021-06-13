@@ -3,8 +3,17 @@ package ch.hevs.smartphone.parameters.button;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * @author Lonfat Milena
+ * Classe pour stylisé nos JButtons
+ */
 public class ButtonIcon extends JButton {
-    public ButtonIcon(Icon icon){
+    /**
+     * Construteur
+     *
+     * @param icon
+     */
+    public ButtonIcon(Icon icon) {
         super(icon);
         setOpaque(true);
         setContentAreaFilled(false);

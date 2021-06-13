@@ -14,25 +14,38 @@ import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * @author Lonfat Milena, Borrajo Elias
+ * Haut de notre frame qui sera visible de partout
+ * Sert à éteindre le smartphone, et donne l'ehure et la date
+ */
+
 public class HeaderLayout extends JPanel {
     //*****************************************************************************
     // A T T R I B U T S
     //*****************************************************************************
-    // LABEL
-    private JLabel lblDate;
-    private JLabel lblTime;
+    // Layout
     private SmartphoneGUI smartphoneGUI;
 
-    // BUTTON
+    // Label
+    private JLabel lblDate;
+    private JLabel lblTime;
+
+    // Button
     private ButtonIcon btnShutdown;
 
-    // ICON
+    // Icon
     private Icon iconPower;
 
     //*****************************************************************************
     // C O N S T R U C T E U R
     //*****************************************************************************
-    public HeaderLayout(SmartphoneGUI smartphoneGUI){
+    /**
+     * Constructeur
+     *
+     * @param smartphoneGUI
+     */
+    public HeaderLayout(SmartphoneGUI smartphoneGUI) {
         this.smartphoneGUI = smartphoneGUI;
         setPreferredSize(new Dimension(ScreenSizeEnum.WIDTH.getSize(), ScreenSizeEnum.HEADER_FOOTER_HEIGHT.getSize()));
         setMinimumSize(new Dimension(ScreenSizeEnum.WIDTH.getSize(), ScreenSizeEnum.HEADER_FOOTER_HEIGHT.getSize()));
@@ -49,7 +62,10 @@ public class HeaderLayout extends JPanel {
     //*****************************************************************************
     // M E T H O D E S
     //*****************************************************************************
-    private JButton buildButtonIconShutdown(){
+    /**
+     * JButton qui permet d'éteindre le smartphone et sérialise les JSON des contacts et des photos
+     */
+    private JButton buildButtonIconShutdown() {
         URL imagePower = HeaderLayout.class.getClassLoader().getResource("HeaderIcon/powerIcon.png");
         iconPower = new ImageIcon(imagePower);
         btnShutdown = new ButtonIcon(iconPower);
@@ -87,6 +103,9 @@ public class HeaderLayout extends JPanel {
         return btnShutdown;
     }
 
+    /**
+     * Label qui donne la date
+     */
     private JLabel buildLabelDate() {
         lblDate = new JLabel();
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
@@ -94,20 +113,31 @@ public class HeaderLayout extends JPanel {
         lblDate.setText(dtf.format(date));
         return lblDate;
     }
+
     // @TODO EFFACER L'aFFICHAGE DES SECONDES
-    private JLabel buildLabelTime(){
+
+    /**
+     * Label qui donne l'heure
+     */
+    private JLabel buildLabelTime() {
         lblTime = new JLabel();
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
         LocalDateTime time = LocalDateTime.now();
         lblTime.setText(dtf.format(time));
         return lblTime;
     }
-    public void updateTime()
-    {
+
+    /**
+     * Affichage de l'heure
+     */
+    public void updateTime() {
         lblTime.setText(DateTimeFormatter.ofPattern("HH:mm:ss").format(LocalDateTime.now()));
     }
-    public void updateDate()
-    {
+
+    /**
+     * Affichage de la date
+     */
+    public void updateDate() {
         lblDate.setText(DateTimeFormatter.ofPattern("dd.MM.yyyy").format(LocalDateTime.now()));
     }
 }

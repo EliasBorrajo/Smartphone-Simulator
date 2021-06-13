@@ -6,19 +6,29 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+/**
+ * @author Lonfat Milena
+ * Classe qui gère le MouseListener du textfield de showPhoto
+ */
+
 public class GalleryMouseListener implements MouseListener {
     //*****************************************************************************
     // A T T R I B U T S
     //*****************************************************************************
-    //Panel
+    // Layout
     GalleryGUI galleryGUI;
 
-    //Boolean
+    // Boolean
     private boolean activate;
 
     //*****************************************************************************
     // C O N S T R U C T E U R
     //*****************************************************************************
+    /**
+     * Constructeur
+     *
+     * @param galleryGUI
+     */
     public GalleryMouseListener(GalleryGUI galleryGUI) {
         this.galleryGUI = galleryGUI;
     }

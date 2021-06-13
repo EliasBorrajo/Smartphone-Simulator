@@ -7,10 +7,26 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Interface pour lire et écrire le JSON
+ *
+ * @author Lonfat Milena
+ */
 public interface StorablePhoto {
-    // To read JSON File
+    /**
+     * Read JSON File
+     *
+     * @throws BusinessException
+     * @throws IOException
+     */
     ArrayList<Photo> read() throws BusinessException, IOException;
 
-    // To write JSON File
+    /**
+     * Write JSON File
+     *
+     * @param destination
+     * @param photos
+     * @throws BusinessException
+     */
     void write(File destination, ArrayList<Photo> photos) throws BusinessException;
 }

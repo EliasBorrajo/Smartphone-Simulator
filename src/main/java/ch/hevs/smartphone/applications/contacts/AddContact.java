@@ -8,48 +8,57 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
-public class AddContact extends JPanel
-{
+/**
+ * @author Bourqunin Jonathan
+ * Panel qui permet d'ajouter un contact
+ */
+
+public class AddContact extends JPanel {
     //*****************************************************************************
     // A T T R I B U T S
     //*****************************************************************************
-    // PANEL
+    // Panel
     private JPanel pnlNorth;
     private JPanel pnlCentre;
     private JPanel pnlSouth;
 
-    // LABEL
+    // Layout
+    protected ContactsGUI contactsGUI;
+    protected Contact contact;
+
+    // Label
     private JLabel lblContactsTitle;
     private JLabel lblFirstName;
     private JLabel lblLastName;
     private JLabel lblNoPhone;
 
-    // BUTTON
+    // Button
     private JButton btnPhotoContact;
     private JButton btnSave;
     private JButton btnBack;
 
-    // TEXTFIELD
+    // ImageIcon
+    private ImageIcon iconDefaultBack;
+
+    // String
+    private String pathPhoto;
+
+    // TextField
     protected JTextField tfFirstName;
     protected JTextField tfLastName;
     protected JTextField tfNoPhone;
 
-    // IMAGE
-    private ImageIcon iconDefaultBack;
-    private ImageIcon iconDefaultContact;
-
-    // OTHER CLASS USED FOR COMPOSITION
-    protected ContactsGUI contactsGUI;
-    protected Contact contact;
-
-    //STRING
-    private String pathPhoto;
-
     //*****************************************************************************
     // C O N S T R U C T E U R
     //*****************************************************************************
-    public AddContact(ContactsGUI contactsGUI) throws IOException, BusinessException
-    {
+    /**
+     * Constructeur
+     *
+     * @param contactsGUI
+     * @throws IOException
+     * @throws BusinessException
+     */
+    public AddContact(ContactsGUI contactsGUI) throws IOException, BusinessException {
         this.contactsGUI = contactsGUI;
         buildPnlContent();
     }
@@ -59,11 +68,8 @@ public class AddContact extends JPanel
     //*****************************************************************************
     /**
      * build pnlContent va créer tous les Pannels et leurs contenus
-     *
-     * @return JPanel
      */
-    private void buildPnlContent()
-    {
+    private void buildPnlContent() {
         buildPanelAndButton();
 
         // Parametre du panel
@@ -71,11 +77,11 @@ public class AddContact extends JPanel
         this.setLayout(new BorderLayout());
 
         // Ajout panels à la Frame
-        // NORTH
+        // Panel nord
         pnlNorth.add(btnSave);
         this.add(pnlNorth, BorderLayout.NORTH);
 
-        // CENTER
+        // Panel centre
         // Parametre des JPanel
         pnlCentre.setLayout(new GridLayout(3, 2));
         pnlCentre.add(lblFirstName);
@@ -88,53 +94,47 @@ public class AddContact extends JPanel
         pnlCentre.add(tfNoPhone);
         this.add(pnlCentre, BorderLayout.CENTER);
 
-        // SOUTH
+        // Panel sud
         pnlSouth.setLayout(new GridLayout());
         pnlSouth.add(btnBack);
         pnlSouth.add(btnSave);
-        this.add(pnlSouth,  BorderLayout.SOUTH);
+        this.add(pnlSouth, BorderLayout.SOUTH);
 
         setListenerAddContact();
     }
 
     /**
      * build panels and buttons needed in buildPnlContent method
-     *
-     * @return
      */
-    public void buildPanelAndButton()
-    {
-        // PANEL
-        pnlNorth  = new JPanel();
+    public void buildPanelAndButton() {
+        // Panel
+        pnlNorth = new JPanel();
         pnlCentre = new JPanel();
-        pnlSouth  = new JPanel();
+        pnlSouth = new JPanel();
 
-        // BUTTON
+        // Button
         buildIcon();
         btnPhotoContact = new JButton("Add picture");
         btnSave = new JButton("Save");
-        btnBack = new JButton( iconDefaultBack );
+        btnBack = new JButton(iconDefaultBack);
 
-        // LABEL
+        // Label
         lblContactsTitle = new JLabel("Add new contact");
-        lblFirstName     = new JLabel("First name : ");
-        lblLastName      = new JLabel("Last Name : ");
-        lblNoPhone       = new JLabel("Phone number : ");
+        lblFirstName = new JLabel("First name : ");
+        lblLastName = new JLabel("Last Name : ");
+        lblNoPhone = new JLabel("Phone number : ");
 
-        // TEXTFIELD
-        tfFirstName = new JTextField("First Name",  50);
-        tfLastName  = new JTextField("Last Name",   50);
-        tfNoPhone   = new JTextField("Phone Number",50);
-
-        // STRING
-        //pathPhoto = new String();
+        // TextField
+        tfFirstName = new JTextField("First Name", 50);
+        tfLastName = new JTextField("Last Name", 50);
+        tfNoPhone = new JTextField("Phone Number", 50);
     }
+
     /**
      * Construction de l'ICONE à la taille desirée
      */
-    private void buildIcon()
-    {
-        // permet de récuperer les fichiers des ressources
+    private void buildIcon() {
+        // Permet de récuperer les fichiers des ressources
         ClassLoader classLoader = getClass().getClassLoader();
 
         iconDefaultBack = new ImageIcon(classLoader.getResource("FooterIcon/backIcon.png"));
@@ -146,8 +146,7 @@ public class AddContact extends JPanel
     //*****************************************************************************
     // L I S T E N E R S
     //*****************************************************************************
-    public void setListenerAddContact()
-    {
+    public void setListenerAddContact() {
         btnSave.addActionListener(new ListenerSaveAddContact(tfFirstName, tfLastName, tfNoPhone));
 
         btnBack.addActionListener(contactsGUI.getMyListener());
@@ -156,23 +155,19 @@ public class AddContact extends JPanel
     //*****************************************************************************
     // I N N E R  -  C L A S S
     //*****************************************************************************
-    // INNER CLASS
-    class ListenerSaveAddContact implements ActionListener
-    {
+    class ListenerSaveAddContact implements ActionListener {
         JTextField inputFN;
         JTextField inputN;
         JTextField inputNP;
 
-        public ListenerSaveAddContact(JTextField firstName, JTextField name, JTextField noPhone)
-        {
+        public ListenerSaveAddContact(JTextField firstName, JTextField name, JTextField noPhone) {
             inputFN = firstName;
             inputN = name;
             inputNP = noPhone;
         }
 
         @Override
-        public void actionPerformed(ActionEvent e)
-        {
+        public void actionPerformed(ActionEvent e) {
             contact = new Contact("", "", "", pathPhoto);
 
             String text1 = "";
@@ -216,51 +211,42 @@ public class AddContact extends JPanel
     //*****************************************************************************
     // G E T T E R S
     //*****************************************************************************
-    public JTextField getTfName()
-    {
+    public JTextField getTfName() {
         return tfLastName;
     }
 
-    public JTextField getTfFirstName()
-    {
+    public JTextField getTfFirstName() {
         return tfFirstName;
     }
 
-    public JTextField getTfNoPhone()
-    {
+    public JTextField getTfNoPhone() {
         return tfNoPhone;
     }
 
-    public JButton getBtnSave()
-    {
+    public JButton getBtnSave() {
         return btnSave;
     }
 
-    public ContactsGUI getContactsGUI()
-    {
+    public ContactsGUI getContactsGUI() {
         return contactsGUI;
     }
 
-    public Contact getContact()
-    {
+    public Contact getContact() {
         return contact;
     }
 
-    public JButton getBtnBack()
-    {
+    public JButton getBtnBack() {
         return btnBack;
     }
+
     //*****************************************************************************
     // S E T T E R S
     //*****************************************************************************
-
-    public void setContactsGUI(ContactsGUI contactsGUI)
-    {
+    public void setContactsGUI(ContactsGUI contactsGUI) {
         this.contactsGUI = contactsGUI;
     }
 
-    public void setContact(Contact contact)
-    {
+    public void setContact(Contact contact) {
         this.contact = contact;
     }
 

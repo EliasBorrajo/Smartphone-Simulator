@@ -8,12 +8,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class EditContactInfo extends JPanel
-{
+/**
+ * @author Bourquin Jonathan
+ * Panel qui permet l'édition des informations d'un contact
+ */
+
+public class EditContactInfo extends JPanel {
     //*****************************************************************************
-    // V A R I A B L E S
+    // A T T R I B U T S
     //*****************************************************************************
-    // PANEL
+    // Panel
     private JPanel pnlNorth;
     private JPanel pnlCentre;
     private JPanel pnlSouth;
@@ -21,43 +25,50 @@ public class EditContactInfo extends JPanel
     private JPanel pnlSouthCentre;
     private JPanel pnlSouthSouth;
 
-    // LABEL
+    // Layout
+    private ContentLayout contentLayout;
+
+    // Label
     private JLabel lblFirstName;
     private JLabel lblLastName;
     private JLabel lblNoPhone;
 
-    private String firstName = "";
-    private String lastName = "";
-    private String noPhone = "";
-
-    // TEXT FIELD
-    private JTextField tfFirstName;
-    private JTextField tfLastName;
-    private JTextField tfPhone;
-
-    // BUTTON
+    // Button
     private JButton btnBackEdit;
     private JButton btnSaveEdit;
     private JButton btnIconContact;
 
-    // IMAGES
+    // ImageIcon
     private ImageIcon iconContact;
     private ImageIcon iconDefaultBack;
+
+    // String
+    private String firstName = "";
+    private String lastName = "";
+    private String noPhone = "";
     private String pathContactPhoto;
-    private String iconPathBackPicture;
 
+    // TextField
+    private JTextField tfFirstName;
+    private JTextField tfLastName;
+    private JTextField tfPhone;
 
-    // OTHER
-    private ContentLayout contentLayout;
-    private ArrayList<Contact> contacts;
+    // ActionListener
     private ContactListener myListener;
-
 
     //*****************************************************************************
     // C O N S T R U  C T E U R
     //*****************************************************************************
-    public EditContactInfo(ContentLayout contentLayout, String firstName, String lastName, String noPhone, String pathContactPhoto)
-    {
+    /**
+     * Constructeur
+     *
+     * @param contentLayout
+     * @param firstName
+     * @param lastName
+     * @param noPhone
+     * @param pathContactPhoto
+     */
+    public EditContactInfo(ContentLayout contentLayout, String firstName, String lastName, String noPhone, String pathContactPhoto) {
         this.contentLayout = contentLayout;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -71,8 +82,10 @@ public class EditContactInfo extends JPanel
     //*****************************************************************************
     // M E T H O D E S
     //*****************************************************************************
-    private void buildpnlEditContactInfo()
-    {
+    /**
+     * Création initiale du panel
+     */
+    private void buildpnlEditContactInfo() {
         this.setLayout(new BorderLayout());
 
         // Creation Variables
@@ -85,10 +98,8 @@ public class EditContactInfo extends JPanel
 
         buildIcon();
 
-        btnBackEdit = new JButton( iconDefaultBack);
+        btnBackEdit = new JButton(iconDefaultBack);
         btnSaveEdit = new JButton("Save");
-        //iconContact = new ImageIcon(pathContactPhoto);
-        //iconContact = contentLayout.getPnlContact().
         btnIconContact = new JButton(iconContact);
 
         lblFirstName = new JLabel(firstName);
@@ -122,18 +133,16 @@ public class EditContactInfo extends JPanel
         pnlSouth.setPreferredSize(new Dimension(100, 100));
 
         // HOME PAGE - page d'accueil pour le cardlayout ShowContactInfo
-        this.add(pnlNorth,  BorderLayout.NORTH);
+        this.add(pnlNorth, BorderLayout.NORTH);
         this.add(pnlCentre, BorderLayout.CENTER);
-        this.add(pnlSouth,  BorderLayout.SOUTH);
-
+        this.add(pnlSouth, BorderLayout.SOUTH);
     }
 
     /**
      * Crée l'image de l'icone par défaut.
      * On passe par une étape intermédiaire pour pouvoir agrandire l'image.
      */
-    private void buildIcon()
-    {
+    private void buildIcon() {
         ClassLoader classLoader = getClass().getClassLoader();
 
         // btn back icon
@@ -142,33 +151,26 @@ public class EditContactInfo extends JPanel
         Image newImgBackIcon = imageBackIcon.getScaledInstance(10, 10, java.awt.Image.SCALE_SMOOTH);
         iconDefaultBack = new ImageIcon(newImgBackIcon);
 
-
-        if(pathContactPhoto == null)
-        {
+        if (pathContactPhoto == null) {
             iconContact = new ImageIcon(classLoader.getResource("ContentIcon/Apps/Contact_Icon.png")); //Récupère l'image
             Image imageContactIcon = iconContact.getImage();  // transform it
             Image newImgContactIcon = imageContactIcon.getScaledInstance(150, 150, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
             iconContact = new ImageIcon(newImgContactIcon);  // transform it back
-        }
-        else
-        {
-            System.out.println("PATH CONTACT PHOTO "+pathContactPhoto);
+        } else {
+            System.out.println("PATH CONTACT PHOTO " + pathContactPhoto);
             iconContact = new ImageIcon(pathContactPhoto); //Récupère l'image
             Image imageContactIcon = iconContact.getImage();  // transform it
             //Image newImgContactIcon = imageContactIcon.getScaledInstance(150, 150, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
             Image newImgContactIcon = imageContactIcon;
             iconContact = new ImageIcon(newImgContactIcon);  // transform it back
             iconContact = Util.getScaledImageIcon(iconContact, 250);
-
         }
-
     }
 
     //*****************************************************************************
     // L I S T E N E R S
     //*****************************************************************************
-    protected void setListeners()
-    {
+    protected void setListeners() {
         myListener = new ContactListener(contentLayout);
         btnIconContact.addActionListener(myListener);
         btnBackEdit.addActionListener(myListener);
@@ -178,125 +180,91 @@ public class EditContactInfo extends JPanel
     //*****************************************************************************
     // G E T T E R S
     //*****************************************************************************
-
-
-    public JPanel getPnlNorth()
-    {
+    public JPanel getPnlNorth() {
         return pnlNorth;
     }
 
-    public JPanel getPnlCentre()
-    {
+    public JPanel getPnlCentre() {
         return pnlCentre;
     }
 
-    public JPanel getPnlSouth()
-    {
+    public JPanel getPnlSouth() {
         return pnlSouth;
     }
 
-    public JPanel getPnlSouthNorth()
-    {
+    public JPanel getPnlSouthNorth() {
         return pnlSouthNorth;
     }
 
-    public JPanel getPnlSouthCentre()
-    {
+    public JPanel getPnlSouthCentre() {
         return pnlSouthCentre;
     }
 
-    public JPanel getPnlSouthSouth()
-    {
+    public JPanel getPnlSouthSouth() {
         return pnlSouthSouth;
     }
 
-    public JButton getBtnIconContact()
-    {
+    public JButton getBtnIconContact() {
         return btnIconContact;
     }
 
-    public JLabel getLblFirstName()
-    {
+    public JLabel getLblFirstName() {
         return lblFirstName;
     }
 
-    public JLabel getLblLastName()
-    {
+    public JLabel getLblLastName() {
         return lblLastName;
     }
 
-    public JLabel getLblNoPhone()
-    {
+    public JLabel getLblNoPhone() {
         return lblNoPhone;
     }
 
-    public String getFirstName()
-    {
+    public String getFirstName() {
         return firstName;
     }
 
-    public String getLastName()
-    {
+    public String getLastName() {
         return lastName;
     }
 
-    public String getNoPhone()
-    {
+    public String getNoPhone() {
         return noPhone;
     }
 
-    public JTextField getTfFirstName()
-    {
+    public JTextField getTfFirstName() {
         return tfFirstName;
     }
 
-    public JTextField getTfLastName()
-    {
+    public JTextField getTfLastName() {
         return tfLastName;
     }
 
-    public JTextField getTfPhone()
-    {
+    public JTextField getTfPhone() {
         return tfPhone;
     }
 
-    public JButton getBtnBackEdit()
-    {
+    public JButton getBtnBackEdit() {
         return btnBackEdit;
     }
 
-    public JButton getBtnSaveEdit()
-    {
+    public JButton getBtnSaveEdit() {
         return btnSaveEdit;
     }
 
-    public ImageIcon getIconContact()
-    {
+    public ImageIcon getIconContact() {
         return iconContact;
     }
 
-    public ImageIcon getIconDefaultBack()
-    {
+    public ImageIcon getIconDefaultBack() {
         return iconDefaultBack;
     }
 
-    public String getIconPathBackPicture()
-    {
-        return iconPathBackPicture;
-    }
-
-    public ContentLayout getContentLayout()
-    {
+    public ContentLayout getContentLayout() {
         return contentLayout;
     }
 
-    public ArrayList<Contact> getContacts()
-    {
-        return contacts;
-    }
-
-    public ContactListener getMyListener()
-    {
+    public ContactListener getMyListener() {
         return myListener;
     }
 }
