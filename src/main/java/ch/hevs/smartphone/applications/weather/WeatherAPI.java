@@ -2,7 +2,7 @@ package ch.hevs.smartphone.applications.weather;
 
 // Les deux imports de google sont nécessaires pour la methode "jsonToMap"
 
-import ch.hevs.smartphone.applications.weather.classInfo.WeatherInfo;
+import ch.hevs.smartphone.applications.weather.classInfo.weather;
 import ch.hevs.smartphone.applications.weather.classInfo.WeatherMaster;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.*;
@@ -84,11 +84,11 @@ public class WeatherAPI {
         return map;
     }
 
-    private WeatherInfo jsonMappingForWeatherInfo(String str) {
+    private weather jsonMappingForWeatherInfo(String str) {
         Gson gson = new GsonBuilder().create();
-        WeatherInfo weatherInfo;
-        weatherInfo = gson.fromJson(str, WeatherInfo.class);
-        return weatherInfo;
+        weather weather;
+        weather = gson.fromJson(str, weather.class);
+        return weather;
     }
 
     /*private WindInfo jsonMappingForWindInfo(String str) {
@@ -110,10 +110,8 @@ public class WeatherAPI {
          * Tentative de récuperer les informations de l'API
          */
         try {
-            StringBuilder result = new StringBuilder();
+            //StringBuilder result = new StringBuilder();
             URL url = new URL(urlString);
-            URLConnection connection = url.openConnection();
-
 
             /*weatherDataFlow = new ArrayList<>();
             String line;
@@ -137,7 +135,7 @@ public class WeatherAPI {
 
 
 
-            // Lecture du flux de l'API, la lecture additionne la STRING resultat de la lecture à la suite.
+            /*// Lecture du flux de l'API, la lecture additionne la STRING resultat de la lecture à la suite.
             BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             String line;                            // Permet de contenir la ligne que nous lisons actuellement
             //Scanner sc = new Scanner(line);
@@ -145,7 +143,7 @@ public class WeatherAPI {
             while ((line = br.readLine()) != null) {
                 result.append(line);      // Ajoute au resultat la ligne en cours de lecture
             }
-            br.close();
+            br.close();*/
 
 
             /*System.out.println(weatherDataFlow.size());
@@ -218,17 +216,20 @@ public class WeatherAPI {
     private String urlReader2(URL url) throws IOException {
         URLConnection connection = url.openConnection();
         StringBuilder tmpResult = new StringBuilder();
-        String result = tmpResult.toString();
+        String result;
 
         // Lecture du flux de l'API, la lecture additionne la STRING resultat de la lecture à la suite.
         BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         String line;                            // Permet de contenir la ligne que nous lisons actuellement
 
         while ((line = br.readLine()) != null) {
-            result.append(line);      // Ajoute au resultat la ligne en cours de lecture
+            tmpResult.append(line);      // Ajoute au resultat la ligne en cours de lecture
         }
-
         br.close();
+
+        result = tmpResult.toString();
+        System.out.println(result);
+
         return result;
     }
 

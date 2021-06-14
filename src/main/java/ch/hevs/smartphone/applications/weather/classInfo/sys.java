@@ -1,13 +1,13 @@
 package ch.hevs.smartphone.applications.weather.classInfo;
 
-public class SystInfo {
+public class sys {
     private int type;
     private int id;
     private String country;
     private long sunrise;
     private long sunset;
 
-    public SystInfo(int type, int id, String country, long sunrise, long sunset) {
+    public sys(int type, int id, String country, long sunrise, long sunset) {
         this.type = type;
         this.id = id;
         this.country = country;
@@ -17,7 +17,7 @@ public class SystInfo {
 
     @Override
     public String toString() {
-        return "SystInfo{" +
+        return "sys{" +
                 "type=" + type +
                 ", id=" + id +
                 ", country='" + country + '\'' +

@@ -1,15 +1,15 @@
 package ch.hevs.smartphone.applications.weather.classInfo;
 
-public class NameInfo {
+public class name {
     private String name;
 
-    public NameInfo(String name) {
+    public name(String name) {
         this.name = name;
     }
 
     @Override
     public String toString() {
-        return "NameInfo{" +
+        return "name{" +
                 "name='" + name + '\'' +
                 '}';
     }
