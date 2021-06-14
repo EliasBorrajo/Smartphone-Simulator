@@ -11,7 +11,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -79,6 +81,15 @@ public class WeatherAPI {
         return map;
     }
 
+    private static WeatherInfo jsonToMapForWeather(String str) {
+        Gson gson = new GsonBuilder().create();
+        WeatherInfo weatherInfo;
+
+        weatherInfo = gson.fromJson(str, WeatherInfo.class);
+
+        return weatherInfo;
+    }
+
     protected void getAPIDetails() {
         // Se connecter à l'API
         String urlString = "http://api.openweathermap.org/data/2.5/weather?q="
@@ -86,6 +97,7 @@ public class WeatherAPI {
                 + UNITS
                 + "&appid="
                 + API_KEY;
+
 
         isConnected = false;
 
@@ -105,26 +117,48 @@ public class WeatherAPI {
             }
             br.close();
 
+            /*boolean stop = true;
+            while(stop) {
+                result.deleteCharAt(result.indexOf("["));
+                result.deleteCharAt(result.indexOf("]"));
+                if (result.indexOf("[") == -1 || result.indexOf("[") == -1) {
+                    stop = false;
+                }
+            }*/
+
             Map<String, Object> resultMap = jsonToMap(result.toString());
-            System.out.println("Resultat : " + result.toString());
+            resultMap.forEach((k, v)-> System.out.println(k + " - " + v));
+            System.out.println("Resultat : " + result);
             System.out.println("API infos are on : " + connection.getURL());
-            System.out.println();
+            System.out.println(resultMap.get("weather").toString());
+            System.out.println(resultMap.get("main").toString());
 
-            // Crée les différents MAP à partir de la MAP resultat.
-            //System.out.println(resultMap.get("weather"));
-            /*resultMap.
-            String weatherInfos = resultMap.get("weather").toString();
-            weatherInfos = weatherInfos.replace("[","");
-            weatherInfos = weatherInfos.replace("]","");
-            System.out.println(weatherInfos);
-            JsonObject jsonObject =  JsonParser.parseString(weatherInfos).getAsJsonObject();
-            System.out.println("YAAAAAAAAAAAAAAAAAAAAAAAA : " + jsonObject.toString());
-            System.out.println("WEATHER    " + resultMap.get("weather"));*/
-
-            //Map<String, Object> weatherMap= jsonToMap(resultMap.get("weather").toString());
             Map<String, Object> mainMap = jsonToMap(resultMap.get("main").toString());
             Map<String, Object> windMap = jsonToMap(resultMap.get("wind").toString());
-            //Map<String, Object> nameMap   = jsonToMap(resultMap.get("name").toString());
+            WeatherInfo weatherMap = jsonToMapForWeather(resultMap.get("weather").toString());
+
+
+
+
+            /*String weatherInfos = resultMap.get("weather").toString();
+            System.out.println(weatherInfos);
+            System.out.println(weatherInfos.length());
+            char weatherIconCode = weatherInfos.charAt(53);
+            System.out.println(weatherIconCode);
+            String urlPicture = "http://openweathermap.org/img/wn/"
+                    + weatherIconCode
+                    + "@2x.png";*/
+
+
+            /*StringBuilder resultWeatherIcon = new StringBuilder();
+            URL urlWeatherIcon = new URL(urlPicture);
+            URLConnection connectionWeatherIcon = urlWeatherIcon.openConnection();
+            BufferedReader brWeatherIcon = new BufferedReader(new InputStreamReader(connectionWeatherIcon.getInputStream()));
+            setWeatherIcon((Icon) brWeatherIcon);*/
+
+
+
+                    //Map<String, Object> nameMap   = jsonToMap(resultMap.get("name").toString());
             //Map<String, Object> sysMap    = jsonToMap(resultMap.get("sys").toString());
 
             // Affiche les resultats voulus de chaque MAP
@@ -145,6 +179,7 @@ public class WeatherAPI {
             setTempMin(mainMap.get("temp_min").toString());
             setTempRessenti(mainMap.get("feels_like").toString());
             setHumidite(mainMap.get("humidity").toString());
+            //setWeatherIcon((Icon) weather.get("icon"));
 
             //setDescription(weatherMap.get("description").toString());
 
@@ -166,6 +201,7 @@ public class WeatherAPI {
         }
 
     }
+
 
     //*****************************************************************************
     // G E T T E R S
