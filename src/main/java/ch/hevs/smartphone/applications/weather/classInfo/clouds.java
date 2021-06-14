@@ -7,12 +7,12 @@ public class clouds {
         this.all = all;
     }
 
-    @Override
+    /*@Override
     public String toString() {
         return "clouds{" +
                 "all=" + all +
                 '}';
-    }
+    }*/
 
     public int getAll() {
         return all;

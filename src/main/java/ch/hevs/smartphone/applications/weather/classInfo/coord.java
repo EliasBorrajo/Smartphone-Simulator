@@ -9,13 +9,13 @@ public class coord {
         this.lat = lat;
     }
 
-    @Override
+    /*@Override
     public String toString() {
         return "coord{" +
                 "lon=" + lon +
                 ", lat=" + lat +
                 '}';
-    }
+    }*/
 
     public double getLon() {
         return lon;

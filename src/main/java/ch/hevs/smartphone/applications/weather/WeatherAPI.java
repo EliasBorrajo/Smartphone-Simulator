@@ -113,7 +113,7 @@ public class WeatherAPI {
             weatherMaster = urlReader3(url);
             System.out.println(weatherMaster);
 
-            String weatherInfos = weatherMaster.getWeather()[0].toString();
+            String weatherInfos = weatherMaster.getWeather()[0].getIconCode();
             System.out.println(weatherInfos);
 
             String urlPicture = "http://openweathermap.org/img/wn/"

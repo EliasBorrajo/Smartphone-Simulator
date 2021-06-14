@@ -17,7 +17,7 @@ public class main {
         this.humidity = humidity;
     }
 
-    @Override
+    /*@Override
     public String toString() {
         return "MainInfo{" +
                 "temp=" + temp +
@@ -27,7 +27,7 @@ public class main {
                 ", pressure=" + pressure +
                 ", humidity=" + humidity +
                 '}';
-    }
+    }*/
 
     public double getTemp() {
         return temp;

@@ -38,9 +38,9 @@ public class WeatherMaster {
         this.wind = wind;
     }
 
-    @Override
+    /*@Override
     public String toString() {
-        return "WeatherMaster{" +
+        return "{" +
                 ", base='" + base + '\'' +
                 ", clouds=" + clouds +
                 ", cod=" + cod +
@@ -55,7 +55,7 @@ public class WeatherMaster {
                 ", sys=" + sys +
                 ", wind=" + wind +
                 '}';
-    }
+    }*/
 
     public String getBase() {
         return base;

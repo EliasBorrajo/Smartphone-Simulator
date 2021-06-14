@@ -13,7 +13,7 @@ public class weather {
         this.iconCode = iconCode;
     }
 
-    @Override
+    /*@Override
     public String toString() {
         return "weather{" +
                 "id=" + id +
@@ -21,7 +21,7 @@ public class weather {
                 ", description='" + description + '\'' +
                 ", iconCode='" + iconCode + '\'' +
                 '}';
-    }
+    }*/
 
     public int getId() {
         return id;
