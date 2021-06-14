@@ -2,6 +2,7 @@ package ch.hevs.smartphone.applications.weather;
 
 // Les deux imports de google sont nécessaires pour la methode "jsonToMap"
 
+import ch.hevs.smartphone.applications.weather.classInfo.main;
 import ch.hevs.smartphone.applications.weather.classInfo.weather;
 import ch.hevs.smartphone.applications.weather.classInfo.WeatherMaster;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -91,6 +92,13 @@ public class WeatherAPI {
         return weather;
     }
 
+    private main jsonMappingForMainInfo(String str) {
+        Gson gson = new GsonBuilder().create();
+        main main;
+        main = gson.fromJson(str, main.class);
+        return main;
+    }
+
     /*private WindInfo jsonMappingForWindInfo(String str) {
 
     }*/
@@ -112,6 +120,7 @@ public class WeatherAPI {
         try {
             //StringBuilder result = new StringBuilder();
             URL url = new URL(urlString);
+            System.out.println(url);
 
             /*weatherDataFlow = new ArrayList<>();
             String line;
@@ -158,8 +167,8 @@ public class WeatherAPI {
 
             Map<String, Object> mainMap = jsonToMap(resultMap.get("main").toString());
             Map<String, Object> windMap = jsonToMap(resultMap.get("wind").toString());*/
-            //String json = "{\"id\":801,\"main\":\"Clouds\",\"description\":\"few clouds\",\"icon\":\"02d\"}";
-            /*WeatherInfo weather = jsonMappingForWeatherInfo();
+            /*String json = "{\"id\":801,\"main\":\"Clouds\",\"description\":\"few clouds\",\"icon\":\"02d\"}";
+            WeatherInfo weather = jsonMappingForWeatherInfo(json);
             System.out.println(weather.toString());
 
             String weatherInfos = weather.getIcon();

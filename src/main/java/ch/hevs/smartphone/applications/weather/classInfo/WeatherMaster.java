@@ -5,22 +5,22 @@ import java.util.Arrays;
 public class WeatherMaster {
     private Object[] weatherContent;
 
-    private base base;
+    private String base;
     private clouds clouds;
     private cod cod;
     private coord coord;
-    private dt dt;
-    private id id;
+    private long dt;
+    private long id;
     private main main;
     private name name;
-    private timezone timezone;
-    private visibility visibility;
-    private weather weather;
+    private int timezone;
+    private int visibility;
+    private weather[] weather;
     private sys sys;
     private wind wind;
 
 
-    public WeatherMaster(base base, clouds clouds, cod cod, coord coord, dt dt, id id, main main, name name, timezone timezone, visibility visibility, weather weather, sys sys, wind wind) {
+    public WeatherMaster(String base, clouds clouds, cod cod, coord coord, long dt, long id, main main, name name, int timezone, int visibility, weather[] weather, sys sys, wind wind) {
         this.base = base;
         this.clouds = clouds;
         this.cod = cod;
