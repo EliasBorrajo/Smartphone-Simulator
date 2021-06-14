@@ -41,24 +41,71 @@ public class WeatherMaster {
     @Override
     public String toString() {
         return "WeatherMaster{" +
-                "weatherContent=" + Arrays.toString(weatherContent) +
-                ", base=" + base +
+                ", base='" + base + '\'' +
                 ", clouds=" + clouds +
                 ", cod=" + cod +
                 ", coord=" + coord +
                 ", dt=" + dt +
                 ", id=" + id +
                 ", main=" + main +
-                ", name=" + name +
+                ", name='" + name + '\'' +
                 ", timezone=" + timezone +
                 ", visibility=" + visibility +
-                ", weather=" + weather +
+                ", weather=" + Arrays.toString(weather) +
                 ", sys=" + sys +
                 ", wind=" + wind +
                 '}';
     }
 
-    public Object[] getWeatherContent() {
-        return weatherContent;
+    public String getBase() {
+        return base;
+    }
+
+    public ch.hevs.smartphone.applications.weather.classInfo.clouds getClouds() {
+        return clouds;
+    }
+
+    public int getCod() {
+        return cod;
+    }
+
+    public ch.hevs.smartphone.applications.weather.classInfo.coord getCoord() {
+        return coord;
+    }
+
+    public long getDt() {
+        return dt;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public main getMain() {
+        return main;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getTimezone() {
+        return timezone;
+    }
+
+    public int getVisibility() {
+        return visibility;
+    }
+
+    public weather[] getWeather() {
+        return weather;
+    }
+
+    public sys getSys() {
+        return sys;
+    }
+
+    public wind getWind() {
+        return wind;
     }
 }

@@ -34,10 +34,6 @@ public class TestJUnit5Contact
     private Contact contact2;
     private Contact contact3;
 
-
-    /*public TestJUnit5Contact() throws IOException, BusinessException {
-    }*/
-
     /**
      * variables initialization for testing
      */
@@ -67,23 +63,8 @@ public class TestJUnit5Contact
         // Serialize data
         writeForTesting(tmp, contactArrayList);
 
-        /*// Serialize data
-        try {
-            om.writeValue(tmp, contactArrayList);
-        } catch(Exception e) {
-            fail("Failed to serialize the Arraylist");
-        }*/
-
         // Read JSON file
        deserializedContactArrayList =  readForTesting(tmp, deserializedContactArrayList);
-
-        /*// Read JSON file
-        try {
-            deserializedContactArrayList = om.readValue(tmp,
-                    om.getTypeFactory().constructCollectionType(ArrayList.class, Contact.class));
-        } catch (Exception e) {
-            fail("Failed to deserialize the ArrayListe");
-        }*/
 
         assertEquals(contactArrayList.toString(), deserializedContactArrayList.toString());
     }
@@ -111,7 +92,7 @@ public class TestJUnit5Contact
             }
         });
 
-        // assertEquals(ErrorCode.READING_JSON_STORAGE_ERROR.getCode(), e.getErrorCode());
+        assertEquals(ErrorCode.READING_JSON_STORAGE_ERROR.getCode(), e.getErrorCode());
         // check that the error code got in the read of the corrupted .json fil match the one assigned in the ErrorCode class
     }
 

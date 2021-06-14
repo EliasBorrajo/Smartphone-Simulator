@@ -113,17 +113,14 @@ public class WeatherAPI {
             weatherMaster = urlReader3(url);
             System.out.println(weatherMaster);
 
-            WeatherMaster weather = jsonMappingForWeatherInfo(json);
-            System.out.println(weather.toString());
-
-            String weatherInfos = weather.getIcon();
+            String weatherInfos = weatherMaster.getWeather()[0].toString();
             System.out.println(weatherInfos);
 
             String urlPicture = "http://openweathermap.org/img/wn/"
                     + weatherInfos
                     + "@2x.png";
 
-            System.out.println(urlPicture);*/
+            System.out.println(urlPicture);
 
 
             // Attribue les informations récuperés à mes variables
