@@ -158,13 +158,11 @@ public class WeatherAPI {
             isConnected = false;
             System.out.println("Erreur dans WEATHER_API : methode = getAPIDetails");
             JOptionPane.showMessageDialog(null, "Ville non valide" +
-                    "                                                   \n Ville par défault initialisée : Sion");
+                    "                                                   \n Re-Essayez ou vérifiez votre connection");
 
             setUrlLocation("Sion");
-            setNomVille("Sion");
-            getAPIDetails();
-            isConnected = true;
 
+            System.out.println("Is connected result : "+isConnected);
             e.printStackTrace();
         }
     }
