@@ -7,12 +7,12 @@ public class WeatherMaster {
 
     private String base;
     private clouds clouds;
-    private cod cod;
+    private int cod;
     private coord coord;
     private long dt;
     private long id;
     private main main;
-    private name name;
+    private String name;
     private int timezone;
     private int visibility;
     private weather[] weather;
@@ -20,7 +20,9 @@ public class WeatherMaster {
     private wind wind;
 
 
-    public WeatherMaster(String base, clouds clouds, cod cod, coord coord, long dt, long id, main main, name name, int timezone, int visibility, weather[] weather, sys sys, wind wind) {
+    public WeatherMaster(String base, clouds clouds, int cod, coord coord,
+                         long dt, long id, main main, String name, int timezone,
+                         int visibility, weather[] weather, sys sys, wind wind) {
         this.base = base;
         this.clouds = clouds;
         this.cod = cod;

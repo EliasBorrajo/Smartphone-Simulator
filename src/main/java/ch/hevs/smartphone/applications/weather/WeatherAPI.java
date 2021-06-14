@@ -31,7 +31,6 @@ public class WeatherAPI {
     private static final String API_KEY = "ec290e8fe580091860106fddb502ce81";   // Est la clé lié à mon compte au fournisseur de l'API
     private static final String UNITS = "&units=metric";                      // Permet d'avoir des unitées METRICS, donc les temperatures en °C
     private String urlLocation = "Sion";                                        // La ville sera par défaut "Sion"
-    private ArrayList<String> weatherDataFlow;
     private boolean isConnected;
 
     // Attributs a retourner au système pour afficher dans le GUI
@@ -92,17 +91,6 @@ public class WeatherAPI {
         return weather;
     }
 
-    private main jsonMappingForMainInfo(String str) {
-        Gson gson = new GsonBuilder().create();
-        main main;
-        main = gson.fromJson(str, main.class);
-        return main;
-    }
-
-    /*private WindInfo jsonMappingForWindInfo(String str) {
-
-    }*/
-
     protected void getAPIDetails() {
         // Se connecter à l'API
         String urlString = "http://api.openweathermap.org/data/2.5/weather?q="
@@ -118,57 +106,14 @@ public class WeatherAPI {
          * Tentative de récuperer les informations de l'API
          */
         try {
-            //StringBuilder result = new StringBuilder();
             URL url = new URL(urlString);
             System.out.println(url);
-
-            /*weatherDataFlow = new ArrayList<>();
-            String line;
-            int cptScan = 0;
-            URLConnection connection = url.openConnection();
-            connection.connect();
-
-            InputStream inStream =  connection.getInputStream();
-            Scanner in = new Scanner(inStream);
-            while(in.hasNextLine()){
-                line = in.nextLine();
-                weatherDataFlow.add(cptScan, line);
-            }*/
 
             WeatherMaster weatherMaster;
             weatherMaster = urlReader3(url);
             System.out.println(weatherMaster);
 
-            //Map<String, Object> map = urlReader(url);
-
-
-
-
-            /*// Lecture du flux de l'API, la lecture additionne la STRING resultat de la lecture à la suite.
-            BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            String line;                            // Permet de contenir la ligne que nous lisons actuellement
-            //Scanner sc = new Scanner(line);
-            //int cptScan = 0;
-            while ((line = br.readLine()) != null) {
-                result.append(line);      // Ajoute au resultat la ligne en cours de lecture
-            }
-            br.close();*/
-
-
-            /*System.out.println(weatherDataFlow.size());
-            System.out.println(weatherDataFlow.toString());
-
-            Map<String, Object> resultMap = jsonToMap(result.toString());
-            resultMap.forEach((k, v)-> System.out.println(k + " - " + v));
-            System.out.println("Resultat : " + result);
-            System.out.println("API infos are on : " + connection.getURL());
-            System.out.println(resultMap.get("weather").toString());
-            System.out.println(resultMap.get("main").toString());
-
-            Map<String, Object> mainMap = jsonToMap(resultMap.get("main").toString());
-            Map<String, Object> windMap = jsonToMap(resultMap.get("wind").toString());*/
-            /*String json = "{\"id\":801,\"main\":\"Clouds\",\"description\":\"few clouds\",\"icon\":\"02d\"}";
-            WeatherInfo weather = jsonMappingForWeatherInfo(json);
+            WeatherMaster weather = jsonMappingForWeatherInfo(json);
             System.out.println(weather.toString());
 
             String weatherInfos = weather.getIcon();
