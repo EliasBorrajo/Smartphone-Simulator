@@ -2,6 +2,7 @@ package ch.hevs.smartphone.applications.weather;
 
 // Les deux imports de google sont nécessaires pour la methode "jsonToMap"
 
+import ch.hevs.smartphone.applications.weather.classInfo.WeatherInfo;
 import com.google.gson.*;
 import com.google.gson.reflect.*;
 
@@ -11,9 +12,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -81,12 +80,10 @@ public class WeatherAPI {
         return map;
     }
 
-    private static WeatherInfo jsonToMapForWeather(String str) {
+    private static WeatherInfo jsonToMapForWeatherInfo(String str) {
         Gson gson = new GsonBuilder().create();
         WeatherInfo weatherInfo;
-
         weatherInfo = gson.fromJson(str, WeatherInfo.class);
-
         return weatherInfo;
     }
 
@@ -121,7 +118,7 @@ public class WeatherAPI {
             while(stop) {
                 result.deleteCharAt(result.indexOf("["));
                 result.deleteCharAt(result.indexOf("]"));
-                if (result.indexOf("[") == -1 || result.indexOf("[") == -1) {
+                if (result.indexOf("[") == -1 || result.indexOf("]") == -1) {
                     stop = false;
                 }
             }*/
@@ -135,19 +132,18 @@ public class WeatherAPI {
 
             Map<String, Object> mainMap = jsonToMap(resultMap.get("main").toString());
             Map<String, Object> windMap = jsonToMap(resultMap.get("wind").toString());
-            WeatherInfo weatherMap = jsonToMapForWeather(resultMap.get("weather").toString());
+            String json = "{\"id\":801,\"main\":\"Clouds\",\"description\":\"few clouds\",\"icon\":\"02d\"}";
+            WeatherInfo weather = jsonToMapForWeatherInfo(json);
+            System.out.println(weather.toString());
 
-
-
-
-            /*String weatherInfos = resultMap.get("weather").toString();
+            String weatherInfos = weather.getIcon();
             System.out.println(weatherInfos);
-            System.out.println(weatherInfos.length());
-            char weatherIconCode = weatherInfos.charAt(53);
-            System.out.println(weatherIconCode);
+
             String urlPicture = "http://openweathermap.org/img/wn/"
-                    + weatherIconCode
-                    + "@2x.png";*/
+                    + weatherInfos
+                    + "@2x.png";
+
+            System.out.println(urlPicture);
 
 
             /*StringBuilder resultWeatherIcon = new StringBuilder();
