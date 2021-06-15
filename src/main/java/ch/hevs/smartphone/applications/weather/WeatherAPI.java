@@ -2,17 +2,13 @@ package ch.hevs.smartphone.applications.weather;
 
 // Les deux imports de google sont nécessaires pour la methode "jsonToMap"
 
-import ch.hevs.smartphone.applications.weather.classInfo.WeatherInfo;
 import ch.hevs.smartphone.applications.weather.classInfo.WeatherMaster;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.*;
-import com.google.gson.reflect.*;
+
 import javax.swing.*;
 import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author Borrajo Elias, Milena Lonfat, Bourquin Jonathan
@@ -50,30 +46,6 @@ public class WeatherAPI {
     //*****************************************************************************
     // M E T H O D E S
     //*****************************************************************************
-    /**
-     * Convert JSON into a MAP
-     * ON donne en entrée le fichier JSON que l'on veut,
-     * et en sortie, on crée une HasMap qui nous liée une information à une string.
-     * Ex : "location" string est lié à "Bern" object
-     *
-     * @param str
-     * @return @TODO contrôler : retourne une map des informations dont on a besoin
-     */
-    private static Map<String, Object> jsonToMap(String str) {
-        Map<String, Object> map = new Gson().fromJson(
-                str,
-                new TypeToken<HashMap<String, Object>>() {
-                }.getType()
-        );
-        return map;
-    }
-
-    private WeatherInfo jsonMappingForWeatherInfo(String str) {
-        Gson gson = new GsonBuilder().create();
-        WeatherInfo weather;
-        weather = gson.fromJson(str, WeatherInfo.class);
-        return weather;
-    }
 
     protected void getAPIDetails() {
         // Se connecter à l'API
@@ -93,7 +65,7 @@ public class WeatherAPI {
             System.out.println(url);
 
             WeatherMaster weatherMaster;
-            weatherMaster = urlReader3(url);
+            weatherMaster = urlReader(url);
             System.out.println(weatherMaster);
 
             String weatherInfos = weatherMaster.getWeather()[0].getIcon();
@@ -104,7 +76,6 @@ public class WeatherAPI {
                     + "@2x.png";
 
             System.out.println(urlPicture);
-
 
             // Attribue les informations récuperés à mes variables
             setNomVille(weatherMaster.getName());
@@ -133,13 +104,6 @@ public class WeatherAPI {
     }
 
     private WeatherMaster urlReader(URL url) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        WeatherMaster weatherMaster = mapper.readValue(url, WeatherMaster.class);
-        //Map<String, Object> map = mapper.readValue(url, Map.class);
-        return weatherMaster;
-    }
-
-    private String urlReader2(URL url) throws IOException {
         URLConnection connection = url.openConnection();
         StringBuilder tmpResult = new StringBuilder();
         String result;
@@ -156,12 +120,8 @@ public class WeatherAPI {
         result = tmpResult.toString();
         System.out.println(result);
 
-        return result;
-    }
-
-    private WeatherMaster urlReader3(URL url) throws IOException {
         Gson gson = new GsonBuilder().create();
-        WeatherMaster weatherMaster = gson.fromJson(urlReader2(url), WeatherMaster.class);
+        WeatherMaster weatherMaster = gson.fromJson(result, WeatherMaster.class);
         return weatherMaster;
     }
 
