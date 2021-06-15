@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 /**
  * @author Bourquin Jonathan
- * Attributes ths strings that will be saved in the JSON for each contact
+ * Attributes the strings that will be saved in the JSON for each contact
  */
 
 public class Contact implements Serializable

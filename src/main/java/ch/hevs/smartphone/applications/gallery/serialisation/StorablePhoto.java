@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * Interface pour lire et écrire le JSON
+ * Interface to read and write JSON
  *
  * @author Lonfat Milena
  */

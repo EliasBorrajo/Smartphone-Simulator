@@ -7,12 +7,28 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Interface to read and write JSON
+ *
+ * @author Bourquin Jonathan
+ */
 public interface StorableContact
 {
-    // To read JSON File
+    /**
+     * Read JSON File
+     *
+     * @throws BusinessException
+     * @throws IOException
+     */
     ArrayList<Contact> read() throws BusinessException, IOException;
 
-    // To write JSON File
+    /**
+     * Write JSON File
+     *
+     * @param destination
+     * @param contacts
+     * @throws BusinessException
+     */
     void write(File destination, ArrayList<Contact> contacts) throws BusinessException;
 }
 

@@ -132,9 +132,9 @@ public class GalleryGUI extends JPanel {
     }
 
     /**
-     * Create du JscrollPane qui contient le panel qui affiche les images
+     * Creation of the ScrollBar which has the list of photo buttons
      *
-     * @return un JscrollPane qui contient un panel de boutons de toutes nos photos
+     * @return ScrollPane which has the list of photo button
      */
     protected JScrollPane buildPnlImageJs() {
         buildVariables();
@@ -163,7 +163,7 @@ public class GalleryGUI extends JPanel {
     }
 
     /**
-     * Méthode qui contruit le cardLayout
+     * Method that builds the cardLayout
      */
     public void buildCardLayout() {
         cardGallHome = new CardLayout();
@@ -180,10 +180,10 @@ public class GalleryGUI extends JPanel {
     // L I S T E N E R S
     //*****************************************************************************
     public void buildListeners() {
-        // Bouton qui permet d'ajouter des photos
+
         btnAddPhoto.addActionListener(galleryListener);
 
-        // Création des ActionListeners en fonction du nombre d'image
+        // Creation of ActionListeners according to the number of photos
         for (int i = 0; i < photosArray.size(); i++) {
             btnPhoto[i].addActionListener(galleryListener);
         }

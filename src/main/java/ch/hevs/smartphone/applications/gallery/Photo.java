@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 /**
  * @author Lonfat Milena
- * Attribut les strings qui seront enregistrer dans le JSON pour chaque photo
+ * Attributes the strings that will be saved in the JSON for each photo
  */
 public class Photo implements Serializable {
     //*****************************************************************************
@@ -14,14 +14,15 @@ public class Photo implements Serializable {
     @Serial
     private static final long serialVersionUID = 8730285243432450765L;
 
+    // String
     public String path;
     public String name;
 
     //*****************************************************************************
-    // C O N S T R U C T E U R
+    // C O N S T R U C T O R
     //*****************************************************************************
     /**
-     * Constructeur
+     * Constructor
      *
      * @param path
      * @param name
@@ -32,7 +33,7 @@ public class Photo implements Serializable {
     }
 
     /**
-     * Constructeur vide
+     * Empty constructor
      */
     public Photo() {
 

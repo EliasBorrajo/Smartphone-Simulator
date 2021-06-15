@@ -18,25 +18,25 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
- * @author Elias, Jonathan
- * Contient le carnet d'adresse des differents contactes.
- * Récupère le fichier JSON sur le PC afin de créer nos contactes
+ * @author Borrajo Elias, Bourquin Jonathan
+ * Contains the adress book
+ * Retrieve the JSON file on the PC in order to create our contacts
  */
 
 public class JSONStorageContact implements StorableContact {
     //*****************************************************************************
     // A T T R I B U T S
     //*****************************************************************************
-    // ARRAY LIST - Ce sera le carnet d'adresse
+    // ARRAY LIST - It will be our Address book
     private ArrayList<Contact> contactArray = new ArrayList<>();
 
-    // Liste qui permet de lire le JSOn et sera converti ensuite en ArrayList du carnet d'adresse
+    // List which allows to read the JSON and will then be converted into an ArrayList of the address book
     private List<Contact> contactList;
 
     //PATH
-    private String storePath;       // Permet de stoquer le contenu de notre VARIABLE D'ENVIRONNEMENT SYSTEME
-    private String jsonPath;        // Est la variable qui contiendra le chemin FINAl sur le PC et selon l'OS,
-    // à l'emplacement de stockage de notre fichier JSON
+    private String storePath;       // Allows to store the content of our SYSTEM ENVIRONMENT VARIABLE
+    private String jsonPath;        // Is the variable which will contain the FINAl path on the PC and depending on the OS,
+                                    // to the storage location of our JSON file
 
     // myObj FILE
     private File myObj;
@@ -44,7 +44,7 @@ public class JSONStorageContact implements StorableContact {
     StackTraceElement[] error;
 
     //*****************************************************************************
-    // C O N S T R U C T E U R
+    // C O N S T R U C T O R
     //*****************************************************************************
     public JSONStorageContact() {
         definePathToStoreData();
@@ -59,7 +59,6 @@ public class JSONStorageContact implements StorableContact {
     //*****************************************************************************
     // M E T H O D E S
     //*****************************************************************************
-
     /**
      * Permet de récuperer la valeur stoqué sur le PC de l'utilisateur de l'app.
      * L'utilisateur va créer une VARIABLE D'ENVIRONNEMENT sur son OS / PC, pour décider à quel emplacement
@@ -75,15 +74,14 @@ public class JSONStorageContact implements StorableContact {
      * 3) Définir dans une string le chemin d'accès finale crée par PATH, et l'utiliser pour la création de notre FILE.
      */
     private void definePathToStoreData() {
-        // Récupère le CONTENU de la VARIABLE D'ENVIRONNEMENT
+        // Retrieves the contents of the ENVIRONMENT VARIABLE
         storePath = Config.getConfig().getStorePath();
 
-        // Va m'écrire le chemin d'accès de manière coherente grâce à PATH & PATHS, et non faire du bricolage
-        // Concatène correctement mon PATH qui sera stoqué dans la STRING
+        // Will write the path consistently thanks to PATH & PATHS
+        // Correctly concatenate my PATH which will be stored in the STRING
         Path path = Paths.get(storePath, "contactsList.json");
 
         jsonPath = path.toString();
-        //System.out.println("Final path storing my JSON file is : " + jsonPath);
 
         myObj = new File(jsonPath);
         System.out.println("REAL REAL PATH OBJECT CONTACT FILE IS : " + myObj.getAbsolutePath());
@@ -91,23 +89,25 @@ public class JSONStorageContact implements StorableContact {
 
     /**
      * SERIALISATION READ DATA IN A JSON FILE
-     * Si le fichier est vide, le lit sans problème.
-     * Si le fichier n'existe pas, il le crée
-     * SI le fichier est corrompu, il ne le lit pas, et le fichier sera overWrite lors de la prochaine sérialisation quand on éteint le smartphone
      *
-     * @return un arrayList de nos contact
-     * @throws IOException
+     * If the file is empty, it reads without problem.
+     * If the file does not exist, it creates it.
+     * If the file is corrupted, it does not read it,
+     * and the file will be overwrite during the next serialization when we turn off the smartphone.
+     *
+     * @return an arrayList of our contacts
+     * @throws BusinessException
      */
     @Override
     public ArrayList<Contact> read() throws BusinessException {
-        ObjectMapper mapper = new ObjectMapper();       // Mapper n'aime pas les fichiers vides !!
+        ObjectMapper mapper = new ObjectMapper();       // Mapper doesn't like empty file
         try {
-            // Verifie que le fichier existe pas & Crée le ficher
+            // Check that the file does not exist & Create the file
             if (!myObj.exists()) {
                 myObj.createNewFile();
                 System.out.println("File created: " + myObj.getName());
             }
-            // verifie que le ficher n'est pas vide (NULL)
+            // Check that the file is not empty (NULL)
             else if (myObj.length() > 0) {
                 contactArray.clear();
 
@@ -119,12 +119,10 @@ public class JSONStorageContact implements StorableContact {
                 System.out.println("Empty file");
             }
         } catch (IOException e) {
-            //System.out.println("Le fichier est corrompu");
             JOptionPane.showMessageDialog(null, "Une erreur est survenue lors de la récuperation du carnet d'adresse." +
                     "                                                 \nUn carnet d'adresse vierge a été initialisé" +
                     "                                                 \nPossibles causes : Corruption du fichiers JSON");
 
-           //error = e.getStackTrace();
            throw new BusinessException("An error occurred while READING JSON STORAGE CONTACT.", ErrorCode.READING_JSON_STORAGE_ERROR);
             // copie du Json corrompu er acceder à la main @TODO : FUTURE AMELIORATION
 
@@ -137,7 +135,6 @@ public class JSONStorageContact implements StorableContact {
      *
      * @param destination
      * @param contacts
-     * @throws IOException
      */
     @Override
     public void write(File destination, ArrayList<Contact> contacts) {
@@ -147,13 +144,13 @@ public class JSONStorageContact implements StorableContact {
         } catch (IOException e) {
             System.out.println("SERIALISATION of contactList.JSON has failed : ");
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Une erreur est survenue lors de l'écriture / SERIALISATION du carnet d'adresse." +
-                    "                                                   \n Le carnet d'adresse n'est pas enregistré, re-démarrer le smartphone.");
+            JOptionPane.showMessageDialog(null, "An error occurred while writing / serializing the address book." +
+                    "                                                   \n The address book is not saved, restart the smartphone.");
         }
     }
 
     /**
-     * Trie un array d'objet Contacts par ordre alphabétique en fonction du prénom
+     * Sorts an array of Contacts object alphabetically by first name
      *
      * @param contacts
      */

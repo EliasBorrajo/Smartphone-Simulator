@@ -1,7 +1,6 @@
 package ch.hevs.smartphone.applications.gallery;
 
 import ch.hevs.smartphone.applications.gallery.listeners.GalleryActionListener;
-import ch.hevs.smartphone.applications.gallery.listeners.GalleryMouseListener;
 import ch.hevs.smartphone.parameters.utils.Util;
 
 import javax.swing.*;
@@ -9,12 +8,7 @@ import java.awt.*;
 
 /**
  * @author Lonfat Milena
- * La classe ShowPhoto est le deuxième panel du card de l'application galerie.
- * Affiche la miniature et le nom de la photo séléctionner dans la galerie.
- * Il permet de changer le nom ou supprimer la photo en question.
- * Le deuxième accès se fait depuis un contact pour lui attribuer une photo.
- * Les boutons sont visibles ou non suivant l'accès pris (galerie ou contact).
- * Accès à la class des actionListeners.
+ * This class is the GUI that show the information of a photo
  */
 
 public class ShowPhotoInfo extends JPanel {
@@ -40,7 +34,7 @@ public class ShowPhotoInfo extends JPanel {
     private JButton btnSave;
     private JButton btnDelete;
     private JButton btnCancel;
-    private JButton btnSelect; // Permet de choisir la photo en tant qu'image de profil du contact
+    private JButton btnSelect; // Allow to choose the photo as the contact's profile image
 
     // ImageIcon
     private ImageIcon icPhoto;
@@ -52,14 +46,11 @@ public class ShowPhotoInfo extends JPanel {
     // ActionListener
     private GalleryActionListener galleryActionListener;
 
-    // MouseListener
-    private GalleryMouseListener galleryMouseListener;
-
     //*****************************************************************************
-    // C O N S T R U C T E U R
+    // C O N S T R U C T O R
     //*****************************************************************************
     /**
-     * Constructeur
+     * Constructor
      *
      * @param galleryGUI
      * @param name
@@ -69,20 +60,20 @@ public class ShowPhotoInfo extends JPanel {
         this.galleryGUI = galleryGUI;
         this.name = name;
         this.path = path;
-        buildpnlShowPhoto();
+        buildPnlShowPhoto();
         buildListeners();
     }
 
     //*****************************************************************************
-    // M E T H O D E S
+    // M E T H O D S
     //*****************************************************************************
     /**
-     * Création initiale du panel
+     * buildPnlShowPhoto : create all the panels and their contents
      */
-    private void buildpnlShowPhoto() {
-        buildvariables();
+    private void buildPnlShowPhoto() {
+        buildVariables();
 
-        // Panel nord
+        // North panel
         pnlNamePhoto = new JPanel();
         lblNamePhoto = new JLabel("Name :");
         tfNamePhoto = new JTextField(this.name);
@@ -92,7 +83,7 @@ public class ShowPhotoInfo extends JPanel {
         pnlNamePhoto.add(lblNamePhoto);
         pnlNamePhoto.add(tfNamePhoto);
 
-        // Panel centre
+        // Center panel
         pnlShowPhoto = new JPanel();
         lblContentPhoto = new JLabel();
 
@@ -101,7 +92,7 @@ public class ShowPhotoInfo extends JPanel {
         lblContentPhoto.setIcon(icPhoto);
         pnlShowPhoto.add(lblContentPhoto);
 
-        // Panel sud
+        // South panel
         pnlButton = new JPanel();
         btnSave = new JButton("Save change");
         btnDelete = new JButton("Delete");
@@ -114,33 +105,30 @@ public class ShowPhotoInfo extends JPanel {
         pnlButton.add(btnCancel);
         pnlButton.add(btnSelect);
 
-        // Panel qui contient le tout
+        // Contains the three panels
         this.add(pnlNamePhoto);
         this.add(pnlShowPhoto);
         this.add(pnlButton);
     }
 
     /**
-     * Création des variables
+     * Access to the class of listener
      */
-    private void buildvariables() {
+    private void buildVariables() {
         galleryActionListener = new GalleryActionListener(galleryGUI);
-        galleryMouseListener = new GalleryMouseListener(galleryGUI);
     }
 
     /**
-     * Listeners du bouton ajouter
-     * On construit dans une autre méthode pour avoir accès après la création de TOUS les composants
+     * Add the actionListener to buttons
      */
     public void buildListeners() {
         btnSave.addActionListener(galleryActionListener);
         btnDelete.addActionListener(galleryActionListener);
         btnCancel.addActionListener(galleryActionListener);
-        tfNamePhoto.addMouseListener(galleryMouseListener);
     }
 
     /**
-     * Permet de afficher les boutons que l'on a pas besoin depuis l'application gallery
+     * Displays buttons that you don't need from the gallery application
      */
     public void showNormalBtn() {
         btnSave.setVisible(true);
@@ -149,7 +137,7 @@ public class ShowPhotoInfo extends JPanel {
     }
 
     /**
-     * Permet d'afficher les bouttons que l'on a besoin depuis l'application contact
+     * Displays the buttons you need from the contact application
      */
     public void showSelectImageBtn() {
         btnSave.setVisible(false);
