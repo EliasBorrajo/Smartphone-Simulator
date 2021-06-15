@@ -34,19 +34,14 @@ public class WeatherAPI {
     private boolean isConnected;
 
     // Attributs a retourner au système pour afficher dans le GUI
-    // @TODO : NON STRING MAIS OBJECTS POUR ETRE PAREIL QUE LES MAPS ??
-    private String nomVille;        // Pourra être changé
-    private String temperature;
-    private String tempMax;
-    private String tempMin;
-    private String tempRessenti;
+    private String nomVille;
+    private double temperature;
+    private double tempMax;
+    private double tempMin;
+    private double tempRessenti;
+    private int humidity;
+    private double windSpeed;
     private String description;
-    private String humidite;        // en %
-    private String windSpeed;       // metres/sec
-    private String nuage;           // % de nuages
-    private String pluie1h;         // Volume de pluie la dernière heure
-
-    private Icon weatherIcon;       // "weather" --> icon
 
 // @TODO : POUR RECUPERER LE TABLEAU, RECUPERER NORMAL 1 FOIS DEJA; PUIS RöCUPERER DE CE RESULTAT LA STRING
 
@@ -113,7 +108,7 @@ public class WeatherAPI {
             weatherMaster = urlReader3(url);
             System.out.println(weatherMaster);
 
-            String weatherInfos = weatherMaster.getWeather()[0].getIconCode();
+            String weatherInfos = weatherMaster.getWeather()[0].getIcon();
             System.out.println(weatherInfos);
 
             String urlPicture = "http://openweathermap.org/img/wn/"
@@ -124,23 +119,20 @@ public class WeatherAPI {
 
 
             // Attribue les informations récuperés à mes variables
-            /*setNomVille(resultMap.get("name").toString());
-
-            setTemperature(mainMap.get("temp").toString());
-            setTempMax(mainMap.get("temp_max").toString());
-            setTempMin(mainMap.get("temp_min").toString());
-            setTempRessenti(mainMap.get("feels_like").toString());
-            setHumidite(mainMap.get("humidity").toString());
+            setNomVille(weatherMaster.getName());
+            setTemperature(weatherMaster.getMain().getTemp());
+            setTempMax(weatherMaster.getMain().getTemp_max());
+            setTempMin(weatherMaster.getMain().getTemp_min());
+            setTempRessenti(weatherMaster.getMain().getFeels_like());
+            setHumidity(weatherMaster.getMain().getHumidity());
             //setWeatherIcon((Icon) weather.get("icon"));
-
             //setDescription(weatherMap.get("description").toString());
-
-            setWindSpeed(windMap.get("speed").toString());
+            setWindSpeed(weatherMaster.getWind().getSpeed());
 
             System.out.println(getNomVille());
             System.out.println(getTempMax());
             System.out.println(getDescription());
-            System.out.println(getHumidite());*/
+            System.out.println(getHumidity());
             isConnected = true;
 
         } catch (IOException e) {
@@ -151,7 +143,6 @@ public class WeatherAPI {
             setUrlLocation("Sion");
             e.printStackTrace();
         }
-
     }
 
     private WeatherMaster urlReader(URL url) throws IOException {
@@ -196,106 +187,96 @@ public class WeatherAPI {
     //*****************************************************************************
     // G E T T E R S
     //*****************************************************************************
-    public String getNomVille() {
-        return nomVille;
+
+    public static String getApiKey() {
+        return API_KEY;
     }
 
-    public String getTemperature() {
-        return temperature;
-    }
-
-    public String getTempMax() {
-        return tempMax;
-    }
-
-    public String getTempMin() {
-        return tempMin;
-    }
-
-    public String getTempRessenti() {
-        return tempRessenti;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getHumidite() {
-        return humidite;
-    }
-
-    public String getWindSpeed() {
-        return windSpeed;
-    }
-
-    public String getNuage() {
-        return nuage;
-    }
-
-    public String getPluie1h() {
-        return pluie1h;
-    }
-
-    public Icon getWeatherIcon() {
-        return weatherIcon;
-    }
-
-    public boolean isConnected() {
-        return isConnected;
+    public static String getUNITS() {
+        return UNITS;
     }
 
     public String getUrlLocation() {
         return urlLocation;
     }
 
+    public boolean isConnected() {
+        return isConnected;
+    }
+
+    public String getNomVille() {
+        return nomVille;
+    }
+
+    public double getTemperature() {
+        return temperature;
+    }
+
+    public double getTempMax() {
+        return tempMax;
+    }
+
+    public double getTempMin() {
+        return tempMin;
+    }
+
+    public double getTempRessenti() {
+        return tempRessenti;
+    }
+
+    public int getHumidity() {
+        return humidity;
+    }
+
+    public double getWindSpeed() {
+        return windSpeed;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
     //*****************************************************************************
     // S E T T E R S
     //*****************************************************************************
+
     public void setUrlLocation(String urlLocation) {
         this.urlLocation = urlLocation;
+    }
+
+    public void setConnected(boolean connected) {
+        isConnected = connected;
     }
 
     public void setNomVille(String nomVille) {
         this.nomVille = nomVille;
     }
 
-    public void setTemperature(String temperature) {
+    public void setTemperature(double temperature) {
         this.temperature = temperature;
     }
 
-    public void setTempMax(String tempMax) {
+    public void setTempMax(double tempMax) {
         this.tempMax = tempMax;
     }
 
-    public void setTempMin(String tempMin) {
+    public void setTempMin(double tempMin) {
         this.tempMin = tempMin;
     }
 
-    public void setTempRessenti(String tempRessenti) {
+    public void setTempRessenti(double tempRessenti) {
         this.tempRessenti = tempRessenti;
+    }
+
+    public void setHumidity(int humidity) {
+        this.humidity = humidity;
+    }
+
+    public void setWindSpeed(double windSpeed) {
+        this.windSpeed = windSpeed;
     }
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public void setHumidite(String humidite) {
-        this.humidite = humidite;
-    }
-
-    public void setWindSpeed(String windSpeed) {
-        this.windSpeed = windSpeed;
-    }
-
-    public void setNuage(String nuage) {
-        this.nuage = nuage;
-    }
-
-    public void setPluie1h(String pluie1h) {
-        this.pluie1h = pluie1h;
-    }
-
-    public void setWeatherIcon(Icon weatherIcon) {
-        this.weatherIcon = weatherIcon;
     }
 }

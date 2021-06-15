@@ -99,7 +99,7 @@ public class WeatherGUI extends JPanel {
                 weatherInfos.setTemperature(weatherInfos.getTemperature());
                 weatherInfos.setTempMax(weatherInfos.getTempMax());
                 weatherInfos.setTempMin(weatherInfos.getTempMin());
-                weatherInfos.setHumidite(weatherInfos.getHumidite());
+                weatherInfos.setHumidity(weatherInfos.getHumidity());
 
                 removeAll();
                 validate();
@@ -116,7 +116,7 @@ public class WeatherGUI extends JPanel {
         lblTemp = new JLabel("Temperature : " + weatherInfos.getTemperature() + "°C");
         lblTempMax = new JLabel("Maximum temperature : " + weatherInfos.getTempMax() + "°C");
         lblTempMin = new JLabel("Minimum temperature : " + weatherInfos.getTempMin() + "°C");
-        lblHumidite = new JLabel("Humidity level : " + weatherInfos.getHumidite() + "%");
+        lblHumidite = new JLabel("Humidity level : " + weatherInfos.getHumidity() + "%");
 
         // NORD
         pnlNord = new JPanel();

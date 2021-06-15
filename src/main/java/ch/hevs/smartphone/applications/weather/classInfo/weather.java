@@ -4,13 +4,13 @@ public class weather {
     private int id;
     private String main;
     private String description;
-    private String iconCode;
+    private String icon;
 
-    public weather(int id, String main, String description, String iconCode) {
+    public weather(int id, String main, String description, String icon) {
         this.id = id;
         this.main = main;
         this.description = description;
-        this.iconCode = iconCode;
+        this.icon = icon;
     }
 
     /*@Override
@@ -19,7 +19,7 @@ public class weather {
                 "id=" + id +
                 ", main='" + main + '\'' +
                 ", description='" + description + '\'' +
-                ", iconCode='" + iconCode + '\'' +
+                ", icon='" + icon + '\'' +
                 '}';
     }*/
 
@@ -35,7 +35,7 @@ public class weather {
         return description;
     }
 
-    public String getIconCode() {
-        return iconCode;
+    public String getIcon() {
+        return icon;
     }
 }
