@@ -1,26 +1,16 @@
 package ch.hevs.smartphone.applications.weather.classInfo;
 
-public class WeatherInfo {
+public class weather {
     private int id;
     private String main;
     private String description;
     private String icon;
 
-    public WeatherInfo(int id, String main, String description, String icon) {
+    public weather(int id, String main, String description, String icon) {
         this.id = id;
         this.main = main;
         this.description = description;
         this.icon = icon;
-    }
-
-    @Override
-    public String toString() {
-        return "WeatherInfo{" +
-                "id=" + id +
-                ", main='" + main + '\'' +
-                ", description='" + description + '\'' +
-                ", icon='" + icon + '\'' +
-                '}';
     }
 
     public int getId() {

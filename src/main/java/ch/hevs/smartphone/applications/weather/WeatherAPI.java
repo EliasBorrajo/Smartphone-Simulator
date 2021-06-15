@@ -2,16 +2,17 @@ package ch.hevs.smartphone.applications.weather;
 
 // Les deux imports de google sont nécessaires pour la methode "jsonToMap"
 
-import ch.hevs.smartphone.applications.weather.classInfo.WeatherInfo;
+import ch.hevs.smartphone.applications.weather.classInfo.main;
+import ch.hevs.smartphone.applications.weather.classInfo.weather;
+import ch.hevs.smartphone.applications.weather.classInfo.WeatherMaster;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.*;
 import com.google.gson.reflect.*;
-
 import javax.swing.*;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,19 +31,14 @@ public class WeatherAPI {
     private boolean isConnected;
 
     // Attributs a retourner au système pour afficher dans le GUI
-    private String nomVille;        // Pourra être changé
-    private String temperature;
-    private String tempMax;
-    private String tempMin;
-    private String tempRessenti;
+    private String nomVille;
+    private double temperature;
+    private double tempMax;
+    private double tempMin;
+    private double tempRessenti;
+    private int humidity;
+    private double windSpeed;
     private String description;
-    private String humidite;        // en %
-    private String windSpeed;       // metres/sec
-    private String nuage;           // % de nuages
-    private String pluie1h;         // Volume de pluie la dernière heure
-
-    private Icon weatherIcon;       // "weather" --> icon
-    private String urlPicture;
 
     //*****************************************************************************
     // C O N S T R U C T E U R
@@ -73,11 +69,11 @@ public class WeatherAPI {
         return map;
     }
 
-    private static WeatherInfo jsonToMapForWeatherInfo(String str) {
+    private weather jsonMappingForWeatherInfo(String str) {
         Gson gson = new GsonBuilder().create();
-        WeatherInfo weatherInfo;
-        weatherInfo = gson.fromJson(str, WeatherInfo.class);
-        return weatherInfo;
+        weather weather;
+        weather = gson.fromJson(str, weather.class);
+        return weather;
     }
 
     protected void getAPIDetails() {
@@ -88,56 +84,44 @@ public class WeatherAPI {
                 + "&appid="
                 + API_KEY;
 
-
         isConnected = false;
 
         /**
          * Tentative de récuperer les informations de l'API
          */
         try {
-            StringBuilder result = new StringBuilder();
             URL url = new URL(urlString);
-            URLConnection connection = url.openConnection();
+            System.out.println(url);
 
-            // Lecture du flux de l'API, la lecture additionne la STRING resultat de la lecture à la suite.
-            BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            String line;                            // Permet de contenir la ligne que nous lisons actuellement
-            while ((line = br.readLine()) != null) {
-                result.append(line);      // Ajoute au resultat la ligne en cours de lecture
-            }
-            br.close();
+            WeatherMaster weatherMaster;
+            weatherMaster = urlReader3(url);
+            System.out.println(weatherMaster);
 
-            Map<String, Object> resultMap = jsonToMap(result.toString());
-            resultMap.forEach((k, v)-> System.out.println(k + " - " + v));
-            System.out.println("Resultat : " + result);
-            System.out.println("API infos are on : " + connection.getURL());
-            System.out.println("Weather : " + resultMap.get("weather").toString());
-            System.out.println("Main : " + resultMap.get("main").toString());
-
-            Map<String, Object> mainMap = jsonToMap(resultMap.get("main").toString());
-            Map<String, Object> windMap = jsonToMap(resultMap.get("wind").toString());
-            String json = "{\"id\":801,\"main\":\"Clouds\",\"description\":\"few clouds\",\"icon\":\"02d\"}";
-            WeatherInfo weather = jsonToMapForWeatherInfo(json);
-            System.out.println("Weather toString : " + weather.toString());
-
-            String weatherInfos = weather.getIcon();
+            String weatherInfos = weatherMaster.getWeather()[0].getIcon();
             System.out.println(weatherInfos);
 
-            urlPicture = "http://openweathermap.org/img/wn/"
+            String urlPicture = "http://openweathermap.org/img/wn/"
                     + weatherInfos
                     + "@2x.png";
 
             System.out.println(urlPicture);
 
-            // Attribue les informations récuperés à mes variables
-            setNomVille(resultMap.get("name").toString());
-            setTemperature(mainMap.get("temp").toString());
-            setTempMax(mainMap.get("temp_max").toString());
-            setTempMin(mainMap.get("temp_min").toString());
-            setTempRessenti(mainMap.get("feels_like").toString());
-            setHumidite(mainMap.get("humidity").toString());
-            setWindSpeed(windMap.get("speed").toString());
 
+            // Attribue les informations récuperés à mes variables
+            setNomVille(weatherMaster.getName());
+            setTemperature(weatherMaster.getMain().getTemp());
+            setTempMax(weatherMaster.getMain().getTemp_max());
+            setTempMin(weatherMaster.getMain().getTemp_min());
+            setTempRessenti(weatherMaster.getMain().getFeels_like());
+            setHumidity(weatherMaster.getMain().getHumidity());
+            //setWeatherIcon((Icon) weather.get("icon"));
+            //setDescription(weatherMap.get("description").toString());
+            setWindSpeed(weatherMaster.getWind().getSpeed());
+
+            System.out.println(getNomVille());
+            System.out.println(getTempMax());
+            System.out.println(getDescription());
+            System.out.println(getHumidity());
             isConnected = true;
 
         } catch (IOException e) {
@@ -145,127 +129,139 @@ public class WeatherAPI {
             System.out.println("Erreur dans WEATHER_API : methode = getAPIDetails");
             JOptionPane.showMessageDialog(null, "Ville non valide" +
                     "\n Re-essayez ou vérifiez votre connection");
-
             setUrlLocation("Sion");
-
             System.out.println("Is connected resultat:" + isConnected);
             e.printStackTrace();
         }
+    }
 
+    private WeatherMaster urlReader(URL url) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        WeatherMaster weatherMaster = mapper.readValue(url, WeatherMaster.class);
+        //Map<String, Object> map = mapper.readValue(url, Map.class);
+        return weatherMaster;
+    }
+
+    private String urlReader2(URL url) throws IOException {
+        URLConnection connection = url.openConnection();
+        StringBuilder tmpResult = new StringBuilder();
+        String result;
+
+        // Lecture du flux de l'API, la lecture additionne la STRING resultat de la lecture à la suite.
+        BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        String line;                            // Permet de contenir la ligne que nous lisons actuellement
+
+        while ((line = br.readLine()) != null) {
+            tmpResult.append(line);      // Ajoute au resultat la ligne en cours de lecture
+        }
+        br.close();
+
+        result = tmpResult.toString();
+        System.out.println(result);
+
+        return result;
+    }
+
+    private WeatherMaster urlReader3(URL url) throws IOException {
+        Gson gson = new GsonBuilder().create();
+        WeatherMaster weatherMaster = gson.fromJson(urlReader2(url), WeatherMaster.class);
+        return weatherMaster;
     }
 
 
     //*****************************************************************************
     // G E T T E R S
     //*****************************************************************************
-    public String getNomVille() {
-        return nomVille;
+
+    public static String getApiKey() {
+        return API_KEY;
     }
 
-    public String getTemperature() {
-        return temperature;
-    }
-
-    public String getTempMax() {
-        return tempMax;
-    }
-
-    public String getTempMin() {
-        return tempMin;
-    }
-
-    public String getTempRessenti() {
-        return tempRessenti;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getHumidite() {
-        return humidite;
-    }
-
-    public String getWindSpeed() {
-        return windSpeed;
-    }
-
-    public String getNuage() {
-        return nuage;
-    }
-
-    public String getPluie1h() {
-        return pluie1h;
-    }
-
-    public Icon getWeatherIcon() {
-        return weatherIcon;
-    }
-
-    public boolean isConnected() {
-        return isConnected;
+    public static String getUNITS() {
+        return UNITS;
     }
 
     public String getUrlLocation() {
         return urlLocation;
     }
 
-    public String getUrlPicture() {
-        return urlPicture;
+    public boolean isConnected() {
+        return isConnected;
+    }
+
+    public String getNomVille() {
+        return nomVille;
+    }
+
+    public double getTemperature() {
+        return temperature;
+    }
+
+    public double getTempMax() {
+        return tempMax;
+    }
+
+    public double getTempMin() {
+        return tempMin;
+    }
+
+    public double getTempRessenti() {
+        return tempRessenti;
+    }
+
+    public int getHumidity() {
+        return humidity;
+    }
+
+    public double getWindSpeed() {
+        return windSpeed;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     //*****************************************************************************
     // S E T T E R S
     //*****************************************************************************
+
     public void setUrlLocation(String urlLocation) {
         this.urlLocation = urlLocation;
+    }
+
+    public void setConnected(boolean connected) {
+        isConnected = connected;
     }
 
     public void setNomVille(String nomVille) {
         this.nomVille = nomVille;
     }
 
-    public void setTemperature(String temperature) {
+    public void setTemperature(double temperature) {
         this.temperature = temperature;
     }
 
-    public void setTempMax(String tempMax) {
+    public void setTempMax(double tempMax) {
         this.tempMax = tempMax;
     }
 
-    public void setTempMin(String tempMin) {
+    public void setTempMin(double tempMin) {
         this.tempMin = tempMin;
     }
 
-    public void setTempRessenti(String tempRessenti) {
+    public void setTempRessenti(double tempRessenti) {
         this.tempRessenti = tempRessenti;
+    }
+
+    public void setHumidity(int humidity) {
+        this.humidity = humidity;
+    }
+
+    public void setWindSpeed(double windSpeed) {
+        this.windSpeed = windSpeed;
     }
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public void setHumidite(String humidite) {
-        this.humidite = humidite;
-    }
-
-    public void setWindSpeed(String windSpeed) {
-        this.windSpeed = windSpeed;
-    }
-
-    public void setNuage(String nuage) {
-        this.nuage = nuage;
-    }
-
-    public void setPluie1h(String pluie1h) {
-        this.pluie1h = pluie1h;
-    }
-
-    public void setWeatherIcon(Icon weatherIcon) {
-        this.weatherIcon = weatherIcon;
-    }
-
-    public void setUrlPicture(String urlPicture) {
-        this.urlPicture = urlPicture;
     }
 }

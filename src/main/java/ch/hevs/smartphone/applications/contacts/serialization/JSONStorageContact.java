@@ -2,6 +2,7 @@ package ch.hevs.smartphone.applications.contacts.serialization;
 
 import ch.hevs.smartphone.applications.contacts.Contact;
 import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
+import ch.hevs.smartphone.applications.contacts.errors.ErrorCode;
 import ch.hevs.smartphone.parameters.jsonStorage.Config;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -40,12 +41,18 @@ public class JSONStorageContact implements StorableContact {
     // myObj FILE
     private File myObj;
 
+    StackTraceElement[] error;
+
     //*****************************************************************************
     // C O N S T R U C T E U R
     //*****************************************************************************
     public JSONStorageContact() {
         definePathToStoreData();
-        read();
+        try {
+            read();
+        } catch (BusinessException e) {
+            e.printStackTrace();
+        }
         sortDescending(contactArray);
     }
 
@@ -92,7 +99,7 @@ public class JSONStorageContact implements StorableContact {
      * @throws IOException
      */
     @Override
-    public ArrayList<Contact> read() {
+    public ArrayList<Contact> read() throws BusinessException {
         ObjectMapper mapper = new ObjectMapper();       // Mapper n'aime pas les fichiers vides !!
         try {
             // Verifie que le fichier existe pas & Crée le ficher
@@ -112,13 +119,13 @@ public class JSONStorageContact implements StorableContact {
                 System.out.println("Empty file");
             }
         } catch (IOException e) {
-            System.out.println("An error occurred while READING JSON STORAGE CONTACT.");
-            System.out.println("Le fichier est corrompu");
-            //System.out.println("Le fichier est vide");
+            //System.out.println("Le fichier est corrompu");
             JOptionPane.showMessageDialog(null, "Une erreur est survenue lors de la récuperation du carnet d'adresse." +
                     "                                                 \nUn carnet d'adresse vierge a été initialisé" +
                     "                                                 \nPossibles causes : Corruption du fichiers JSON");
-            //e.printStackTrace();
+
+           //error = e.getStackTrace();
+           throw new BusinessException("An error occurred while READING JSON STORAGE CONTACT.", ErrorCode.READING_JSON_STORAGE_ERROR);
             // copie du Json corrompu er acceder à la main @TODO : FUTURE AMELIORATION
 
         }
