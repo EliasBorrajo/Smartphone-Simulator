@@ -7,13 +7,6 @@ public class clouds {
         this.all = all;
     }
 
-    /*@Override
-    public String toString() {
-        return "clouds{" +
-                "all=" + all +
-                '}';
-    }*/
-
     public int getAll() {
         return all;
     }

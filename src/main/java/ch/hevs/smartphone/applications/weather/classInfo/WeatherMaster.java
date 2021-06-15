@@ -38,25 +38,6 @@ public class WeatherMaster {
         this.wind = wind;
     }
 
-    /*@Override
-    public String toString() {
-        return "{" +
-                ", base='" + base + '\'' +
-                ", clouds=" + clouds +
-                ", cod=" + cod +
-                ", coord=" + coord +
-                ", dt=" + dt +
-                ", id=" + id +
-                ", main=" + main +
-                ", name='" + name + '\'' +
-                ", timezone=" + timezone +
-                ", visibility=" + visibility +
-                ", weather=" + Arrays.toString(weather) +
-                ", sys=" + sys +
-                ", wind=" + wind +
-                '}';
-    }*/
-
     public String getBase() {
         return base;
     }

@@ -15,17 +15,6 @@ public class sys {
         this.sunset = sunset;
     }
 
-    /*@Override
-    public String toString() {
-        return "sys{" +
-                "type=" + type +
-                ", id=" + id +
-                ", country='" + country + '\'' +
-                ", sunrise=" + sunrise +
-                ", sunset=" + sunset +
-                '}';
-    }*/
-
     public int getType() {
         return type;
     }

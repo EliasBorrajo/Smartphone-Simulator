@@ -8,7 +8,6 @@ import ch.hevs.smartphone.applications.weather.classInfo.WeatherMaster;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.*;
 import com.google.gson.reflect.*;
-
 import javax.swing.*;
 import java.io.*;
 import java.net.URL;
@@ -16,8 +15,6 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-
 
 /**
  * @author Borrajo Elias, Milena Lonfat
@@ -43,16 +40,9 @@ public class WeatherAPI {
     private double windSpeed;
     private String description;
 
-// @TODO : POUR RECUPERER LE TABLEAU, RECUPERER NORMAL 1 FOIS DEJA; PUIS RöCUPERER DE CE RESULTAT LA STRING
-
     //*****************************************************************************
     // C O N S T R U C T E U R
     //*****************************************************************************
-   /* public static void main(String[] args)
-    {
-        WeatherAPI weather = new WeatherAPI();
-
-    }*/
 
     public WeatherAPI() {
         getAPIDetails();
@@ -93,7 +83,6 @@ public class WeatherAPI {
                 + UNITS
                 + "&appid="
                 + API_KEY;
-
 
         isConnected = false;
 
@@ -147,11 +136,8 @@ public class WeatherAPI {
 
     private WeatherMaster urlReader(URL url) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-
         WeatherMaster weatherMaster = mapper.readValue(url, WeatherMaster.class);
-
         //Map<String, Object> map = mapper.readValue(url, Map.class);
-
         return weatherMaster;
     }
 
@@ -177,9 +163,7 @@ public class WeatherAPI {
 
     private WeatherMaster urlReader3(URL url) throws IOException {
         Gson gson = new GsonBuilder().create();
-
         WeatherMaster weatherMaster = gson.fromJson(urlReader2(url), WeatherMaster.class);
-
         return weatherMaster;
     }
 

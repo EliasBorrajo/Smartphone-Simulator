@@ -17,18 +17,6 @@ public class main {
         this.humidity = humidity;
     }
 
-    /*@Override
-    public String toString() {
-        return "MainInfo{" +
-                "temp=" + temp +
-                ", feels_like=" + feels_like +
-                ", temp_min=" + temp_min +
-                ", temp_max=" + temp_max +
-                ", pressure=" + pressure +
-                ", humidity=" + humidity +
-                '}';
-    }*/
-
     public double getTemp() {
         return temp;
     }

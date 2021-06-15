@@ -13,16 +13,6 @@ public class weather {
         this.icon = icon;
     }
 
-    /*@Override
-    public String toString() {
-        return "weather{" +
-                "id=" + id +
-                ", main='" + main + '\'' +
-                ", description='" + description + '\'' +
-                ", icon='" + icon + '\'' +
-                '}';
-    }*/
-
     public int getId() {
         return id;
     }
