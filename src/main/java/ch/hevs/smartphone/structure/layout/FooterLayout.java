@@ -11,8 +11,8 @@ import java.net.URL;
 
 /**
  * @author Lonfat Milena, Borrajo Elias, Bourquin Jonathan
- * Bas de notre frame qui sera visible de partout
- * Sert à revenir sur la page home
+ * Bottom of our frame which will be visible from everywhere
+ * Used to return to the home page
  */
 
 public class FooterLayout extends JPanel {
@@ -26,10 +26,10 @@ public class FooterLayout extends JPanel {
     private ButtonIcon btnHome;
 
     //*****************************************************************************
-    // C O N S T R U C T E U R
+    // C O N S T R U C T O R
     //*****************************************************************************
     /**
-     * Constructeur
+     * Constructor
      *
      * @param contentLayout
      */
@@ -41,12 +41,12 @@ public class FooterLayout extends JPanel {
         setMaximumSize(new Dimension(ScreenSizeEnum.WIDTH.getSize(), ScreenSizeEnum.HEADER_FOOTER_HEIGHT.getSize()));
         setBackground(Color.WHITE);
 
-        // Construction du btn home
+        // Create the home button icon
         URL imageHome = FooterLayout.class.getClassLoader().getResource("FooterIcon/homeIcon.png");
         ImageIcon iconHome = new ImageIcon(imageHome);
         btnHome = new ButtonIcon(iconHome);
 
-        // ActionListener du btnHome
+        // ActionListener on btnHome
         btnHome.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -54,8 +54,8 @@ public class FooterLayout extends JPanel {
                 contentLayout.getPnlGallery().getCardGallHome().show(contentLayout.getPnlGallery(), "HomeGallery");
                 contentLayout.getPnlGallery().getBtnAddPhoto().setVisible(true);
                 for (int i = 0; i < contentLayout.getPnlGallery().getPnlShowPhoto().length; i++) {
-                    // Réaffiche tous les bouttons normaux du panel gallery, en cas d'interruption dans
-                    // la procedure d'attribuer une photo à un contacte
+                    // Redisplays all normal panel gallery buttons, if there is an interruption in
+                    // the procedure for assigning a photo to a contact
                     contentLayout.getPnlGallery().getPnlShowPhoto()[i].showNormalBtn();
                 }
                 contentLayout.getCardlayout().show(contentLayout.getPnlContent(), "Home");

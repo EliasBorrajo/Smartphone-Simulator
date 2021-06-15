@@ -1,5 +1,9 @@
 package ch.hevs.smartphone.applications.weather.classInfo;
 
+/**
+ * @author Bourquin Jonathan
+ */
+
 public class CloudsInfo {
     //*****************************************************************************
     // A T T R I B U T S

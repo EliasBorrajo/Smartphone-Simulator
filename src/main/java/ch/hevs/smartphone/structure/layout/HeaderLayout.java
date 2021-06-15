@@ -14,8 +14,8 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * @author Lonfat Milena, Borrajo Elias
- * Haut de notre frame qui sera visible de partout
- * Sert à éteindre le smartphone, et donne l'ehure et la date
+ * Top of our frame which will be visible from everywhere
+ * Used to turn off the smartphone, and give the time and date
  */
 
 public class HeaderLayout extends JPanel {
@@ -36,10 +36,10 @@ public class HeaderLayout extends JPanel {
     private Icon iconPower;
 
     //*****************************************************************************
-    // C O N S T R U C T E U R
+    // C O N S T R U C T O R
     //*****************************************************************************
     /**
-     * Constructeur
+     * Constructor
      *
      * @param smartphoneGUI
      */
@@ -50,7 +50,7 @@ public class HeaderLayout extends JPanel {
         setMaximumSize(new Dimension(ScreenSizeEnum.WIDTH.getSize(), ScreenSizeEnum.HEADER_FOOTER_HEIGHT.getSize()));
         setBackground(Color.WHITE);
 
-        // Ajout des éléments
+        // Add elements
         add(buildButtonIconShutdown());
         add(buildLabelDate());
         add(buildLabelTime());
@@ -60,7 +60,8 @@ public class HeaderLayout extends JPanel {
     // M E T H O D E S
     //*****************************************************************************
     /**
-     * JButton qui permet d'éteindre le smartphone et sérialise les JSON des contacts et des photos
+     * JButton which allows you to turn off the smartphone and serializes the JSON of contacts and photos
+     * @return a JButton btnShutdown
      */
     private JButton buildButtonIconShutdown() {
         URL imagePower = HeaderLayout.class.getClassLoader().getResource("HeaderIcon/powerIcon.png");
@@ -68,17 +69,18 @@ public class HeaderLayout extends JPanel {
         btnShutdown = new ButtonIcon(iconPower);
 
         /**
-         * Quand on éteint le smartphone, il faut SERIALISER toutes nos informations
+         * ActionListener on btnShutdown
+         * When we turn off the smartphone, serialize all the information
          */
         btnShutdown.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // SERIALISATION PHOTOS
+                // PHOTOS SERIALIZATION
                 smartphoneGUI.getContentLayout().getPnlGallery().getJsonPhotoBook().write(
                         smartphoneGUI.getContentLayout().getPnlGallery().getJsonPhotoBook().getmyObj(),
                         smartphoneGUI.getContentLayout().getPnlGallery().getJsonPhotoBook().getPhotosArray());
 
-                // SERIALISATION CONTACTES
+                // CONTACTS SERIALIZATION
                 smartphoneGUI.getContentLayout().getPnlContact().getJsonAddressBook().write(
                         smartphoneGUI.getContentLayout().getPnlContact().getJsonAddressBook().getMyObj(),
                         smartphoneGUI.getContentLayout().getPnlContact().getJsonAddressBook().getContactArray());
@@ -91,7 +93,7 @@ public class HeaderLayout extends JPanel {
     }
 
     /**
-     * Label qui donne la date
+     * Label with the current date
      */
     private JLabel buildLabelDate() {
         lblDate = new JLabel();
@@ -104,7 +106,7 @@ public class HeaderLayout extends JPanel {
     // @TODO EFFACER L'aFFICHAGE DES SECONDES
 
     /**
-     * Label qui donne l'heure
+     * Label with the current time
      */
     private JLabel buildLabelTime() {
         lblTime = new JLabel();
@@ -115,14 +117,14 @@ public class HeaderLayout extends JPanel {
     }
 
     /**
-     * Affichage de l'heure
+     * Time display
      */
     public void updateTime() {
         lblTime.setText(DateTimeFormatter.ofPattern("HH:mm:ss").format(LocalDateTime.now()));
     }
 
     /**
-     * Affichage de la date
+     * Date display
      */
     public void updateDate() {
         lblDate.setText(DateTimeFormatter.ofPattern("dd.MM.yyyy").format(LocalDateTime.now()));

@@ -1,23 +1,55 @@
 package ch.hevs.smartphone.applications.weather.classInfo;
 
-public class WeatherMaster {
-    private Object[] weatherContent;
+/**
+ * @author Bourquin Jonathan
+ */
 
-    private String base;
-    private CloudsInfo clouds;
-    private int cod;
-    private CoordinateInfos coord;
-    private long dt;
-    private long id;
-    private MainInfo main;
-    private String name;
-    private int timezone;
-    private int visibility;
+public class WeatherMaster {
+    //*****************************************************************************
+    // A T T R I B U T S
+    //*****************************************************************************
+    private Object[] weatherContent;
     private WeatherInfo[] weather;
+
+    // Class
+    private CloudsInfo clouds;
+    private CoordinateInfos coord;
+    private MainInfo main;
     private SystemInfo sys;
     private WindInfo wind;
 
+    // String
+    private String base;
+    private String name;
 
+    // Int
+    private int cod;
+    private int timezone;
+    private int visibility;
+
+    // Long
+    private long dt;
+    private long id;
+
+    //*****************************************************************************
+    // C O N S T R U C T O R
+    //*****************************************************************************
+    /**
+     * Constructor
+     * @param base
+     * @param clouds
+     * @param cod
+     * @param coord
+     * @param dt
+     * @param id
+     * @param main
+     * @param name
+     * @param timezone
+     * @param visibility
+     * @param weather
+     * @param sys
+     * @param wind
+     */
     public WeatherMaster(String base, CloudsInfo clouds, int cod, CoordinateInfos coord,
                          long dt, long id, MainInfo main, String name, int timezone,
                          int visibility, WeatherInfo[] weather, SystemInfo sys, WindInfo wind) {
@@ -36,6 +68,9 @@ public class WeatherMaster {
         this.wind = wind;
     }
 
+    //*****************************************************************************
+    // G E T T E R S
+    //*****************************************************************************
     public String getBase() {
         return base;
     }

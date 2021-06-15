@@ -1,6 +1,5 @@
 package ch.hevs.smartphone.structure;
 
-import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
 import ch.hevs.smartphone.parameters.ScreenSizeEnum;
 import ch.hevs.smartphone.structure.layout.ContentLayout;
 import ch.hevs.smartphone.structure.layout.FooterLayout;
@@ -9,14 +8,13 @@ import ch.hevs.smartphone.structure.layout.HeaderLayout;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
-import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
 /**
  * @author Lonfat Milena, Borrajo Elias
- * Classe qui gère notre JFrame et le panel principale qui contiendra
- * le header, footer et content
+ * Class which manages our JFrame and the main panel which will contain
+ * the HeaderLayout, FooterLayout and ContentLayout
  */
 
 public class SmartphoneGUI extends JFrame {
@@ -39,10 +37,10 @@ public class SmartphoneGUI extends JFrame {
     private java.util.Timer timer;
 
     //*****************************************************************************
-    // C O N S T R U C T E U R
+    // C O N S T R U C T O R
     //*****************************************************************************
     /**
-     * Constructeur
+     * Constructor
      */
     public SmartphoneGUI() {
         buildFrame();
@@ -53,7 +51,7 @@ public class SmartphoneGUI extends JFrame {
     // M E T H O D E S
     //*****************************************************************************
     /**
-     * Construction de la Frame
+     * Frame construction
      */
     private void buildFrame() {
         setSize(ScreenSizeEnum.WIDTH.getSize(), ScreenSizeEnum.HEIGHT.getSize());
@@ -69,23 +67,24 @@ public class SmartphoneGUI extends JFrame {
     }
 
     /**
-     * Construction de pnlScreen qui contient le content, header et footer
-     * @return un JPanel qui contient le content, header et footer
+     * PnlScreen construction
+     * @return a JPanel which contains the HeaderLayout, FooterLayout and ContentLayout
      */
     private JPanel builPnlScreen() {
-        // Création du pannel qui contiendra TOUT
+        // Panel which will contain everything
         pnlScreen = new JPanel(new BorderLayout());
 
-        // Création de la structure principale
+        // Create the main structure
         headerLayout = new HeaderLayout(this);
         contentLayout = new ContentLayout();
         footerLayout = new FooterLayout(contentLayout);
 
+        // Add
         pnlScreen.add(headerLayout, BorderLayout.NORTH);
         pnlScreen.add(contentLayout, BorderLayout.CENTER);
         pnlScreen.add(footerLayout, BorderLayout.SOUTH);
 
-        // Creation des marges sur le coté
+        // Add and reation of margins on the side
         pnlScreen.add(this.buildBorderPanel(), BorderLayout.WEST);
         pnlScreen.add(this.buildBorderPanel(), BorderLayout.EAST);
 
@@ -93,8 +92,8 @@ public class SmartphoneGUI extends JFrame {
     }
 
     /**
-     * Construction des bords pour donner l'apparence d'un smartphone
-     * @return un Jpanel qui nous servira à faire les bords de notre smartphone
+     * Edge construction to give the appearance of a smartphone
+     * @return a Jpanel which will be used to make the edges of our smartphone
      */
     private JPanel buildBorderPanel() {
         borderPanel = new JPanel();
@@ -104,7 +103,7 @@ public class SmartphoneGUI extends JFrame {
 
 
     /**
-     * Mise à jour timer
+     * Timer update
      */
     private void setTimerUpdate() {
         timer = new Timer();
@@ -121,7 +120,7 @@ public class SmartphoneGUI extends JFrame {
     }
 
     /**
-     * Mise à jour de la date et l'heure
+     * Update time and date
      */
     private void update() {
         headerLayout.updateTime();
