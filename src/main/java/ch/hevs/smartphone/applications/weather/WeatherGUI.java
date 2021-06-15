@@ -1,7 +1,5 @@
 package ch.hevs.smartphone.applications.weather;
 
-import ch.hevs.smartphone.parameters.ScreenSizeEnum;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -64,18 +62,16 @@ public class WeatherGUI extends JPanel {
     // M E T H O D S
     //*****************************************************************************
     private void buildMainPanel() {
-        setPreferredSize(new Dimension(ScreenSizeEnum.CONTENT_PANEL_WIDTH.getSize(), ScreenSizeEnum.CONTENT_PANEL_HEIGHT.getSize()));
-        setMinimumSize(new Dimension(ScreenSizeEnum.CONTENT_PANEL_WIDTH.getSize(), ScreenSizeEnum.CONTENT_PANEL_HEIGHT.getSize()));
         setLayout(new BorderLayout());
         buildIcon();
         buildPanel();
     }
 
     private void buildIcon() {
-        //Création icon
+        //Creation icon
         ClassLoader classLoader = getClass().getClassLoader();
 
-        // btn search
+        // button search
         iconSearch = new ImageIcon(classLoader.getResource("ContentIcon/Apps/Weather_IconSearch.png"));
         Image imageSearchIcon = iconSearch.getImage();
         Image newImgSearchIcon = imageSearchIcon.getScaledInstance(15, 15, java.awt.Image.SCALE_SMOOTH);
@@ -83,11 +79,11 @@ public class WeatherGUI extends JPanel {
     }
 
     private void buildPanel() {
-        // Création textfield
+        // Creation JTextField
         tfLocation = new JTextField();
         tfLocation.setPreferredSize(new Dimension(200, 25));
 
-        //Création bouton
+        //Creation button search
         btnSearch = new JButton(iconSearch);
         btnSearch.addActionListener(new ActionListener() {
             @Override
@@ -97,7 +93,7 @@ public class WeatherGUI extends JPanel {
                 //remettre les valeurs getAPIDetails
                 weatherInfos.getAPIDetails();
 
-                // Changer le nom à l'affichage
+                // Change information
                 weatherInfos.setCityName(tfLocation.getText());
                 weatherInfos.setTemperature(weatherInfos.getTemperature());
                 weatherInfos.setMaxTemp(weatherInfos.getMaxTemp());
@@ -113,25 +109,25 @@ public class WeatherGUI extends JPanel {
             }
         });
 
-        // Création des labels
+        // Creation labels
         lblCity = new JLabel("Location : " + weatherInfos.getCityName());
         lblTemp = new JLabel("Temperature : " + weatherInfos.getTemperature() + "°C");
         lblMaxTemp = new JLabel("Maximum temperature : " + weatherInfos.getMaxTemp() + "°C");
         lblMinTemp = new JLabel("Minimum temperature : " + weatherInfos.getMinTemp() + "°C");
         lblHumidity = new JLabel("Humidity level : " + weatherInfos.getHumidity() + "%");
 
-        //Icon du temps
+        // Icon weather
         try {
             lblIconWeather = new JLabel(new ImageIcon(new URL(weatherInfos.getUrlPicture()) ) );
         } catch (MalformedURLException e1){
             System.out.println("URL invalide");
         }
-        // Panel nord
+        // North panel
         pnlNorth = new JPanel();
         pnlNorth.add(tfLocation);
         pnlNorth.add(btnSearch);
 
-        // Panel centre
+        // Center panel
         pnlCenter = new JPanel(new GridBagLayout());
         GridBagConstraints gridBagConstraints = new GridBagConstraints();
 
@@ -178,16 +174,17 @@ public class WeatherGUI extends JPanel {
         gridBagConstraints.gridy = 5;
         pnlCenter.add(pnlIconWeather, gridBagConstraints);
 
-        // Panel si pas de connexion internet
+        // Panel if no connexion
         pnlNoConnexion = new JPanel();
         lblNoConnexion = new JLabel("Could not connect to server");
         pnlNoConnexion.add(lblNoConnexion);
 
-        // Ajout des PANELS au Layout
+        // add panels
         this.add(pnlNorth, BorderLayout.NORTH);
         this.add(pnlCenter, BorderLayout.CENTER);
         this.add(pnlNoConnexion, BorderLayout.SOUTH);
 
+        // Show or hide panel if it's connected or not
         if (weatherInfos.isConnected() == false) {
             pnlCenter.setVisible(false);
             pnlNorth.setVisible(true);
