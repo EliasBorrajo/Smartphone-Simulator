@@ -132,7 +132,7 @@ public class GalleryGUI extends JPanel {
     }
 
     /**
-     * Création du JscrollPane qui contient le panel qui affiche les images
+     * Create du JscrollPane qui contient le panel qui affiche les images
      *
      * @return un JscrollPane qui contient un panel de boutons de toutes nos photos
      */
