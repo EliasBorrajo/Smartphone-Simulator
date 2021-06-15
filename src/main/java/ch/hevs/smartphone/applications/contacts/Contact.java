@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 /**
  * @author Bourquin Jonathan
- * Attribut les strings qui seront enregistrées dans le JSON pour chaque contact
+ * Attributes ths strings that will be saved in the JSON for each contact
  */
 
 public class Contact implements Serializable
@@ -22,10 +22,10 @@ public class Contact implements Serializable
     private String pathContactPhoto;
 
     //*****************************************************************************
-    // C O N S T R U C T E U R
+    // C O N S T R U C T O R
     //*****************************************************************************
     /**
-     * Constructeur
+     * Constructor
      * @param firstName
      * @param lastName
      * @param noPhone
@@ -39,7 +39,7 @@ public class Contact implements Serializable
     }
 
     /**
-     * Constructeur Vide
+     * Empty constructor
      * */
     public Contact(){
 

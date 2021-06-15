@@ -6,6 +6,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 /**
  * @author Borrajo Elias, Milena Lonfat
@@ -29,6 +31,8 @@ public class WeatherGUI extends JPanel {
     private JPanel pnlHumidite;
     private JPanel pnlNoConnexion;
 
+    private JPanel pnlIconWeather;
+
     // Label
     private JLabel lblVille;
     private JLabel lblTemp;
@@ -36,6 +40,8 @@ public class WeatherGUI extends JPanel {
     private JLabel lblTempMin;
     private JLabel lblHumidite;
     private JLabel lblNoConnexion;
+
+    private JLabel lblIconWeather;
 
     // Button
     private JButton btnSearch;
@@ -61,7 +67,6 @@ public class WeatherGUI extends JPanel {
         setPreferredSize(new Dimension(ScreenSizeEnum.CONTENT_PANEL_WIDTH.getSize(), ScreenSizeEnum.CONTENT_PANEL_HEIGHT.getSize()));
         setMinimumSize(new Dimension(ScreenSizeEnum.CONTENT_PANEL_WIDTH.getSize(), ScreenSizeEnum.CONTENT_PANEL_HEIGHT.getSize()));
         setLayout(new BorderLayout());
-
         buildIcon();
         buildPanel();
     }
@@ -88,9 +93,7 @@ public class WeatherGUI extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //Change URL location
-                System.out.println("Ancien URL : " + weatherInfos.getUrlLocation());
                 weatherInfos.setUrlLocation(tfLocation.getText());
-                System.out.println("Nouvel URL : " + weatherInfos.getUrlLocation());
                 //remettre les valeurs getAPIDetails
                 weatherInfos.getAPIDetails();
 
@@ -100,6 +103,7 @@ public class WeatherGUI extends JPanel {
                 weatherInfos.setTempMax(weatherInfos.getTempMax());
                 weatherInfos.setTempMin(weatherInfos.getTempMin());
                 weatherInfos.setHumidite(weatherInfos.getHumidite());
+                weatherInfos.setUrlPicture(weatherInfos.getUrlPicture());
 
                 removeAll();
                 validate();
@@ -110,38 +114,69 @@ public class WeatherGUI extends JPanel {
         });
 
         // Création des labels
-        // @TODO METTRE DES VALEURS PAR DEFAUT
-        // @TODO POUVOIR SAISIR DANS UN TEXTBOX NOM DE LA VILLE A CHERCHER
         lblVille = new JLabel("Location : " + weatherInfos.getNomVille());
         lblTemp = new JLabel("Temperature : " + weatherInfos.getTemperature() + "°C");
         lblTempMax = new JLabel("Maximum temperature : " + weatherInfos.getTempMax() + "°C");
         lblTempMin = new JLabel("Minimum temperature : " + weatherInfos.getTempMin() + "°C");
         lblHumidite = new JLabel("Humidity level : " + weatherInfos.getHumidite() + "%");
 
-        // NORD
+        //Icon du temps
+        try {
+            lblIconWeather = new JLabel(new ImageIcon(new URL(weatherInfos.getUrlPicture()) ) );
+        } catch (MalformedURLException e1){
+            System.out.println("URL invalide");
+        }
+        // Panel nord
         pnlNord = new JPanel();
         pnlNord.add(tfLocation);
         pnlNord.add(btnSearch);
 
-        // CENTRE
-        pnlCentre = new JPanel(new GridLayout(20, 0, 5, 5));
+        // Panel centre
+        pnlCentre = new JPanel(new GridBagLayout());
+        GridBagConstraints gridBagConstraints = new GridBagConstraints();
+
         pnlVille = new JPanel();
-        pnlTemp = new JPanel();
-        pnlTempMax = new JPanel();
-        pnlTempMin = new JPanel();
-        pnlHumidite = new JPanel();
-
         pnlVille.add(lblVille);
-        pnlTemp.add(lblTemp);
-        pnlTempMax.add(lblTempMax);
-        pnlTempMin.add(lblTempMin);
-        pnlHumidite.add(lblHumidite);
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        pnlCentre.add(pnlVille, gridBagConstraints);
 
-        pnlCentre.add(pnlVille);
-        pnlCentre.add(pnlTemp);
-        pnlCentre.add(pnlTempMax);
-        pnlCentre.add(pnlTempMin);
-        pnlCentre.add(pnlHumidite);
+        pnlTemp = new JPanel();
+        pnlTemp.add(lblTemp);
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        pnlCentre.add(pnlTemp, gridBagConstraints);
+
+        pnlTempMax = new JPanel();
+        pnlTempMax.add(lblTempMax);
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        pnlCentre.add(pnlTempMax, gridBagConstraints);
+
+        pnlTempMin = new JPanel();
+        pnlTempMin.add(lblTempMin);
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        pnlCentre.add(pnlTempMin, gridBagConstraints);
+
+        pnlHumidite = new JPanel();
+        pnlHumidite.add(lblHumidite);
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        pnlCentre.add(pnlHumidite, gridBagConstraints);
+
+        pnlIconWeather = new JPanel();
+        pnlIconWeather.add(lblIconWeather);
+        pnlIconWeather.setBackground(Color.cyan.darker());
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 5;
+        pnlCentre.add(pnlIconWeather, gridBagConstraints);
 
         // Panel si pas de connexion internet
         pnlNoConnexion = new JPanel();
@@ -150,9 +185,8 @@ public class WeatherGUI extends JPanel {
 
         // Ajout des PANELS au Layout
         this.add(pnlNord, BorderLayout.NORTH);
-        this.add(pnlNoConnexion, BorderLayout.SOUTH);
         this.add(pnlCentre, BorderLayout.CENTER);
-
+        this.add(pnlNoConnexion, BorderLayout.SOUTH);
 
         if (weatherInfos.isConnected() == false) {
             pnlCentre.setVisible(false);
@@ -163,6 +197,5 @@ public class WeatherGUI extends JPanel {
             pnlNord.setVisible(true);
             pnlNoConnexion.setVisible(false);
         }
-
     }
 }

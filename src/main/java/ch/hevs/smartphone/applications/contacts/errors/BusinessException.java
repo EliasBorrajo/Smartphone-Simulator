@@ -4,6 +4,7 @@ import java.io.Serial;
 
 /**
  * @author Bourquin Jonathan
+ * This class concern the error
  */
 
 public class BusinessException extends Throwable {
@@ -16,10 +17,10 @@ public class BusinessException extends Throwable {
     private final ErrorCode errorCode;
 
     //*****************************************************************************
-    // C O N S T R U C T E U R
+    // C O N S T R U C T O R
     //*****************************************************************************
     /**
-     * Constructeur
+     * Constructor
      *
      * @param msg
      * @param errorCode
@@ -30,7 +31,7 @@ public class BusinessException extends Throwable {
     }
 
     /**
-     * Constructeur
+     * Constructor
      *
      * @param msg
      * @param cause

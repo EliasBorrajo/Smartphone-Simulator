@@ -8,7 +8,7 @@ import java.awt.event.MouseListener;
 
 /**
  * @author Lonfat Milena
- * Classe qui gère le MouseListener du textfield de showPhoto
+ * Class for ShowPhotoInfo's Jtextfield MouseListener
  */
 
 public class GalleryMouseListener implements MouseListener {
@@ -22,10 +22,10 @@ public class GalleryMouseListener implements MouseListener {
     private boolean activate;
 
     //*****************************************************************************
-    // C O N S T R U C T E U R
+    // C O N S T R U C T O R
     //*****************************************************************************
     /**
-     * Constructeur
+     * Constructor
      *
      * @param galleryGUI
      */
@@ -34,11 +34,11 @@ public class GalleryMouseListener implements MouseListener {
     }
 
     //*****************************************************************************
-    // M E T H O D E S
+    // M E T H O D S
     //*****************************************************************************
     @Override
     public void mouseClicked(MouseEvent e) {
-        // Permet d'effacer le texte du JTextfield au clique de la souris
+        // Allows to erase the text of the JTextfield with the click of the mouse
         for (int i = 0; i < galleryGUI.getPhotosArray().size(); i++) {
             if (activate == false) {
                 galleryGUI.getPnlShowPhoto()[i].getTfNamePhoto().setText("");

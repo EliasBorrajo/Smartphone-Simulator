@@ -9,7 +9,7 @@ import java.awt.*;
 
 /**
  * @author Bourquin Jonathan
- * Panel qui permet l'édition des informations d'un contact
+ * This class is the GUI to edit a contact
  */
 
 public class EditContactInfo extends JPanel {
@@ -18,7 +18,7 @@ public class EditContactInfo extends JPanel {
     //*****************************************************************************
     // Panel
     private JPanel pnlNorth;
-    private JPanel pnlCentre;
+    private JPanel pnlCenter;
     private JPanel pnlSouth;
     private JPanel pnlSouthNorth;
     private JPanel pnlSouthCentre;
@@ -56,10 +56,10 @@ public class EditContactInfo extends JPanel {
     private ContactListener myListener;
 
     //*****************************************************************************
-    // C O N S T R U  C T E U R
+    // C O N S T R U C T O R
     //*****************************************************************************
     /**
-     * Constructeur
+     * Constructor
      *
      * @param contentLayout
      * @param firstName
@@ -79,17 +79,17 @@ public class EditContactInfo extends JPanel {
     }
 
     //*****************************************************************************
-    // M E T H O D E S
+    // M E T H O D S
     //*****************************************************************************
     /**
-     * Création initiale du panel
+     * Panel creation
      */
     private void buildpnlEditContactInfo() {
         this.setLayout(new BorderLayout());
 
         // Creation Variables
         pnlNorth = new JPanel(new BorderLayout());
-        pnlCentre = new JPanel(new BorderLayout());
+        pnlCenter = new JPanel(new BorderLayout());
         pnlSouth = new JPanel(new GridLayout(4, 1));
         pnlSouthNorth = new JPanel();
         pnlSouthCentre = new JPanel();
@@ -116,52 +116,53 @@ public class EditContactInfo extends JPanel {
         pnlSouthSouth.add(lblNoPhone);
         pnlSouthSouth.add(tfPhone);
 
-        // Panel nord - Contient l'image du contacte
+        // Panel north - Contains back and save buttons
         pnlNorth.add(btnBackEdit, BorderLayout.WEST);
         pnlNorth.add(btnSaveEdit, BorderLayout.EAST);
         pnlNorth.setPreferredSize(new Dimension(20, 20));
 
-        // Panel Centre - Contien les informations du contacte + Les textBox pour l'édition
-        pnlCentre.add(btnIconContact, BorderLayout.CENTER);
-        pnlCentre.setPreferredSize(new Dimension(20, 20));
+        // Panel Center - Contains contact image button
+        pnlCenter.add(btnIconContact, BorderLayout.CENTER);
+        pnlCenter.setPreferredSize(new Dimension(20, 20));
 
-        // Panel sud
+        // Panel South - Contains contact information and JTextField for editing
         pnlSouth.add(pnlSouthNorth);
         pnlSouth.add(pnlSouthCentre);
         pnlSouth.add(pnlSouthSouth);
         pnlSouth.setPreferredSize(new Dimension(100, 100));
 
-        // Homepage - page d'accueil pour le cardlayout ShowContactInfo
+        // Contains the three panels
         this.add(pnlNorth, BorderLayout.NORTH);
-        this.add(pnlCentre, BorderLayout.CENTER);
+        this.add(pnlCenter, BorderLayout.CENTER);
         this.add(pnlSouth, BorderLayout.SOUTH);
     }
 
     /**
-     * Crée l'image de l'icone par défaut.
-     * On passe par une étape intermédiaire pour pouvoir agrandire l'image.
+     * Creates the image of the default icon and the image of button back
+     * We go through an intermediate step to be able to enlarge the image
      */
     private void buildIcon() {
         ClassLoader classLoader = getClass().getClassLoader();
 
-        // btn back icon
+        // Back button icon
         iconDefaultBack = new ImageIcon(classLoader.getResource("FooterIcon/backIcon.png"));
         Image imageBackIcon = iconDefaultBack.getImage();
         Image newImgBackIcon = imageBackIcon.getScaledInstance(10, 10, java.awt.Image.SCALE_SMOOTH);
         iconDefaultBack = new ImageIcon(newImgBackIcon);
 
+        // Contact photo button icon
         if (pathContactPhoto == null) {
-            iconContact = new ImageIcon(classLoader.getResource("ContentIcon/Apps/Contact_Icon.png")); //Récupère l'image
-            Image imageContactIcon = iconContact.getImage();  // transform it
-            Image newImgContactIcon = imageContactIcon.getScaledInstance(150, 150, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
-            iconContact = new ImageIcon(newImgContactIcon);  // transform it back
+            iconContact = new ImageIcon(classLoader.getResource("ContentIcon/Apps/Contact_Icon.png"));                 // Retrieve the image
+            Image imageContactIcon = iconContact.getImage();                                                                 // Transform it
+            Image newImgContactIcon = imageContactIcon.getScaledInstance(150, 150, java.awt.Image.SCALE_SMOOTH); // Resize
+            iconContact = new ImageIcon(newImgContactIcon);                                                                  // Transform it back
         } else {
-            System.out.println("PATH CONTACT PHOTO " + pathContactPhoto);
-            iconContact = new ImageIcon(pathContactPhoto); //Récupère l'image
-            Image imageContactIcon = iconContact.getImage();  // transform it
+            System.out.println("PATH CONTACT PHOTO DANS EDIT CONTACT " + pathContactPhoto);
+            iconContact = new ImageIcon(pathContactPhoto);                     // Retrieve the image
+            Image imageContactIcon = iconContact.getImage();                   // Transform it
             Image newImgContactIcon = imageContactIcon;
-            iconContact = new ImageIcon(newImgContactIcon);  // transform it back
-            iconContact = Util.getScaledImageIcon(iconContact, 250);
+            iconContact = new ImageIcon(newImgContactIcon);                    // Transform it back
+            iconContact = Util.getScaledImageIcon(iconContact, 250);    // Resize
         }
     }
 
@@ -182,8 +183,8 @@ public class EditContactInfo extends JPanel {
         return pnlNorth;
     }
 
-    public JPanel getPnlCentre() {
-        return pnlCentre;
+    public JPanel getPnlCenter() {
+        return pnlCenter;
     }
 
     public JPanel getPnlSouth() {

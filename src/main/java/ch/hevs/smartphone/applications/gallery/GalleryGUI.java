@@ -1,6 +1,5 @@
 package ch.hevs.smartphone.applications.gallery;
 
-import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
 import ch.hevs.smartphone.applications.gallery.listeners.GalleryActionListener;
 import ch.hevs.smartphone.applications.gallery.serialisation.JSONStoragePhoto;
 import ch.hevs.smartphone.parameters.button.ButtonIcon;
@@ -10,7 +9,6 @@ import ch.hevs.smartphone.structure.layout.ContentLayout;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -30,7 +28,7 @@ public class GalleryGUI extends JPanel {
     private JPanel pnlCTGH;
     private JPanel pnlGallHome;
     private JPanel pnlImages;
-    private ShowPhoto[] pnlShowPhoto;
+    private ShowPhotoInfo[] pnlShowPhotoInfo;
 
     // Layout
     private ContentLayout contentLayout;
@@ -123,14 +121,14 @@ public class GalleryGUI extends JPanel {
         photoName = new String[photosArray.size()];
         photoPath = new String[photosArray.size()];
 
-        pnlShowPhoto = new ShowPhoto[photosArray.size()];
+        pnlShowPhotoInfo = new ShowPhotoInfo[photosArray.size()];
 
         // Création des pannels, pour chaques photos
         // Création des contenus des ARRAYS nécessaires pour les CARDS de photos
         for (int i = 0; i < photosArray.size(); i++) {
             photoName[i] = photosArray.get(i).getName();
             photoPath[i] = photosArray.get(i).getPath();
-            pnlShowPhoto[i] = new ShowPhoto(this, photoName[i], photoPath[i]);
+            pnlShowPhotoInfo[i] = new ShowPhotoInfo(this, photoName[i], photoPath[i]);
         }
     }
 
@@ -175,7 +173,7 @@ public class GalleryGUI extends JPanel {
 
         this.add("HomeGallery", pnlCTGH);
         for (int i = 0; i < photosArray.size(); i++) {
-            this.add(photoName[i], pnlShowPhoto[i]);
+            this.add(photoName[i], pnlShowPhotoInfo[i]);
         }
     }
 
@@ -207,8 +205,8 @@ public class GalleryGUI extends JPanel {
         return pnlImages;
     }
 
-    public ShowPhoto[] getPnlShowPhoto() {
-        return pnlShowPhoto;
+    public ShowPhotoInfo[] getPnlShowPhoto() {
+        return pnlShowPhotoInfo;
     }
 
     public CardLayout getCardGallHome() {

@@ -1,18 +1,16 @@
 package ch.hevs.smartphone.applications.contacts;
 
-import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
 import ch.hevs.smartphone.applications.contacts.listeners.ContactListener;
 import ch.hevs.smartphone.parameters.utils.Util;
 import ch.hevs.smartphone.structure.layout.ContentLayout;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
  * @author Bourquin Jonathan, Borrajo Elias
- * Panel qui affiche les informations du contact
+ * This class is the GUI that shows the information of a contact
  */
 
 public class ShowContactInfo extends JPanel {
@@ -21,10 +19,10 @@ public class ShowContactInfo extends JPanel {
     //*****************************************************************************
     // Panel
     private JPanel pnlNorth;
-    private JPanel pnlCentre;
+    private JPanel pnlCenter;
     private JPanel pnlSouth;
     private JPanel pnlSouthNorth;
-    private JPanel pnlSouthCentre;
+    private JPanel pnlSouthCenter;
     private JPanel pnlSouthSouth;
 
     // Layout
@@ -58,10 +56,10 @@ public class ShowContactInfo extends JPanel {
     private ContactListener myListener;
 
     //*****************************************************************************
-    // C O N S T R U  C T E U R
+    // C O N S T R U C T O R
     //*****************************************************************************
     /**
-     * Constructeur
+     * Constructor
      * @param contentLayout
      * @param firstName
      * @param lastName
@@ -81,21 +79,21 @@ public class ShowContactInfo extends JPanel {
     }
 
     //*****************************************************************************
-    // M E T H O D E S
+    // M E T H O D S
     //*****************************************************************************
     /**
-     * Construction du panel ShowContactInfo
+     * Construction of the ShowContactInfo panel
      * */
     private void buildpnlShowContactInfo() {
 
         this.setLayout(new BorderLayout());
 
-        // Creation Variables
+        // Creation variables
         pnlNorth = new JPanel(new BorderLayout());
-        pnlCentre = new JPanel(new BorderLayout());
+        pnlCenter = new JPanel(new BorderLayout());
         pnlSouth = new JPanel(new GridLayout(4, 1));
         pnlSouthNorth = new JPanel();
-        pnlSouthCentre = new JPanel();
+        pnlSouthCenter = new JPanel();
         pnlSouthSouth = new JPanel();
 
         btnDeleteContact = new JButton("Delete Contact");
@@ -108,52 +106,52 @@ public class ShowContactInfo extends JPanel {
         lblNoPhone = new JLabel(noPhone);
 
         pnlSouthNorth.add(lblFirstName);
-        pnlSouthCentre.add(lblLastName);
+        pnlSouthCenter.add(lblLastName);
         pnlSouthSouth.add(lblNoPhone);
 
-        // Panel nord - Contient l'image du contacte
+        // North panel - Contains back and edit buttons
         pnlNorth.add(btnBack, BorderLayout.WEST);
         pnlNorth.add(btnEdit, BorderLayout.EAST);
         pnlNorth.setPreferredSize(new Dimension(20, 20));
 
-        // Panel centre - Contien les informations du contacte + Les textBox pour l'édition
-        pnlCentre.add(lblIconContact, BorderLayout.CENTER);
-        pnlCentre.setPreferredSize(new Dimension(20, 20));
+        // Center panel - Contains contact image
+        pnlCenter.add(lblIconContact, BorderLayout.CENTER);
+        pnlCenter.setPreferredSize(new Dimension(20, 20));
 
-        // Panel sud
+        // South panel - Contains contact information
         pnlSouth.add(pnlSouthNorth);
-        pnlSouth.add(pnlSouthCentre);
+        pnlSouth.add(pnlSouthCenter);
         pnlSouth.add(pnlSouthSouth);
         pnlSouth.add(btnDeleteContact);
         pnlSouth.setPreferredSize(new Dimension(100, 100));
 
-        // Homepage - page d'accueil pour le cardlayout ShowContactInfo
+        // Contains the three panels
         this.add(pnlNorth, BorderLayout.NORTH);
-        this.add(pnlCentre, BorderLayout.CENTER);
+        this.add(pnlCenter, BorderLayout.CENTER);
         this.add(pnlSouth, BorderLayout.SOUTH);
     }
 
     /**
-     * Crée l'image de l'icone par défaut.
-     * On passe par une étape intermédiaire pour pouvoir agrandire l'image.
+     * Creates the image of the default icon and the image of button back
+     * We go through an intermediate step to be able to enlarge the image
      */
     private void buildIcon() {
         ClassLoader classLoader = getClass().getClassLoader();
 
-        // Icon btnBack
+        // Back button icon
         iconDefaultBack = new ImageIcon(classLoader.getResource("FooterIcon/backIcon.png"));
         Image imageBackIcon = iconDefaultBack.getImage();
         Image newImgBackIcon = imageBackIcon.getScaledInstance(10, 10, java.awt.Image.SCALE_SMOOTH);
         iconDefaultBack = new ImageIcon(newImgBackIcon);
 
-        // Afficher l'image attribuer au contact ou celle par défaut
+        // Contact photo icon
         if (pathContactPhoto == null) {
             iconContact = new ImageIcon(classLoader.getResource("ContentIcon/Apps/Contact_Icon.png")); //Récupère l'image
             Image imageContactIcon = iconContact.getImage();        // transform it
             Image newImgContactIcon = imageContactIcon.getScaledInstance(150, 150, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
             iconContact = new ImageIcon(newImgContactIcon);         // transform it back
         } else {
-            System.out.println("PATH CONTACT PHOTO " + pathContactPhoto);
+            System.out.println("PATH CONTACT PHOTO DE SHOW CONTACT INFO " + pathContactPhoto);
             iconContact = new ImageIcon(pathContactPhoto);          //Récupère l'image
             Image imageContactIcon = iconContact.getImage();        // transform it
             Image newImgContactIcon = imageContactIcon;
@@ -180,8 +178,8 @@ public class ShowContactInfo extends JPanel {
         return pnlNorth;
     }
 
-    public JPanel getPnlCentre() {
-        return pnlCentre;
+    public JPanel getPnlCenter() {
+        return pnlCenter;
     }
 
     public JPanel getPnlSouth() {
@@ -192,8 +190,8 @@ public class ShowContactInfo extends JPanel {
         return pnlSouthNorth;
     }
 
-    public JPanel getPnlSouthCentre() {
-        return pnlSouthCentre;
+    public JPanel getPnlSouthCenter() {
+        return pnlSouthCenter;
     }
 
     public JPanel getPnlSouthSouth() {

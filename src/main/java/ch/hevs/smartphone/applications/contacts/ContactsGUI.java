@@ -1,6 +1,5 @@
 package ch.hevs.smartphone.applications.contacts;
 
-import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
 import ch.hevs.smartphone.applications.contacts.listeners.ContactListener;
 import ch.hevs.smartphone.applications.contacts.serialization.JSONStorageContact;
 import ch.hevs.smartphone.parameters.button.myButton;
@@ -8,15 +7,14 @@ import ch.hevs.smartphone.structure.layout.ContentLayout;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
  * @author Bourquin Jonathan
- * Panel principale de l'application du carnet des contacts de type cardLayout
- * Contrôle du fichier JSON et création si manquant
- * Création de l'affichage du carnet des contacts
- * Accès à la class des actionListeners
+ * Main panel of the cardlayout contact application
+ * Json file check and creation if missing
+ * Creat the contact book display
+ * Access to the actionListeners class
  */
 
 public class ContactsGUI extends JPanel {
@@ -24,7 +22,6 @@ public class ContactsGUI extends JPanel {
     // A T T R I B U T S
     //*****************************************************************************
     // Panel
-    // private JPanel pnlContentCardsContact;       // Un pannel de type CardLayout qui va contenir TOUS nos pannels exstant dans l'APP
     private JPanel pnlHomeContact;                  // Pannel d'accueil BRODERLAYOUT
     private JPanel pnlNorth;                        // Pannel Nord comprenant le boutton + et tu texte
     private JPanel pnlCenterJscrollContact;         // Pannel comprenant le SCROLL
@@ -47,7 +44,7 @@ public class ContactsGUI extends JPanel {
     private JButton[] btnShowContact;                 // Les bouttons du ScrollPaneContact
 
     // ArrayList
-    private ArrayList<Contact> contacts;              // Contient tous les contactes
+    private ArrayList<Contact> contactArray;              // Contient tous les contactes
 
     // String
     private String[] contactNameShowContact;          // Permet de donner le nom + Prénom à un cotacte
@@ -61,10 +58,10 @@ public class ContactsGUI extends JPanel {
     private ContactListener myListener;                // Permet d'avoir notre fichier de listeners
 
     //*****************************************************************************
-    // C O N S T R U C T E U R
+    // C O N S T R U C T O R
     //*****************************************************************************
     /**
-     * Constructeur
+     * Constructor
      *
      * @param contentLayout
      */
@@ -77,24 +74,24 @@ public class ContactsGUI extends JPanel {
     }
 
     //*****************************************************************************
-    // M E T H O D E S
+    // M E T H O D S
     //*****************************************************************************
     /**
      * Création initiale des composants GUI pour fonctionner
      */
     public void buildPnlContentContact() {
-        // Panel nord
+        // North panel
         lblContactTitle = new JLabel("Contacts");
         btnAddContact = new myButton("+");
         pnlNorth = new JPanel();
         pnlNorth.add(lblContactTitle);
         pnlNorth.add(btnAddContact);
 
-        // Panel centre
+        // Center panel
         scrollPaneContact = new JScrollPane();
         scrollPaneContact = buildScrollPaneContact();
 
-        // Panel qui contient le tout
+        // Panel that contains everything
         pnlHomeContact = new JPanel(new BorderLayout());
         pnlHomeContact.add(pnlNorth, BorderLayout.NORTH);
         pnlHomeContact.add(scrollPaneContact, BorderLayout.CENTER);
@@ -104,7 +101,7 @@ public class ContactsGUI extends JPanel {
      * Création du fichier JSON
      */
     private void buildJSON() {
-        // Dé-sérialer (READ) le fichier JSON
+        // Deserialize (READ) the Json file
         jsonAddressBook = new JSONStorageContact();
     }
 
@@ -114,65 +111,65 @@ public class ContactsGUI extends JPanel {
     private void buildVariables() {
         myListener = new ContactListener(contentLayout);
 
-        contacts = jsonAddressBook.getContactArray();       // On récupère le carnet d'adresse dé-serialisé
-        btnShowContact = new JButton[contacts.size()];      // Crée le tableau ayant la taille du nombre de bouttons que l'on possède
-        jsonAddressBook.sortDescending(contacts);           // Re-organise notre ArrayListe de contacts
+        contactArray = jsonAddressBook.getContactArray();       // Recover the deserialized address book
+        btnShowContact = new JButton[contactArray.size()];      // Create the array of buttons having the size of our address book
+        jsonAddressBook.sortDescending(contactArray);           // Reorganize the ArrayList of contacts
 
 
-        contactNameShowContact = new String[contacts.size()];
-        contactNameEditContact = new String[contacts.size()];
+        contactNameShowContact = new String[contactArray.size()];
+        contactNameEditContact = new String[contactArray.size()];
 
-        // construction d'un array de string pour identifier les nouvelles cards edit
-        for (int i = 0; i < contacts.size(); i++) {
-            contactNameEditContact[i] = contacts.get(i).getFirstName() + " " +
-                    contacts.get(i).getLastName() + i;
+        // Construction of a string array to identify new cards edit
+       for (int i = 0; i < contactArray.size(); i++) {
+            contactNameEditContact[i] = contactArray.get(i).getFirstName() + " " +
+                    contactArray.get(i).getLastName() + i;
         }
 
-        contactNoPhone = new String[contacts.size()];
+        contactNoPhone = new String[contactArray.size()];
 
 
         pnlAddContact = new AddContact(this);
 
-        pnlShowContactInfo = new ShowContactInfo[contacts.size()];
-        pnlEditContactInfo = new EditContactInfo[contacts.size()];
+        pnlShowContactInfo = new ShowContactInfo[contactArray.size()];
+        pnlEditContactInfo = new EditContactInfo[contactArray.size()];
 
-        // Création des pannels, pour chaque contacte
-        // CREATION des contenus des ARRAYS nécessaires pour les CARDS de contacts
-        for (int j = 0; j < contacts.size(); j++) {
-            contactNoPhone[j] = contacts.get(j).getNoPhone();
+        // Creation of panels for each contact
+        // Creation of the contents of the ARRAYS necessary for the contact cards
+        for (int j = 0; j < contactArray.size(); j++) {
+            contactNoPhone[j] = contactArray.get(j).getNoPhone();
 
             pnlShowContactInfo[j] = new ShowContactInfo(contentLayout,
-                                                        contacts.get(j).getFirstName(),
-                                                        contacts.get(j).getLastName(),
+                                                        contactArray.get(j).getFirstName(),
+                                                        contactArray.get(j).getLastName(),
                                                         contactNoPhone[j],
-                                                        contacts.get(j).getContactPhoto());
+                                                        contactArray.get(j).getContactPhoto());
 
             pnlEditContactInfo[j] = new EditContactInfo(contentLayout,
-                                                        contacts.get(j).getFirstName(),
-                                                        contacts.get(j).getLastName(),
-                                                        contacts.get(j).getNoPhone(),
-                                                        contacts.get(j).getContactPhoto());
+                                                        contactArray.get(j).getFirstName(),
+                                                        contactArray.get(j).getLastName(),
+                                                        contactArray.get(j).getNoPhone(),
+                                                        contactArray.get(j).getContactPhoto());
         }
     }
 
     /**
-     * Création du Pannel qui aura une scrollBar et la liste des contactes
+     * Creation of the JscrollBar which has the list of contact buttons
      *
-     * @return un JscrollPane qui contient un panel de boutons de tous nos contacts
+     * @return JscrollPane which has the list of contact button
      */
     public JScrollPane buildScrollPaneContact() {
         buildVariables();
 
         pnlCenterJscrollContact = new JPanel(new GridLayout(0, 1, 5, 5));
 
-        // Si la liste de contacts est vide on affiche un message par défaut
-        if (contacts.size() == 0) {
+        // If the contact list is empty, a default message is displayed
+        if (contactArray.size() == 0) {
             JLabel emptyContactMessage = new JLabel("No contact to show");
             pnlCenterJscrollContact.add(emptyContactMessage);
         } else {
-            // Création des boutons pour chaque contact
-            for (int i = 0; i < contacts.size(); i++) {
-                contactNameShowContact[i] = contacts.get(i).getFirstName() + " " + contacts.get(i).getLastName();
+            // Creation of buttons for each contact
+            for (int i = 0; i < contactArray.size(); i++) {
+                contactNameShowContact[i] = contactArray.get(i).getFirstName() + " " + contactArray.get(i).getLastName();
                 btnShowContact[i] = new JButton(contactNameShowContact[i]);
                 pnlCenterJscrollContact.add(btnShowContact[i]);
             }
@@ -187,7 +184,7 @@ public class ContactsGUI extends JPanel {
     }
 
     /**
-     * Méthode qui contruit le cardLayout
+     * Method that builds the cardLayout
      */
     public void buildCardLayout() {
         cardLayoutContact = new CardLayout();
@@ -196,7 +193,7 @@ public class ContactsGUI extends JPanel {
         this.add("HomeContact", pnlHomeContact);
         this.add("AddContact", pnlAddContact);
         // Création & ajout des cards de contact
-        for (int i = 0; i < contacts.size(); i++) {
+        for (int i = 0; i < contactArray.size(); i++) {
             this.add(contactNameShowContact[i], pnlShowContactInfo[i]);
             this.add(contactNameEditContact[i], pnlEditContactInfo[i]);
         }
@@ -208,8 +205,8 @@ public class ContactsGUI extends JPanel {
     public void setListeners() {
         btnAddContact.addActionListener(myListener);
 
-        // Création des ActionListeners en fonction du nombre de contact
-        for (int i = 0; i < contacts.size(); i++) {
+        // Creation of ActionListeners according to the number of contacts
+        for (int i = 0; i < contactArray.size(); i++) {
             btnShowContact[i].addActionListener(myListener);
         }
     }
@@ -265,8 +262,8 @@ public class ContactsGUI extends JPanel {
         return lblContactTitle;
     }
 
-    public ArrayList<Contact> getContacts() {
-        return contacts;
+    public ArrayList<Contact> getContactArray() {
+        return contactArray;
     }
 
     public String[] getContactNameShowContact() {

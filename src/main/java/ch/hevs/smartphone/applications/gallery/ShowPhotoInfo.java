@@ -17,7 +17,7 @@ import java.awt.*;
  * Accès à la class des actionListeners.
  */
 
-public class ShowPhoto extends JPanel {
+public class ShowPhotoInfo extends JPanel {
     //*****************************************************************************
     // A T T R I B U T S
     //*****************************************************************************
@@ -65,7 +65,7 @@ public class ShowPhoto extends JPanel {
      * @param name
      * @param path
      */
-    public ShowPhoto(GalleryGUI galleryGUI, String name, String path) {
+    public ShowPhotoInfo(GalleryGUI galleryGUI, String name, String path) {
         this.galleryGUI = galleryGUI;
         this.name = name;
         this.path = path;
@@ -106,7 +106,7 @@ public class ShowPhoto extends JPanel {
         btnSave = new JButton("Save change");
         btnDelete = new JButton("Delete");
         btnCancel = new JButton("Cancel");
-        btnSelect = new JButton("Select image as contact image");
+        btnSelect = new JButton("Select image");
         btnSelect.setVisible(false); // On n'affichera ce boutton que depuis l'app CONTACTES
 
         pnlButton.add(btnSave);
@@ -145,7 +145,6 @@ public class ShowPhoto extends JPanel {
     public void showNormalBtn() {
         btnSave.setVisible(true);
         btnDelete.setVisible(true);
-        galleryGUI.getBtnAddPhoto().setVisible(true);
         btnSelect.setVisible(false);
     }
 
@@ -155,7 +154,6 @@ public class ShowPhoto extends JPanel {
     public void showSelectImageBtn() {
         btnSave.setVisible(false);
         btnDelete.setVisible(false);
-        galleryGUI.getBtnAddPhoto().setVisible(false);
         btnSelect.setVisible(true);
     }
 

@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author Borrajo Elias, Milena Lonfat
+ * @author Borrajo Elias, Milena Lonfat, Bourquin Jonathan
  * Tutoriel trouvé sur : https://stackoverflow.com/questions/58759133/openweathermap-api-java
  */
 public class WeatherAPI {
@@ -30,7 +30,6 @@ public class WeatherAPI {
     private boolean isConnected;
 
     // Attributs a retourner au système pour afficher dans le GUI
-    // @TODO : NON STRING MAIS OBJECTS POUR ETRE PAREIL QUE LES MAPS ??
     private String nomVille;        // Pourra être changé
     private String temperature;
     private String tempMax;
@@ -43,17 +42,11 @@ public class WeatherAPI {
     private String pluie1h;         // Volume de pluie la dernière heure
 
     private Icon weatherIcon;       // "weather" --> icon
-
-// @TODO : POUR RECUPERER LE TABLEAU, RECUPERER NORMAL 1 FOIS DEJA; PUIS RöCUPERER DE CE RESULTAT LA STRING
+    private String urlPicture;
 
     //*****************************************************************************
     // C O N S T R U C T E U R
     //*****************************************************************************
-   /* public static void main(String[] args)
-    {
-        WeatherAPI weather = new WeatherAPI();
-
-    }*/
 
     public WeatherAPI() {
         getAPIDetails();
@@ -114,85 +107,48 @@ public class WeatherAPI {
             }
             br.close();
 
-            /*boolean stop = true;
-            while(stop) {
-                result.deleteCharAt(result.indexOf("["));
-                result.deleteCharAt(result.indexOf("]"));
-                if (result.indexOf("[") == -1 || result.indexOf("]") == -1) {
-                    stop = false;
-                }
-            }*/
-
             Map<String, Object> resultMap = jsonToMap(result.toString());
             resultMap.forEach((k, v)-> System.out.println(k + " - " + v));
             System.out.println("Resultat : " + result);
             System.out.println("API infos are on : " + connection.getURL());
-            System.out.println(resultMap.get("weather").toString());
-            System.out.println(resultMap.get("main").toString());
+            System.out.println("Weather : " + resultMap.get("weather").toString());
+            System.out.println("Main : " + resultMap.get("main").toString());
 
             Map<String, Object> mainMap = jsonToMap(resultMap.get("main").toString());
             Map<String, Object> windMap = jsonToMap(resultMap.get("wind").toString());
             String json = "{\"id\":801,\"main\":\"Clouds\",\"description\":\"few clouds\",\"icon\":\"02d\"}";
             WeatherInfo weather = jsonToMapForWeatherInfo(json);
-            System.out.println(weather.toString());
+            System.out.println("Weather toString : " + weather.toString());
 
             String weatherInfos = weather.getIcon();
             System.out.println(weatherInfos);
 
-            String urlPicture = "http://openweathermap.org/img/wn/"
+            urlPicture = "http://openweathermap.org/img/wn/"
                     + weatherInfos
                     + "@2x.png";
 
             System.out.println(urlPicture);
 
-
-            /*StringBuilder resultWeatherIcon = new StringBuilder();
-            URL urlWeatherIcon = new URL(urlPicture);
-            URLConnection connectionWeatherIcon = urlWeatherIcon.openConnection();
-            BufferedReader brWeatherIcon = new BufferedReader(new InputStreamReader(connectionWeatherIcon.getInputStream()));
-            setWeatherIcon((Icon) brWeatherIcon);*/
-
-
-
-                    //Map<String, Object> nameMap   = jsonToMap(resultMap.get("name").toString());
-            //Map<String, Object> sysMap    = jsonToMap(resultMap.get("sys").toString());
-
-            // Affiche les resultats voulus de chaque MAP
-         /*   System.out.println("Current temperature : "+ mainMap.get("temp"));
-            System.out.println("Current humidity : "+ mainMap.get("humidity"));
-
-            System.out.println("Wind Speeds : "+ windMap.get("speed"));
-            System.out.println("Wind Angle : "+ windMap.get("deg"));
-
-            System.out.println("Country is : " + sysMap.get("country"));
-          */
-
             // Attribue les informations récuperés à mes variables
             setNomVille(resultMap.get("name").toString());
-
             setTemperature(mainMap.get("temp").toString());
             setTempMax(mainMap.get("temp_max").toString());
             setTempMin(mainMap.get("temp_min").toString());
             setTempRessenti(mainMap.get("feels_like").toString());
             setHumidite(mainMap.get("humidity").toString());
-            //setWeatherIcon((Icon) weather.get("icon"));
-
-            //setDescription(weatherMap.get("description").toString());
-
             setWindSpeed(windMap.get("speed").toString());
 
-            System.out.println(getNomVille());
-            System.out.println(getTempMax());
-            System.out.println(getDescription());
-            System.out.println(getHumidite());
             isConnected = true;
 
         } catch (IOException e) {
             isConnected = false;
             System.out.println("Erreur dans WEATHER_API : methode = getAPIDetails");
             JOptionPane.showMessageDialog(null, "Ville non valide" +
-                    "\n Ville par défault initialisée : Sion");
+                    "\n Re-essayez ou vérifiez votre connection");
+
             setUrlLocation("Sion");
+
+            System.out.println("Is connected resultat:" + isConnected);
             e.printStackTrace();
         }
 
@@ -254,6 +210,10 @@ public class WeatherAPI {
         return urlLocation;
     }
 
+    public String getUrlPicture() {
+        return urlPicture;
+    }
+
     //*****************************************************************************
     // S E T T E R S
     //*****************************************************************************
@@ -303,5 +263,9 @@ public class WeatherAPI {
 
     public void setWeatherIcon(Icon weatherIcon) {
         this.weatherIcon = weatherIcon;
+    }
+
+    public void setUrlPicture(String urlPicture) {
+        this.urlPicture = urlPicture;
     }
 }

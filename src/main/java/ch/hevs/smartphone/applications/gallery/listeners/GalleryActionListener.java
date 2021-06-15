@@ -10,7 +10,9 @@ import java.awt.event.ActionListener;
 
 /**
  * @author Lonfat Milena
- * Classe pour gérer tous les listeners qui concernent l'application galerie
+ * This class is for every ActionListeners we have in our gallery application
+ * The first part concern the main panel of the application
+ * The second part concern the ShowPhotoInfo panel
  */
 
 public class GalleryActionListener implements ActionListener {
@@ -24,10 +26,10 @@ public class GalleryActionListener implements ActionListener {
     private int cpt;
 
     //*****************************************************************************
-    // C O N S T R U C T E U R
+    // C O N S T R U C T O R
     //*****************************************************************************
     /**
-     * Constructeur
+     * Constructor
      *
      * @param galleryGUI
      */
@@ -36,11 +38,13 @@ public class GalleryActionListener implements ActionListener {
     }
 
     //*****************************************************************************
-    // M E T H O D E S
+    // M E T H O D S
     //*****************************************************************************
     public void actionPerformed(ActionEvent e) {
 
-        // Action de btnAdd pour l'ajout d'une photo
+    // First part : ActionListener on main panel of gallery application
+
+        // ActionListener on btnAdd : add picture
         if (e.getSource() == galleryGUI.getBtnAddPhoto()) {
             String path = null;
             JFileChooser chooser = new JFileChooser();
@@ -58,41 +62,39 @@ public class GalleryActionListener implements ActionListener {
             }
         }
 
+    // Second part : ActionListener on panel ShowPhotoInfo
+
         for (int i = 0; i < galleryGUI.getPhotosArray().size(); i++) {
 
-            // Action sur chaque bouton des photos de la gallerie ouvre pnlShowPhoto
+            // ActionListener on each buttons of our gallery : open pnlShowPhoto
             if (e.getSource() == galleryGUI.getBtnPhoto()[i]) {
                 // Récupère le bon
                 String photoName = galleryGUI.getPhotoName()[i];
                 galleryGUI.getCardGallHome().show(galleryGUI, photoName);
             }
 
-            // Action de btnSave de pnlShowPhoto pour sauvagarder le changement de nom de la photo
+            // ActionListener on btnSave : save change of name
             if (e.getSource() == galleryGUI.getPnlShowPhoto()[i].getBtnSave()) {
                 galleryGUI.getJsonPhotoBook().getPhotosArray().get(i).setName(galleryGUI.getPnlShowPhoto()[i].getTfNamePhoto().getText());
                 rebuildApp();
             }
 
-            //Action de btnCancel de pnlShowPhoto pour annuler les changements
+            // ActionListener on btnCancel : cancel change
             if (e.getSource() == galleryGUI.getPnlShowPhoto()[i].getBtnCancel()) {
                 galleryGUI.getCardGallHome().show(galleryGUI, "HomeGallery");
             }
 
-            //Action de btnDelete de pnlShowPhoto pour supprimer la photo
+            // ActionListener on btnDelete : delete photo
             if (e.getSource() == galleryGUI.getPnlShowPhoto()[i].getBtnDelete()) {
                 galleryGUI.getJsonPhotoBook().getPhotosArray().remove(i);
                 rebuildApp();
+                break;
             }
         }
     }
 
-    //*****************************************************************************
-    // M E T H O D E S
-    //*****************************************************************************
-    /**
-     * Méthode qui permet de reconstruire l'application
-     */
-    private void rebuildApp() {
+    // This method is to rebuild our application
+    public void rebuildApp() {
         galleryGUI.removeAll();
         galleryGUI.validate();
         galleryGUI.buildPnlHomeGall();

@@ -1,16 +1,13 @@
 package ch.hevs.smartphone.applications.contacts;
 
-import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
 /**
  * @author Bourquin Jonathan
- * Panel qui permet d'ajouter un contact
+ * This panel is the GUI to add a contact
  */
 
 public class AddContact extends JPanel {
@@ -19,7 +16,7 @@ public class AddContact extends JPanel {
     //*****************************************************************************
     // Panel
     private JPanel pnlNorth;
-    private JPanel pnlCentre;
+    private JPanel pnlCenter;
     private JPanel pnlSouth;
 
     // Layout
@@ -33,7 +30,6 @@ public class AddContact extends JPanel {
     private JLabel lblNoPhone;
 
     // Button
-    private JButton btnPhotoContact;
     private JButton btnSave;
     private JButton btnBack;
 
@@ -49,7 +45,7 @@ public class AddContact extends JPanel {
     protected JTextField tfNoPhone;
 
     //*****************************************************************************
-    // C O N S T R U C T E U R
+    // C O N S T R U C T O R
     //*****************************************************************************
     /**
      * Constructeur
@@ -62,37 +58,35 @@ public class AddContact extends JPanel {
     }
 
     //*****************************************************************************
-    // M E T H O D E S
+    // M E T H O D S
     //*****************************************************************************
     /**
-     * buildPnlContent va créer tous les Pannels et leurs contenus
+     * buildPnlContent : create all the panels and their contents
      */
     private void buildPnlContent() {
         buildPanelAndButton();
 
-        // Parametre du panel
+        // Panel Settings
         this.setSize(50, 50);
         this.setLayout(new BorderLayout());
 
-        // Ajout panels à la Frame
-        // Panel nord
-        pnlNorth.add(btnSave);
+        // North panel
+        pnlNorth.add(lblContactsTitle);
         this.add(pnlNorth, BorderLayout.NORTH);
 
-        // Panel centre
-        // Parametre des JPanel
-        pnlCentre.setLayout(new GridLayout(3, 2));
-        pnlCentre.add(lblFirstName);
-        pnlCentre.add(tfFirstName);
+        // Center panel
+        pnlCenter.setLayout(new GridLayout(3, 2));
+        pnlCenter.add(lblFirstName);
+        pnlCenter.add(tfFirstName);
 
-        pnlCentre.add(lblLastName);
-        pnlCentre.add(tfLastName);
+        pnlCenter.add(lblLastName);
+        pnlCenter.add(tfLastName);
 
-        pnlCentre.add(lblNoPhone);
-        pnlCentre.add(tfNoPhone);
-        this.add(pnlCentre, BorderLayout.CENTER);
+        pnlCenter.add(lblNoPhone);
+        pnlCenter.add(tfNoPhone);
+        this.add(pnlCenter, BorderLayout.CENTER);
 
-        // Panel sud
+        // South panel
         pnlSouth.setLayout(new GridLayout());
         pnlSouth.add(btnBack);
         pnlSouth.add(btnSave);
@@ -105,24 +99,23 @@ public class AddContact extends JPanel {
      * build panels and buttons needed in buildPnlContent method
      */
     public void buildPanelAndButton() {
-        // Panel
+        // Panels
         pnlNorth = new JPanel();
-        pnlCentre = new JPanel();
+        pnlCenter = new JPanel();
         pnlSouth = new JPanel();
 
-        // Button
+        // Buttons
         buildIcon();
-        btnPhotoContact = new JButton("Add picture");
         btnSave = new JButton("Save");
         btnBack = new JButton(iconDefaultBack);
 
-        // Label
+        // Labels
         lblContactsTitle = new JLabel("Add new contact");
         lblFirstName = new JLabel("First name : ");
         lblLastName = new JLabel("Last Name : ");
         lblNoPhone = new JLabel("Phone number : ");
 
-        // TextField
+        // TextFields
         tfFirstName = new JTextField("First Name", 50);
         tfLastName = new JTextField("Last Name", 50);
         tfNoPhone = new JTextField("Phone Number", 50);
@@ -132,7 +125,7 @@ public class AddContact extends JPanel {
      * Construction de l'ICONE à la taille desirée
      */
     private void buildIcon() {
-        // Permet de récuperer les fichiers des ressources
+        // Allows to retrieve files from resources
         ClassLoader classLoader = getClass().getClassLoader();
 
         iconDefaultBack = new ImageIcon(classLoader.getResource("FooterIcon/backIcon.png"));
@@ -194,14 +187,11 @@ public class AddContact extends JPanel {
             // Refresh des panels
             contactsGUI.removeAll();
             contactsGUI.validate();
-
             contactsGUI.buildPnlContentContact();
             contactsGUI.buildCardLayout();
             contactsGUI.setListeners();
-
             contactsGUI.revalidate();
             contactsGUI.repaint();
-
         }
 
     }

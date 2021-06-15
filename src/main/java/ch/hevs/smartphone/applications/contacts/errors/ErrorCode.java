@@ -2,7 +2,7 @@ package ch.hevs.smartphone.applications.contacts.errors;
 
 /**
  * @author Bourquin Jonathan
- * Code d'erreur pour les applications contactes et galerie
+ * Error code for contact and gallery applications
  */
 
 public enum ErrorCode {
@@ -18,10 +18,10 @@ public enum ErrorCode {
     private final int code;
 
     //*****************************************************************************
-    // C O N S T R U C T E U R
+    // C O N S T R U C T O R
     //*****************************************************************************
     /**
-     * Constructeur
+     * Constructor
      *
      * @param code
      */
