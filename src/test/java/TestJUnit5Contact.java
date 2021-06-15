@@ -4,6 +4,7 @@ import ch.hevs.smartphone.applications.contacts.errors.ErrorCode;
 import ch.hevs.smartphone.applications.contacts.serialization.JSONStorageContact;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
@@ -30,15 +31,15 @@ public class TestJUnit5Contact
 {
     private JSONStorageContact jsonStorageContact = new JSONStorageContact();
 
-    private Contact contact1;
-    private Contact contact2;
-    private Contact contact3;
+    private static Contact contact1;
+    private static Contact contact2;
+    private static Contact contact3;
 
     /**
      * variables initialization for testing
      */
-    @BeforeEach
-    void setup() {
+    @BeforeAll
+    static void init() {
         contact1 = new Contact("Contact1", "Contact1", "1111", null);
         contact2 = new Contact("Contact2", "Contact2", "2222", null);
         contact3 = new Contact("Contact3", "Contact3", "3333", null);
@@ -53,7 +54,6 @@ public class TestJUnit5Contact
     public void testSerializationDeserialization() {
         ArrayList<Contact> contactArrayList = new ArrayList<>();
         ArrayList<Contact> deserializedContactArrayList = null;
-
         contactArrayList.add(contact1);
         contactArrayList.add(contact2);
         contactArrayList.add(contact3);

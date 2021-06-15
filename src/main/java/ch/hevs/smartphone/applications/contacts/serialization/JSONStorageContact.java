@@ -124,9 +124,7 @@ public class JSONStorageContact implements StorableContact {
                     "                                                 \nUn carnet d'adresse vierge a été initialisé" +
                     "                                                 \nPossibles causes : Corruption du fichiers JSON");
 
-           //error = e.getStackTrace();
            throw new BusinessException("An error occurred while READING JSON STORAGE CONTACT.", ErrorCode.READING_JSON_STORAGE_ERROR);
-            // copie du Json corrompu er acceder à la main @TODO : FUTURE AMELIORATION
 
         }
         return contactArray;
