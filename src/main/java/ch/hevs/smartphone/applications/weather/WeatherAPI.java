@@ -39,6 +39,7 @@ public class WeatherAPI {
     private int humidity;
     private double windSpeed;
     private String description;
+    private String urlPicture;
 
     //*****************************************************************************
     // C O N S T R U C T E U R
@@ -100,7 +101,7 @@ public class WeatherAPI {
             String weatherInfos = weatherMaster.getWeather()[0].getIcon();
             System.out.println(weatherInfos);
 
-            String urlPicture = "http://openweathermap.org/img/wn/"
+            urlPicture = "http://openweathermap.org/img/wn/"
                     + weatherInfos
                     + "@2x.png";
 
@@ -114,8 +115,6 @@ public class WeatherAPI {
             setTempMin(weatherMaster.getMain().getTemp_min());
             setTempRessenti(weatherMaster.getMain().getFeels_like());
             setHumidity(weatherMaster.getMain().getHumidity());
-            //setWeatherIcon((Icon) weather.get("icon"));
-            //setDescription(weatherMap.get("description").toString());
             setWindSpeed(weatherMaster.getWind().getSpeed());
 
             System.out.println(getNomVille());
@@ -221,6 +220,9 @@ public class WeatherAPI {
         return description;
     }
 
+    public String getUrlPicture() {
+        return urlPicture;
+    }
     //*****************************************************************************
     // S E T T E R S
     //*****************************************************************************
@@ -263,5 +265,9 @@ public class WeatherAPI {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void setUrlPicture(String urlPicture) {
+        this.urlPicture = urlPicture;
     }
 }
