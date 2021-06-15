@@ -1,10 +1,10 @@
 package ch.hevs.smartphone.applications.weather.classInfo;
 
-public class coord {
+public class CoordinateInfos {
     private double lon;
     private double lat;
 
-    public coord(double lon, double lat) {
+    public CoordinateInfos(double lon, double lat) {
         this.lon = lon;
         this.lat = lat;
     }

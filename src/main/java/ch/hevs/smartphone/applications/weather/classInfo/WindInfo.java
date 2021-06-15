@@ -1,10 +1,10 @@
 package ch.hevs.smartphone.applications.weather.classInfo;
 
-public class wind {
+public class WindInfo {
     private double speed;
     private int deg;
 
-    public wind(double speed, int deg) {
+    public WindInfo(double speed, int deg) {
         this.speed = speed;
         this.deg = deg;
     }

@@ -1,12 +1,12 @@
 package ch.hevs.smartphone.applications.weather.classInfo;
 
-public class weather {
+public class WeatherInfo {
     private int id;
     private String main;
     private String description;
     private String icon;
 
-    public weather(int id, String main, String description, String icon) {
+    public WeatherInfo(int id, String main, String description, String icon) {
         this.id = id;
         this.main = main;
         this.description = description;

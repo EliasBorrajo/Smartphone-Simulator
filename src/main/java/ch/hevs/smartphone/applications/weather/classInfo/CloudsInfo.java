@@ -1,9 +1,9 @@
 package ch.hevs.smartphone.applications.weather.classInfo;
 
-public class clouds {
+public class CloudsInfo {
     private int all;
 
-    public clouds(int all) {
+    public CloudsInfo(int all) {
         this.all = all;
     }
 
