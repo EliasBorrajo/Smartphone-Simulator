@@ -1,28 +1,26 @@
 package ch.hevs.smartphone.applications.weather.classInfo;
 
-import java.util.Arrays;
-
 public class WeatherMaster {
     private Object[] weatherContent;
 
     private String base;
-    private clouds clouds;
+    private CloudsInfo clouds;
     private int cod;
-    private coord coord;
+    private CoordinateInfos coord;
     private long dt;
     private long id;
-    private main main;
+    private MainInfo main;
     private String name;
     private int timezone;
     private int visibility;
-    private weather[] weather;
-    private sys sys;
-    private wind wind;
+    private WeatherInfo[] weather;
+    private SystemInfo sys;
+    private WindInfo wind;
 
 
-    public WeatherMaster(String base, clouds clouds, int cod, coord coord,
-                         long dt, long id, main main, String name, int timezone,
-                         int visibility, weather[] weather, sys sys, wind wind) {
+    public WeatherMaster(String base, CloudsInfo clouds, int cod, CoordinateInfos coord,
+                         long dt, long id, MainInfo main, String name, int timezone,
+                         int visibility, WeatherInfo[] weather, SystemInfo sys, WindInfo wind) {
         this.base = base;
         this.clouds = clouds;
         this.cod = cod;
@@ -42,7 +40,7 @@ public class WeatherMaster {
         return base;
     }
 
-    public ch.hevs.smartphone.applications.weather.classInfo.clouds getClouds() {
+    public CloudsInfo getClouds() {
         return clouds;
     }
 
@@ -50,7 +48,7 @@ public class WeatherMaster {
         return cod;
     }
 
-    public ch.hevs.smartphone.applications.weather.classInfo.coord getCoord() {
+    public CoordinateInfos getCoord() {
         return coord;
     }
 
@@ -62,7 +60,7 @@ public class WeatherMaster {
         return id;
     }
 
-    public main getMain() {
+    public MainInfo getMain() {
         return main;
     }
 
@@ -78,15 +76,15 @@ public class WeatherMaster {
         return visibility;
     }
 
-    public weather[] getWeather() {
+    public WeatherInfo[] getWeather() {
         return weather;
     }
 
-    public sys getSys() {
+    public SystemInfo getSys() {
         return sys;
     }
 
-    public wind getWind() {
+    public WindInfo getWind() {
         return wind;
     }
 }

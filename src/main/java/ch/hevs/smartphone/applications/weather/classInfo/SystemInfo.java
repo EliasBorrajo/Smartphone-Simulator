@@ -1,13 +1,13 @@
 package ch.hevs.smartphone.applications.weather.classInfo;
 
-public class sys {
+public class SystemInfo {
     private int type;
     private int id;
     private String country;
     private long sunrise;
     private long sunset;
 
-    public sys(int type, int id, String country, long sunrise, long sunset) {
+    public SystemInfo(int type, int id, String country, long sunrise, long sunset) {
         this.type = type;
         this.id = id;
         this.country = country;

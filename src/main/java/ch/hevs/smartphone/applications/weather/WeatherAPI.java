@@ -2,8 +2,7 @@ package ch.hevs.smartphone.applications.weather;
 
 // Les deux imports de google sont nécessaires pour la methode "jsonToMap"
 
-import ch.hevs.smartphone.applications.weather.classInfo.main;
-import ch.hevs.smartphone.applications.weather.classInfo.weather;
+import ch.hevs.smartphone.applications.weather.classInfo.WeatherInfo;
 import ch.hevs.smartphone.applications.weather.classInfo.WeatherMaster;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.*;
@@ -12,7 +11,6 @@ import javax.swing.*;
 import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -70,10 +68,10 @@ public class WeatherAPI {
         return map;
     }
 
-    private weather jsonMappingForWeatherInfo(String str) {
+    private WeatherInfo jsonMappingForWeatherInfo(String str) {
         Gson gson = new GsonBuilder().create();
-        weather weather;
-        weather = gson.fromJson(str, weather.class);
+        WeatherInfo weather;
+        weather = gson.fromJson(str, WeatherInfo.class);
         return weather;
     }
 
