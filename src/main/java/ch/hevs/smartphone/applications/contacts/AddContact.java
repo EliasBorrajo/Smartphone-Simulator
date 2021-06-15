@@ -48,7 +48,7 @@ public class AddContact extends JPanel {
     // C O N S T R U C T O R
     //*****************************************************************************
     /**
-     * Constructeur
+     * Constructor
      *
      * @param contactsGUI
      */

@@ -21,7 +21,7 @@ public class EditContactInfo extends JPanel {
     private JPanel pnlCenter;
     private JPanel pnlSouth;
     private JPanel pnlSouthNorth;
-    private JPanel pnlSouthCentre;
+    private JPanel pnlSouthCenter;
     private JPanel pnlSouthSouth;
 
     // Layout
@@ -74,7 +74,7 @@ public class EditContactInfo extends JPanel {
         this.noPhone = noPhone;
         this.pathContactPhoto = pathContactPhoto;
 
-        buildpnlEditContactInfo();
+        buildPnlEditContactInfo();
         setListeners();
     }
 
@@ -82,9 +82,9 @@ public class EditContactInfo extends JPanel {
     // M E T H O D S
     //*****************************************************************************
     /**
-     * Panel creation
+     * buildpnlEditContactInf : create all the panels and their contents
      */
-    private void buildpnlEditContactInfo() {
+    private void buildPnlEditContactInfo() {
         this.setLayout(new BorderLayout());
 
         // Creation Variables
@@ -92,7 +92,7 @@ public class EditContactInfo extends JPanel {
         pnlCenter = new JPanel(new BorderLayout());
         pnlSouth = new JPanel(new GridLayout(4, 1));
         pnlSouthNorth = new JPanel();
-        pnlSouthCentre = new JPanel();
+        pnlSouthCenter = new JPanel();
         pnlSouthSouth = new JPanel();
 
         buildIcon();
@@ -111,8 +111,8 @@ public class EditContactInfo extends JPanel {
 
         pnlSouthNorth.add(lblFirstName);
         pnlSouthNorth.add(tfFirstName);
-        pnlSouthCentre.add(lblLastName);
-        pnlSouthCentre.add(tfLastName);
+        pnlSouthCenter.add(lblLastName);
+        pnlSouthCenter.add(tfLastName);
         pnlSouthSouth.add(lblNoPhone);
         pnlSouthSouth.add(tfPhone);
 
@@ -127,7 +127,7 @@ public class EditContactInfo extends JPanel {
 
         // Panel South - Contains contact information and JTextField for editing
         pnlSouth.add(pnlSouthNorth);
-        pnlSouth.add(pnlSouthCentre);
+        pnlSouth.add(pnlSouthCenter);
         pnlSouth.add(pnlSouthSouth);
         pnlSouth.setPreferredSize(new Dimension(100, 100));
 
@@ -195,8 +195,8 @@ public class EditContactInfo extends JPanel {
         return pnlSouthNorth;
     }
 
-    public JPanel getPnlSouthCentre() {
-        return pnlSouthCentre;
+    public JPanel getPnlSouthCenter() {
+        return pnlSouthCenter;
     }
 
     public JPanel getPnlSouthSouth() {

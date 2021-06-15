@@ -74,7 +74,7 @@ public class ShowContactInfo extends JPanel {
         this.pathContactPhoto = pathContactPhoto;
 
         buildIcon();
-        buildpnlShowContactInfo();
+        buildPnlShowContactInfo();
         setListeners();
     }
 
@@ -82,9 +82,9 @@ public class ShowContactInfo extends JPanel {
     // M E T H O D S
     //*****************************************************************************
     /**
-     * Construction of the ShowContactInfo panel
+     * buildPnlShowContactInfo : create all the panels and their contents
      * */
-    private void buildpnlShowContactInfo() {
+    private void buildPnlShowContactInfo() {
 
         this.setLayout(new BorderLayout());
 

@@ -13,11 +13,10 @@ import java.util.ArrayList;
 
 /**
  * @author Lonfat Milena
- * Panel principale de l'application galerie de type cardLayout
- * Contrôle du fichier JSON et création si manquant
- * Création de l'affichage de la galerie
- * Accès à la class des actionListeners
- * Permet d'ajouter des photos à notre galerie
+ * Main panel of the cardlayout gallery application
+ * Json file check and creation if missing
+ * Creat the gallery display
+ * Access to the actionListeners class
  */
 
 public class GalleryGUI extends JPanel {
@@ -62,10 +61,10 @@ public class GalleryGUI extends JPanel {
     private GalleryActionListener galleryListener;
 
     //*****************************************************************************
-    // C O N S T R U C T E U R
+    // C O N S T R U C T O R
     //*****************************************************************************
     /**
-     * Constructeur
+     * Constructor
      *
      * @param contentLayout
      */
@@ -80,10 +79,10 @@ public class GalleryGUI extends JPanel {
     // M E T H O D E S
     //*****************************************************************************
     /**
-     * Création initiale du panel
+     * buildPnlHomeGall : create all the panels and their contents
      */
     public void buildPnlHomeGall() {
-        // Panel nord
+        // North panel
         pnlGallHome = new JPanel();
         lblGallery = new JLabel("Gallery");
         btnAddPhoto = new myButton("+");
@@ -91,18 +90,18 @@ public class GalleryGUI extends JPanel {
         pnlGallHome.add(lblGallery);
         pnlGallHome.add(btnAddPhoto);
 
-        // Panel centre
+        // Center panel
         jsGallHome = new JScrollPane();
         jsGallHome = buildPnlImageJs();
 
-        // Panel qui contient le tout
+        // Panel that contains everything
         pnlCTGH = new JPanel(new BorderLayout());
         pnlCTGH.add(pnlGallHome, BorderLayout.NORTH);
         pnlCTGH.add(jsGallHome, BorderLayout.CENTER);
     }
 
     /**
-     * Création du fichier JSON
+     * Creating the JSON file
      */
     private void buildJSON() {
         // Dé-sérialer (READ) le fichier JSON
@@ -110,21 +109,21 @@ public class GalleryGUI extends JPanel {
     }
 
     /**
-     * Création des variables
+     * Creation variables
      */
-    private void buildvariables() {
+    private void buildVariables() {
         galleryListener = new GalleryActionListener(this);
 
-        photosArray = jsonPhotoBook.getPhotosArray();       //On récupère les photos et on dé-sérialise
-        btnPhoto = new ButtonIcon[photosArray.size()];      //Création du tableau de bouton ayant la taille de photos
+        photosArray = jsonPhotoBook.getPhotosArray();       // Recover the deserialize photos
+        btnPhoto = new ButtonIcon[photosArray.size()];      // Create the array of buttons having the size of the array of photo
 
         photoName = new String[photosArray.size()];
         photoPath = new String[photosArray.size()];
 
         pnlShowPhotoInfo = new ShowPhotoInfo[photosArray.size()];
 
-        // Création des pannels, pour chaques photos
-        // Création des contenus des ARRAYS nécessaires pour les CARDS de photos
+        // Creation of panels for each photo
+        // Creation of the contents of the ARRAYS necessary for the gallery cards
         for (int i = 0; i < photosArray.size(); i++) {
             photoName[i] = photosArray.get(i).getName();
             photoPath[i] = photosArray.get(i).getPath();
@@ -138,7 +137,7 @@ public class GalleryGUI extends JPanel {
      * @return un JscrollPane qui contient un panel de boutons de toutes nos photos
      */
     protected JScrollPane buildPnlImageJs() {
-        buildvariables();
+        buildVariables();
 
         pnlImages = new JPanel(new GridLayout(0, 2, 5, 5));
 

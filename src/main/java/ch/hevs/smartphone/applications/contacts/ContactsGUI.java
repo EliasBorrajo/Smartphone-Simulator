@@ -77,7 +77,7 @@ public class ContactsGUI extends JPanel {
     // M E T H O D S
     //*****************************************************************************
     /**
-     * Création initiale des composants GUI pour fonctionner
+     * buildPnlContentContact : create all the panels and their contents
      */
     public void buildPnlContentContact() {
         // North panel
@@ -98,7 +98,7 @@ public class ContactsGUI extends JPanel {
     }
 
     /**
-     * Création du fichier JSON
+     * Creating the JSON file
      */
     private void buildJSON() {
         // Deserialize (READ) the Json file
@@ -106,7 +106,7 @@ public class ContactsGUI extends JPanel {
     }
 
     /**
-     * Creation des variables
+     * Creation variables
      */
     private void buildVariables() {
         myListener = new ContactListener(contentLayout);

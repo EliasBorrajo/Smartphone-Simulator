@@ -16,6 +16,7 @@ public class Contact implements Serializable
     @Serial
     private static final long serialVersionUID = -7259141374952645688L;
 
+    // String
     private String firstName;
     private String lastName;
     private String noPhone;
