@@ -2,14 +2,10 @@ import ch.hevs.smartphone.applications.contacts.Contact;
 import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
 import ch.hevs.smartphone.applications.contacts.errors.ErrorCode;
 import ch.hevs.smartphone.applications.contacts.serialization.JSONStorageContact;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
-
-import javax.swing.*;
 
 import static ch.hevs.smartphone.parameters.utils.TempFile.getTempFile;
 import static org.junit.jupiter.api.Assertions.*;
@@ -18,7 +14,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -92,7 +87,7 @@ public class TestJUnit5Contact
             }
         });
 
-        assertEquals(ErrorCode.READING_JSON_STORAGE_ERROR.getCode(), e.getErrorCode());
+        assertEquals(ErrorCode.READING_JSON_STORAGE_CONTACT_ERROR.getCode(), e.getErrorCode());
         // check that the error code got in the read of the corrupted .json fil match the one assigned in the ErrorCode class
     }
 

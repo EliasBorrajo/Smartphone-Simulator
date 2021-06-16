@@ -75,7 +75,7 @@ public class HeaderLayout extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 // SERIALISATION PHOTOS
                 smartphoneGUI.getContentLayout().getPnlGallery().getJsonPhotoBook().write(
-                        smartphoneGUI.getContentLayout().getPnlGallery().getJsonPhotoBook().getmyObj(),
+                        smartphoneGUI.getContentLayout().getPnlGallery().getJsonPhotoBook().getMyObj(),
                         smartphoneGUI.getContentLayout().getPnlGallery().getJsonPhotoBook().getPhotosArray());
 
                 // SERIALISATION CONTACTES

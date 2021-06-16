@@ -124,7 +124,7 @@ public class JSONStorageContact implements StorableContact {
                     "                                                 \nUn carnet d'adresse vierge a été initialisé" +
                     "                                                 \nPossibles causes : Corruption du fichiers JSON");
 
-           throw new BusinessException("An error occurred while READING JSON STORAGE CONTACT.", ErrorCode.READING_JSON_STORAGE_ERROR);
+           throw new BusinessException("An error occurred while READING JSON STORAGE CONTACT.", ErrorCode.READING_JSON_STORAGE_CONTACT_ERROR);
 
         }
         return contactArray;

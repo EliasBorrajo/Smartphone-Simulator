@@ -1,6 +1,7 @@
 package ch.hevs.smartphone.applications.gallery.serialisation;
 
 import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
+import ch.hevs.smartphone.applications.contacts.errors.ErrorCode;
 import ch.hevs.smartphone.applications.gallery.Photo;
 import ch.hevs.smartphone.parameters.jsonStorage.Config;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -45,7 +46,13 @@ public class JSONStoragePhoto implements StorablePhoto {
      */
     public JSONStoragePhoto() {
         definePathToStoreData();
-        read();
+
+        try {
+            read();
+        } catch (BusinessException e) {
+            e.printStackTrace();
+        }
+
     }
 
     //*****************************************************************************
@@ -89,7 +96,7 @@ public class JSONStoragePhoto implements StorablePhoto {
      * @throws IOException
      */
     @Override
-    public ArrayList<Photo> read() {
+    public ArrayList<Photo> read() throws BusinessException {
         ObjectMapper mapper = new ObjectMapper();       // Mapper n'aime pas les fichiers vides !!
 
         try {
@@ -109,12 +116,14 @@ public class JSONStoragePhoto implements StorablePhoto {
                 System.out.println("Empty file");
             }
         } catch (IOException e) {
-            System.out.println("An error occurred while READING JSON STORAGE PHOTOS.");
-            System.out.println("Le fichier est corrompu");
+            //System.out.println("An error occurred while READING JSON STORAGE PHOTOS.");
+            //System.out.println("Le fichier est corrompu");
             //e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Une erreur est survenue lors de la récuperation de la gallerie d'images." +
                     "                                                   \nUne gallerie d'images vierge a été initialisé" +
                     "                                                   \nPossibles causes : Corruption du fichiers JSON");
+
+            throw new BusinessException("An error occurred while READING JSON STORAGE PHOTOS.", ErrorCode.READING_JSON_STORAGE_GALLERY_ERROR);
         }
         return photosArray;
 
@@ -158,7 +167,7 @@ public class JSONStoragePhoto implements StorablePhoto {
         return photosArray;
     }
 
-    public File getmyObj() {
+    public File getMyObj() {
         return myObj;
     }
 
