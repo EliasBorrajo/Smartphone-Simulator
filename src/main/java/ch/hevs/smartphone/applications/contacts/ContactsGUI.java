@@ -128,7 +128,6 @@ public class ContactsGUI extends JPanel {
 
         contactNoPhone = new String[contactArray.size()];
 
-
         pnlAddContact = new AddContact(this);
 
         pnlShowContactInfo = new ShowContactInfo[contactArray.size()];
