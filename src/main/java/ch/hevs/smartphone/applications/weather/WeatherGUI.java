@@ -107,7 +107,7 @@ public class WeatherGUI extends JPanel {
                 weatherInfos.getAPIDetails();
 
                 // Change information
-                weatherInfos.setCityName(tfLocation.getText());
+                weatherInfos.setCityName(weatherInfos.getCityName());
                 weatherInfos.setTemperature(weatherInfos.getTemperature());
                 weatherInfos.setMaxTemp(weatherInfos.getMaxTemp());
                 weatherInfos.setMinTemp(weatherInfos.getMinTemp());
@@ -182,7 +182,6 @@ public class WeatherGUI extends JPanel {
 
         pnlIconWeather = new JPanel();
         pnlIconWeather.add(lblIconWeather);
-        pnlIconWeather.setBackground(Color.cyan.darker());
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 5;
