@@ -1,6 +1,6 @@
 package ch.hevs.smartphone.applications.gallery.serialisation;
 
-import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
+import ch.hevs.smartphone.errors.BusinessException;
 import ch.hevs.smartphone.applications.gallery.Photo;
 
 import java.io.File;

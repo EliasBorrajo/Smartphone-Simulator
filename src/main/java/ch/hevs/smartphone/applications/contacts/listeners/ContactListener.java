@@ -1,10 +1,3 @@
-package ch.hevs.smartphone.applications.contacts.listeners;
-
-import ch.hevs.smartphone.structure.layout.ContentLayout;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 /**
  * @author Bourquin Jonathan
  * This class is for every ActionListeners we have in our contact application
@@ -12,6 +5,13 @@ import java.awt.event.ActionListener;
  * The second part concern the ShowContactInfo panel
  * The third part concern the ActionListeners on panel EditContactInfo
  */
+
+package ch.hevs.smartphone.applications.contacts.listeners;
+
+import ch.hevs.smartphone.structure.layout.ContentLayout;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class ContactListener implements ActionListener {
     //*****************************************************************************
@@ -67,7 +67,8 @@ public class ContactListener implements ActionListener {
 
             // ActionListener on btnDeleteContact : Delete a contact
             if (e.getSource() == contentLayout.getPnlContact().getPnlShowContactInfo()[i].getBtnDeleteContact()) {
-                contentLayout.getPnlContact().getJsonAddressBook().getContactArray().remove(i); // Delete contact in array
+                // Delete contact in array
+                contentLayout.getPnlContact().getJsonAddressBook().getContactArray().remove(i);
                 // Refresh PANELS
                 reBuildApp();
                 break;
@@ -127,7 +128,7 @@ public class ContactListener implements ActionListener {
                             // Modify in my selected contact the path of the old photo by the path of the chosen photo
                             contentLayout.getPnlContact().getJsonAddressBook().getContactArray().get(finalI).setContactPhoto(pathImage);
 
-                            // 4) Hise select button
+                            // 4) Hide select button
                             contentLayout.getPnlGallery().getPnlShowPhoto()[finalJ].showNormalBtn();
 
                             // 5) Rebuild

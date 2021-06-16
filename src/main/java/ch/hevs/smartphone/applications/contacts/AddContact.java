@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
  */
 
 public class AddContact extends JPanel {
+
     //*****************************************************************************
     // A T T R I B U T S
     //*****************************************************************************
@@ -146,7 +147,7 @@ public class AddContact extends JPanel {
     //*****************************************************************************
     // I N N E R  -  C L A S S
     //*****************************************************************************
-    class ListenerSaveAddContact implements ActionListener {
+    private class ListenerSaveAddContact implements ActionListener {
         JTextField inputFN;
         JTextField inputN;
         JTextField inputNP;

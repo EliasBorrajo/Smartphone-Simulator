@@ -1,8 +1,13 @@
+/**
+ * @author Borrajo Elias, Bourquin Jonathan
+ *
+ */
+
 package ch.hevs.smartphone.applications.contacts.serialization;
 
 import ch.hevs.smartphone.applications.contacts.Contact;
-import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
-import ch.hevs.smartphone.applications.contacts.errors.ErrorCode;
+import ch.hevs.smartphone.errors.BusinessException;
+import ch.hevs.smartphone.errors.ErrorCode;
 import ch.hevs.smartphone.parameters.jsonStorage.Config;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -18,12 +23,11 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
- * @author Borrajo Elias, Bourquin Jonathan
  * Contains the adress book
  * Retrieve the JSON file on the PC in order to create our contacts
  */
-
 public class JSONStorageContact implements StorableContact {
+
     //*****************************************************************************
     // A T T R I B U T S
     //*****************************************************************************
@@ -41,11 +45,13 @@ public class JSONStorageContact implements StorableContact {
     // myObj FILE
     private File myObj;
 
-    StackTraceElement[] error;
-
     //*****************************************************************************
     // C O N S T R U C T O R
     //*****************************************************************************
+
+    /**
+     * Constructor
+     */
     public JSONStorageContact() {
         definePathToStoreData();
         try {
@@ -57,21 +63,20 @@ public class JSONStorageContact implements StorableContact {
     }
 
     //*****************************************************************************
-    // M E T H O D E S
+    // M E T H O D S
     //*****************************************************************************
     /**
-     * Permet de récuperer la valeur stoqué sur le PC de l'utilisateur de l'app.
-     * L'utilisateur va créer une VARIABLE D'ENVIRONNEMENT sur son OS / PC, pour décider à quel emplacement
-     * il shouaite stoquer les fichiers JSON.
+     * Allows you to retrieve the value stored on the app user's PC.
+     * The user will create an ENVIRONMENT VARIABLE on his OS / PC, to decide where he wants to store the JSON files.
      * <p>
-     * 1) Il faut récuperer cette VARIABLE grâce à notre SINGLETON
+     * 1) We need to retrieve this VARIABLE using our SINGLETON
      * <p>
-     * 2) Utiliser la classe PATH pour créer un chemin d'accès correcte peu importe l'OS.
-     * Cette classe utilise l'import java.nio, qui va grandement nous aider pour homogeneiser notre code.
+     * 2) Use the PATH class to create a correct path no matter the OS.
+     * This class uses the java.nio import, which will greatly help us to homogenize our code.
      * <p>
-     * Puis utiliser la clate PATHS pour CONCATENER le chemin d'accès de la VAARIABLE + le nom du fichier que l'on veut.
+     * Then use the PATH class to CONCATENATE the path of the VARIABLE + the file name we want.
      * <p>
-     * 3) Définir dans une string le chemin d'accès finale crée par PATH, et l'utiliser pour la création de notre FILE.
+     * 3) Define in a string the final path created by PATH, and use it for the creation of our FILE.Allows us to retrieve the value stored on the app user's PC.
      */
     private void definePathToStoreData() {
         // Retrieves the contents of the ENVIRONMENT VARIABLE
@@ -114,24 +119,22 @@ public class JSONStorageContact implements StorableContact {
                 contactList = mapper.readValue(myObj, new TypeReference<List<Contact>>() {
                 });
 
-                contactArray = (ArrayList<Contact>) contactList;        // casting de la LISTE en ARRAYLISTE
+                contactArray = (ArrayList<Contact>) contactList;        // casting the LIST in ARRAYLIST
             } else {
                 System.out.println("Empty file");
             }
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Une erreur est survenue lors de la récuperation du carnet d'adresse." +
-                    "                                                 \nUn carnet d'adresse vierge a été initialisé" +
-                    "                                                 \nPossibles causes : Corruption du fichiers JSON");
+            JOptionPane.showMessageDialog(null, "An error occurred while retrieving the address book." +
+                    "                                                 \nA blank address book has been initialized" +
+                    "                                                 \nPossible causes: JSON file corruption");
 
            throw new BusinessException("An error occurred while READING JSON STORAGE CONTACT.", ErrorCode.READING_JSON_STORAGE_CONTACT_ERROR);
-            // copie du Json corrompu er acceder à la main @TODO : FUTURE AMELIORATION
-
         }
         return contactArray;
     }
 
     /**
-     * SERIALISATION WRITE DATA IN A JSON FILE
+     * SERIALIZATION WRITE DATA IN A JSON FILE
      *
      * @param destination
      * @param contacts

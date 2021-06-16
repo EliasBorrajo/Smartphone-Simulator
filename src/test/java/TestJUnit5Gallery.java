@@ -1,5 +1,5 @@
-import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
-import ch.hevs.smartphone.applications.contacts.errors.ErrorCode;
+import ch.hevs.smartphone.errors.BusinessException;
+import ch.hevs.smartphone.errors.ErrorCode;
 import ch.hevs.smartphone.applications.gallery.Photo;
 import ch.hevs.smartphone.applications.gallery.serialisation.JSONStoragePhoto;
 import com.fasterxml.jackson.databind.ObjectMapper;

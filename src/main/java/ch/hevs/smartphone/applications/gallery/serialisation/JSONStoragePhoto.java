@@ -1,7 +1,7 @@
 package ch.hevs.smartphone.applications.gallery.serialisation;
 
-import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
-import ch.hevs.smartphone.applications.contacts.errors.ErrorCode;
+import ch.hevs.smartphone.errors.BusinessException;
+import ch.hevs.smartphone.errors.ErrorCode;
 import ch.hevs.smartphone.applications.gallery.Photo;
 import ch.hevs.smartphone.parameters.jsonStorage.Config;
 import com.fasterxml.jackson.core.type.TypeReference;

@@ -1,6 +1,6 @@
 import ch.hevs.smartphone.applications.contacts.Contact;
-import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
-import ch.hevs.smartphone.applications.contacts.errors.ErrorCode;
+import ch.hevs.smartphone.errors.BusinessException;
+import ch.hevs.smartphone.errors.ErrorCode;
 import ch.hevs.smartphone.applications.contacts.serialization.JSONStorageContact;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeAll;
