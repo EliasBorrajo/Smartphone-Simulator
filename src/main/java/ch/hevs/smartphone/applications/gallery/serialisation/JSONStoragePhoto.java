@@ -17,42 +17,36 @@ import java.util.List;
 
 /**
  * @author Lonfat Milena, Borrajo Elias
- * Contient la galerie de photos.
- * Récupère le fichier JSON sur le PC à l'endroit ou l'utilisateur a défini afin de créer nos photos
+ * Contains photos gallery
+ * Retrieve the JSON file on the PC in order to create our photos
  */
 public class JSONStoragePhoto implements StorablePhoto {
     //*****************************************************************************
     // A T T R I B U T S
     //*****************************************************************************
-    // ARRAY LIST - Ce sera le carnet d'adresse
+    // ARRAY LIST - It will be our gallery
     private ArrayList<Photo> photosArray = new ArrayList<>();
 
-    // Liste qui permet de lire le JSON et sera converti ensuite en ArrayList du carnet d'adresse
+    // List which allows to read the JSON and will then be converted into an ArrayList of photos
     private List<Photo> photoList;
 
     //PATH
-    private String storePath;       // Permet de stoquer le contenu de notre VARIABLE D'ENVIRONNEMENT SYSTEME
-    private String jsonPath;        // Est la variable qui contiendra le chemin FINAl sur le PC et selon l'OS,
-    // à l'emplacement de stockage de notre fichier JSON
+    private String storePath;       // Allows to store the content of our SYSTEM ENVIRONMENT VARIABLE
+    private String jsonPath;        // Is the variable which will contain the FINAl path on the PC and depending on the OS,
+                                    // to the storage location of our JSON file
     // myObj FILE
     private File myObj;
 
     //*****************************************************************************
-    // C O N S T R U C T E U R
+    // C O N S T R U C T O R
     //*****************************************************************************
-
-    /**
-     * Constructeur
-     */
     public JSONStoragePhoto() {
         definePathToStoreData();
-
         try {
             read();
         } catch (BusinessException e) {
             e.printStackTrace();
         }
-
     }
 
     //*****************************************************************************
@@ -74,16 +68,15 @@ public class JSONStoragePhoto implements StorablePhoto {
      * 3) Définir dans une string le chemin d'accès finale crée par PATH, et l'utiliser pour la création de notre FILE.
      */
     private void definePathToStoreData() {
-        // Récupère le CONTENU de la VARIABLE D'ENVIRONNEMENT
+        // Retrieves the contents of the ENVIRONMENT VARIABLE
         storePath = Config.getConfig().getStorePath();
 
 
-        // Va m'écrire le chemin d'accès de manière coherente grâce à PATH & PATHS, et non faire du bricolage
-        // COncatène correctement mon PATH qui sera stoqué dans la STRING
+        // Will write the path consistently thanks to PATH & PATHS
+        // Correctly concatenate my PATH which will be stored in the STRING
         Path path = Paths.get(storePath, "photosList.json");
 
         jsonPath = path.toString();
-        //System.out.println("Final path storing my JSON file is : " + jsonPath);
 
         myObj = new File(jsonPath);
         System.out.println("REAL REAL PATH OBJECT PHOTO FILE IS : " + myObj.getAbsolutePath());
@@ -92,20 +85,24 @@ public class JSONStoragePhoto implements StorablePhoto {
     /**
      * DE-SERIALISATION READ DATA IN A JSON FILE
      *
-     * @return un arraylist de nos photos
-     * @throws IOException
+     * If the file is empty, it reads without problem.
+     * If the file does not exist, it creates it.
+     * If the file is corrupted, it does not read it,
+     * and the file will be overwrite during the next serialization when we turn off the smartphone.
+     *
+     * @return an arrayList of our photos
+     * @throws BusinessException
      */
     @Override
     public ArrayList<Photo> read() throws BusinessException {
-        ObjectMapper mapper = new ObjectMapper();       // Mapper n'aime pas les fichiers vides !!
-
+        ObjectMapper mapper = new ObjectMapper();      // Mapper doesn't like empty file
         try {
-            // Verifie que le fichier existe pas & Crée le ficher
+            // Check that the file does not exist & Create the file
             if (!myObj.exists()) {
                 myObj.createNewFile();
                 System.out.println("File created: " + myObj.getName());
             }
-            // verifie que le ficher n'est pas vide (NULL)
+            // Check that the file is not empty (NULL)
             else if (myObj.length() > 0) {
                 photosArray.clear();
 
@@ -116,9 +113,6 @@ public class JSONStoragePhoto implements StorablePhoto {
                 System.out.println("Empty file");
             }
         } catch (IOException e) {
-            //System.out.println("An error occurred while READING JSON STORAGE PHOTOS.");
-            //System.out.println("Le fichier est corrompu");
-            //e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Une erreur est survenue lors de la récuperation de la gallerie d'images." +
                     "                                                   \nUne gallerie d'images vierge a été initialisé" +
                     "                                                   \nPossibles causes : Corruption du fichiers JSON");
@@ -144,8 +138,8 @@ public class JSONStoragePhoto implements StorablePhoto {
         } catch (IOException e) {
             System.out.println("SERIALISATION of photoList.JSON has failed : ");
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Une erreur est survenue lors de l'écriture / SERIALISATION de la gallerie d'images." +
-                    "                                                 \nLa gallerie d'images n'est pas enregistré, re-démarrer le smartphone.");
+            JOptionPane.showMessageDialog(null, "An error occurred while writing / serializing the gallery." +
+                    "                                                 \nThe gallery is not saved, restart the smartphone.");
         }
     }
 

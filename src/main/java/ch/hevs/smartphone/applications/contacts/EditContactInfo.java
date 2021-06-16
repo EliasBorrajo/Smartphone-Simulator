@@ -157,7 +157,6 @@ public class EditContactInfo extends JPanel {
             Image newImgContactIcon = imageContactIcon.getScaledInstance(150, 150, java.awt.Image.SCALE_SMOOTH); // Resize
             iconContact = new ImageIcon(newImgContactIcon);                                                                  // Transform it back
         } else {
-            System.out.println("PATH CONTACT PHOTO DANS EDIT CONTACT " + pathContactPhoto);
             iconContact = new ImageIcon(pathContactPhoto);                     // Retrieve the image
             Image imageContactIcon = iconContact.getImage();                   // Transform it
             Image newImgContactIcon = imageContactIcon;

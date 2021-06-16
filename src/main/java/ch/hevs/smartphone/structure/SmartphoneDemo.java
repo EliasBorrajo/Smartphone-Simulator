@@ -1,34 +1,36 @@
 /**
- *  Nom                 :   Simulation de smartphone
+ *  Name                 :   Smartphone simulation
  *
- *  Date de création    :   01.05.2021
- *  Date de rendu       :
+ *  Creation date        :   01.05.2021
+ *  Render Date          :
  *
- *  Autheurs            :   Jonathan Bourquin
- *                          Milena   Lonfat
- *                          Elias    Borrajo
+ *  Autors               :   Jonathan Bourquin
+ *                           Milena   Lonfat
+ *                           Elias    Borrajo
  *
- *  Description         :   Projet de 2èm Semestre à la HEG - Sierre - FIG.
- *                          Le but est de simuler sur un écran, un smartphone avec un comportement réalise.
- *                          Il est nécessaire d'avoir 3 apps au minimum sur le téléphone,
- *                          dont 2 qui communiqueront ensembles, et une qui devra récuperer des informations d'une API.
+ *  Description         :   Second semester project at HEG - Sierre - FIG.
+ *                          The goal is to simulate a smartphone with realistic behavior on a screen.
+ *                          Three applications on the phone have been developed.
+ *                          A Contact app and a gallery app which communicate together,
+ *                          and a weather app that retrieves information from an API.
  */
 
 package ch.hevs.smartphone.structure;
 
 import ch.hevs.smartphone.parameters.jsonStorage.Config;
 
-/**
- * Main qui va nous créer le projet au complet
- */
 public class SmartphoneDemo
 {
+    /**
+     * Main that will create the entire project
+     * @param args
+     */
     public static void main(String[] args)
     {
-        //Créer le singleTon au début.
+        // Creation of the singleton.
         Config.getConfig();
 
-        // Démarer le smartPhone
+        // Start the smartphone
         SmartphoneGUI myPhone =  new SmartphoneGUI();
     }
 }

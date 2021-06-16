@@ -151,13 +151,11 @@ public class ShowContactInfo extends JPanel {
             Image newImgContactIcon = imageContactIcon.getScaledInstance(150, 150, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
             iconContact = new ImageIcon(newImgContactIcon);         // transform it back
         } else {
-            System.out.println("PATH CONTACT PHOTO DE SHOW CONTACT INFO " + pathContactPhoto);
             iconContact = new ImageIcon(pathContactPhoto);          //Récupère l'image
             Image imageContactIcon = iconContact.getImage();        // transform it
             Image newImgContactIcon = imageContactIcon;
             iconContact = new ImageIcon(newImgContactIcon);         // transform it back
             iconContact = Util.getScaledImageIcon(iconContact, 250);
-
         }
     }
 

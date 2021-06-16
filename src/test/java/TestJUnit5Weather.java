@@ -12,10 +12,10 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
+ * @author Bourquin Jonathan
  * Testing for weather app:
  * - Corruption of the API_KEY
  * - Correct gathering of the data --> URL corruption
- *
  */
 
 public class TestJUnit5Weather {

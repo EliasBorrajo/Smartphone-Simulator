@@ -4,11 +4,11 @@ import javax.swing.*;
 
 /**
  * @author Lonfat Milena
- * Classe pour stylisé nos JButtons
+ * Class for stylized JButtons
  */
 public class ButtonIcon extends JButton {
     /**
-     * Construteur
+     * Constructor
      *
      * @param icon
      */

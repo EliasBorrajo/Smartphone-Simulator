@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
+ * @author Bourquin Jonathan
  * Testing for contact app:
  * - Serialization and deserialization
  * - Error code testing for corrupted .json contact file

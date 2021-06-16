@@ -1,11 +1,32 @@
 package ch.hevs.smartphone.applications.weather.classInfo;
 
+/**
+ * @author Bourquin Jonathan
+ */
+
 public class WeatherInfo {
+    //*****************************************************************************
+    // A T T R I B U T S
+    //*****************************************************************************
+    // Int
     private int id;
+
+    // String
     private String main;
     private String description;
     private String icon;
 
+    //*****************************************************************************
+    // C O N S T R U C T O R
+    //*****************************************************************************
+
+    /**
+     * Constructor
+     * @param id
+     * @param main
+     * @param description
+     * @param icon
+     */
     public WeatherInfo(int id, String main, String description, String icon) {
         this.id = id;
         this.main = main;
@@ -13,6 +34,9 @@ public class WeatherInfo {
         this.icon = icon;
     }
 
+    //*****************************************************************************
+    // G E T T E R S
+    //*****************************************************************************
     public int getId() {
         return id;
     }

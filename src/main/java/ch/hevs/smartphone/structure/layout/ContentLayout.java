@@ -1,7 +1,6 @@
 package ch.hevs.smartphone.structure.layout;
 
 import ch.hevs.smartphone.applications.contacts.*;
-import ch.hevs.smartphone.applications.contacts.errors.BusinessException;
 import ch.hevs.smartphone.parameters.button.ButtonIcon;
 import ch.hevs.smartphone.parameters.ScreenSizeEnum;
 import ch.hevs.smartphone.applications.gallery.GalleryGUI;
@@ -11,14 +10,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.net.URL;
 
 /**
  * @author Lonfat Milena, Borrajo Elias, Bourquin Jonathan
- * Classe contenant tout notre écran principal.
- * On peut lancer 3 applications différentes depuis le Home.
- * ContentLayout est de type CardLayout.
+ * Class containing all of our main screen.
+ * Three applications can be started from home
+ * ContentLayout is of type CardLayout.
  */
 
 public class ContentLayout extends JPanel {
@@ -50,10 +48,10 @@ public class ContentLayout extends JPanel {
     private ImageIcon iconGallery;
 
     //*****************************************************************************
-    // C O N S T R U C T E U R
+    // C O N S T R U C T O R
     //*****************************************************************************
     /**
-     * Constructeur
+     * Constructor
      */
     public ContentLayout() {
         setPreferredSize(new Dimension(ScreenSizeEnum.CONTENT_PANEL_WIDTH.getSize(), ScreenSizeEnum.CONTENT_PANEL_HEIGHT.getSize()));
@@ -62,11 +60,11 @@ public class ContentLayout extends JPanel {
     }
 
     //*****************************************************************************
-    // M E T H O D E S
+    // M E T H O D S
     //*****************************************************************************
     /**
-     * Construction du panel
-     * */
+     * Build panel
+     */
     public void buildpnlContent() {
         cardlayout = new CardLayout();
 
@@ -77,7 +75,7 @@ public class ContentLayout extends JPanel {
         pnlGallery = new GalleryGUI(this);
         pnlWeather = new WeatherGUI();
 
-        // Home - Contruction des images
+        // Home - Build imageIcon
         URL imageContact = ContentLayout.class.getClassLoader().getResource("ContentIcon/contactIcon2.png");
         URL imageGallery = ContentLayout.class.getClassLoader().getResource("ContentIcon/galleryIcon2.png");
         URL imageWeather = ContentLayout.class.getClassLoader().getResource("ContentIcon/weatherIcon2.png");
@@ -93,12 +91,12 @@ public class ContentLayout extends JPanel {
         // CardLayout
         this.setLayout(cardlayout);
 
-        // Ajout des boutons au Home
+        // Add buttons
         pnlHome.add(btnContact);
         pnlHome.add(btnGallery);
         pnlHome.add(btnWeather);
 
-        // Ajouter les cards au panel conteneur
+        // Add cards to the container panel
         this.add("Home", pnlHome);
         this.add("Contact", pnlContact);
         this.add("Gallery", pnlGallery);
@@ -110,7 +108,7 @@ public class ContentLayout extends JPanel {
         // L I S T E N E R S
         //*****************************************************************************
 
-        // Ouvre l'application contact
+        // Open the contact application
         btnContact.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -118,7 +116,7 @@ public class ContentLayout extends JPanel {
             }
         });
 
-        // Ouvre l'application galerie
+        // Open the gallery application
         btnGallery.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -126,7 +124,7 @@ public class ContentLayout extends JPanel {
             }
         });
 
-        // Ouvre l'appliation météo
+        // Open the weather application
         btnWeather.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

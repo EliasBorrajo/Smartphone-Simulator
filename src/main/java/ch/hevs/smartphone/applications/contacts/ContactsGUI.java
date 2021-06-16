@@ -153,9 +153,9 @@ public class ContactsGUI extends JPanel {
     }
 
     /**
-     * Creation of the JscrollBar which has the list of contact buttons
+     * Creation of the ScrollBar which has the list of contact buttons
      *
-     * @return JscrollPane which has the list of contact button
+     * @return ScrollPane which has the list of contact button
      */
     public JScrollPane buildScrollPaneContact() {
         buildVariables();

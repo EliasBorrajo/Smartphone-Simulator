@@ -1,9 +1,8 @@
 package ch.hevs.smartphone.parameters;
 
 /**
- * Enum qui contient les valeures fixes de nos panels
- *
  * @author Lonfat Milena, Borrajo ELias
+ * Enum which contains the fixed values of the panels
  */
 
 public enum ScreenSizeEnum {
