@@ -1,6 +1,8 @@
 package ch.hevs.smartphone.applications.weather.classInfo;
 
 /**
+ * Class used to create coordinate object from the response of the weather API
+ *
  * @author Bourquin Jonathan
  */
 
@@ -23,16 +25,5 @@ public class CoordinateInfos {
     public CoordinateInfos(double lon, double lat) {
         this.lon = lon;
         this.lat = lat;
-    }
-
-    //*****************************************************************************
-    // G E T T E R S
-    //*****************************************************************************
-    public double getLon() {
-        return lon;
-    }
-
-    public double getLat() {
-        return lat;
     }
 }

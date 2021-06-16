@@ -12,11 +12,12 @@ import java.awt.*;
 import java.util.ArrayList;
 
 /**
- * @author Lonfat Milena
  * Main panel of the cardlayout gallery application
  * Json file check and creation if missing
  * Creat the gallery display
  * Access to the actionListeners class
+ *
+ * @author Lonfat Milena
  */
 
 public class GalleryGUI extends JPanel {
@@ -109,7 +110,7 @@ public class GalleryGUI extends JPanel {
     }
 
     /**
-     * Creation variables
+     * building variables
      */
     private void buildVariables() {
         galleryListener = new GalleryActionListener(this);
@@ -179,6 +180,9 @@ public class GalleryGUI extends JPanel {
     //*****************************************************************************
     // L I S T E N E R S
     //*****************************************************************************
+    /**
+     * method to assign the listener with its button
+     */
     public void buildListeners() {
 
         btnAddPhoto.addActionListener(galleryListener);
@@ -192,40 +196,12 @@ public class GalleryGUI extends JPanel {
     //*****************************************************************************
     // G E T T E R S
     //*****************************************************************************
-    public JPanel getPnlCTGH() {
-        return pnlCTGH;
-    }
-
-    public JPanel getPnlGallHome() {
-        return pnlGallHome;
-    }
-
-    public JPanel getPnlImages() {
-        return pnlImages;
-    }
-
     public ShowPhotoInfo[] getPnlShowPhoto() {
         return pnlShowPhotoInfo;
     }
 
     public CardLayout getCardGallHome() {
         return cardGallHome;
-    }
-
-    public ContentLayout getContentLayout() {
-        return contentLayout;
-    }
-
-    public JScrollPane getJsGallHome() {
-        return jsGallHome;
-    }
-
-    public JLabel getLblGallery() {
-        return lblGallery;
-    }
-
-    public JLabel getLblmsg() {
-        return lblmsg;
     }
 
     public myButton getBtnAddPhoto() {
@@ -236,20 +212,12 @@ public class GalleryGUI extends JPanel {
         return btnPhoto;
     }
 
-    public ImageIcon getIc() {
-        return ic;
-    }
-
     public ArrayList<Photo> getPhotosArray() {
         return photosArray;
     }
 
     public String[] getPhotoName() {
         return photoName;
-    }
-
-    public String[] getPhotoPath() {
-        return photoPath;
     }
 
     public JSONStoragePhoto getJsonPhotoBook() {

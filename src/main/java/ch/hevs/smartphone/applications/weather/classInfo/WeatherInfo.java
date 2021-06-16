@@ -1,6 +1,8 @@
 package ch.hevs.smartphone.applications.weather.classInfo;
 
 /**
+ * Class used to create weather object from the response of the weather API
+ *
  * @author Bourquin Jonathan
  */
 
@@ -37,16 +39,8 @@ public class WeatherInfo {
     //*****************************************************************************
     // G E T T E R S
     //*****************************************************************************
-    public int getId() {
-        return id;
-    }
-
     public String getMain() {
         return main;
-    }
-
-    public String getDescription() {
-        return description;
     }
 
     public String getIcon() {

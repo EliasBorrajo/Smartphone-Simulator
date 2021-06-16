@@ -1,11 +1,3 @@
-/**
- * @author Bourquin Jonathan
- * This class is for every ActionListeners we have in our contact application
- * The first part concern the main panel of the application
- * The second part concern the ShowContactInfo panel
- * The third part concern the ActionListeners on panel EditContactInfo
- */
-
 package ch.hevs.smartphone.applications.contacts.listeners;
 
 import ch.hevs.smartphone.structure.layout.ContentLayout;
@@ -13,6 +5,14 @@ import ch.hevs.smartphone.structure.layout.ContentLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * This class is for every ActionListeners we have in our contact application
+ * The first part concern the main panel of the application
+ * The second part concern the ShowContactInfo panel
+ * The third part concern the ActionListeners on panel EditContactInfo
+ *
+ * @author Bourquin Jonathan
+ */
 public class ContactListener implements ActionListener {
     //*****************************************************************************
     // A T T R I B U T S
@@ -35,6 +35,10 @@ public class ContactListener implements ActionListener {
     //*****************************************************************************
     // M E T H O D S
     //*****************************************************************************
+    /**
+     * method to set listeners to most of the buttons used in the contact app
+     * @param e
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -144,7 +148,9 @@ public class ContactListener implements ActionListener {
         }
     }
 
-    // This method is to rebuild our application
+    /**
+     * This method is to rebuild our application
+     */
     private void reBuildApp() {
         contentLayout.getPnlContact().removeAll();
         contentLayout.getPnlContact().validate();

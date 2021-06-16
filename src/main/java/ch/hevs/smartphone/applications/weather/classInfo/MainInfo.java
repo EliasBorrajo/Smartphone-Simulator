@@ -1,6 +1,8 @@
 package ch.hevs.smartphone.applications.weather.classInfo;
 
 /**
+ * Class used to create main object from the response of the weather API
+ *
  * @author Bourquin Jonathan
  */
 
@@ -21,7 +23,6 @@ public class MainInfo {
     //*****************************************************************************
     // C O N S T R U C T O R
     //*****************************************************************************
-
     /**
      * Constructor
      * @param temp
@@ -57,10 +58,6 @@ public class MainInfo {
 
     public double getTemp_max() {
         return temp_max;
-    }
-
-    public int getPressure() {
-        return pressure;
     }
 
     public int getHumidity() {

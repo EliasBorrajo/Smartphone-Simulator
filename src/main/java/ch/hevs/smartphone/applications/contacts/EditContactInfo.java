@@ -8,8 +8,9 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * @author Bourquin Jonathan
  * This class is the GUI to edit a contact
+ *
+ * @author Bourquin Jonathan
  */
 
 public class EditContactInfo extends JPanel {
@@ -168,6 +169,9 @@ public class EditContactInfo extends JPanel {
     //*****************************************************************************
     // L I S T E N E R S
     //*****************************************************************************
+    /**
+     * setting listeners for the buttons
+     */
     protected void setListeners() {
         myListener = new ContactListener(contentLayout);
         btnIconContact.addActionListener(myListener);
@@ -178,56 +182,8 @@ public class EditContactInfo extends JPanel {
     //*****************************************************************************
     // G E T T E R S
     //*****************************************************************************
-    public JPanel getPnlNorth() {
-        return pnlNorth;
-    }
-
-    public JPanel getPnlCenter() {
-        return pnlCenter;
-    }
-
-    public JPanel getPnlSouth() {
-        return pnlSouth;
-    }
-
-    public JPanel getPnlSouthNorth() {
-        return pnlSouthNorth;
-    }
-
-    public JPanel getPnlSouthCenter() {
-        return pnlSouthCenter;
-    }
-
-    public JPanel getPnlSouthSouth() {
-        return pnlSouthSouth;
-    }
-
     public JButton getBtnIconContact() {
         return btnIconContact;
-    }
-
-    public JLabel getLblFirstName() {
-        return lblFirstName;
-    }
-
-    public JLabel getLblLastName() {
-        return lblLastName;
-    }
-
-    public JLabel getLblNoPhone() {
-        return lblNoPhone;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getNoPhone() {
-        return noPhone;
     }
 
     public JTextField getTfFirstName() {
@@ -248,21 +204,5 @@ public class EditContactInfo extends JPanel {
 
     public JButton getBtnSaveEdit() {
         return btnSaveEdit;
-    }
-
-    public ImageIcon getIconContact() {
-        return iconContact;
-    }
-
-    public ImageIcon getIconDefaultBack() {
-        return iconDefaultBack;
-    }
-
-    public ContentLayout getContentLayout() {
-        return contentLayout;
-    }
-
-    public ContactListener getMyListener() {
-        return myListener;
     }
 }

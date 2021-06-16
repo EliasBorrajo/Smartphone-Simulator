@@ -7,8 +7,9 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * @author Lonfat Milena
  * This class is the GUI that show the information of a photo
+ *
+ * @author Lonfat Milena
  */
 
 public class ShowPhotoInfo extends JPanel {

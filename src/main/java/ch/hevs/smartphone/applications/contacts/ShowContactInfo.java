@@ -9,8 +9,9 @@ import java.awt.*;
 import java.util.ArrayList;
 
 /**
- * @author Bourquin Jonathan, Borrajo Elias
  * This class is the GUI that shows the information of a contact
+ *
+ * @author Bourquin Jonathan, Borrajo Elias
  */
 
 public class ShowContactInfo extends JPanel {
@@ -60,6 +61,7 @@ public class ShowContactInfo extends JPanel {
     //*****************************************************************************
     /**
      * Constructor
+     *
      * @param contentLayout
      * @param firstName
      * @param lastName
@@ -162,6 +164,9 @@ public class ShowContactInfo extends JPanel {
     //*****************************************************************************
     // L I S T E N E R S
     //*****************************************************************************
+    /**
+     * set the listeners for the buttons
+     */
     protected void setListeners() {
         myListener = new ContactListener(contentLayout);
         btnBack.addActionListener(myListener);
@@ -172,58 +177,6 @@ public class ShowContactInfo extends JPanel {
     //*****************************************************************************
     // G E T T E R S
     //*****************************************************************************
-    public JPanel getPnlNorth() {
-        return pnlNorth;
-    }
-
-    public JPanel getPnlCenter() {
-        return pnlCenter;
-    }
-
-    public JPanel getPnlSouth() {
-        return pnlSouth;
-    }
-
-    public JPanel getPnlSouthNorth() {
-        return pnlSouthNorth;
-    }
-
-    public JPanel getPnlSouthCenter() {
-        return pnlSouthCenter;
-    }
-
-    public JPanel getPnlSouthSouth() {
-        return pnlSouthSouth;
-    }
-
-    public JLabel getLblIconContact() {
-        return lblIconContact;
-    }
-
-    public JLabel getLblFirstName() {
-        return lblFirstName;
-    }
-
-    public JLabel getLblLastName() {
-        return lblLastName;
-    }
-
-    public JLabel getLblNoPhone() {
-        return lblNoPhone;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getNoPhone() {
-        return noPhone;
-    }
-
     public JButton getBtnDeleteContact() {
         return btnDeleteContact;
     }
@@ -234,40 +187,5 @@ public class ShowContactInfo extends JPanel {
 
     public JButton getBtnEdit() {
         return btnEdit;
-    }
-
-    public ImageIcon getIconDefaultBack() {
-        return iconDefaultBack;
-    }
-
-    public ContentLayout getContentLayout() {
-        return contentLayout;
-    }
-
-    public ArrayList<Contact> getContacts() {
-        return contacts;
-    }
-
-    public ContactListener getMyListener() {
-        return myListener;
-    }
-
-    public String getPathContactPhoto() {
-        return pathContactPhoto;
-    }
-
-    public ImageIcon getIconContact() {
-        return iconContact;
-    }
-
-    //*****************************************************************************
-    // S E T T E R S
-    //*****************************************************************************
-    public void setLblIconContact(JLabel lblIconContact) {
-        this.lblIconContact = lblIconContact;
-    }
-
-    public void setPathContactPhoto(String pathContactPhoto) {
-        this.pathContactPhoto = pathContactPhoto;
     }
 }

@@ -1,6 +1,9 @@
 package ch.hevs.smartphone.applications.weather.classInfo;
 
 /**
+ * Class used to create the object that will contain all the different objects created from the response of the weather API
+ * this class is used to access the parametres of the API response we want to use in our weather app
+ *
  * @author Bourquin Jonathan
  */
 
@@ -8,7 +11,6 @@ public class WeatherMaster {
     //*****************************************************************************
     // A T T R I B U T S
     //*****************************************************************************
-    private Object[] weatherContent;
     private WeatherInfo[] weather;
 
     // Class
@@ -71,30 +73,6 @@ public class WeatherMaster {
     //*****************************************************************************
     // G E T T E R S
     //*****************************************************************************
-    public String getBase() {
-        return base;
-    }
-
-    public CloudsInfo getClouds() {
-        return clouds;
-    }
-
-    public int getCod() {
-        return cod;
-    }
-
-    public CoordinateInfos getCoord() {
-        return coord;
-    }
-
-    public long getDt() {
-        return dt;
-    }
-
-    public long getId() {
-        return id;
-    }
-
     public MainInfo getMain() {
         return main;
     }
@@ -103,20 +81,8 @@ public class WeatherMaster {
         return name;
     }
 
-    public int getTimezone() {
-        return timezone;
-    }
-
-    public int getVisibility() {
-        return visibility;
-    }
-
     public WeatherInfo[] getWeather() {
         return weather;
-    }
-
-    public SystemInfo getSys() {
-        return sys;
     }
 
     public WindInfo getWind() {
