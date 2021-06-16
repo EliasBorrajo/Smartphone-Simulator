@@ -1,6 +1,8 @@
 package ch.hevs.smartphone.applications.weather.classInfo;
 
 /**
+ * Class used to create system object from the response of the weather API
+ *
  * @author Bourquin Jonathan
  */
 
@@ -23,7 +25,6 @@ public class SystemInfo {
     //*****************************************************************************
     // C O N S T R U C T O R
     //*****************************************************************************
-
     /**
      * Constructor
      * @param type
@@ -38,28 +39,5 @@ public class SystemInfo {
         this.country = country;
         this.sunrise = sunrise;
         this.sunset = sunset;
-    }
-
-    //*****************************************************************************
-    // G E T T E R S
-    //*****************************************************************************
-    public int getType() {
-        return type;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public long getSunrise() {
-        return sunrise;
-    }
-
-    public long getSunset() {
-        return sunset;
     }
 }

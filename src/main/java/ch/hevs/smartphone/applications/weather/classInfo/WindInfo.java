@@ -1,6 +1,8 @@
 package ch.hevs.smartphone.applications.weather.classInfo;
 
 /**
+ * Class used to create wind object from the response of the weather API
+ *
  * @author Bourquin Jonathan
  */
 
