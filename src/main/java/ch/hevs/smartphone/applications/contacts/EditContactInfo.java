@@ -8,8 +8,9 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * @author Bourquin Jonathan
  * This class is the GUI to edit a contact
+ *
+ * @author Bourquin Jonathan
  */
 
 public class EditContactInfo extends JPanel {

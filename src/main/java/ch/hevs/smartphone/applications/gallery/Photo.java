@@ -4,8 +4,9 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * @author Lonfat Milena
  * Attributes the strings that will be saved in the JSON for each photo
+ *
+ * @author Lonfat Milena
  */
 public class Photo implements Serializable {
     //*****************************************************************************

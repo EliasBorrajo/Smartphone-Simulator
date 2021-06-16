@@ -10,11 +10,12 @@ import java.awt.*;
 import java.util.ArrayList;
 
 /**
- * @author Bourquin Jonathan
  * Main panel of the cardlayout contact application
  * Json file check and creation if missing
  * Creat the contact book display
  * Access to the actionListeners class
+ *
+ * @author Bourquin Jonathan
  */
 
 public class ContactsGUI extends JPanel {

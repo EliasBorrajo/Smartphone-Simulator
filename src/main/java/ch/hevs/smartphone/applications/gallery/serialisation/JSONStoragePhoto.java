@@ -16,9 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Lonfat Milena, Borrajo Elias
  * Contains photos gallery
  * Retrieve the JSON file on the PC in order to create our photos
+ * @author Lonfat Milena, Borrajo Elias
  */
 public class JSONStoragePhoto implements StorablePhoto {
     //*****************************************************************************
@@ -40,6 +40,9 @@ public class JSONStoragePhoto implements StorablePhoto {
     //*****************************************************************************
     // C O N S T R U C T O R
     //*****************************************************************************
+    /**
+     * constructor
+     */
     public JSONStoragePhoto() {
         definePathToStoreData();
         try {
@@ -52,20 +55,18 @@ public class JSONStoragePhoto implements StorablePhoto {
     //*****************************************************************************
     // M E T H O D E S
     //*****************************************************************************
-
     /**
-     * Permet de récuperer la valeur stoqué sur le PC de l'utilisateur de l'app.
-     * L'utilisateur va créer une VARIABLE D'ENVIRONNEMENT sur son OS / PC, pour décider à quel emplacement
-     * il shouaite stoquer les fichiers JSON.
+     * Allows you to retrieve the value stored on the app user's PC.
+     * The user will create an ENVIRONMENT VARIABLE on his OS / PC, to decide where he wants to store the JSON files.
      * <p>
-     * 1) Il faut récuperer cette VARIABLE grâce à notre SINGLETON
+     * 1) We need to retrieve this VARIABLE using our SINGLETON
      * <p>
-     * 2) Utiliser la classe PATH pour créer un chemin d'accès correcte peu importe l'OS.
-     * Cette classe utilise l'import java.nio, qui va grandement nous aider pour homogeneiser notre code.
+     * 2) Use the PATH class to create a correct path no matter the OS.
+     * This class uses the java.nio import, which will greatly help us to homogenize our code.
      * <p>
-     * Puis utiliser la clate PATHS pour CONCATENER le chemin d'accès de la VAARIABLE + le nom du fichier que l'on veut.
+     * Then use the PATH class to CONCATENATE the path of the VARIABLE + the file name we want.
      * <p>
-     * 3) Définir dans une string le chemin d'accès finale crée par PATH, et l'utiliser pour la création de notre FILE.
+     * 3) Define in a string the final path created by PATH, and use it for the creation of our FILE.Allows us to retrieve the value stored on the app user's PC.
      */
     private void definePathToStoreData() {
         // Retrieves the contents of the ENVIRONMENT VARIABLE
@@ -83,7 +84,7 @@ public class JSONStoragePhoto implements StorablePhoto {
     }
 
     /**
-     * DE-SERIALISATION READ DATA IN A JSON FILE
+     * DE-SERIALIZATION READ DATA IN A JSON FILE
      *
      * If the file is empty, it reads without problem.
      * If the file does not exist, it creates it.
@@ -124,7 +125,7 @@ public class JSONStoragePhoto implements StorablePhoto {
     }
 
     /**
-     * SERIALISATION WRITE DATA IN A JSON FILE
+     * SERIALIZATION WRITE DATA IN A JSON FILE
      *
      * @param destination
      * @param photosArray
@@ -143,7 +144,6 @@ public class JSONStoragePhoto implements StorablePhoto {
         }
     }
 
-
     /**
      * Add photo in galleryPhoto
      *
@@ -152,7 +152,6 @@ public class JSONStoragePhoto implements StorablePhoto {
     public void addPhoto(Photo photo) {
         photosArray.add(photo);
     }
-
 
     //*****************************************************************************
     // G E T T E R S

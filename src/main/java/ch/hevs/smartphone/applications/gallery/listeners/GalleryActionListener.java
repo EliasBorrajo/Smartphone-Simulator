@@ -9,10 +9,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * @author Lonfat Milena
  * This class is for every ActionListeners we have in our gallery application
  * The first part concern the main panel of the application
  * The second part concern the ShowPhotoInfo panel
+ *
+ * @author Lonfat Milena
  */
 
 public class GalleryActionListener implements ActionListener {
@@ -20,7 +21,7 @@ public class GalleryActionListener implements ActionListener {
     // A T T R I B U T S
     //*****************************************************************************
     // Layout
-    GalleryGUI galleryGUI;
+    private GalleryGUI galleryGUI;
 
     // Int
     private int cpt;
@@ -40,6 +41,7 @@ public class GalleryActionListener implements ActionListener {
     //*****************************************************************************
     // M E T H O D S
     //*****************************************************************************
+    @Override
     public void actionPerformed(ActionEvent e) {
 
     // First part : ActionListener on main panel of gallery application
@@ -93,7 +95,9 @@ public class GalleryActionListener implements ActionListener {
         }
     }
 
-    // This method is to rebuild our application
+    /**
+     * This method is to rebuild our application
+     */
     public void rebuildApp() {
         galleryGUI.removeAll();
         galleryGUI.validate();

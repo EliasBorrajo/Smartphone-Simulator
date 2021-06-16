@@ -1,8 +1,3 @@
-/**
- * @author Borrajo Elias, Bourquin Jonathan
- *
- */
-
 package ch.hevs.smartphone.applications.contacts.serialization;
 
 import ch.hevs.smartphone.applications.contacts.Contact;
@@ -25,6 +20,8 @@ import java.util.List;
 /**
  * Contains the adress book
  * Retrieve the JSON file on the PC in order to create our contacts
+ *
+ * @author Borrajo Elias, Bourquin Jonathan
  */
 public class JSONStorageContact implements StorableContact {
 
@@ -41,7 +38,6 @@ public class JSONStorageContact implements StorableContact {
     private String storePath;       // Allows to store the content of our SYSTEM ENVIRONMENT VARIABLE
     private String jsonPath;        // Is the variable which will contain the FINAl path on the PC and depending on the OS,
                                     // to the storage location of our JSON file
-
     // myObj FILE
     private File myObj;
 

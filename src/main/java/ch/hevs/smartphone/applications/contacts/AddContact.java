@@ -6,8 +6,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
+ * This class constructs the panel for the GUI to add a contact
+ *
  * @author Bourquin Jonathan
- * This panel is the GUI to add a contact
  */
 
 public class AddContact extends JPanel {
@@ -15,14 +16,19 @@ public class AddContact extends JPanel {
     //*****************************************************************************
     // A T T R I B U T S
     //*****************************************************************************
+    // Layout
+    protected ContactsGUI contactsGUI;
+    protected Contact contact;
+
+    // TextField
+    protected JTextField tfFirstName;
+    protected JTextField tfLastName;
+    protected JTextField tfNoPhone;
+
     // Panel
     private JPanel pnlNorth;
     private JPanel pnlCenter;
     private JPanel pnlSouth;
-
-    // Layout
-    protected ContactsGUI contactsGUI;
-    protected Contact contact;
 
     // Label
     private JLabel lblContactsTitle;
@@ -39,11 +45,6 @@ public class AddContact extends JPanel {
 
     // String
     private String pathPhoto;
-
-    // TextField
-    protected JTextField tfFirstName;
-    protected JTextField tfLastName;
-    protected JTextField tfNoPhone;
 
     //*****************************************************************************
     // C O N S T R U C T O R
@@ -123,7 +124,7 @@ public class AddContact extends JPanel {
     }
 
     /**
-     * Construction de l'ICONE à la taille desirée
+     * build icon at the desired size
      */
     private void buildIcon() {
         // Allows to retrieve files from resources
@@ -138,6 +139,9 @@ public class AddContact extends JPanel {
     //*****************************************************************************
     // L I S T E N E R S
     //*****************************************************************************
+    /**
+     * set the action listeners to the buttons
+     */
     public void setListenerAddContact() {
         btnSave.addActionListener(new ListenerSaveAddContact(tfFirstName, tfLastName, tfNoPhone));
 
@@ -147,11 +151,21 @@ public class AddContact extends JPanel {
     //*****************************************************************************
     // I N N E R  -  C L A S S
     //*****************************************************************************
+    /**
+     * private class used to save all the textfields in a click
+     */
     private class ListenerSaveAddContact implements ActionListener {
         JTextField inputFN;
         JTextField inputN;
         JTextField inputNP;
 
+        /**
+         * Constructor
+         *
+         * @param firstName
+         * @param name
+         * @param noPhone
+         */
         public ListenerSaveAddContact(JTextField firstName, JTextField name, JTextField noPhone) {
             inputFN = firstName;
             inputN = name;

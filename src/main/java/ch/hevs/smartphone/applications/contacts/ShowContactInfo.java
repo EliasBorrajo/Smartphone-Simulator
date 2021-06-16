@@ -9,8 +9,9 @@ import java.awt.*;
 import java.util.ArrayList;
 
 /**
- * @author Bourquin Jonathan, Borrajo Elias
  * This class is the GUI that shows the information of a contact
+ *
+ * @author Bourquin Jonathan, Borrajo Elias
  */
 
 public class ShowContactInfo extends JPanel {
@@ -60,6 +61,7 @@ public class ShowContactInfo extends JPanel {
     //*****************************************************************************
     /**
      * Constructor
+     *
      * @param contentLayout
      * @param firstName
      * @param lastName
@@ -162,6 +164,9 @@ public class ShowContactInfo extends JPanel {
     //*****************************************************************************
     // L I S T E N E R S
     //*****************************************************************************
+    /**
+     * set the listeners for the buttons
+     */
     protected void setListeners() {
         myListener = new ContactListener(contentLayout);
         btnBack.addActionListener(myListener);

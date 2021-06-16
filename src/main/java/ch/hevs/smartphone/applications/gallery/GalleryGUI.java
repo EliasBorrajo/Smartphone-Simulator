@@ -12,11 +12,12 @@ import java.awt.*;
 import java.util.ArrayList;
 
 /**
- * @author Lonfat Milena
  * Main panel of the cardlayout gallery application
  * Json file check and creation if missing
  * Creat the gallery display
  * Access to the actionListeners class
+ *
+ * @author Lonfat Milena
  */
 
 public class GalleryGUI extends JPanel {
@@ -109,7 +110,7 @@ public class GalleryGUI extends JPanel {
     }
 
     /**
-     * Creation variables
+     * building variables
      */
     private void buildVariables() {
         galleryListener = new GalleryActionListener(this);
@@ -179,6 +180,10 @@ public class GalleryGUI extends JPanel {
     //*****************************************************************************
     // L I S T E N E R S
     //*****************************************************************************
+
+    /**
+     * method to assign the listener with its button
+     */
     public void buildListeners() {
 
         btnAddPhoto.addActionListener(galleryListener);
