@@ -69,10 +69,9 @@ public class HeaderLayout extends JPanel {
         iconPower = new ImageIcon(imagePower);
         btnShutdown = new ButtonIcon(iconPower);
 
-        /**
-         * ActionListener on btnShutdown
-         * When we turn off the smartphone, serialize all the information
-         */
+
+        // ActionListener on btnShutdown
+        // When we turn off the smartphone, serialize all the information
         btnShutdown.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

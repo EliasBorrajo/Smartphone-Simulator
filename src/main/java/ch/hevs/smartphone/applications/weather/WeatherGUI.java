@@ -54,6 +54,9 @@ public class WeatherGUI extends JPanel {
     //*****************************************************************************
     // C O N S T R U C T O R
     //*****************************************************************************
+    /**
+     * Contructor
+     */
     public WeatherGUI() {
         weatherInfos = new WeatherAPI();
         buildMainPanel();
@@ -62,7 +65,6 @@ public class WeatherGUI extends JPanel {
     //*****************************************************************************
     // M E T H O D S
     //*****************************************************************************
-
     /**
      * Set the layout and calls two other methods to build icon and panel
      */
@@ -197,7 +199,7 @@ public class WeatherGUI extends JPanel {
         this.add(pnlNoConnexion, BorderLayout.SOUTH);
 
         // Show or hide panel if it's connected or not
-        if (weatherInfos.isConnected() == false) {
+        if (!weatherInfos.isConnected()) {
             pnlCenter.setVisible(false);
             pnlNorth.setVisible(true);
             pnlNoConnexion.setVisible(true);

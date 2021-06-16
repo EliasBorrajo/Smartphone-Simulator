@@ -9,7 +9,7 @@ import java.net.URL;
 import java.net.URLConnection;
 
 /**
- * This class retrieves GSON info from an API (openweathermap)
+ * This class retrieves GSON infos from an API (openweathermap)
  *
  * @author Borrajo Elias, Milena Lonfat, Bourquin Jonathan
  */
@@ -18,25 +18,36 @@ public class WeatherAPI {
     // A T T R I B U T S
     //*****************************************************************************
     // Attributes needed to retrieve API info
+    // String
     private static final String API_KEY = "ec290e8fe580091860106fddb502ce81";   // Key linked to my API provider account
     private static final String UNITS = "&units=metric";                        // Allows to have METRICS units, therefore temperatures in ° C
     private String urlLocation = "Sion";                                        // The city will be by default "Sion"
+
+    // Boolean
     private boolean isConnected;
 
     // Attributes to return to the system to display in the GUI
-    private String cityName;
+    // Double
+    private double windSpeed;
     private double temperature;
     private double maxTemp;
     private double minTemp;
     private double feltTemp;
+
+    // Int
     private int humidity;
-    private double windSpeed;
+
+    // String
+    private String cityName;
     private String description;
     private String urlPicture;
 
     //*****************************************************************************
     // C O N S T R U C T O R
     //*****************************************************************************
+    /**
+     * Constructor
+     */
     public WeatherAPI() {
         getAPIDetails();
     }
@@ -44,6 +55,9 @@ public class WeatherAPI {
     //*****************************************************************************
     // M E T H O D S
     //*****************************************************************************
+    /**
+     * Method to get the API details
+     */
     protected void getAPIDetails() {
         // Se connecter à l'API
         String urlString = "http://api.openweathermap.org/data/2.5/weather?q="
@@ -54,9 +68,7 @@ public class WeatherAPI {
 
         isConnected = false;
 
-        /**
-         * Attempting to retrieve information from the API
-         */
+        // Attempting to retrieve information from the API
         try {
             URL url = new URL(urlString);
             System.out.println(url);
@@ -100,6 +112,13 @@ public class WeatherAPI {
         }
     }
 
+    /**
+     * Creation of objects based on the API response
+     *
+     * @param url
+     * @return a weatherMaster object
+     * @throws IOException
+     */
     private WeatherMaster urlReader(URL url) throws IOException {
         URLConnection connection = url.openConnection();
         StringBuilder tmpResult = new StringBuilder();
@@ -125,18 +144,6 @@ public class WeatherAPI {
     //*****************************************************************************
     // G E T T E R S
     //*****************************************************************************
-    public static String getApiKey() {
-        return API_KEY;
-    }
-
-    public static String getUNITS() {
-        return UNITS;
-    }
-
-    public String getUrlLocation() {
-        return urlLocation;
-    }
-
     public boolean isConnected() {
         return isConnected;
     }
@@ -157,16 +164,8 @@ public class WeatherAPI {
         return minTemp;
     }
 
-    public double getFeltTemp() {
-        return feltTemp;
-    }
-
     public int getHumidity() {
         return humidity;
-    }
-
-    public double getWindSpeed() {
-        return windSpeed;
     }
 
     public String getDescription() {
@@ -182,10 +181,6 @@ public class WeatherAPI {
     //*****************************************************************************
     public void setUrlLocation(String urlLocation) {
         this.urlLocation = urlLocation;
-    }
-
-    public void setConnected(boolean connected) {
-        isConnected = connected;
     }
 
     public void setCityName(String cityName) {
@@ -214,10 +209,6 @@ public class WeatherAPI {
 
     public void setWindSpeed(double windSpeed) {
         this.windSpeed = windSpeed;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public void setUrlPicture(String urlPicture) {

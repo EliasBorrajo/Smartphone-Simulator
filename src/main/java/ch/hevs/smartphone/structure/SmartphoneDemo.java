@@ -26,7 +26,6 @@ public class SmartphoneDemo
 {
     /**
      * Main that will create the Singleton and our smartphone
-     * @param args
      */
     public static void main(String[] args)
     {

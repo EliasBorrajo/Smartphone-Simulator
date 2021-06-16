@@ -26,7 +26,7 @@ public enum ScreenSizeEnum {
      * Constructor
      * @param size
      */
-    private ScreenSizeEnum(int size) { this.size = size; }
+    ScreenSizeEnum(int size) { this.size = size; }
 
     //*****************************************************************************
     // G E T T E R S
