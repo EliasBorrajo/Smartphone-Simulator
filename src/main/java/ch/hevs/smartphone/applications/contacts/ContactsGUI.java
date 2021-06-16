@@ -223,32 +223,14 @@ public class ContactsGUI extends JPanel {
         return btnShowContact;
     }
 
-    public JPanel getPnlCenterJscrollContact() { return pnlCenterJscrollContact; }
-
     public JSONStorageContact getJsonAddressBook() { return jsonAddressBook; }
 
     public CardLayout getCardLayoutContact() {
         return cardLayoutContact;
     }
 
-    public ContentLayout getContentLayout() {
-        return contentLayout;
-    }
-
     public ContactListener getMyListener() {
         return myListener;
-    }
-
-    public JPanel getPnlHomeContact() {
-        return pnlHomeContact;
-    }
-
-    public JPanel getPnlNorth() {
-        return pnlNorth;
-    }
-
-    public JScrollPane getScrollPaneContact() {
-        return scrollPaneContact;
     }
 
     public AddContact getPnlAddContact() {
@@ -259,10 +241,6 @@ public class ContactsGUI extends JPanel {
         return pnlShowContactInfo;
     }
 
-    public JLabel getLblContactTitle() {
-        return lblContactTitle;
-    }
-
     public ArrayList<Contact> getContactArray() {
         return contactArray;
     }
@@ -271,22 +249,11 @@ public class ContactsGUI extends JPanel {
         return contactNameShowContact;
     }
 
-    public String[] getContactNoPhone() {
-        return contactNoPhone;
-    }
-
     public EditContactInfo[] getPnlEditContactInfo() {
         return pnlEditContactInfo;
     }
 
     public String[] getContactNameEditContact() {
         return contactNameEditContact;
-    }
-
-    //*****************************************************************************
-    // S E T T E R S
-    //*****************************************************************************
-    public void setPnlCenterJscrollContact(JPanel pnlCenterJscrollContact) {
-        this.pnlCenterJscrollContact = pnlCenterJscrollContact;
     }
 }

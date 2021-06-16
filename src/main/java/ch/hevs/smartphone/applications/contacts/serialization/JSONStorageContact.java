@@ -176,12 +176,5 @@ public class JSONStorageContact implements StorableContact {
     public File getMyObj() {
         return myObj;
     }
-
-    //*****************************************************************************
-    // S E T T E R S
-    //*****************************************************************************
-    public void setTabContact(ArrayList<Contact> tabContact) {
-        this.contactArray = tabContact;
-    }
 }
 

@@ -214,26 +214,6 @@ public class AddContact extends JPanel {
     //*****************************************************************************
     // G E T T E R S
     //*****************************************************************************
-    public JTextField getTfName() {
-        return tfLastName;
-    }
-
-    public JTextField getTfFirstName() {
-        return tfFirstName;
-    }
-
-    public JTextField getTfNoPhone() {
-        return tfNoPhone;
-    }
-
-    public JButton getBtnSave() {
-        return btnSave;
-    }
-
-    public ContactsGUI getContactsGUI() {
-        return contactsGUI;
-    }
-
     public Contact getContact() {
         return contact;
     }
@@ -245,10 +225,6 @@ public class AddContact extends JPanel {
     //*****************************************************************************
     // S E T T E R S
     //*****************************************************************************
-    public void setContactsGUI(ContactsGUI contactsGUI) {
-        this.contactsGUI = contactsGUI;
-    }
-
     public void setContact(Contact contact) {
         this.contact = contact;
     }
