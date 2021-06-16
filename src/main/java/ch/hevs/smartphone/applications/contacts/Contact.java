@@ -47,7 +47,7 @@ public class Contact implements Serializable
     }
 
     //*****************************************************************************
-    // M E T H O D E S
+    // M E T H O D S
     //*****************************************************************************
     @Override
     public String toString() {
