@@ -28,7 +28,7 @@ public class Config {
                                                     // All personal files in JSON format will be stored in this folder
     private String configFilePath;
     private String storePath;                       // Is the value contained in the environment variable. We return it to the getters.
-    private static final String VARIABLE_ENVIRONNEMENT = "SMARTPHONEPROJECT";
+    private static final String VARIABLE_ENVIRONNEMENT = "HOME";
     // Contains the NAME of the ENVIRONMENT VARIABLE.
     // The method: "System.getenv (VARIABLE_ENVIRONNEMENT)" will know WHICH VALUE of VARIABLE to look for.
 
