@@ -9,23 +9,23 @@ public enum ScreenSizeEnum {
     //*****************************************************************************
     // A T T R I B U T S
     //*****************************************************************************
-    WIDTH(300),                 // WIDTH = largeur
-    HEIGHT(600),                // HEIGHT = hauteur
+    WIDTH(300),
+    HEIGHT(600),
 
-    CONTENT_PANEL_WIDTH(300),   // CONTENT_PANEL_WIDTH = largeur du panneau contenu
-    CONTENT_PANEL_HEIGHT(600),  // CONTENT_PANEL_HEIGHT = hauteur du paneau contenu
+    CONTENT_PANEL_WIDTH(300),
+    CONTENT_PANEL_HEIGHT(600),
 
-    HEADER_FOOTER_HEIGHT(30);   // HEADER_FOOTER_HEIGHT = hauteur de l'entête et du pied de page
+    HEADER_FOOTER_HEIGHT(30);
 
     private int size;
 
     //*****************************************************************************
-    // C O N S T R U C T E U R
+    // C O N S T R U C T O R
     //*****************************************************************************
     /**
-     * Constructeur
+     * Constructor
      * @param size
-     * */
+     */
     private ScreenSizeEnum(int size) { this.size = size; }
 
     //*****************************************************************************
@@ -34,5 +34,4 @@ public enum ScreenSizeEnum {
     public int getSize() {
         return size;
     }
-
 }

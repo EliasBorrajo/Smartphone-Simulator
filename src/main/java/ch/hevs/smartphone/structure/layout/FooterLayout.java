@@ -10,9 +10,10 @@ import java.awt.event.ActionListener;
 import java.net.URL;
 
 /**
- * @author Lonfat Milena, Borrajo Elias, Bourquin Jonathan
  * Bottom of our frame which will be visible from everywhere
  * Used to return to the home page
+ *
+ * @author Lonfat Milena, Borrajo Elias, Bourquin Jonathan
  */
 
 public class FooterLayout extends JPanel {
@@ -61,7 +62,6 @@ public class FooterLayout extends JPanel {
                 contentLayout.getCardlayout().show(contentLayout.getPnlContent(), "Home");
             }
         });
-
         this.add(btnHome);
     }
 }

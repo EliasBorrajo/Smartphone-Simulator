@@ -8,10 +8,11 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
- * @author Borrajo Elias, Milena Lonfat
  * This class is the GUI that show the weather's information
  * City change possible
  * Gives the name of the city, the maximum, minimum and current temperature and the humidity level
+ *
+ * @author Borrajo Elias, Milena Lonfat
  */
 public class WeatherGUI extends JPanel {
     //*****************************************************************************
@@ -61,12 +62,19 @@ public class WeatherGUI extends JPanel {
     //*****************************************************************************
     // M E T H O D S
     //*****************************************************************************
+
+    /**
+     * Set the layout and calls two other methods to build icon and panel
+     */
     private void buildMainPanel() {
         setLayout(new BorderLayout());
         buildIcon();
         buildPanel();
     }
 
+    /**
+     * Creation of the icon
+     */
     private void buildIcon() {
         //Creation icon
         ClassLoader classLoader = getClass().getClassLoader();
@@ -78,6 +86,9 @@ public class WeatherGUI extends JPanel {
         iconSearch = new ImageIcon(newImgSearchIcon);
     }
 
+    /**
+     * Creation of the panel
+     */
     private void buildPanel() {
         // Creation JTextField
         tfLocation = new JTextField();
@@ -122,6 +133,7 @@ public class WeatherGUI extends JPanel {
         } catch (MalformedURLException e1){
             System.out.println("URL invalide");
         }
+
         // North panel
         pnlNorth = new JPanel();
         pnlNorth.add(tfLocation);

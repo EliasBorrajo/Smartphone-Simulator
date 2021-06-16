@@ -12,9 +12,10 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * @author Lonfat Milena, Borrajo Elias
  * Class which manages our JFrame and the main panel which will contain
  * the HeaderLayout, FooterLayout and ContentLayout
+ *
+ * @author Lonfat Milena, Borrajo Elias
  */
 
 public class SmartphoneGUI extends JFrame {
@@ -93,7 +94,7 @@ public class SmartphoneGUI extends JFrame {
 
     /**
      * Edge construction to give the appearance of a smartphone
-     * @return a Jpanel which will be used to make the edges of our smartphone
+     * @return a JPanel which will be used to make the edges of our smartphone
      */
     private JPanel buildBorderPanel() {
         borderPanel = new JPanel();
@@ -107,12 +108,12 @@ public class SmartphoneGUI extends JFrame {
      */
     private void setTimerUpdate() {
         timer = new Timer();
-        int delay = 800;        // 800 mili-second delay before get executed
-        int delayRepeat = 500;  // means will be repeated every 5 Mili-seconds
+        int delay = 800;                                // 800 mili-second delay before get executed
+        int delayRepeat = 500;                          // means will be repeated every 5 Mili-seconds
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                update(); // On fait un update tous les Xtemps du timer
+                update();                               // We do an update every X time of the timer
             }
         }, delay, delayRepeat);
 
@@ -130,14 +131,6 @@ public class SmartphoneGUI extends JFrame {
     //*****************************************************************************
     // G E T T E R S
     //*****************************************************************************
-    public FooterLayout getFooterLayout() {
-        return footerLayout;
-    }
-
-    public HeaderLayout getHeaderLayout() {
-        return headerLayout;
-    }
-
     public ContentLayout getContentLayout() {
         return contentLayout;
     }

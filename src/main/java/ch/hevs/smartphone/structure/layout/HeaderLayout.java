@@ -13,9 +13,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * @author Lonfat Milena, Borrajo Elias
  * Top of our frame which will be visible from everywhere
  * Used to turn off the smartphone, and give the time and date
+ *
+ * @author Lonfat Milena, Borrajo Elias
  */
 
 public class HeaderLayout extends JPanel {
@@ -57,7 +58,7 @@ public class HeaderLayout extends JPanel {
     }
 
     //*****************************************************************************
-    // M E T H O D E S
+    // M E T H O D S
     //*****************************************************************************
     /**
      * JButton which allows you to turn off the smartphone and serializes the JSON of contacts and photos
@@ -86,14 +87,13 @@ public class HeaderLayout extends JPanel {
                         smartphoneGUI.getContentLayout().getPnlContact().getJsonAddressBook().getContactArray());
 
                 System.exit(0);
-
             }
         });
         return btnShutdown;
     }
 
     /**
-     * Label with the current date
+     * JLabel with the current date
      */
     private JLabel buildLabelDate() {
         lblDate = new JLabel();
@@ -103,10 +103,9 @@ public class HeaderLayout extends JPanel {
         return lblDate;
     }
 
-    // @TODO EFFACER L'aFFICHAGE DES SECONDES
-
     /**
-     * Label with the current time
+     *  JLabel with the current time
+     * @return a JLabel with the current time
      */
     private JLabel buildLabelTime() {
         lblTime = new JLabel();

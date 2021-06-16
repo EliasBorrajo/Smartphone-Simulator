@@ -13,10 +13,11 @@ import java.awt.event.ActionListener;
 import java.net.URL;
 
 /**
- * @author Lonfat Milena, Borrajo Elias, Bourquin Jonathan
  * Class containing all of our main screen.
  * Three applications can be started from home
  * ContentLayout is of type CardLayout.
+ *
+ * @author Lonfat Milena, Borrajo Elias, Bourquin Jonathan
  */
 
 public class ContentLayout extends JPanel {
@@ -107,7 +108,6 @@ public class ContentLayout extends JPanel {
         //*****************************************************************************
         // L I S T E N E R S
         //*****************************************************************************
-
         // Open the contact application
         btnContact.addActionListener(new ActionListener() {
             @Override
@@ -144,10 +144,6 @@ public class ContentLayout extends JPanel {
         return pnlContent;
     }
 
-    public JPanel getPnlHome() {
-        return pnlHome;
-    }
-
     public ContactsGUI getPnlContact() {
         return pnlContact;
     }
@@ -155,33 +151,4 @@ public class ContentLayout extends JPanel {
     public GalleryGUI getPnlGallery() {
         return pnlGallery;
     }
-
-    public WeatherGUI getPnlWeather() {
-        return pnlWeather;
-    }
-
-    public ButtonIcon getBtnContact() {
-        return btnContact;
-    }
-
-    public ButtonIcon getBtnGallery() {
-        return btnGallery;
-    }
-
-    public ButtonIcon getBtnWeather() {
-        return btnWeather;
-    }
-
-    public ImageIcon getIconWeather() {
-        return iconWeather;
-    }
-
-    public ImageIcon getIconContact() {
-        return iconContact;
-    }
-
-    public ImageIcon getIconGallery() {
-        return iconGallery;
-    }
-
 }

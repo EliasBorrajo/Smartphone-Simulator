@@ -1,8 +1,9 @@
 package ch.hevs.smartphone.errors;
 
 /**
- * @author Bourquin Jonathan
  * Error code for contact and gallery applications
+ *
+ * @author Bourquin Jonathan
  */
 
 public enum ErrorCode {

@@ -3,78 +3,75 @@ package ch.hevs.smartphone.parameters.jsonStorage;
 import java.io.*;
 
 /**
- * @author Borrajo Elias
- * ! ! !   A T T E N T I O N   ! ! !
- * IL EST ABSOLUMENT, NECESSAIRE, DE CREER UNE VARIABLE D'ENVIRONNEMENT SUR LE PC,
- * CONTENANT LE CHEMIN D'ACCES DE OU NOUS VOULONS STOQUER LES FICHIERS QUE CREE NOTRE APPLICATION !!
- * SI LA VARIABLE N'EST PAS CREE, LE PROGRAMME NE PEUT ABSOLUMENT PAS DEMARER !
- * <p>
- * - B U T
- * Classe permettant de récuperer le contenu de la VARIABLE D'ENVIRONNEMENT crée par l'utilisateur,
- * afin de décider OU seront stoquées ses informations personelles. EX : FICHIERS JSON.
- * <p>
- * <p>
+ * - WARNING
+ * It is absolutely necessary to create an environment variable on the PC,
+ * containing the path to where we want to store the files that our app creates.
+ * If the variable is not created, the program cannot start.
+ * - GOAL
+ * The class makes it possible to retrieve the content of the environment variable created by the user,
+ * in order to decide where his personal information will be stored. Ex: JSON file
  * - S I N G L E T O N
- * CETTE CLASSE EST UN SINGLETON, EXISTE PARTOUT DANS LE PROJET SI ON L'IMPORTE. CET OBJET EST UNIQUE !!
- * On a accès à cette classe de partout dans notre projet, grâce à l'import de la classe.
- * Le concepte de SINGLETON, permet d'éviter de passer des objets par les constructeurs à n'en plus finir,
- * et d'utiliser l'objet à l'endroit ou nous en avons besoin.
+ * This class is a singleton, it will exist everywhere in the project if you import it. This object is unique.
+ * We have access to this class from everywhere in our project, thanks to the import of the class.
+ * The concept of singleton, makes it possible to avoid passing objects through constructors in too large quantities,
+ * and to use the object where we need it.
+ *
+ * @author Borrajo Elias
  */
 
 public class Config {
     //*****************************************************************************
     // A T T R I B U T S
     //*****************************************************************************
-    private static Config configSingleton = null;   // nécessaire d'être déclaré ici à null pour la première & unique création de l'objet
-    private File storeFile;                         // Est le dossier que l'on crée, à l'emplacement de la VARIABLE_ENVIRONNEMENT.
-                                                    // Tous les fichiers personnels en format JSON seront stoquées dans ce dossier
+    private static Config configSingleton = null;   // Must be declared here to null for the first & only creation of the object
+    private File storeFile;                         // Is the folder that we create, at the location of the VARIABLE_ENVIRONNEMENT
+                                                    // All personal files in JSON format will be stored in this folder
     private String configFilePath;
-    private String storePath;                       // Est la valeur contenue dans la variable d'environnement. On la retourne aux getters.
+    private String storePath;                       // Is the value contained in the environment variable. We return it to the getters.
     private static final String VARIABLE_ENVIRONNEMENT = "SMARTPHONEPROJECT";
-                                                    // Contient le NOM de la VARIABLE D'ENVIRONNEMENT.
-                                                    // Ainsi la methode : "System.getenv(VARIABLE_ENVIRONNEMENT)" saura QUELLE VALEUR de VARIABLE aller chercher.
+    // Contains the NAME of the ENVIRONMENT VARIABLE.
+    // The method: "System.getenv (VARIABLE_ENVIRONNEMENT)" will know WHICH VALUE of VARIABLE to look for.
 
     //*****************************************************************************
-    // C O N S T R U C T E U R - PRIVATE SINGLETON
+    // C O N S T R U C T O R - PRIVATE SINGLETON
     //*****************************************************************************
     private Config() {
-        // Recuperer le CONTENU de la VARIABLE D'ENVIRONNEMENT sur le PC.
+        // Retrieve the contents of the environment variable on the PC.
         storePath = System.getenv(VARIABLE_ENVIRONNEMENT);
         if (storePath == null) {
             System.err.println("Aucunne variable d'environnement n'a été trouvé !");
-            System.exit(1); // On quitte BRUTALEMENT l'application.
+            System.exit(1); // We BRUTALLY quit the app.
         }
 
-        // A la première création du fichier, le stoquer à cet emplacement.
-        // Ce fichier sera un dossier contenant nos DATAS (tel queles JSON) crées par le projet.
+        // When creating the file for the first time, store it in this location.
+        // This file will be a folder containing our data (such as JSON) created by the project.
         storeFile = new File(storePath);
 
-        // Test pour savoir si le FILE que l'on a crée est un DOSSIER ou non.
-        // Si le dossier ou l'on va stoquer les JSON n'existe pas, on va le créer.
+        // Test to know if the File that we created is a folder or not.
+        // If the folder where we are going to store the JSON does not exist, we will create it.
         if (!storeFile.isDirectory()) {
-            // Est ce que la création du DOSSIER a fonctionné ?
+            // Did the creation of the folder work?
             if (!storeFile.mkdir()) {
                 System.err.println("La création du dossier n'a pas fonctionné");
-                System.exit(1); // On quitte BRUTALEMENT l'application.
+                System.exit(1); // We BRUTALLY quit the app.
             }
         }
 
-        // Si j'arrive ici, c'est que mon dossier a pu être crée correctement et il EXISTE !
+        // If I arrive here, it is because my file could be created correctly and it EXISTS!
         System.out.println("DIRECTORY NAME AS : " + storeFile.getName()
-                            + "\n at location : " + storeFile.getAbsolutePath());
+                + "\n at location : " + storeFile.getAbsolutePath());
     }
 
     //*****************************************************************************
     // S I N G L E T O N  -  A C C E S   T O   O B J E C T
     //*****************************************************************************
     /**
-     * Si l'objet n'existe pas, on crée l'objet et ainsi on utilise le constructeur.
-     * VOIR THEORIE SINGLETON
+     * If the object does not exist, we create the object and so we use the constructor.
      *
-     * @return configSingleton
+     * @return Config Object configSingleton
      */
     public static Config getConfig() {
-        // verifie que configSingleton a été créé ou non. Ne sera créé qu'une seule et unique fois.
+        // Verifies that configSingleton has been created or not. Will only be created once.
         if (configSingleton == null) {
             configSingleton = new Config();
         }

@@ -1,7 +1,5 @@
 package ch.hevs.smartphone.applications.weather;
 
-// Les deux imports de google sont nécessaires pour la methode "jsonToMap"
-
 import ch.hevs.smartphone.applications.weather.classInfo.WeatherMaster;
 import com.google.gson.*;
 
@@ -11,8 +9,9 @@ import java.net.URL;
 import java.net.URLConnection;
 
 /**
- * @author Borrajo Elias, Milena Lonfat, Bourquin Jonathan
  * This class retrieves GSON info from an API (openweathermap)
+ *
+ * @author Borrajo Elias, Milena Lonfat, Bourquin Jonathan
  */
 public class WeatherAPI {
     //*****************************************************************************

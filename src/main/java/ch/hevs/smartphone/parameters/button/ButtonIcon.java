@@ -3,8 +3,9 @@ package ch.hevs.smartphone.parameters.button;
 import javax.swing.*;
 
 /**
- * @author Lonfat Milena
  * Class for stylized JButtons
+ *
+ * @author Lonfat Milena
  */
 public class ButtonIcon extends JButton {
     /**

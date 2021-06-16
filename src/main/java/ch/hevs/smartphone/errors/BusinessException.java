@@ -3,8 +3,9 @@ package ch.hevs.smartphone.errors;
 import java.io.Serial;
 
 /**
- * @author Bourquin Jonathan
  * This class concern the error
+ *
+ * @author Bourquin Jonathan
  */
 
 public class BusinessException extends Throwable {
