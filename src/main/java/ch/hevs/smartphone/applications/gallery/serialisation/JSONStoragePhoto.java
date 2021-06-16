@@ -163,11 +163,4 @@ public class JSONStoragePhoto implements StorablePhoto {
     public File getMyObj() {
         return myObj;
     }
-
-    //*****************************************************************************
-    // S E T T E R S
-    //*****************************************************************************
-    public void setTabPhoto(ArrayList<Photo> tabContact) {
-        this.photosArray = tabContact;
-    }
 }

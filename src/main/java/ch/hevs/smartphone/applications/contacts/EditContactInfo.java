@@ -169,6 +169,9 @@ public class EditContactInfo extends JPanel {
     //*****************************************************************************
     // L I S T E N E R S
     //*****************************************************************************
+    /**
+     * setting listeners for the buttons
+     */
     protected void setListeners() {
         myListener = new ContactListener(contentLayout);
         btnIconContact.addActionListener(myListener);

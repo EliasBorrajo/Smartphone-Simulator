@@ -180,7 +180,6 @@ public class GalleryGUI extends JPanel {
     //*****************************************************************************
     // L I S T E N E R S
     //*****************************************************************************
-
     /**
      * method to assign the listener with its button
      */
@@ -197,40 +196,12 @@ public class GalleryGUI extends JPanel {
     //*****************************************************************************
     // G E T T E R S
     //*****************************************************************************
-    public JPanel getPnlCTGH() {
-        return pnlCTGH;
-    }
-
-    public JPanel getPnlGallHome() {
-        return pnlGallHome;
-    }
-
-    public JPanel getPnlImages() {
-        return pnlImages;
-    }
-
     public ShowPhotoInfo[] getPnlShowPhoto() {
         return pnlShowPhotoInfo;
     }
 
     public CardLayout getCardGallHome() {
         return cardGallHome;
-    }
-
-    public ContentLayout getContentLayout() {
-        return contentLayout;
-    }
-
-    public JScrollPane getJsGallHome() {
-        return jsGallHome;
-    }
-
-    public JLabel getLblGallery() {
-        return lblGallery;
-    }
-
-    public JLabel getLblmsg() {
-        return lblmsg;
     }
 
     public myButton getBtnAddPhoto() {
@@ -241,20 +212,12 @@ public class GalleryGUI extends JPanel {
         return btnPhoto;
     }
 
-    public ImageIcon getIc() {
-        return ic;
-    }
-
     public ArrayList<Photo> getPhotosArray() {
         return photosArray;
     }
 
     public String[] getPhotoName() {
         return photoName;
-    }
-
-    public String[] getPhotoPath() {
-        return photoPath;
     }
 
     public JSONStoragePhoto getJsonPhotoBook() {

@@ -35,6 +35,10 @@ public class ContactListener implements ActionListener {
     //*****************************************************************************
     // M E T H O D S
     //*****************************************************************************
+    /**
+     * method to set listeners to most of the buttons used in the contact app
+     * @param e
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
 

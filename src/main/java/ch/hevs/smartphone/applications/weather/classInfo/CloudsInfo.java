@@ -1,6 +1,8 @@
 package ch.hevs.smartphone.applications.weather.classInfo;
 
 /**
+ * Class used to create cloud object from the response of the weather API
+ *
  * @author Bourquin Jonathan
  */
 
@@ -20,12 +22,5 @@ public class CloudsInfo {
      * */
     public CloudsInfo(int all) {
         this.all = all;
-    }
-
-    //*****************************************************************************
-    // G E T T E R S
-    //*****************************************************************************
-    public int getAll() {
-        return all;
     }
 }

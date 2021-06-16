@@ -43,6 +43,10 @@ public class Photo implements Serializable {
     //*****************************************************************************
     // M E T H O D S
     //*****************************************************************************
+    /**
+     * custom toString method used to sys out print the attributes
+     * @return
+     */
     @Override
     public String toString() {
         return "Photo{" +

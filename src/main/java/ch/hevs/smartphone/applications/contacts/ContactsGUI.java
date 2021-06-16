@@ -203,6 +203,9 @@ public class ContactsGUI extends JPanel {
     //*****************************************************************************
     // L I S T E N E R S
     //*****************************************************************************
+    /**
+     * setting listeners for the buttons
+     */
     public void setListeners() {
         btnAddContact.addActionListener(myListener);
 
