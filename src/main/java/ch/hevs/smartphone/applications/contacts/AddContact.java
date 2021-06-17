@@ -1,9 +1,15 @@
 package ch.hevs.smartphone.applications.contacts;
 
 import javax.swing.*;
+import javax.swing.text.DefaultFormatter;
+import javax.swing.text.MaskFormatter;
+import javax.swing.text.NumberFormatter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.ParseException;
 
 /**
  * This class constructs the panel for the GUI to add a contact
@@ -17,13 +23,13 @@ public class AddContact extends JPanel {
     // A T T R I B U T S
     //*****************************************************************************
     // Layout
-    protected ContactsGUI contactsGUI;
-    protected Contact contact;
+    private ContactsGUI contactsGUI;
+    private Contact contact;
 
     // TextField
-    protected JTextField tfFirstName;
-    protected JTextField tfLastName;
-    protected JTextField tfNoPhone;
+    private JTextField tfFirstName;
+    private JTextField tfLastName;
+    private JFormattedTextField tfNoPhone;
 
     // Panel
     private JPanel pnlNorth;
@@ -66,7 +72,11 @@ public class AddContact extends JPanel {
      * buildPnlContent : create all the panels and their contents
      */
     private void buildPnlContent() {
-        buildPanelAndButton();
+        try {
+            buildPanelAndButton();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         // Panel Settings
         this.setSize(50, 50);
@@ -124,7 +134,7 @@ public class AddContact extends JPanel {
     /**
      * build panels and buttons needed in buildPnlContent method
      */
-    public void buildPanelAndButton() {
+    public void buildPanelAndButton() throws ParseException {
         // Panels
         pnlNorth = new JPanel();
         pnlCenter = new JPanel();
@@ -137,17 +147,16 @@ public class AddContact extends JPanel {
 
         // Labels
         lblContactsTitle = new JLabel("Add new contact");
-        lblFirstName = new JLabel("First name");
-        lblLastName = new JLabel("Last Name");
-        lblNoPhone = new JLabel("Phone number");
+        lblFirstName = new JLabel("First name : ");
+        lblLastName = new JLabel("Last Name : ");
+        lblNoPhone = new JLabel("<html> Phone number: <br/> (indicative required) <html>");
 
         // TextFields
+        MaskFormatter formatter = new MaskFormatter("+ ## ## ### ## ##");
+        formatter.setValidCharacters("0123456789");
         tfFirstName = new JTextField();
-        tfFirstName.setPreferredSize(new Dimension(200,30));
         tfLastName = new JTextField();
-        tfLastName.setPreferredSize(new Dimension(200,30));
-        tfNoPhone = new JTextField();
-        tfNoPhone.setPreferredSize(new Dimension(200,30));
+        tfNoPhone = new JFormattedTextField(formatter);
     }
 
     /**
@@ -184,7 +193,7 @@ public class AddContact extends JPanel {
     private class ListenerSaveAddContact implements ActionListener {
         JTextField inputFN;
         JTextField inputN;
-        JTextField inputNP;
+        JFormattedTextField inputNP;
 
         /**
          * Constructor
@@ -193,7 +202,7 @@ public class AddContact extends JPanel {
          * @param name
          * @param noPhone
          */
-        public ListenerSaveAddContact(JTextField firstName, JTextField name, JTextField noPhone) {
+        public ListenerSaveAddContact(JTextField firstName, JTextField name, JFormattedTextField noPhone) {
             inputFN = firstName;
             inputN = name;
             inputNP = noPhone;
@@ -201,7 +210,16 @@ public class AddContact extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            contact = new Contact("", "", "", pathPhoto);
+            if (inputFN.getText().trim().length() == 0) {
+                JOptionPane.showMessageDialog(null, "first name is empty.");
+            }
+            else if (inputN.getText().trim().length() == 0) {
+                JOptionPane.showMessageDialog(null, "name is empty.");
+            }
+            else if (inputNP.getText().trim().length() == 0 || inputNP.getText().trim().length() < 9) {
+                JOptionPane.showMessageDialog(null, "<html>Phone number is empty, not valid or in the wrong format<br/>Please enter an integer<html>");
+            } else {
+                contact = new Contact("", "", "", pathPhoto);
 
             String text1 = "";
             text1 = inputFN.getText();

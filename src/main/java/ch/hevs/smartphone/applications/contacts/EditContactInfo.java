@@ -5,7 +5,11 @@ import ch.hevs.smartphone.parameters.utils.Util;
 import ch.hevs.smartphone.structure.layout.ContentLayout;
 
 import javax.swing.*;
+import javax.swing.text.MaskFormatter;
+import javax.swing.text.NumberFormatter;
 import java.awt.*;
+import java.text.NumberFormat;
+import java.text.ParseException;
 
 /**
  * This class is the GUI to edit a contact
@@ -51,7 +55,7 @@ public class EditContactInfo extends JPanel {
     // TextField
     private JTextField tfFirstName;
     private JTextField tfLastName;
-    private JTextField tfPhone;
+    private JFormattedTextField tfPhone;
 
     // ActionListener
     private ContactListener myListener;
@@ -75,7 +79,11 @@ public class EditContactInfo extends JPanel {
         this.noPhone = noPhone;
         this.pathContactPhoto = pathContactPhoto;
 
-        buildPnlEditContactInfo();
+        try {
+            buildPnlEditContactInfo();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         setListeners();
     }
 
@@ -85,7 +93,7 @@ public class EditContactInfo extends JPanel {
     /**
      * buildpnlEditContactInf : create all the panels and their contents
      */
-    private void buildPnlEditContactInfo() {
+    private void buildPnlEditContactInfo() throws ParseException {
         this.setLayout(new BorderLayout());
 
         // Creation Variables
@@ -106,9 +114,12 @@ public class EditContactInfo extends JPanel {
         lblLastName = new JLabel(lastName);
         lblNoPhone = new JLabel(noPhone);
 
-        tfFirstName = new JTextField(this.firstName);
-        tfLastName = new JTextField(this.lastName);
-        tfPhone = new JTextField(this.noPhone);
+        MaskFormatter formatter = new MaskFormatter("+ ## ### ## ##");
+        formatter.setValidCharacters("0123456789");
+
+        tfFirstName = new JTextField();
+        tfLastName = new JTextField();
+        tfPhone = new JFormattedTextField(formatter);
 
         pnlSouthNorth.add(lblFirstName);
         pnlSouthNorth.add(tfFirstName);

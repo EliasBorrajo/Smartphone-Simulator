@@ -2,6 +2,7 @@ package ch.hevs.smartphone.applications.contacts.listeners;
 
 import ch.hevs.smartphone.structure.layout.ContentLayout;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -89,6 +90,7 @@ public class ContactListener implements ActionListener {
             // ActionListener on btnSaveEdit : save changes made to a contact
             if (e.getSource() == contentLayout.getPnlContact().getPnlEditContactInfo()[i].getBtnSaveEdit()) {
                 // Retrieve the content of Textfield to edit
+
                 String tfFisrtName = contentLayout.getPnlContact().getPnlEditContactInfo()[i].getTfFirstName().getText();
                 String tfLastname = contentLayout.getPnlContact().getPnlEditContactInfo()[i].getTfLastName().getText();
                 String tfPhone = contentLayout.getPnlContact().getPnlEditContactInfo()[i].getTfPhone().getText();

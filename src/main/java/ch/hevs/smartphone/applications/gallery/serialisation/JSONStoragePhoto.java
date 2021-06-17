@@ -114,9 +114,9 @@ public class JSONStoragePhoto implements StorablePhoto {
                 System.out.println("Empty file");
             }
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Une erreur est survenue lors de la récuperation de la gallerie d'images." +
-                    "                                                   \nUne gallerie d'images vierge a été initialisé" +
-                    "                                                   \nPossibles causes : Corruption du fichiers JSON");
+            JOptionPane.showMessageDialog(null, "An error occured while getting the picture gallery." +
+                    "                                                   \nAn empty picture gallery has been initialized" +
+                    "                                                   \npossible cause : json file corruption");
 
             throw new BusinessException("An error occurred while READING JSON STORAGE PHOTOS.", ErrorCode.READING_JSON_STORAGE_GALLERY_ERROR);
         }
