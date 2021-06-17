@@ -6,6 +6,7 @@ import ch.hevs.smartphone.structure.layout.FooterLayout;
 import ch.hevs.smartphone.structure.layout.HeaderLayout;
 
 import javax.swing.*;
+import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 import java.util.Timer;
@@ -49,12 +50,32 @@ public class SmartphoneGUI extends JFrame {
     }
 
     //*****************************************************************************
-    // M E T H O D E S
+    // M E T H O D S
     //*****************************************************************************
     /**
      * Frame construction
      */
     private void buildFrame() {
+        /**
+         * try and catch on the look of our Smartphone. If NimbusLookAndFeel doesn't work,
+         * It will load UIManager.getSystemLookAndFeelClassName, an other look for our Smartphone
+         */
+        try {
+            UIManager.setLookAndFeel(new NimbusLookAndFeel()); // Mandatory to manage the risks of "UnsupportedLookAndFeelException" errors to be able to use it
+        } catch (UnsupportedLookAndFeelException e) {
+            try {
+                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            } catch (ClassNotFoundException classNotFoundException) {
+                classNotFoundException.printStackTrace();
+            } catch (InstantiationException instantiationException) {
+                instantiationException.printStackTrace();
+            } catch (IllegalAccessException illegalAccessException) {
+                illegalAccessException.printStackTrace();
+            } catch (UnsupportedLookAndFeelException unsupportedLookAndFeelException) {
+                unsupportedLookAndFeelException.printStackTrace();
+            }
+        }
+
         setSize(ScreenSizeEnum.WIDTH.getSize(), ScreenSizeEnum.HEIGHT.getSize());
         setUndecorated(true);
         setShape(new RoundRectangle2D.Double(0, 0, this.getWidth(), this.getHeight(), 30, 30));

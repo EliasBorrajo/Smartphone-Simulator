@@ -48,7 +48,7 @@ public class GalleryActionListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-    // First part : ActionListener on main panel of gallery application
+    // First part : ActionListener on main panel of gallery application ************************************************
 
         // ActionListener on btnAdd : add picture
         if (e.getSource() == galleryGUI.getBtnAddPhoto()) {
@@ -68,7 +68,7 @@ public class GalleryActionListener implements ActionListener {
             }
         }
 
-    // Second part : ActionListener on panel ShowPhotoInfo
+    // Second part : ActionListener on panel ShowPhotoInfo *************************************************************
 
         for (int i = 0; i < galleryGUI.getPhotosArray().size(); i++) {
 

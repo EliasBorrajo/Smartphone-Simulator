@@ -1,6 +1,8 @@
 package ch.hevs.smartphone.applications.weather;
 
 import ch.hevs.smartphone.applications.weather.classInfo.WeatherMaster;
+import ch.hevs.smartphone.errors.BusinessException;
+import ch.hevs.smartphone.errors.ErrorCode;
 import com.google.gson.*;
 
 import javax.swing.*;
@@ -101,12 +103,27 @@ public class WeatherAPI {
             System.out.println(getHumidity());
             isConnected = true;
 
-        } catch (IOException e) {
+        }
+        // Gestion of the global error,
+        // 1) if URL is wrong
+        // 2) if there is no internet connection
+        // 3) if the city name is not found or valid
+        catch (IOException e)
+        {
             isConnected = false;
             System.out.println("Erreur in WEATHER_API : method = getAPIDetails");
             JOptionPane.showMessageDialog(null, "Invalid city" +
                     "\n Try again or check your connection");
             setUrlLocation("Sion");
+
+            // Error Code for testing with JUNIT5
+            try
+            {
+                throw new BusinessException("Erreur in WEATHER_API", ErrorCode.WRONG_URL_ERROR);
+            } catch (BusinessException businessException)
+            {
+                businessException.printStackTrace();
+            }
             System.out.println("Is connected resultat:" + isConnected);
             e.printStackTrace();
         }
@@ -137,7 +154,7 @@ public class WeatherAPI {
         System.out.println(result);
 
         Gson gson = new GsonBuilder().create();
-        WeatherMaster weatherMaster = gson.fromJson(result, WeatherMaster.class);
+        WeatherMaster weatherMaster = gson.fromJson(result, WeatherMaster.class);  // Dé-serialization of the JSON object RESULT
         return weatherMaster;
     }
 
