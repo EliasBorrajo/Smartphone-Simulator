@@ -55,6 +55,7 @@ public class AddContact extends JPanel {
     //*****************************************************************************
     // C O N S T R U C T O R
     //*****************************************************************************
+
     /**
      * Constructor
      *
@@ -68,6 +69,7 @@ public class AddContact extends JPanel {
     //*****************************************************************************
     // M E T H O D S
     //*****************************************************************************
+
     /**
      * buildPnlContent : create all the panels and their contents
      */
@@ -175,6 +177,7 @@ public class AddContact extends JPanel {
     //*****************************************************************************
     // L I S T E N E R S
     //*****************************************************************************
+
     /**
      * set the action listeners to the buttons
      */
@@ -187,6 +190,7 @@ public class AddContact extends JPanel {
     //*****************************************************************************
     // I N N E R  -  C L A S S
     //*****************************************************************************
+
     /**
      * private class used to save all the textfields in a click
      */
@@ -212,48 +216,47 @@ public class AddContact extends JPanel {
         public void actionPerformed(ActionEvent e) {
             if (inputFN.getText().trim().length() == 0) {
                 JOptionPane.showMessageDialog(null, "first name is empty.");
-            }
-            else if (inputN.getText().trim().length() == 0) {
+            } else if (inputN.getText().trim().length() == 0) {
                 JOptionPane.showMessageDialog(null, "name is empty.");
-            }
-            else if (inputNP.getText().trim().length() == 0 || inputNP.getText().trim().length() < 9) {
+            } else if (inputNP.getText().trim().length() == 0 || inputNP.getText().trim().length() < 9) {
                 JOptionPane.showMessageDialog(null, "<html>Phone number is empty, not valid or in the wrong format<br/>Please enter an integer<html>");
             } else {
                 contact = new Contact("", "", "", pathPhoto);
 
-            String text1 = "";
-            text1 = inputFN.getText();
-            contact.setFirstName(text1);
+                String text1 = "";
+                text1 = inputFN.getText();
+                contact.setFirstName(text1);
 
-            String text2 = "";
-            text2 = inputN.getText();
-            contact.setLastName(text2);
+                String text2 = "";
+                text2 = inputN.getText();
+                contact.setLastName(text2);
 
-            String text3 = "";
-            text3 = inputNP.getText();
-            contact.setNoPhone(text3);
+                String text3 = "";
+                text3 = inputNP.getText();
+                contact.setNoPhone(text3);
 
-            System.out.println(contact);
+                System.out.println(contact);
 
-            contactsGUI.getJsonAddressBook().addContact(contact);
-            contactsGUI.getJsonAddressBook().sortDescending(contactsGUI.getJsonAddressBook().getContactArray()); // trie l'Arraylist contacts par ordre alphabétique
+                contactsGUI.getJsonAddressBook().addContact(contact);
+                contactsGUI.getJsonAddressBook().sortDescending(contactsGUI.getJsonAddressBook().getContactArray()); // trie l'Arraylist contacts par ordre alphabétique
 
-            System.out.println("AddContact2");
+                System.out.println("AddContact2");
 
-            inputFN.setText("");
-            inputN.setText("");
-            inputNP.setText("");
+                inputFN.setText("");
+                inputN.setText("");
+                inputNP.setText("");
 
-            // Refresh des panels
-            contactsGUI.removeAll();
-            contactsGUI.validate();
-            contactsGUI.buildPnlContentContact();
-            contactsGUI.buildCardLayout();
-            contactsGUI.setListeners();
-            contactsGUI.revalidate();
-            contactsGUI.repaint();
+                // Refresh des panels
+                contactsGUI.removeAll();
+                contactsGUI.validate();
+                contactsGUI.buildPnlContentContact();
+                contactsGUI.buildCardLayout();
+                contactsGUI.setListeners();
+                contactsGUI.revalidate();
+                contactsGUI.repaint();
+            }
+
         }
-
     }
 
     //*****************************************************************************
@@ -273,7 +276,6 @@ public class AddContact extends JPanel {
     public void setContact(Contact contact) {
         this.contact = contact;
     }
-
 }
 
 
