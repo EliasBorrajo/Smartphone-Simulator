@@ -1,53 +1,28 @@
 # Read Me
-Ce projet a pour but de simuler un smartphone dans l'ordinateur. 
-Le projet est réalisé par un groupe de 3 personnes de la classe 602_3 : Jonathan Bourquin, Milena Lonfat, Elias Borrajo.
-
-Ce projet est indépendant de l'OS, il peut être installé sur WINDOWS / MACOS / LINUX. 
-Pour cela, il faut créer une variable d'environnement directement sur le PC. Cette variable 
-fait office de launcher / d'installeur pour l'application Smartphone.
-
-## Delivrables
-A la fin du projet, il faut déliver : 
-- Un fichier pour chaque auteur contenant le journal de travail
-- Une invitation au projet GitLab à @nafm & @jlbhevs en leur attribuant le rôle de developper
-
-Dans le projet se trouvant sur le GIT, le README explique la procédure pour installer l'app sur le PC.
-
 ## Description
-Second semester project at HEG - Sierre - FIG.
+This project was carried out by a group of 3 people from class 602_3: Jonathan Bourquin, Milena Lonfat and Elias Borrajo.
+It's the second semester project at HEG - Sierre - FIG.
+
 The goal is to simulate a smartphone with realistic behavior on a screen.
 Three applications on the phone have been developed :
-- Contacts 
-- Gallery 
-- Weather.
+- Contacts
+- Gallery
+- Weather
 
-Contact app and a Gallery app which communicate together, 
-and a weather app that retrieves information from an API.
+The Contact and the Gallery application communicate together,
+and the weather application retrieves information from an API.
 
-## Comment installer l'application
-Pour installer l'application sur le PC, et pouvoir executer le fichier .JAR, il faut 
+## How to install the app
+This project is independent of the OS, it can be installed on Windows, MacOS and Linux.
+To do this, you must create an environment variable directly on the PC. This variable
+acts as launcher / installer for the smartphone application.
 
-## Futures améliorations
-    - optimiser le smartphone, car encore lent sur certaines tâches.
-    - Améliorer le refresh de nos app, peut être éviter de rebuild toute l'app ? 
-    - Pouvoir déplacer le smartphone sur l'écran du PC
-    - En cas de fichier corrompu, ne pas détruire/overwrite le fichier corrompu, et le sauvegarder dans un fichier JSON en parallèle, afin de pouvoir récuperer les données valides si bsoins 
+## Future improvements
+    - Optimization of the application, still too slow on some tasks.
+    - Improved app refresh, maybe avoid rebuilding the whole app?
+    - In case of corrupted file, do not destroy / overwrite the corrupted file, and save it in a JSON file in parallel, in order to be able to recover the valid data if necessary 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# CAHIER DES CHARGES DONNE PAR LES PROFESSEURS 
+# Specifications given by the teachers
 # Projet - Simulateur de smartphone
 
 ## Directives générales
