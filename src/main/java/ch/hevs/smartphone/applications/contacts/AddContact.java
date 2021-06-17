@@ -2,12 +2,14 @@ package ch.hevs.smartphone.applications.contacts;
 
 import javax.swing.*;
 import javax.swing.text.DefaultFormatter;
+import javax.swing.text.MaskFormatter;
 import javax.swing.text.NumberFormatter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.text.ParseException;
 
 /**
  * This class constructs the panel for the GUI to add a contact
@@ -40,6 +42,10 @@ public class AddContact extends JPanel {
     private JLabel lblLastName;
     private JLabel lblNoPhone;
 
+    private JLabel lblDefaultFirstName;
+    private JLabel lblDefaultLastName;
+    private JLabel lblDefaultNoPhone;
+
     // Button
     private JButton btnSave;
     private JButton btnBack;
@@ -70,7 +76,11 @@ public class AddContact extends JPanel {
      * buildPnlContent : create all the panels and their contents
      */
     private void buildPnlContent() {
-        buildPanelAndButton();
+        try {
+            buildPanelAndButton();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         // Panel Settings
         this.setSize(50, 50);
@@ -104,7 +114,7 @@ public class AddContact extends JPanel {
     /**
      * build panels and buttons needed in buildPnlContent method
      */
-    public void buildPanelAndButton() {
+    public void buildPanelAndButton() throws ParseException {
         // Panels
         pnlNorth = new JPanel();
         pnlCenter = new JPanel();
@@ -119,13 +129,14 @@ public class AddContact extends JPanel {
         lblContactsTitle = new JLabel("Add new contact");
         lblFirstName = new JLabel("First name : ");
         lblLastName = new JLabel("Last Name : ");
-        lblNoPhone = new JLabel("Phone number : ");
+        lblNoPhone = new JLabel("<html> Phone number: <br/> (indicative required) <html>");
 
         // TextFields
-        NumberFormat integerFormat = NumberFormat.getIntegerInstance(); // object format to check jFormatTextfield
+        MaskFormatter formatter = new MaskFormatter("+ ## ## ### ## ##");
+        formatter.setValidCharacters("0123456789");
         tfFirstName = new JTextField();
         tfLastName = new JTextField();
-        tfNoPhone = new JFormattedTextField(integerFormat);
+        tfNoPhone = new JFormattedTextField(formatter);
     }
 
     /**
@@ -185,8 +196,8 @@ public class AddContact extends JPanel {
             else if (inputN.getText().trim().length() == 0) {
                 JOptionPane.showMessageDialog(null, "name is empty.");
             }
-            else if (inputNP.getText().trim().length() == 0) {
-                JOptionPane.showMessageDialog(null, "phone number is empty or in the wrong format. Please enter an integer.");
+            else if (inputNP.getText().trim().length() == 0 || inputNP.getText().trim().length() < 9) {
+                JOptionPane.showMessageDialog(null, "<html>Phone number is empty, not valid or in the wrong format<br/>Please enter an integer<html>");
             } else {
                 contact = new Contact("", "", "", pathPhoto);
 
