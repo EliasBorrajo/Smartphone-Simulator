@@ -1,9 +1,13 @@
 package ch.hevs.smartphone.applications.contacts;
 
 import javax.swing.*;
+import javax.swing.text.DefaultFormatter;
+import javax.swing.text.NumberFormatter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 /**
  * This class constructs the panel for the GUI to add a contact
@@ -21,9 +25,9 @@ public class AddContact extends JPanel {
     protected Contact contact;
 
     // TextField
-    protected JTextField tfFirstName;
-    protected JTextField tfLastName;
-    protected JTextField tfNoPhone;
+    private JTextField tfFirstName;
+    private JTextField tfLastName;
+    private JFormattedTextField tfNoPhone;
 
     // Panel
     private JPanel pnlNorth;
@@ -118,9 +122,10 @@ public class AddContact extends JPanel {
         lblNoPhone = new JLabel("Phone number : ");
 
         // TextFields
-        tfFirstName = new JTextField("First Name", 50);
-        tfLastName = new JTextField("Last Name", 50);
-        tfNoPhone = new JTextField("Phone Number", 50);
+        NumberFormat integerFormat = NumberFormat.getIntegerInstance(); // object format to check jFormatTextfield
+        tfFirstName = new JTextField();
+        tfLastName = new JTextField();
+        tfNoPhone = new JFormattedTextField(integerFormat);
     }
 
     /**
@@ -157,7 +162,7 @@ public class AddContact extends JPanel {
     private class ListenerSaveAddContact implements ActionListener {
         JTextField inputFN;
         JTextField inputN;
-        JTextField inputNP;
+        JFormattedTextField inputNP;
 
         /**
          * Constructor
@@ -166,7 +171,7 @@ public class AddContact extends JPanel {
          * @param name
          * @param noPhone
          */
-        public ListenerSaveAddContact(JTextField firstName, JTextField name, JTextField noPhone) {
+        public ListenerSaveAddContact(JTextField firstName, JTextField name, JFormattedTextField noPhone) {
             inputFN = firstName;
             inputN = name;
             inputNP = noPhone;
@@ -174,41 +179,50 @@ public class AddContact extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            contact = new Contact("", "", "", pathPhoto);
+            if (inputFN.getText().trim().length() == 0) {
+                JOptionPane.showMessageDialog(null, "first name is empty.");
+            }
+            else if (inputN.getText().trim().length() == 0) {
+                JOptionPane.showMessageDialog(null, "name is empty.");
+            }
+            else if (inputNP.getText().trim().length() == 0) {
+                JOptionPane.showMessageDialog(null, "phone number is empty or in the wrong format. Please enter an integer.");
+            } else {
+                contact = new Contact("", "", "", pathPhoto);
 
-            String text1 = "";
-            text1 = inputFN.getText();
-            contact.setFirstName(text1);
+                String text1 = "";
+                text1 = inputFN.getText();
+                contact.setFirstName(text1);
 
-            String text2 = "";
-            text2 = inputN.getText();
-            contact.setLastName(text2);
+                String text2 = "";
+                text2 = inputN.getText();
+                contact.setLastName(text2);
 
-            String text3 = "";
-            text3 = inputNP.getText();
-            contact.setNoPhone(text3);
+                String text3 = "";
+                text3 = inputNP.getText();
+                contact.setNoPhone(text3);
 
-            System.out.println(contact);
+                System.out.println(contact);
 
-            contactsGUI.getJsonAddressBook().addContact(contact);
-            contactsGUI.getJsonAddressBook().sortDescending(contactsGUI.getJsonAddressBook().getContactArray()); // trie l'Arraylist contacts par ordre alphabétique
+                contactsGUI.getJsonAddressBook().addContact(contact);
+                contactsGUI.getJsonAddressBook().sortDescending(contactsGUI.getJsonAddressBook().getContactArray()); // trie l'Arraylist contacts par ordre alphabétique
 
-            System.out.println("AddContact2");
+                System.out.println("AddContact2");
 
-            inputFN.setText("");
-            inputN.setText("");
-            inputNP.setText("");
+                inputFN.setText("");
+                inputN.setText("");
+                inputNP.setText("");
 
-            // Refresh des panels
-            contactsGUI.removeAll();
-            contactsGUI.validate();
-            contactsGUI.buildPnlContentContact();
-            contactsGUI.buildCardLayout();
-            contactsGUI.setListeners();
-            contactsGUI.revalidate();
-            contactsGUI.repaint();
+                // Refresh des panels
+                contactsGUI.removeAll();
+                contactsGUI.validate();
+                contactsGUI.buildPnlContentContact();
+                contactsGUI.buildCardLayout();
+                contactsGUI.setListeners();
+                contactsGUI.revalidate();
+                contactsGUI.repaint();
+            }
         }
-
     }
 
     //*****************************************************************************

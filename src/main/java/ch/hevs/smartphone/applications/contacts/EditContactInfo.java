@@ -6,6 +6,7 @@ import ch.hevs.smartphone.structure.layout.ContentLayout;
 
 import javax.swing.*;
 import java.awt.*;
+import java.text.NumberFormat;
 
 /**
  * This class is the GUI to edit a contact
@@ -51,7 +52,7 @@ public class EditContactInfo extends JPanel {
     // TextField
     private JTextField tfFirstName;
     private JTextField tfLastName;
-    private JTextField tfPhone;
+    private JFormattedTextField tfPhone;
 
     // ActionListener
     private ContactListener myListener;
@@ -106,9 +107,12 @@ public class EditContactInfo extends JPanel {
         lblLastName = new JLabel(lastName);
         lblNoPhone = new JLabel(noPhone);
 
+        NumberFormat integerFormat = NumberFormat.getIntegerInstance(); // object format to check jFormatTextfield
+        String noPhoneTxt = this.noPhone;
         tfFirstName = new JTextField(this.firstName);
         tfLastName = new JTextField(this.lastName);
-        tfPhone = new JTextField(this.noPhone);
+        tfPhone = new JFormattedTextField(noPhoneTxt);
+        PromptSupport.setPrompt("000-000-00-00");
 
         pnlSouthNorth.add(lblFirstName);
         pnlSouthNorth.add(tfFirstName);
