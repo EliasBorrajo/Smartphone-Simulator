@@ -8,7 +8,6 @@ import ch.hevs.smartphone.parameters.utils.Util;
 import ch.hevs.smartphone.structure.layout.ContentLayout;
 
 import javax.swing.*;
-import javax.swing.plaf.FontUIResource;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -78,7 +77,7 @@ public class GalleryGUI extends JPanel {
         buildListeners();
     }
     //*****************************************************************************
-    // M E T H O D E S
+    // M E T H O D S
     //*****************************************************************************
     /**
      * buildPnlHomeGall : create all the panels and their contents

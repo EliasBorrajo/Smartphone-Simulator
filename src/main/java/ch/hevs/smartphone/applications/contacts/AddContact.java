@@ -77,15 +77,39 @@ public class AddContact extends JPanel {
         this.add(pnlNorth, BorderLayout.NORTH);
 
         // Center panel
-        pnlCenter.setLayout(new GridLayout(3, 2));
-        pnlCenter.add(lblFirstName);
-        pnlCenter.add(tfFirstName);
+        pnlCenter.setLayout(new GridBagLayout());
+        GridBagConstraints gridBagConstraints = new GridBagConstraints();
 
-        pnlCenter.add(lblLastName);
-        pnlCenter.add(tfLastName);
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        pnlCenter.add(lblFirstName, gridBagConstraints);
 
-        pnlCenter.add(lblNoPhone);
-        pnlCenter.add(tfNoPhone);
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        pnlCenter.add(tfFirstName, gridBagConstraints);
+
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        pnlCenter.add(lblLastName, gridBagConstraints);
+
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        pnlCenter.add(tfLastName, gridBagConstraints);
+
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        pnlCenter.add(lblNoPhone, gridBagConstraints);
+
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 5;
+        pnlCenter.add(tfNoPhone, gridBagConstraints);
+
         this.add(pnlCenter, BorderLayout.CENTER);
 
         // South panel
@@ -113,14 +137,17 @@ public class AddContact extends JPanel {
 
         // Labels
         lblContactsTitle = new JLabel("Add new contact");
-        lblFirstName = new JLabel("First name : ");
-        lblLastName = new JLabel("Last Name : ");
-        lblNoPhone = new JLabel("Phone number : ");
+        lblFirstName = new JLabel("First name");
+        lblLastName = new JLabel("Last Name");
+        lblNoPhone = new JLabel("Phone number");
 
         // TextFields
-        tfFirstName = new JTextField("First Name", 50);
-        tfLastName = new JTextField("Last Name", 50);
-        tfNoPhone = new JTextField("Phone Number", 50);
+        tfFirstName = new JTextField();
+        tfFirstName.setPreferredSize(new Dimension(200,30));
+        tfLastName = new JTextField();
+        tfLastName.setPreferredSize(new Dimension(200,30));
+        tfNoPhone = new JTextField();
+        tfNoPhone.setPreferredSize(new Dimension(200,30));
     }
 
     /**
