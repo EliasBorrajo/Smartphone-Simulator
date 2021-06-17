@@ -40,4 +40,10 @@ public class SystemInfo {
         this.sunrise = sunrise;
         this.sunset = sunset;
     }
+
+    //*****************************************************************************
+    // G E T T E R S
+    //*****************************************************************************
+
+    public String getCountry() { return country; }
 }

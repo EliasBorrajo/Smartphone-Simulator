@@ -1,7 +1,7 @@
 # Read Me
 ## Description
 This project was carried out by a group of 3 people from class 602_3: Jonathan Bourquin, Milena Lonfat and Elias Borrajo.
-It's the second semester project at HEG - Sierre - FIG.
+It's the second semester project of Object-Oriented Programming at HEG - Sierre - FIG.
 
 The goal is to simulate a smartphone with realistic behavior on a screen.
 Three applications on the phone have been developed :
@@ -16,11 +16,53 @@ and the weather application retrieves information from an API.
 This project is independent of the OS, it can be installed on Windows, MacOS and Linux.
 To do this, you must create an environment variable directly on the PC. This variable
 acts as launcher / installer for the smartphone application.
+The name of the environment variable must be SMARTPHONEPROJECT.
+For example on Windows, the value of this variable must be something like "C:\Users\username\Desktop\SmartPhone".
+
+## Summary of results
+We have 3 stand-alone applications that meet the specifications requests.
+- Contact
+  - We have an address book
+  - Adding contacts is done
+    - Format of Swiss telephone numbers
+  - Editing contacts
+  - Delete contacts
+  - The contact app communicates with the gallery app to change the contact's photo
+- Gallery
+  - Import photos from PC, alone or in groups
+  - Show photo
+  - Editing the name of the photo
+  - Deleting the photo
+- Weather
+  - API recovery (openweathermap)
+  - Display of the current, minimum and maximum temperature of the day
+  - Humidity  
+  - Icon display
+  - Displays the country
+  - City change
+  - Error handling in case of wrong city name, no connection, or wrong URL
+
+The current date and time are displayed.
+The home button brings us back to the main screen same for the cardLayouts of the applications.
+The button to turn off the phone is working properly.
+The structure of the Smartphone is consistent with each application with its cardlayout management if there is one.
+The errors were handled with try and catch and JOptionPanes.
+The testing of the three applications has been carried out.
+All known bugs have been fixed.
+All applications de-serialize the data when opening the smartphone, and serialize the data when leaving the smartphone.
+Serialization saves JSON files on the PC, in the location given by the user when creating the environment variable. cf.how to install the app
+If the JSON files are missing or corrupted, they are created or overwrite.
+The javadoc was generated in HTML format in the target folder.
 
 ## Future improvements
-    - Optimization of the application, still too slow on some tasks.
-    - Improved app refresh, maybe avoid rebuilding the whole app?
-    - In case of corrupted file, do not destroy / overwrite the corrupted file, and save it in a JSON file in parallel, in order to be able to recover the valid data if necessary 
+- Optimization of the application, still too slow on some tasks.
+- Add a lock screen
+- Improved app refresh, maybe avoid rebuilding the whole app?
+- Add additional masks for phone numbers from different countries
+- Deepen the graphic aspect of the project
+- Choose app language
+- Being able to take snapshots like a virtual machine
+- In case of corrupted file, do not destroy / overwrite the corrupted file, and save it in a JSON file in parallel, in order to be able to recover the valid data if necessary 
 
 # Specifications given by the teachers
 # Projet - Simulateur de smartphone

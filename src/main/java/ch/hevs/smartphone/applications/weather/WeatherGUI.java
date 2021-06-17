@@ -29,6 +29,7 @@ public class WeatherGUI extends JPanel {
     private JPanel pnlMinTemp;
     private JPanel pnlHumidity;
     private JPanel pnlNoConnexion;
+    private JPanel pnlCountry;
 
     private JPanel pnlIconWeather;
 
@@ -39,7 +40,7 @@ public class WeatherGUI extends JPanel {
     private JLabel lblMinTemp;
     private JLabel lblHumidity;
     private JLabel lblNoConnexion;
-
+    private JLabel lblCountry;
     private JLabel lblIconWeather;
 
     // Button
@@ -113,6 +114,7 @@ public class WeatherGUI extends JPanel {
                 weatherInfos.setMinTemp(weatherInfos.getMinTemp());
                 weatherInfos.setHumidity(weatherInfos.getHumidity());
                 weatherInfos.setUrlPicture(weatherInfos.getUrlPicture());
+                weatherInfos.setCountry(weatherInfos.getCountry());
 
                 removeAll();
                 validate();
@@ -128,12 +130,13 @@ public class WeatherGUI extends JPanel {
         lblMaxTemp = new JLabel("Maximum temperature : " + weatherInfos.getMaxTemp() + "°C");
         lblMinTemp = new JLabel("Minimum temperature : " + weatherInfos.getMinTemp() + "°C");
         lblHumidity = new JLabel("Humidity level : " + weatherInfos.getHumidity() + "%");
+        lblCountry = new JLabel("Country : " + weatherInfos.getCountry());
 
         // Icon weather
         try {
             lblIconWeather = new JLabel(new ImageIcon(new URL(weatherInfos.getUrlPicture()) ) );
         } catch (MalformedURLException e1){
-            System.out.println("URL invalide");
+            System.out.println("Invalid URL");
         }
 
         // North panel
@@ -152,39 +155,46 @@ public class WeatherGUI extends JPanel {
         gridBagConstraints.gridy = 0;
         pnlCenter.add(pnlCity, gridBagConstraints);
 
+        pnlCountry = new JPanel();
+        pnlCountry.add(lblCountry);
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        pnlCenter.add(pnlCountry, gridBagConstraints);
+
         pnlTemp = new JPanel();
         pnlTemp.add(lblTemp);
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 2;
         pnlCenter.add(pnlTemp, gridBagConstraints);
 
         pnlMaxTemp = new JPanel();
         pnlMaxTemp.add(lblMaxTemp);
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 3;
         pnlCenter.add(pnlMaxTemp, gridBagConstraints);
 
         pnlMinTemp = new JPanel();
         pnlMinTemp.add(lblMinTemp);
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 4;
         pnlCenter.add(pnlMinTemp, gridBagConstraints);
 
         pnlHumidity = new JPanel();
         pnlHumidity.add(lblHumidity);
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 5;
         pnlCenter.add(pnlHumidity, gridBagConstraints);
 
         pnlIconWeather = new JPanel();
         pnlIconWeather.add(lblIconWeather);
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridy = 6;
         pnlCenter.add(pnlIconWeather, gridBagConstraints);
 
         // Panel if no connexion

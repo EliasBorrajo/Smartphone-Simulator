@@ -43,6 +43,7 @@ public class WeatherAPI {
     private String cityName;
     private String description;
     private String urlPicture;
+    private String country;
 
     //*****************************************************************************
     // C O N S T R U C T O R
@@ -96,6 +97,8 @@ public class WeatherAPI {
             setFeltTemp(weatherMaster.getMain().getFeels_like());
             setHumidity(weatherMaster.getMain().getHumidity());
             setWindSpeed(weatherMaster.getWind().getSpeed());
+            setCountry(weatherMaster.getSys().getCountry());
+
 
             System.out.println(getCityName());
             System.out.println(getMaxTemp());
@@ -193,6 +196,8 @@ public class WeatherAPI {
         return urlPicture;
     }
 
+    public String getCountry() { return country; }
+
     //*****************************************************************************
     // S E T T E R S
     //*****************************************************************************
@@ -231,4 +236,6 @@ public class WeatherAPI {
     public void setUrlPicture(String urlPicture) {
         this.urlPicture = urlPicture;
     }
+
+    public void setCountry(String country) { this.country = country; }
 }

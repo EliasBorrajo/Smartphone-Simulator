@@ -157,8 +157,11 @@ public class AddContact extends JPanel {
         MaskFormatter formatter = new MaskFormatter("+ ## ## ### ## ##");
         formatter.setValidCharacters("0123456789");
         tfFirstName = new JTextField();
+        tfFirstName.setPreferredSize(new Dimension(200, 30));
         tfLastName = new JTextField();
+        tfLastName.setPreferredSize(new Dimension(200, 30));
         tfNoPhone = new JFormattedTextField(formatter);
+        tfNoPhone.setPreferredSize(new Dimension(200, 30));
     }
 
     /**
@@ -215,9 +218,9 @@ public class AddContact extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (inputFN.getText().trim().length() == 0) {
-                JOptionPane.showMessageDialog(null, "first name is empty.");
+                JOptionPane.showMessageDialog(null, "First name is empty.");
             } else if (inputN.getText().trim().length() == 0) {
-                JOptionPane.showMessageDialog(null, "name is empty.");
+                JOptionPane.showMessageDialog(null, "Name is empty.");
             } else if (inputNP.getText().trim().length() == 0 || inputNP.getText().trim().length() < 9) {
                 JOptionPane.showMessageDialog(null, "<html>Phone number is empty, not valid or in the wrong format<br/>Please enter an integer<html>");
             } else {

@@ -73,6 +73,8 @@ public class WeatherMaster {
     //*****************************************************************************
     // G E T T E R S
     //*****************************************************************************
+    public SystemInfo getSys() { return sys; }
+
     public MainInfo getMain() {
         return main;
     }
