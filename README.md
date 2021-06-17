@@ -1,15 +1,15 @@
 # Read Me
 Ce projet a pour but de simuler un smartphone dans l'ordinateur. 
-Le projet est réalisé par un groupe de 3 personnes : Jonathan Bourquin, Milena Lonfat, Elias Borrajo.
+Le projet est réalisé par un groupe de 3 personnes de la classe 602_3 : Jonathan Bourquin, Milena Lonfat, Elias Borrajo.
 
-Ce projet est indépendant de l'OS, il peut être installé sur WINDOWS / MAC / LINUX. 
-Pour cela, il créer une variable d'environnement directement sur le PC. Cette variable 
-fait offcie de launcher / d'installeur pour l'application Smartphone
+Ce projet est indépendant de l'OS, il peut être installé sur WINDOWS / MACOS / LINUX. 
+Pour cela, il faut créer une variable d'environnement directement sur le PC. Cette variable 
+fait office de launcher / d'installeur pour l'application Smartphone.
 
 ## Delivrables
 A la fin du projet, il faut déliver : 
 - Un fichier pour chaque auteur contenant le journal de travail
-- Une invitation au projet GitLab à @nafm & @jlbhevs en tant que rôle de developper
+- Une invitation au projet GitLab à @nafm & @jlbhevs en leur attribuant le rôle de developper
 
 Dans le projet se trouvant sur le GIT, le README explique la procédure pour installer l'app sur le PC.
 

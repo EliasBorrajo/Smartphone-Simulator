@@ -171,6 +171,7 @@ public class ContactsGUI extends JPanel {
             for (int i = 0; i < contactArray.size(); i++) {
                 contactNameShowContact[i] = contactArray.get(i).getFirstName() + " " + contactArray.get(i).getLastName();
                 btnShowContact[i] = new JButton(contactNameShowContact[i]);
+                btnShowContact[i].setPreferredSize(new Dimension(280,50));
                 pnlCenterJscrollContact.add(btnShowContact[i]);
             }
         }

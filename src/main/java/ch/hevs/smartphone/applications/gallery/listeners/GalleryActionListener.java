@@ -7,6 +7,7 @@ import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 /**
  * This class is for every ActionListeners we have in our gallery application
@@ -54,16 +55,19 @@ public class GalleryActionListener implements ActionListener {
         if (e.getSource() == galleryGUI.getBtnAddPhoto()) {
             String path = null;
             JFileChooser chooser = new JFileChooser();
+            chooser.setMultiSelectionEnabled(true);
             FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG, GIF & PNG Images", "jpg", "gif", "png");
             chooser.setFileFilter(filter);
-            int returnVal = chooser.showOpenDialog(chooser);
+            int returnVal = chooser.showOpenDialog(chooser.getParent());
             if (returnVal == JFileChooser.APPROVE_OPTION) {
-                cpt = galleryGUI.getPhotosArray().size();
-                path = chooser.getSelectedFile().getPath();
-                String photoNameDef = "photo" + cpt;
-                Photo photo = new Photo(path, photoNameDef);
-                galleryGUI.getJsonPhotoBook().addPhoto(photo);
-
+                File[] fs=chooser.getSelectedFiles();
+                for (File f: fs ) {
+                    cpt = galleryGUI.getPhotosArray().size();
+                    path = f.getPath();
+                    String photoNameDef = "photo" + cpt;
+                    Photo photo = new Photo(path, photoNameDef);
+                    galleryGUI.getJsonPhotoBook().addPhoto(photo);
+                }
                 rebuildApp();
             }
         }

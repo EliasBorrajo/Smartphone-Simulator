@@ -55,7 +55,7 @@ public class FooterLayout extends JPanel {
                 contentLayout.getPnlGallery().getCardGallHome().show(contentLayout.getPnlGallery(), "HomeGallery");
                 contentLayout.getPnlGallery().getBtnAddPhoto().setVisible(true);
                 for (int i = 0; i < contentLayout.getPnlGallery().getPnlShowPhoto().length; i++) {
-                    // Redisplays all normal panel gallery buttons, if there is an interruption in
+                    // Redisplay all normal panel gallery buttons, if there is an interruption in
                     // the procedure for assigning a photo to a contact
                     contentLayout.getPnlGallery().getPnlShowPhoto()[i].showNormalBtn();
                 }
