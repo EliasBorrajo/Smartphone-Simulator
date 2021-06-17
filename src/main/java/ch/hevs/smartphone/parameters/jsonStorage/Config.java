@@ -1,5 +1,6 @@
 package ch.hevs.smartphone.parameters.jsonStorage;
 
+import javax.swing.*;
 import java.io.*;
 
 /**
@@ -40,6 +41,10 @@ public class Config {
         storePath = System.getenv(VARIABLE_ENVIRONNEMENT);
         if (storePath == null) {
             System.err.println("Aucunne variable d'environnement n'a été trouvé !");
+            JOptionPane.showMessageDialog(null,"Aucunne variable d'environnement n'a été trouvé !" +
+                                                                    "\nIl est nécessaire d'avoir une variable d'environnement sur le PC se nommant ''SMARTPHONEPROJECT'' " +
+                                                                    "\navec en contenu de la variable, le chemin d'accès à l'emplacement du dossier ou l'on veut stocker les données personnelles" +
+                                                                    "\n\nCe dossier contient les fichiers JSON génerées par l'application");
             System.exit(1); // We BRUTALLY quit the app.
         }
 
