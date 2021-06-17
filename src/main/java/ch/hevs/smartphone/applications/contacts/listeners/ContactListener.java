@@ -91,13 +91,18 @@ public class ContactListener implements ActionListener {
             if (e.getSource() == contentLayout.getPnlContact().getPnlEditContactInfo()[i].getBtnSaveEdit()) {
                 // Retrieve the content of Textfield to edit
 
-                String tfFisrtName = contentLayout.getPnlContact().getPnlEditContactInfo()[i].getTfFirstName().getText();
-                String tfLastname = contentLayout.getPnlContact().getPnlEditContactInfo()[i].getTfLastName().getText();
-                String tfPhone = contentLayout.getPnlContact().getPnlEditContactInfo()[i].getTfPhone().getText();
+                String tfFisrtName  = contentLayout.getPnlContact().getPnlEditContactInfo()[i].getTfFirstName().getText();
+                String tfLastname   = contentLayout.getPnlContact().getPnlEditContactInfo()[i].getTfLastName().getText();
+                String tfPhone      = contentLayout.getPnlContact().getPnlEditContactInfo()[i].getTfPhone().getText();
 
                 // Set new values on JsonAddressBook
-                contentLayout.getPnlContact().getJsonAddressBook().getContactArray().get(i).setFirstName(tfFisrtName);
-                contentLayout.getPnlContact().getJsonAddressBook().getContactArray().get(i).setLastName(tfLastname);
+                if(tfFisrtName.length() > 0)
+                    contentLayout.getPnlContact().getJsonAddressBook().getContactArray().get(i).setFirstName(tfFisrtName);
+
+                if(tfLastname.length() > 0)
+                    contentLayout.getPnlContact().getJsonAddressBook().getContactArray().get(i).setLastName(tfLastname);
+
+                // TODO : Corriger le mise à zero du contacte
                 contentLayout.getPnlContact().getJsonAddressBook().getContactArray().get(i).setNoPhone(tfPhone);
 
                 reBuildApp();

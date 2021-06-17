@@ -117,8 +117,8 @@ public class EditContactInfo extends JPanel {
         MaskFormatter formatter = new MaskFormatter("+ ## ### ## ##");
         formatter.setValidCharacters("0123456789");
 
-        tfFirstName = new JTextField();
-        tfLastName = new JTextField();
+        tfFirstName = new JTextField("");
+        tfLastName = new JTextField("");
         tfPhone = new JFormattedTextField(formatter);
 
         pnlSouthNorth.add(lblFirstName);

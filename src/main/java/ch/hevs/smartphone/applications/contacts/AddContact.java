@@ -17,7 +17,8 @@ import java.text.ParseException;
  * @author Bourquin Jonathan
  */
 
-public class AddContact extends JPanel {
+public class AddContact extends JPanel
+{
 
     //*****************************************************************************
     // A T T R I B U T S
@@ -61,7 +62,8 @@ public class AddContact extends JPanel {
      *
      * @param contactsGUI
      */
-    public AddContact(ContactsGUI contactsGUI) {
+    public AddContact(ContactsGUI contactsGUI)
+    {
         this.contactsGUI = contactsGUI;
         buildPnlContent();
     }
@@ -73,10 +75,13 @@ public class AddContact extends JPanel {
     /**
      * buildPnlContent : create all the panels and their contents
      */
-    private void buildPnlContent() {
-        try {
+    private void buildPnlContent()
+    {
+        try
+        {
             buildPanelAndButton();
-        } catch (ParseException e) {
+        } catch (ParseException e)
+        {
             e.printStackTrace();
         }
 
@@ -136,7 +141,8 @@ public class AddContact extends JPanel {
     /**
      * build panels and buttons needed in buildPnlContent method
      */
-    public void buildPanelAndButton() throws ParseException {
+    public void buildPanelAndButton() throws ParseException
+    {
         // Panels
         pnlNorth = new JPanel();
         pnlCenter = new JPanel();
@@ -167,7 +173,8 @@ public class AddContact extends JPanel {
     /**
      * build icon at the desired size
      */
-    private void buildIcon() {
+    private void buildIcon()
+    {
         // Allows to retrieve files from resources
         ClassLoader classLoader = getClass().getClassLoader();
 
@@ -184,7 +191,8 @@ public class AddContact extends JPanel {
     /**
      * set the action listeners to the buttons
      */
-    public void setListenerAddContact() {
+    public void setListenerAddContact()
+    {
         btnSave.addActionListener(new ListenerSaveAddContact(tfFirstName, tfLastName, tfNoPhone));
 
         btnBack.addActionListener(contactsGUI.getMyListener());
@@ -197,7 +205,8 @@ public class AddContact extends JPanel {
     /**
      * private class used to save all the textfields in a click
      */
-    private class ListenerSaveAddContact implements ActionListener {
+    private class ListenerSaveAddContact implements ActionListener
+    {
         JTextField inputFN;
         JTextField inputN;
         JFormattedTextField inputNP;
@@ -209,21 +218,27 @@ public class AddContact extends JPanel {
          * @param name
          * @param noPhone
          */
-        public ListenerSaveAddContact(JTextField firstName, JTextField name, JFormattedTextField noPhone) {
+        public ListenerSaveAddContact(JTextField firstName, JTextField name, JFormattedTextField noPhone)
+        {
             inputFN = firstName;
             inputN = name;
             inputNP = noPhone;
         }
 
         @Override
-        public void actionPerformed(ActionEvent e) {
-            if (inputFN.getText().trim().length() == 0) {
+        public void actionPerformed(ActionEvent e)
+        {
+            if (inputFN.getText().trim().length() == 0)
+            {
                 JOptionPane.showMessageDialog(null, "First name is empty.");
-            } else if (inputN.getText().trim().length() == 0) {
+            } else if (inputN.getText().trim().length() == 0)
+            {
                 JOptionPane.showMessageDialog(null, "Name is empty.");
-            } else if (inputNP.getText().trim().length() == 0 || inputNP.getText().trim().length() < 9) {
+            } else if (inputNP.getText().trim().length() == 0 || inputNP.getText().trim().length() < 9)
+            {
                 JOptionPane.showMessageDialog(null, "<html>Phone number is empty, not valid or in the wrong format<br/>Please enter an integer<html>");
-            } else {
+            } else
+            {
                 contact = new Contact("", "", "", pathPhoto);
 
                 String text1 = "";
@@ -265,18 +280,21 @@ public class AddContact extends JPanel {
     //*****************************************************************************
     // G E T T E R S
     //*****************************************************************************
-    public Contact getContact() {
+    public Contact getContact()
+    {
         return contact;
     }
 
-    public JButton getBtnBack() {
+    public JButton getBtnBack()
+    {
         return btnBack;
     }
 
     //*****************************************************************************
     // S E T T E R S
     //*****************************************************************************
-    public void setContact(Contact contact) {
+    public void setContact(Contact contact)
+    {
         this.contact = contact;
     }
 }
