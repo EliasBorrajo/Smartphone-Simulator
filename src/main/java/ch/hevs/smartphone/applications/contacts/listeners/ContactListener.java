@@ -11,7 +11,8 @@ import java.awt.event.ActionListener;
  * Classe pour gérer tous les listeners qui concernent l'application des contacts
  */
 
-public class ContactListener implements ActionListener {
+public class ContactListener implements ActionListener
+{
     //*****************************************************************************
     // A T T R I B U T S
     //*****************************************************************************
@@ -21,12 +22,14 @@ public class ContactListener implements ActionListener {
     //*****************************************************************************
     // C O N S T R U C T E U R
     //*****************************************************************************
+
     /**
      * Constructeur
      *
      * @param contentLayout
      */
-    public ContactListener(ContentLayout contentLayout) {
+    public ContactListener(ContentLayout contentLayout)
+    {
         this.contentLayout = contentLayout;
     }
 
@@ -34,26 +37,31 @@ public class ContactListener implements ActionListener {
     // M E T H O D E S
     //*****************************************************************************
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e)
+    {
 
         // Listener de btnAddContact pour ajouter un contact
-        if (e.getSource() == contentLayout.getPnlContact().getBtnAddContact()) {
+        if (e.getSource() == contentLayout.getPnlContact().getBtnAddContact())
+        {
             System.out.println("BTN ADD CONTACT CLIQUE");
             contentLayout.getPnlContact().getCardLayoutContact().show(contentLayout.getPnlContact(), "AddContact");
         }
 
         // Listener de btnBack de pnlAddContact qui retourne sur le home de l'application contact
-        if (e.getSource() == contentLayout.getPnlContact().getPnlAddContact().getBtnBack()) {
+        if (e.getSource() == contentLayout.getPnlContact().getPnlAddContact().getBtnBack())
+        {
             System.out.println("Back from adding a new contact");
             contentLayout.getPnlContact().getCardLayoutContact().show(contentLayout.getPnlContact(), "HomeContact");
         }
 
         // FOR ShowContactInfo LOOP
         // Listener pour chaque bouton de contact
-        for (int i = 0; i < contentLayout.getPnlContact().getContacts().size(); i++) {
+        for (int i = 0; i < contentLayout.getPnlContact().getContacts().size(); i++)
+        {
 
             // Listener pour les boutons de chaque contact de la liste, affiche pnlShowContactInfo
-            if (e.getSource() == contentLayout.getPnlContact().getBtnShowContact()[i]) {
+            if (e.getSource() == contentLayout.getPnlContact().getBtnShowContact()[i])
+            {
                 System.out.println("BTN SHOW CONTACT N° : " + i);
 
                 String finalName = contentLayout.getPnlContact().getContactNameShowContact()[i];
@@ -61,20 +69,23 @@ public class ContactListener implements ActionListener {
             }
 
             // Listener de btnRetour de pnlShowContactInfo qui retourne sur le home de l'application contact
-            if (e.getSource() == contentLayout.getPnlContact().getPnlShowContactInfo()[i].getBtnBack()) {
+            if (e.getSource() == contentLayout.getPnlContact().getPnlShowContactInfo()[i].getBtnBack())
+            {
                 System.out.println("Back from SHowing contact Info");
                 contentLayout.getPnlContact().getCardLayoutContact().show(contentLayout.getPnlContact(), "HomeContact");
             }
 
             // Listener de btnEdit de pnlShowContactInfo qui ouvre pnlEditContactInfo
-            if (e.getSource() == contentLayout.getPnlContact().getPnlShowContactInfo()[i].getBtnEdit()) {
+            if (e.getSource() == contentLayout.getPnlContact().getPnlShowContactInfo()[i].getBtnEdit())
+            {
                 String finalNameEditContact = contentLayout.getPnlContact().getContactNameEditContact()[i];
                 contentLayout.getPnlContact().getCardLayoutContact().show(contentLayout.getPnlContact(), finalNameEditContact);
             }
 
             // Listener de btnSaveEdit de pnlEditContactInfo pour enregistrer les modifications fait à un contact
             // Retourne sur le home de l'application contact
-            if (e.getSource() == contentLayout.getPnlContact().getPnlEditContactInfo()[i].getBtnSaveEdit()) {
+            if (e.getSource() == contentLayout.getPnlContact().getPnlEditContactInfo()[i].getBtnSaveEdit())
+            {
                 // Récuperer le contenu des Text Fields à editer
                 String tfFisrtName = contentLayout.getPnlContact().getPnlEditContactInfo()[i].getTfFirstName().getText();
                 String tfLastname = contentLayout.getPnlContact().getPnlEditContactInfo()[i].getTfLastName().getText();
@@ -89,20 +100,23 @@ public class ContactListener implements ActionListener {
             }
 
             // Listener de btnBackEdit de pnlEditContactInfo qui retourne sur pnlShowContactInfo
-            if (e.getSource() == contentLayout.getPnlContact().getPnlEditContactInfo()[i].getBtnBackEdit()) {
+            if (e.getSource() == contentLayout.getPnlContact().getPnlEditContactInfo()[i].getBtnBackEdit())
+            {
                 contentLayout.getPnlContact().getCardLayoutContact().show(contentLayout.getPnlContact()
                         , contentLayout.getPnlContact().getContactNameShowContact()[i]);
             }
 
             // Listener de btnIconContact de pnlEditContactInfo
             // Permet de modifier la photo du contact
-            if (e.getSource() == contentLayout.getPnlContact().getPnlEditContactInfo()[i].getBtnIconContact()) {
+            if (e.getSource() == contentLayout.getPnlContact().getPnlEditContactInfo()[i].getBtnIconContact())
+            {
                 // 1) On ouvre la fenetre de l'application Gallery
                 contentLayout.getCardlayout().show(contentLayout, "Gallery");
 
                 // 2) On masque les boutons du panel de l'image, et on affiche le bouton select
                 // On masque les boutons normaux de toutes les images, et on affiche les boutons que l'on veut
-                for (int j = 0; j < contentLayout.getPnlGallery().getPnlShowPhoto().length; j++) {
+                for (int j = 0; j < contentLayout.getPnlGallery().getPnlShowPhoto().length; j++)
+                {
                     // 3) On affiche le bouton select
                     contentLayout.getPnlGallery().getPnlShowPhoto()[j].showSelectImageBtn();
 
@@ -110,9 +124,11 @@ public class ContactListener implements ActionListener {
                     int finalJ = j;     // Index image
                     int finalI = i;     // Index Contact
 
-                    contentLayout.getPnlGallery().getPnlShowPhoto()[j].getBtnSelect().addActionListener(new ActionListener() {
+                    contentLayout.getPnlGallery().getPnlShowPhoto()[j].getBtnSelect().addActionListener(new ActionListener()
+                    {
                         @Override
-                        public void actionPerformed(ActionEvent e) {
+                        public void actionPerformed(ActionEvent e)
+                        {
                             String pathImage = contentLayout.getPnlGallery().getPnlShowPhoto()[finalJ].getPath();
                             System.out.println("path image " + contentLayout.getPnlGallery().getPnlShowPhoto()[finalJ].getPath());
 
@@ -137,7 +153,8 @@ public class ContactListener implements ActionListener {
 
             // Listener de btnDeleteContact de pnlShowContactInfo
             // Permet de supprimer le contact
-            if (e.getSource() == contentLayout.getPnlContact().getPnlShowContactInfo()[i].getBtnDeleteContact()) {
+            if (e.getSource() == contentLayout.getPnlContact().getPnlShowContactInfo()[i].getBtnDeleteContact())
+            {
                 contentLayout.getPnlContact().getJsonAddressBook().getContactArray().remove(i); // supprime le contact de l'array
 
                 // Refresh des PANELS
@@ -146,7 +163,8 @@ public class ContactListener implements ActionListener {
         }
     }
 
-    private void reBuildApp() {
+    private void reBuildApp()
+    {
         // Refresh des panels
         System.out.println("\nREBUILD APP CONTACTE\n");
         contentLayout.getPnlContact().removeAll();
