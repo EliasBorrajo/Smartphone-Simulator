@@ -32,7 +32,7 @@ public class Contact implements Serializable
      * @param lastName
      * @param noPhone
      * @param pathContactPhoto
-     * */
+     */
     public Contact(String firstName, String lastName, String noPhone, String pathContactPhoto){
         this.firstName = firstName;
         this.lastName = lastName;
@@ -42,7 +42,7 @@ public class Contact implements Serializable
 
     /**
      * Empty constructor
-     * */
+     */
     public Contact(){
 
     }
@@ -50,9 +50,8 @@ public class Contact implements Serializable
     //*****************************************************************************
     // M E T H O D S
     //*****************************************************************************
-
     /**
-     * custom toString method used to sys out print the attributes
+     * Custom toString method used to sys out print the attributes
      * @return
      */
     @Override

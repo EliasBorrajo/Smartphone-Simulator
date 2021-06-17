@@ -8,6 +8,7 @@ import ch.hevs.smartphone.parameters.utils.Util;
 import ch.hevs.smartphone.structure.layout.ContentLayout;
 
 import javax.swing.*;
+import javax.swing.plaf.FontUIResource;
 import java.awt.*;
 import java.util.ArrayList;
 

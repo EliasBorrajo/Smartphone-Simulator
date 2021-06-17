@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
  * The second part concern the ShowContactInfo panel
  * The third part concern the ActionListeners on panel EditContactInfo
  *
- * @author Bourquin Jonathan
+ * @author Bourquin Jonathan, Borrajo Elias, Lonfat Milena
  */
 public class ContactListener implements ActionListener {
     //*****************************************************************************
@@ -42,7 +42,7 @@ public class ContactListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-    // First part : ActionListener on main panel of contact application
+    // First part : ActionListener on main panel of contact application ************************************************
 
         // ActionListener on btnAddContact : add a contact
         if (e.getSource() == contentLayout.getPnlContact().getBtnAddContact()) {
@@ -54,7 +54,7 @@ public class ContactListener implements ActionListener {
             contentLayout.getPnlContact().getCardLayoutContact().show(contentLayout.getPnlContact(), "HomeContact");
         }
 
-    // Second part : ActionListener on panel ShowContactInfo
+    // Second part : ActionListener on panel ShowContactInfo ***********************************************************
 
         for (int i = 0; i < contentLayout.getPnlContact().getContactArray().size(); i++) {
 
@@ -78,7 +78,7 @@ public class ContactListener implements ActionListener {
                 break;
             }
 
-    // Third part : ActionListeners on panel EditContactInfo
+    // Third part : ActionListeners on panel EditContactInfo ***********************************************************
 
             // ActionListener on btnEdit : open EditContactInfo panel
             if (e.getSource() == contentLayout.getPnlContact().getPnlShowContactInfo()[i].getBtnEdit()) {

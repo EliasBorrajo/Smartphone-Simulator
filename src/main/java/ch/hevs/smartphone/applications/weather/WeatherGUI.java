@@ -94,7 +94,7 @@ public class WeatherGUI extends JPanel {
     private void buildPanel() {
         // Creation JTextField
         tfLocation = new JTextField();
-        tfLocation.setPreferredSize(new Dimension(200, 25));
+        tfLocation.setPreferredSize(new Dimension(200, 30));
 
         //Creation button search
         btnSearch = new JButton(iconSearch);

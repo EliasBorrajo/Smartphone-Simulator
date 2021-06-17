@@ -2,7 +2,7 @@
  *  Project              :   Smartphone simulation
  *
  *  Creation date        :   01.05.2021
- *  Render Date          :
+ *  Render Date          :   18.06.2021
  *
  *  Authors              :   Bourquin  Jonathan
  *                           Lonfat    Milena
@@ -19,9 +19,6 @@ package ch.hevs.smartphone.structure;
 
 import ch.hevs.smartphone.parameters.jsonStorage.Config;
 
-import javax.swing.*;
-import javax.swing.plaf.nimbus.NimbusLookAndFeel;
-
 /**
  * This class will create the entire project
  */
@@ -30,15 +27,8 @@ public class SmartphoneDemo
     /**
      * Main that will create the Singleton and our smartphone
      */
-    public static void main(String[] args) throws UnsupportedLookAndFeelException, ClassNotFoundException, InstantiationException, IllegalAccessException {
-
-        try {
-            UIManager.setLookAndFeel(new NimbusLookAndFeel()); // Mandatory to manage the risks of "UnsupportedLookAndFeelException" errors to be able to use it
-        } catch (UnsupportedLookAndFeelException e) {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        }
-
-        // Creation of the singleton.
+    public static void main(String[] args) {
+        // Creation of the singleton
         Config.getConfig();
 
         // Start the smartphone
