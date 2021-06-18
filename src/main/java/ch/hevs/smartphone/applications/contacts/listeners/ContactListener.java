@@ -89,18 +89,29 @@ public class ContactListener implements ActionListener {
 
             // ActionListener on btnSaveEdit : save changes made to a contact
             if (e.getSource() == contentLayout.getPnlContact().getPnlEditContactInfo()[i].getBtnSaveEdit()) {
-                // Retrieve the content of Textfield to edit
 
+
+
+                // Retrieve the content of Textfield to edit
                 String tfFisrtName = contentLayout.getPnlContact().getPnlEditContactInfo()[i].getTfFirstName().getText();
                 String tfLastname = contentLayout.getPnlContact().getPnlEditContactInfo()[i].getTfLastName().getText();
                 String tfPhone = contentLayout.getPnlContact().getPnlEditContactInfo()[i].getTfPhone().getText();
+                String tfPhoneBeforeChange = contentLayout.getPnlContact().getPnlEditContactInfo()[i].getNoPhoneBeforeChange();
+                System.out.println(tfPhone.trim().length());
 
-                // Set new values on JsonAddressBook
-                contentLayout.getPnlContact().getJsonAddressBook().getContactArray().get(i).setFirstName(tfFisrtName);
-                contentLayout.getPnlContact().getJsonAddressBook().getContactArray().get(i).setLastName(tfLastname);
-                contentLayout.getPnlContact().getJsonAddressBook().getContactArray().get(i).setNoPhone(tfPhone);
-
-                reBuildApp();
+                if (tfPhone.trim().length() == 1) {
+                    contentLayout.getPnlContact().getJsonAddressBook().getContactArray().get(i).setNoPhone(tfPhoneBeforeChange);
+                    // Set new values on JsonAddressBook
+                    contentLayout.getPnlContact().getJsonAddressBook().getContactArray().get(i).setFirstName(tfFisrtName);
+                    contentLayout.getPnlContact().getJsonAddressBook().getContactArray().get(i).setLastName(tfLastname);
+                    reBuildApp();
+                } else {
+                    contentLayout.getPnlContact().getJsonAddressBook().getContactArray().get(i).setNoPhone(tfPhone);
+                    // Set new values on JsonAddressBook
+                    contentLayout.getPnlContact().getJsonAddressBook().getContactArray().get(i).setFirstName(tfFisrtName);
+                    contentLayout.getPnlContact().getJsonAddressBook().getContactArray().get(i).setLastName(tfLastname);
+                    reBuildApp();
+                }
             }
 
             // ActionListener on btnBackEdit : open ShowContactInfo panel
