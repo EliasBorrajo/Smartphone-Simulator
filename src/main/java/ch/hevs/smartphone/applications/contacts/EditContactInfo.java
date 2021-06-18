@@ -51,6 +51,7 @@ public class EditContactInfo extends JPanel {
     private String lastName = "";
     private String noPhone = "";
     private String pathContactPhoto;
+    private String noPhoneBeforeChange;
 
     // TextField
     private JTextField tfFirstName;
@@ -110,6 +111,7 @@ public class EditContactInfo extends JPanel {
         btnSaveEdit = new JButton("Save");
         btnIconContact = new JButton(iconContact);
 
+        noPhoneBeforeChange = this.noPhone;
         lblFirstName = new JLabel(firstName);
         lblLastName = new JLabel(lastName);
         lblNoPhone = new JLabel(noPhone);
@@ -117,8 +119,8 @@ public class EditContactInfo extends JPanel {
         MaskFormatter formatter = new MaskFormatter("+ ## ### ## ##");
         formatter.setValidCharacters("0123456789");
 
-        tfFirstName = new JTextField();
-        tfLastName = new JTextField();
+        tfFirstName = new JTextField(this.firstName);
+        tfLastName = new JTextField(this.lastName);
         tfPhone = new JFormattedTextField(formatter);
 
         pnlSouthNorth.add(lblFirstName);
@@ -207,6 +209,10 @@ public class EditContactInfo extends JPanel {
 
     public JTextField getTfPhone() {
         return tfPhone;
+    }
+
+    public String getNoPhoneBeforeChange() {
+        return noPhoneBeforeChange;
     }
 
     public JButton getBtnBackEdit() {
