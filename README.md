@@ -52,6 +52,10 @@ java -jar target/Smartphone-1.0-SNAPSHOT-jar-with-dependencies.jar
 ---
 
 ## Original README (untouched)
+<details>
+  <summary>Clique pour déplier la version française existante</summary>
+
+
 
 ## Description
 
@@ -208,4 +212,8 @@ Remarques :
   l'écran.
 
 - Le programme fonctionne sous Windows, Linux et macOS.
+
+
+ 
+</details>
 
